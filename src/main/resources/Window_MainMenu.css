@@ -1,0 +1,27 @@
+.root {
+    -fx-padding: 30; /* Add a small padding around the window */
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+Button {
+    -fx-padding: 15;
+    -fx-font-size: 15;
+    -fx-min-height: 60;
+    -fx-max-height: 60; 
+    -fx-min-width: 60; 
+    -fx-max-width: 200; 
+}
+
+Label {
+    -fx-padding: 15;
+    -fx-font-size: 30; 
+    -fx-min-width: 60; 
+    -fx-min-height: 90;
+    -fx-font-weight: bold;
+}
+
+HBox {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}

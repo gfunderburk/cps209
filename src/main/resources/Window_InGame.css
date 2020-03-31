@@ -1,0 +1,34 @@
+.root {
+    -fx-padding: 30; /* Add a small padding around the window */
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+.btn-OceanGrid{
+    -fitHeight: 50;
+    -fitWidth: 50;  
+    -pickOnBounds: true;
+    -preserveRatio: true;
+}
+
+Label {
+    -fx-padding: 15;
+    -fx-font-size: 30; 
+    -fx-min-width: 60; 
+    -fx-min-height: 90;
+    -fx-font-weight: bold;
+}
+
+Button {
+    -fx-padding: 15;
+    -fx-font-size: 15;
+    -fx-min-height: 60;
+    -fx-max-height: 60; 
+    -fx-min-width: 60; 
+    -fx-max-width: 200; 
+}
+
+HBox {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}

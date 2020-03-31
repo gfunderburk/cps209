@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox fx:controller="Window_InGame"     
+      xmlns:fx="http://javafx.com/fxml" prefHeight="400" 
+      stylesheets="Window_InGame.css"   alignment="CENTER" 
+      spacing="20"                      prefWidth="250"
+      fx:id="vbox_masterParent">
+
+
+
+
+    <Button onAction="#btn_quit_click" text="Quit" fx:id="btn_quit"/>
+
+
+
+</VBox>
