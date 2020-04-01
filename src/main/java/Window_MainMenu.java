@@ -6,9 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 //-----------------------------------------------------------
-//File:   MainWindow.java
-//Desc:   This file forwards the input difficulty from  
-//        the slider of MainWindow over to GameWindow.
+//File:   Window_MainWindow.java
+//Desc:   This class is the default screen upon startup.
 //----------------------------------------------------------- 
 
 

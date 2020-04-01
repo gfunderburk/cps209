@@ -6,9 +6,8 @@ import javafx.stage.Stage;
 import javafx.scene.media.AudioClip;
 
 //------------------------------------------------------------------
-//File:   GameWindow.java
-//Desc:   This class is the GUI manager and 
-//          the master class for the View.
+//File:   Window_InGame.java
+//Desc:   This class is for active in-game gameplay.
 //------------------------------------------------------------------ 
 
 
