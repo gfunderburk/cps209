@@ -42,7 +42,7 @@ public class Window_InGame {
 
 
     //  ------------ //
-    //  GUI Methods  //
+    //  GUI Methods  //     (DIRECT USER EVENTS)
     // ------------  //
 
 
@@ -63,7 +63,7 @@ public class Window_InGame {
     
 
     //  ------------- //
-    //  View Methods  //
+    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // -------------  //
 
 
