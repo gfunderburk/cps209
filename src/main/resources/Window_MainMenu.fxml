@@ -3,12 +3,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
+  <!-- Note: The Buttons need onAction's-->
+ 
+<VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml" stylesheets="MainWindow.css"
+    spacing="10" prefHeight="800" prefWidth="900">
+    <VBox alignment="CENTER">
+    <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
+        <image>
+              <Image url="@skull.jpg"/>
+        </image>
+  </ImageView>
+  <ImageView  FitHeight="100" FitWidth="400" layoutX="40" layoutY="5">    
+    <image>
+          <Image url="@ts2logo.JPG"/>
+    </image>
+</ImageView>
 
-<VBox fx:controller="Window_MainMenu" 
-      xmlns:fx="http://javafx.com/fxml" stylesheets="Window_MainMenu.css">
+    <Button text="New Game"/>
+    <Button text="Load Game"/>
+    <Button text="Settings"/>
+    <Button text="High Scores"/>
+    <Button text="About"/>
+</VBox>
+    
 
-      <Label text="Demo" />
 
-      <Button onAction="#btn_start_click" text="Start" />
+
 
 </VBox>
