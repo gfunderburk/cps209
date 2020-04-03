@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
   <!-- Note: The Buttons need onAction's-->
  
-<VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml" stylesheets="MainWindow.css"
+<VBox fx:controller="W_MainMenu" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
     spacing="10" prefHeight="800" prefWidth="900">
     <VBox alignment="CENTER">
     <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    

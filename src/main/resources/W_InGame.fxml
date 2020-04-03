@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<VBox fx:controller="Window_InGame"     
+<VBox fx:controller="W_InGame"     
       xmlns:fx="http://javafx.com/fxml" prefHeight="400" 
-      stylesheets="Window_InGame.css"   alignment="CENTER" 
+      stylesheets="InGameStyles.css"   alignment="CENTER" 
       spacing="20"                      prefWidth="250"
       fx:id="vbox_masterParent">
 

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 //----------------------------------------------------------- 
 
 
-public class Window_MainMenu {
+public class W_MainMenu {
 
     @FXML
     void btn_start_click(ActionEvent event) throws IOException, InterruptedException {
@@ -19,7 +19,7 @@ public class Window_MainMenu {
         var loader = new FXMLLoader(getClass().getResource("Window_InGame.fxml"));
         var scene = new Scene(loader.load());
 
-        Window_InGame gameWindow = loader.getController();
+        W_InGame gameWindow = loader.getController();
         gameWindow.initialize();       
 
         var stage = new Stage();

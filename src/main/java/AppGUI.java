@@ -17,11 +17,11 @@ public class AppGUI extends Application{
     @Override
     public void start(Stage stage) throws Exception {
 
-        var loader = new FXMLLoader(getClass().getResource("Window_MainMenu.fxml"));
+        var loader = new FXMLLoader(getClass().getResource("W_MainMenu.fxml"));
         var scene = new Scene(loader.load());
 
         stage.setScene(scene);
-        stage.setTitle("Start Menu");
+        stage.setTitle("Main Menu");
         stage.show();
     }
 }

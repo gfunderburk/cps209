@@ -1,6 +1,5 @@
 import org.junit.Test;
 import Data_model.*;
-import Game_model.Game;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.util.Arrays;
 
 public class ScoreManagerTest {
 
-    Game game = null;
     LocalDateTime now = LocalDateTime.now();
 
     ArrayList<Score> testList = new ArrayList<Score>(Arrays.asList(

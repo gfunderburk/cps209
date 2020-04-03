@@ -11,7 +11,7 @@ import javafx.scene.media.AudioClip;
 //------------------------------------------------------------------ 
 
 
-public class Window_InGame {
+public class W_InGame {
 
 
     //  --------------- //
