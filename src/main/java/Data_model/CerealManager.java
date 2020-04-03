@@ -1,7 +1,6 @@
 package Data_model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class CerealManager {
 
@@ -9,7 +8,7 @@ public class CerealManager {
     //  Variables  //
 
 
-    static private ArrayList<Cereal> cerealList = new ArrayList<Cereal>();   // list of game saves
+    static private ArrayList<Cereal> cerealList = new ArrayList<Cereal>();   // list of game save file names in dir
     
     
     //  Singleton  //
@@ -25,35 +24,56 @@ public class CerealManager {
 
 
 
-    static void loadCereal(){
+    public static void loadCerealDir(){
+        //TODO: read all filenames found in save dir db into cerealList.
     }
 
-    static void saveCereal(){
-
+    public static void loadCerealFile(String fileName){
+        //TODO: deserialize input filename IF found in dir.
     }
 
-    static void addCereal(Cereal newCereal){
+    public static void saveCerealFile(String userName){
+        //TODO: fetch local DT and serialize game session to Local_DT, username.dat.
+    }
+
+    public static void addCerealFile(Cereal newCereal){
         cerealList.add(newCereal);
     }
 
-    private void deleteCereal(Cereal cereal){
+    public static void deleteCereal(Cereal cereal){
         cerealList.remove(cereal);
     }
     
-    private void sortCereal(){
+    public static void sortList(){
         cerealList.sort((o1, o2) -> o1.dt.compareTo(o2.dt));
     } 
+
+    //  ---  //
+    
+    public static String Serialize()
+    {
+        String result = "";
+        for (Cereal cereal : cerealList) {
+            result += " ____" + cereal;
+        }
+        return result;
+    }
+
+    public String toString()
+    {
+        return CerealManager.Serialize();
+    }
 
 
     //  Getters-Setters  //
 
 
-    public ArrayList<Cereal> getCerealList() {
+    public static ArrayList<Cereal> getList() {
         return cerealList;
     }
 
-    public void setCerealList(ArrayList<Cereal> cerealList) {
-        this.cerealList = cerealList;
+    public static void setList(ArrayList<Cereal> testList) {
+        CerealManager.cerealList = testList;
     }
 
     public static CerealManager getIt() {

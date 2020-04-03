@@ -1,6 +1,6 @@
 package Data_model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Score {
 
@@ -9,17 +9,17 @@ public class Score {
 
 
     int value;
-    LocalDate dt;
+    LocalDateTime dt;
     String name;
 
     
     //  Constructor  //
 
 
-    public Score(String name, LocalDate dt, int value) {
+    public Score(String name, LocalDateTime dt, int value) {
         this.value = value;
         this.dt = dt;
-        this.name = this.name.trim();
+        this.name = name.trim();
     }
 
     
@@ -31,7 +31,7 @@ public class Score {
         return " SCORE: " + this.name + " @ " + this.dt + " = " + this.value;
     }
 
-    public String ToString()
+    public String toString()
     {
         return this.Serialize();
     }
@@ -48,11 +48,11 @@ public class Score {
         this.value = value;
     }
 
-    public LocalDate getDt() {
+    public LocalDateTime getDt() {
         return dt;
     }
 
-    public void setDt(LocalDate dt) {
+    public void setDt(LocalDateTime dt) {
         this.dt = dt;
     }
 

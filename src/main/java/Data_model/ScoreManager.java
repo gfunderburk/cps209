@@ -24,22 +24,23 @@ public class ScoreManager {
     //  Methods  //
 
 
-    static void loadScores(){
+    public static void loadScores(){
+        //TODO: read scores data found in score dir .dat file into scoresList.
     }
 
-    static void saveScores(){
-
+    public static void saveScores(){
+        //TODO: serialize scores to GameScores.dat.
     }
 
-    static void addScore(Score newScore){
+    public static void addScore(Score newScore){
         scoreList.add(newScore);
     }
 
-    private void deleteScore(Score score){
+    public static void deleteScore(Score score){
         scoreList.remove(score);
     }
     
-    private void sortScores(){
+    public static void sortScores(){
         scoreList.sort( (o1, o2) -> 
         {
             if(o1.value == o2.value){
@@ -62,7 +63,7 @@ public class ScoreManager {
         return result;
     }
 
-    public String ToString()
+    public String toString()
     {
         return this.Serialize();
     }
@@ -71,15 +72,15 @@ public class ScoreManager {
     //  Getters-Setters  //
 
 
-    public ArrayList<Score> getScoreList() {
+    public static ArrayList<Score> getList() {
         return scoreList;
     }
 
-    public void setScoreList(ArrayList<Score> scoreList) {
-        this.scoreList = scoreList;
+    public static void setList(ArrayList<Score> scoreList) {
+        ScoreManager.scoreList = scoreList;
     }
 
-    static public ScoreManager getIt() {
+    public static ScoreManager getIt() {
         return It;
     }
 

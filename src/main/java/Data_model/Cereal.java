@@ -1,7 +1,6 @@
 package Data_model;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import Game_model.Game;
 
@@ -11,16 +10,16 @@ public class Cereal {
 
     Game game;
     String name;
-    LocalDate dt;
+    LocalDateTime dt;
 
 
     //  Constructor  //
   
 
-    public Cereal(Game game, String name, Date dt) {
+    public Cereal(Game game, String name, LocalDateTime dt) {
         this.game = game;
         this.name = name;
-        this.dt = java.time.LocalDate.now();
+        this.dt = java.time.LocalDateTime.now();
     }
 
 
@@ -32,7 +31,7 @@ public class Cereal {
         return " GAMESAVE: " + this.name + " @ " + this.dt;
     }
 
-    public String ToString()
+    public String toString()
     {
         return this.Serialize();
     }
@@ -57,11 +56,11 @@ public class Cereal {
         this.name = name;
     }
 
-    public LocalDate getDt() {
+    public LocalDateTime getDt() {
         return dt;
     }
 
-    public void setDt(LocalDate dt) {
+    public void setDt(LocalDateTime dt) {
         this.dt = dt;
     }
 }
