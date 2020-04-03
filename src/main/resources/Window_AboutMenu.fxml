@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox fx:controller="Window_MainMenu" 
+      xmlns:fx="http://javafx.com/fxml" stylesheets="Window_MainMenu.css">
+
+      <Label text="Demo" />
+
+      <Button onAction="#btn_start_click" text="Start" />
+
+</VBox>

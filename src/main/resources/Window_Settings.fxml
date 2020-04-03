@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+  <!-- Note: The Textboxes need onAction's-->
+
+
+<VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml" stylesheets="MainWindow.css"
+    spacing="10" prefHeight="400" prefWidth="250">
+    <VBox alignment="CENTER">
+    <ImageView  FitHeight="100" FitWidth="100" layoutX="40" layoutY="5">    
+        <image>
+              <Image url="@gears.png"/>
+        </image>
+  </ImageView>
+  </VBox>
+    <HBox>
+    <Label text="Shoot:" />
+    <TextField  text="Shift"  />
+</HBox>
+<HBox>
+    <Label text="Jump:" />
+    <TextField  text="W"  />
+</HBox>
+<HBox>
+    <Label text="Duck:" />
+    <TextField  text="S"  />
+</HBox>
+<HBox>
+    <Label text="Left/Right:" />
+    <TextField  text="A/S"  />
+</HBox>
+
+
+
+
+</VBox>
+
+
+
+
+
