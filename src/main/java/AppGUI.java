@@ -1,5 +1,4 @@
 
-
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -9,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 //------------------------------------------------------------------
@@ -26,7 +26,7 @@ public class AppGUI extends Application {
         this.currentStage = stage;        
         var load_titleScreen = new FXMLLoader(getClass().getResource("W_TitleScreen.fxml"));
         var scene_a = new Scene(load_titleScreen.load());
-
+        stage.getIcons().add(new Image("/icons/terminator.png"));
         stage.setScene(scene_a);
         stage.show();
 
