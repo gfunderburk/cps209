@@ -1,0 +1,45 @@
+# Project Proposal
+##   Overview
+Welcome to Terminator 2: Judgement Day! The story of the game falls in line with the movie Terminator 2: Judgment Day: to save the leader of the Human Resistance, John Connor, and his mother Sarah from the T-1000, a mimetic poly-alloy Terminator, bent on killing them both.
+
+The player takes the role of a T-800 Terminator cyborg, already captured and reprogrammed by the human resistance, and fights alongside them against Skynet in the year 2029. Eventually, the T-800 and John Connor penetrate Skynet's headquarters and destroy the system CPU. Discovering the time displacement equipment, the T-800 is sent back through time to John's childhood, with the mission to protect him from the T-1000 that Skynet has already sent back. In the past, John, Sarah, and the T-800 launch an attack on Cyberdyne Systems in order to prevent the development and creation of Skynet. The T-1000 catches up to the group and pursues them in a police helicopter and a liquid nitrogen truck. The T-800 is able to freeze and shatter the T-1000 with the liquid nitrogen, but it quickly melts and reforms in order to continue its pursuit of John. Ultimately, the T-800 must stop the T-1000 from killing John and blast it into a vat of molten steel to destroy it.
+
+The amount of equipment destroyed in the Cyberdyne raid determines whether or not the company's research will continue, either averting Judgment Day or allowing the possibility that it can still occur. Story retrieved from Wikipedia.
+##   Game Details
+###   Game Play:
+Game Play starts when the player presses new game or presses the load button to load a pre-existing save. The level design is as follows, there will be 5 regular missions and then a boss. In each level, you can move left, right, duck, or jump. The main goal is to survive the waves of terminators as they come in. Each level is concluded when you shoot a set number of terminators that will be increased as the level goes up. Each set of levels (5 regular missions and 1 boss) will end when you have a certain number of points that will also be increased as you go along. To survive each level, you need to make sure that your health doesn't fall to zero by either shooting the terminators that are shooting at you or taking cover and waiting for your health to be replenished. However, don't stay in cover for too long because it takes damage every time a laser hits it. Furthermore, you are unable to shoot whenever you are behind cover, and if you wait too long a terminator will sneak up on you and shoot you. 
+
+
+
+###    Point System:
+Points are awarded on a basis of shooting terminators. You can either shoot a lot of T800's or shoot Tanks and HK's for the big points. In the final level, if you shoot humans you lose points. High scores are added to the High Scores list that can be accessed via the main menu. Points can be used to purchase new guns and upgrade their health and present gun(s).
+###    Levels:
+There will be about 21 different scenarios including 5 bosses and the final level. Once the starting difficulty has been determined at the start of the game, it will gradually increase until you get to the final level.
+###   Technical Aspects:
+This game will operate on a Windows 10 platform with a Java GUI interface with a 1440 x 900 display as specified. On the main window, the user will have access to the following menus: a settings menu where the user can either modify the controls that they use to play the game or change the volume of sounds , an about menu that will play the credits, and a high scores menu where high scores have been recorded. 
+## Sketch 
+## Features 
+ ### C-Level
+* High Score Screen
+* Help Screen
+* Title Screen
+* About Screen
+* Cheat Mode
+* Game Logic
+* Levels
+* Difficulty 
+* Basic enemies
+* Basic game play (no animation)
+ ### B-Level
+ * Game save and load
+ * Animation and Sound
+### A-Level:
+### Bonus 
+ * Cross platform
+ * Level Designer
+ * Easter Egg
+
+
+
+  
+

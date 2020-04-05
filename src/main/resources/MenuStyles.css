@@ -21,14 +21,15 @@ Label {
 
 Button {
     -fx-padding: 15;
-    -fx-font-size: 15;
+    -fx-font-size: 20;
     -fx-min-height: 60;
     -fx-max-height: 60; 
     -fx-min-width: 60; 
     -fx-max-width: 200; 
 }
 
-HBox {
+VBox {
     -fx-spacing: 10;
+    -fx-padding: 10;
     -fx-alignment: center;
 }

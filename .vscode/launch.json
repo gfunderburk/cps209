@@ -11,12 +11,14 @@
             "mainClass": "App"
         },
         {
-            "type": "java",
-            "name": "Launch with Arguments",
-            "request": "launch",
-            "mainClass": "App",
-            "projectName": "app",
-            "args": "${command:SpecifyProgramArgs}"
+            //Uncomment to launch with arguments but that is super annoying 
+            //so i have commented it out to preserve my personal sanity.
+            // "type": "java",
+            // "name": "Launch with Arguments",
+            // "request": "launch",
+            // "mainClass": "App",
+            // "projectName": "app",
+            // "args": "${command:SpecifyProgramArgs}"
         }
     ]
 }

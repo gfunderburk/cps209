@@ -6,25 +6,17 @@
   <!-- Note: The Buttons need onAction's-->
  
 <VBox fx:controller="W_TitleScreen" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
-    spacing="10" prefHeight="800" prefWidth="900">
+    spacing="10" prefHeight="400" prefWidth="400">
     <VBox alignment="CENTER">
-    <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
+      <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
         <image>
-              <Image url="@skull.jpg"/>
+              <Image url="/icons/loadingCircle_nobackground.gif"/>
         </image>
-  </ImageView>
-  <ImageView  FitHeight="100" FitWidth="400" layoutX="40" layoutY="5">    
-    <image>
-          <Image url="@ts2logo.JPG"/>
-    </image>
-</ImageView>
+      </ImageView>
 
-    <Button text="New Game"/>
-    <Button text="Load Game"/>
-    <Button text="Settings"/>
-    <Button text="High Scores"/>
-    <Button text="About"/>
-</VBox>
+      <Button text="Continue" onAction="#onContinueClicked"/>
+
+    </VBox>
     
 
 

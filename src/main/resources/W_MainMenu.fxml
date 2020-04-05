@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
+<?fxml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
   <!-- Note: The Buttons need onAction's-->
  
-<VBox fx:controller="W_MainMenu" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
-    spacing="10" prefHeight="800" prefWidth="900">
-    <VBox alignment="CENTER">
-    <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
+<HBox fx:controller="W_MainMenu" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
+    spacing="10" prefHeight="500" prefWidth="700">
+    <VBox>
+      <ImageView  FitHeight="100" FitWidth="400" layoutX="40" layoutY="5">    
+          <image>
+                <Image url="/icons/ts2logo.JPG"/>
+          </image>
+      </ImageView>
+      <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
         <image>
-              <Image url="@skull.jpg"/>
+              <Image url="/icons/skull.jpg"/>
         </image>
-  </ImageView>
-  <ImageView  FitHeight="100" FitWidth="400" layoutX="40" layoutY="5">    
-    <image>
-          <Image url="@ts2logo.JPG"/>
-    </image>
-</ImageView>
-
-    <Button text="New Game"/>
-    <Button text="Load Game"/>
-    <Button text="Settings"/>
-    <Button text="High Scores"/>
-    <Button text="About"/>
-</VBox>
-    
-
-
-
-
-</VBox>
+      </ImageView>
+    </VBox>
+    <VBox>
+      <Button text="New Game" onAction="#btn_newGameClicked"/>
+      <Button text="Load Game" onAction="#btn_loadSavedGameClicked"/>
+      <Button text="Settings" onAction="#btn_ControlsClicked"/>
+      <Button text="High Scores" onAction="#btn_highScoresClicked"/>
+      <Button text="About" onAction="#btn_aboutClicked"/>
+    </VBox>
+</HBox>    

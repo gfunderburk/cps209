@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -54,7 +55,7 @@ public class W_InGame {
     
     /** Action: closes GameWindow and ends the game instance. */
     @FXML
-    void btn_quit_click() {
+    void onQuitClicked() {
         AUDIO_RESTART.play();
         Stage stage = (Stage) btn_quit.getScene().getWindow();
         stage.close();
@@ -68,7 +69,7 @@ public class W_InGame {
 
     @FXML
     void initialize() throws InterruptedException {
-        vbox_masterParent.getChildren().add(createButton("btn_ready", true));
+        //vbox_masterParent.getChildren().add(createButton("Test Button","btn_return", false));
     }
 
 
@@ -78,9 +79,9 @@ public class W_InGame {
      * @param disableBtn, btn is initialized as disabled IF true.
      * @return newly created and attributed button.
      */
-    private Button createButton(String name, boolean disableBtn) {
+    private Button createButton(String btnText, String name, boolean disableBtn) {
 
-        Button newButton = new Button("Created Button");
+        Button newButton = new Button(btnText);
 
         newButton.setId(name);                      // attach name
         newButton.getStyleClass().add("CSS_Class"); // attach style class

@@ -4,17 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<VBox fx:controller="W_InGame"     
-      xmlns:fx="http://javafx.com/fxml" prefHeight="400" 
-      stylesheets="InGameStyles.css"   alignment="CENTER" 
-      spacing="20"                      prefWidth="250"
+<VBox fx:controller="W_InGame" xmlns:fx="http://javafx.com/fxml" prefHeight="500" 
+      stylesheets="InGameStyles.css" alignment="CENTER" spacing="20" prefWidth="700"
       fx:id="vbox_masterParent">
+  <HBox>
+    <Button onAction="#onQuitClicked" text="Quit" fx:id="btn_quit"/>
+  </HBox>
+  <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" >
 
-
-
-
-    <Button onAction="#btn_quit_click" text="Quit" fx:id="btn_quit"/>
-
+  </Pane>
 
 
 </VBox>

@@ -5,10 +5,8 @@
 <?import javafx.scene.image.*?>
 
 <VBox fx:controller="W_CRUDsaves" 
-      xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css">
+      xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css" fx:id="vbox_CRUDSaves">
+      <Label text="Do you want to load a saved game?" />
 
-      <Label text="Demo" />
-
-      <Button onAction="#btn_start_click" text="Start" />
 
 </VBox>
