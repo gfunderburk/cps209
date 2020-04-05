@@ -1,7 +1,8 @@
 .root {
-    -fx-padding: 30; /* Add a small padding around the window */
+    -fx-padding: 10; /* Add a small padding around the window */
     -fx-spacing: 10;
     -fx-alignment: center;
+    -fx-background-color: rgb(255, 255, 255);
 }
 
 .btn-OceanGrid{

@@ -9,12 +9,12 @@
 <HBox fx:controller="W_MainMenu" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
     spacing="10" prefHeight="500" prefWidth="700">
     <VBox>
-      <ImageView  FitHeight="100" FitWidth="400" layoutX="40" layoutY="5">    
+      <ImageView  FitHeight="100" FitWidth="400" layoutX="30" layoutY="0">    
           <image>
                 <Image url="/icons/ts2logo.JPG"/>
           </image>
       </ImageView>
-      <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
+      <ImageView  FitHeight="300" FitWidth="400" layoutX="30" layoutY="3">    
         <image>
               <Image url="/icons/skull.jpg"/>
         </image>
