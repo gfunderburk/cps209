@@ -14,11 +14,11 @@ public class CerealManagerTest {
     LocalDateTime now = LocalDateTime.now();
 
     ArrayList<Cereal> testList = new ArrayList<Cereal>(Arrays.asList(
-        new Cereal(game, "name0", now),
-        new Cereal(game, "name1", now),
-        new Cereal(game, "name2", now),
-        new Cereal(game, "name3", now),
-        new Cereal(game, "name4", now)
+        new Cereal(game, now, "name0"),
+        new Cereal(game, now, "name1"),
+        new Cereal(game, now, "name2"),
+        new Cereal(game, now, "name3"),
+        new Cereal(game, now, "name4")
     ));
     
 
@@ -26,12 +26,11 @@ public class CerealManagerTest {
     public void test_Add_SortSaves()   throws IOException 
     {
         CerealManager.setList(testList);
-        CerealManager.addCerealFile(new Cereal(game, "bob", now.plusHours(5)));
+        CerealManager.addCerealFile(new Cereal(game, now.plusHours(5), "bob"));
         assertEquals(6, CerealManager.getList().size());
         assertEquals("bob", CerealManager.getList().get(5).getName());
 
         CerealManager.sortList();
-        System.out.println(CerealManager.Serialize());
         assertEquals("bob", CerealManager.getList().get(0).getName());
     }
 
@@ -49,9 +48,10 @@ public class CerealManagerTest {
     {
         CerealManager.setList(testList);
 
-        CerealManager.saveCerealFile("userName");
+        Cereal testSave = new Cereal(game, now, "testSave");
+        CerealManager.saveCerealFile(testSave);
         CerealManager.sortList();
         CerealManager.loadCerealDir();
-        assertEquals("userName", CerealManager.getList().get(0).getName());
+        assertEquals("testSave", CerealManager.getList().get(0).getName());
     }
 }

@@ -1,7 +1,6 @@
 package Data_model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ScoreManager {
 
@@ -25,11 +24,11 @@ public class ScoreManager {
 
 
     public static void loadScores(){
-        //TODO: read scores data found in score dir .dat file into scoresList.
+        //TODO: read scores data found in Game.scores file.
     }
 
     public static void saveScores(){
-        //TODO: serialize scores to GameScores.dat.
+        //TODO: serialize scores to Game.scores
     }
 
     public static void addScore(Score newScore){

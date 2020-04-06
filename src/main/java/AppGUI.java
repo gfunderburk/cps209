@@ -1,11 +1,6 @@
-
-import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
