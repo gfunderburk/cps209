@@ -1,2 +1,2 @@
-JaxaFX pop-up windows:      COX, JEREMIAH, FUNDERBURK, RONALD, here is a link
+JaxaFX pop-up windows:      https://code.makery.ch/blog/javafx-dialogs-official/
 
