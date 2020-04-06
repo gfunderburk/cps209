@@ -24,7 +24,7 @@
       <Button text="New Game" onAction="#btn_newGameClicked"/>
       <Button text="Load Game" onAction="#btn_loadSavedGameClicked"/>
       <Button text="Settings" onAction="#btn_ControlsClicked"/>
-      <Button text="High Scores" onAction="#btn_highScoresClicked"/>
-      <Button text="About" onAction="#btn_aboutClicked"/>
+      <Button text="High Scores" onAction="#btn_scoreboardClicked"/>
+      <Button text="Credits" onAction="#btn_creditsClicked"/>
     </VBox>
 </HBox>    

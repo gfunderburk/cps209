@@ -14,7 +14,10 @@
         </image>
       </ImageView>
 
-      <Button text="Continue" onAction="#onContinueClicked"/>
+      <!-- <Button text="Continue" onAction="#onContinueClicked"/> -->
+
+      
+      <Button text="Main Menu" onAction="#btn_mainMenuClicked"/>
 
     </VBox>
     

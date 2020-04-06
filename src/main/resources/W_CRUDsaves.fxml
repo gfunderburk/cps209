@@ -8,5 +8,6 @@
       xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css" fx:id="vbox_CRUDSaves">
       <Label text="Do you want to load a saved game?" />
 
+      <Button text="Main Menu" onAction="#btn_mainMenuClicked"/>
 
 </VBox>

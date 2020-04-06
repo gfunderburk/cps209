@@ -7,15 +7,37 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class W_TitleScreen {
-    Stage stage = AppGUI.getStage();
+
+
+    //  --------------- //
+    //  View Variables  //
+    // ---------------  //
+
+
+    Stage newStage = AppGUI.getStage();
+    Stage oldStage = new Stage();
+
+
+    //  ------------- //
+    //  GUI Elements  //
+    // -------------  //
+
+
+
+
+    //  ------------ //
+    //  GUI Methods  //     (DIRECT USER EVENTS)
+    // ------------  //
+
 
     @FXML
-    void onContinueClicked(ActionEvent event) throws IOException {
-        var loader = new FXMLLoader(getClass().getResource("W_MainMenu.fxml"));
-        var scene = new Scene(loader.load());
-
-        stage.setScene(scene);
-        stage.setTitle("Main Menu");
-        stage.show();
+    void btn_mainMenuClicked(ActionEvent event) throws IOException {
+        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
     }
+
+
+    //  ------------- //
+    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
+    // -------------  //
+
 }

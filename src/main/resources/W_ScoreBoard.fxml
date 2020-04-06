@@ -5,26 +5,30 @@
 <?import javafx.scene.image.*?>
   <!-- Note: The Buttons need onAction's-->
  
-<VBox fx:controller="W_ScoreBoard" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
+<VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
     spacing="10" prefHeight="800" prefWidth="900">
-    <VBox alignment="CENTER">
-    <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
-        <image>
-              <Image url="@skull.jpg"/>
-        </image>
-  </ImageView>
-  <ImageView  FitHeight="100" FitWidth="400" layoutX="40" layoutY="5">    
-    <image>
-          <Image url="@ts2logo.JPG"/>
-    </image>
-</ImageView>
 
-    <Button text="New Game"/>
-    <Button text="Load Game"/>
-    <Button text="Settings"/>
-    <Button text="High Scores"/>
-    <Button text="About"/>
-</VBox>
+    <VBox alignment="CENTER">
+
+      <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
+          <image>
+                <Image url="@skull.jpg"/>
+          </image>
+      </ImageView>
+  
+      <ImageView  FitHeight="100" FitWidth="400" layoutX="40" layoutY="5">    
+        <image>
+            <Image url="@ts2logo.jpg"/>
+        </image>
+      </ImageView>
+
+      <Button text="New Game"/>
+      <Button text="Load Game"/>
+      <Button text="Settings"/>
+      <Button text="High Scores"/>
+      <Button text="About"/>
+      <Button text="Main Menu" onAction="#btn_mainMenuClicked"/>
+    </VBox>
     
 
 

@@ -11,4 +11,8 @@
 
       <Button onAction="#btn_start_click" text="Start" />
 
+
+      
+      <Button text="Quit to Main Menu" onAction="#btn_mainMenuClicked"/>
+
 </VBox>

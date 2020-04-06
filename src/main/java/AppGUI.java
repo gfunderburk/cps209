@@ -2,6 +2,7 @@
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,11 +20,18 @@ import javafx.stage.Stage;
 
 public class AppGUI extends Application {
 
+
+    //  --------------- //
+    //  Media Elements  //
+    // ---------------  //
+
+
+
     private static Stage currentStage;
 
     @Override
     public void start(Stage stage) throws Exception {
-        this.currentStage = stage;        
+        AppGUI.currentStage = stage;
         var load_titleScreen = new FXMLLoader(getClass().getResource("W_TitleScreen.fxml"));
         var scene_a = new Scene(load_titleScreen.load());
         stage.getIcons().add(new Image("/icons/terminator.png"));
@@ -35,6 +43,21 @@ public class AppGUI extends Application {
 
     public static Stage getStage() {
         return currentStage;
+    }
+
+
+    public static void windowLoad(Stage oldStage, Stage newStage, String newWindowName, URL windowURL) throws IOException {
+
+        var loader = new FXMLLoader(windowURL);
+        var scene = new Scene(loader.load());
+
+        newStage.setScene(scene);
+        newStage.setTitle(newWindowName);
+        newStage.show();
+        
+        if(oldStage.isShowing()){
+            oldStage.close();
+        }
     }
 
 }
