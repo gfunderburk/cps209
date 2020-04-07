@@ -8,14 +8,14 @@
 
 
 <VBox fx:controller="W_Controls" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
-    spacing="10" prefHeight="400" prefWidth="250">
+    spacing="10" prefHeight="600" prefWidth="600">
 
 
     <VBox alignment="CENTER">
 
         <ImageView  FitHeight="100" FitWidth="100" layoutX="40" layoutY="5">    
             <image>
-                <Image url="@gears.png"/>
+                <Image url="/icons/gears.png"/>
             </image>
         </ImageView>
 

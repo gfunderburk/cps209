@@ -1,37 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
-  <!-- Note: The Buttons need onAction's-->
- 
-<VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
-    spacing="10" prefHeight="800" prefWidth="900">
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.layout.* ?>
+<?import javafx.scene.image.* ?>
+<!-- Note: The Buttons need onAction's-->
 
-    <VBox alignment="CENTER">
+<VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" spacing="10" prefHeight="500" prefWidth="600">
 
-      <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
-          <image>
-                <Image url="@skull.jpg"/>
-          </image>
-      </ImageView>
-  
-      <ImageView  FitHeight="100" FitWidth="400" layoutX="40" layoutY="5">    
-        <image>
-            <Image url="@ts2logo.jpg"/>
-        </image>
-      </ImageView>
+  <TableView fx:id="tableView" prefHeight="450" prefWidth="300">
 
-      <Button text="New Game"/>
-      <Button text="Load Game"/>
-      <Button text="Settings"/>
-      <Button text="High Scores"/>
-      <Button text="About"/>
-      <Button text="Main Menu" onAction="#btn_mainMenuClicked"/>
-    </VBox>
-    
+    <columns>
 
+      <TableColumn text="#" fx:id="rankingColumn" sortable="false" >
 
+      </TableColumn>
 
+      <TableColumn text="Name" fx:id="nameColumn" sortable="false" >
+        <cellValueFactory>
+          <!-- <PropertyValueFactory property="playername" /> -->
+        </cellValueFactory>
+      </TableColumn>
 
+      <TableColumn text="Points" fx:id="pointsColumn" sortable="false" >
+        <cellValueFactory>
+          <!-- <PropertyValueFactory property="points" /> -->
+        </cellValueFactory>
+      </TableColumn>
+    </columns>
+
+    <placeholder>
+      <Label text="No Highscore yet" />
+    </placeholder>
+  </TableView>
+  <Button onAction="#btnMainMenuClicked" text="Main Menu"/>
 </VBox>
