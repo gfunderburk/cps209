@@ -7,12 +7,10 @@
 <VBox fx:controller="W_EscMenu" 
       xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css">
 
-      <Label text="Demo" />
-
-      <Button onAction="#btn_start_click" text="Start" />
-
+      <Label text="Escape Menu" />
 
       
-      <Button text="Quit to Main Menu" onAction="#btn_mainMenuClicked"/>
+      <Button text="Quit" onAction="#btn_onQuitClicked"/>
+      <Button text="Resume Game" onAction="#btn_onResumeClicked" />
 
 </VBox>

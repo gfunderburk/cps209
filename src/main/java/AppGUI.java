@@ -36,6 +36,11 @@ public class AppGUI extends Application {
 
     }
 
+    public static void setStage(Stage newStage) {
+        currentStage = newStage;
+    }
+        
+
     public static Stage getStage() {
         return currentStage;
     }

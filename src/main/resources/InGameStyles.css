@@ -14,13 +14,20 @@ Button {
 }
 
 Label {
-    -fx-padding: 15;
-    -fx-font-size: 30; 
-    -fx-min-width: 60; 
-    -fx-min-height: 90;
+    /* -fx-padding: 15; */
+    -fx-font-size: 15; 
+    /* -fx-min-width: 60;  */
+    /* -fx-min-height: 90; */
     -fx-font-weight: bold;
 }
 
 HBox {
-    -fx-spacing: 10;
+    justify-content: space-between;
+    -fx-spacing: 95;
+    -fx-max-height: 10;
+}
+
+VBox {
+    /* -fx-spacing: 30;
+    -fx-padding: 30; */
 }

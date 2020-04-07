@@ -1,7 +1,12 @@
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
 
 public class W_EscMenu {
@@ -15,6 +20,7 @@ public class W_EscMenu {
 
     Stage newStage = AppGUI.getStage();
     Stage oldStage = new Stage();
+    Stage gameStage = W_MainMenu.getGameStage();
 
 
     //  ------------- //
@@ -36,7 +42,44 @@ public class W_EscMenu {
 
 
     @FXML
-    void btn_mainMenuClicked(ActionEvent event) throws IOException {
-        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+    void btn_onQuitClicked(ActionEvent event) throws IOException {
+        //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
+        // - Yes = Save game
+        // - No  = Main Menu
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setHeaderText("Do you want to save before quitting?");
+
+        ButtonType btnYes = new ButtonType("Yes");
+        ButtonType btnNo = new ButtonType("No");
+        ButtonType btnCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(btnYes, btnNo, btnCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == btnYes) {
+            // Save the game and close the game and esc windows
+            
+            gameStage.close();
+            AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+            
+
+        } else if (result.get() == btnNo) {
+            // Return to main menu and close the game window
+            gameStage.close();
+            AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+            
+
+        } else {
+            // ... user chose CANCEL or closed the dialog
+            AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"));
+            
+        }
+        
+    }
+
+    @FXML
+    void btn_onResumeClicked(ActionEvent event) throws IOException {
+        // Return to game window
+        newStage.close();
     }
 }

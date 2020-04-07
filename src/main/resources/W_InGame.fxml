@@ -7,9 +7,22 @@
 <VBox fx:controller="W_InGame" xmlns:fx="http://javafx.com/fxml" prefHeight="500" 
       stylesheets="InGameStyles.css" alignment="CENTER" spacing="20" prefWidth="700"
       fx:id="vbox_masterParent">
-  <HBox>
-    <Button onAction="#onQuitClicked" text="Quit" fx:id="btn_quit"/>
-  </HBox>
+  <BorderPane>
+    <top>
+      <HBox>
+
+        <Button onAction="#onEscClicked" text="Escape" fx:id="btn_esc"/>
+        <Label text="           "/>
+        <VBox>
+          <Label text="Health:"/>
+          <ProgressBar progress="100"/>
+        </VBox>
+        <Label text="Score: 0"/>
+    
+      </HBox>
+    </top>
+  </BorderPane>
+
   <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" >
 
   </Pane>

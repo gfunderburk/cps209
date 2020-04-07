@@ -6,7 +6,7 @@
   <!-- Note: The Buttons need onAction's-->
  
 <VBox fx:controller="W_TitleScreen" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
-    spacing="10" prefHeight="400" prefWidth="400">
+    spacing="10" prefHeight="500" prefWidth="700">
     <VBox alignment="CENTER">
       <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
         <image>

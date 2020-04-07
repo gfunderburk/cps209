@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 //-----------------------------------------------------------
@@ -21,6 +22,8 @@ public class W_MainMenu {
 
     Stage newStage = AppGUI.getStage();
     Stage oldStage = new Stage();
+
+    private static Stage gameStage;
 
     // ------------- //
     // GUI Elements //
@@ -45,18 +48,21 @@ public class W_MainMenu {
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
 
-        var difficultyLevel = (int) d.getSelectedItem();
+        
 
         var loader = new FXMLLoader(getClass().getResource("W_InGame.fxml"));
         var scene = new Scene(loader.load());
 
         W_InGame game = loader.getController();
         var stage = new Stage();
+        stage.getIcons().add(new Image("/icons/terminator2.png"));
         stage.setScene(scene);
+        gameStage = stage;
         d.showAndWait().ifPresent(choice -> {
             stage.show();
+            newStage.close();
             try {
-                game.initialize(difficultyLevel);
+                game.initialize((int) d.getSelectedItem());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -97,6 +103,10 @@ public class W_MainMenu {
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException {
         AppGUI.windowLoad(oldStage, newStage, "Credits", getClass().getResource("W_Credits.fxml"));
+    }
+
+    public static Stage getGameStage() {
+        return gameStage;
     }
 
     // ------------- //
