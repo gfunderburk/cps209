@@ -65,9 +65,12 @@ public class W_InGame {
     //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // -------------  //
 
+    int difficulty;
 
     @FXML
-    void initialize() throws InterruptedException {
+    void initialize(int difficultyLevel) throws InterruptedException {
+        this.difficulty = difficultyLevel;
+        System.out.println(this.difficulty);
         //vbox_masterParent.getChildren().add(createButton("Test Button","btn_return", false));
     }
 
