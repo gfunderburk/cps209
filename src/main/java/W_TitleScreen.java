@@ -34,6 +34,7 @@ public class W_TitleScreen {
 
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException {
+        
         AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
         THEME.play();
     }

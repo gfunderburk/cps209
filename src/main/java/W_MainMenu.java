@@ -30,6 +30,7 @@ public class W_MainMenu {
     private static Stage gameStage;
 
     final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
 
     // ------------- //
     // GUI Elements //
@@ -41,7 +42,7 @@ public class W_MainMenu {
 
     @FXML
     void btn_newGameClicked(ActionEvent event) throws IOException, InterruptedException {
-
+        BTN_CLICK.play();
         // TODO: USE https://code.makery.ch/blog/javafx-dialogs-official/
         // TO BUILD a pop-up box to ask for difficulty level and a playername for the
         // this game's playthrough
@@ -80,15 +81,10 @@ public class W_MainMenu {
 
     @FXML
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
+        BTN_CLICK.play();
         var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
         var scene = new Scene(loader.load());
 
-        // W_CRUDsaves crudsaves = loader.getController();
-        // crudsaves.initialize();
-
-        // var stage = new Stage();
-        // stage.setScene(scene);
-        // stage.show();
 
         newStage.setScene(scene);
         newStage.setTitle("Load/Save Game");
@@ -101,16 +97,19 @@ public class W_MainMenu {
 
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException {
+        BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Controls / How to Play", getClass().getResource("W_Controls.fxml"));
     }
 
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException {
+        BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"));
     }
 
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException {
+        BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Credits", getClass().getResource("W_Credits.fxml"));
     }
 
