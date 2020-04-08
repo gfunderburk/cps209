@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +8,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 //-----------------------------------------------------------
@@ -25,6 +29,8 @@ public class W_MainMenu {
 
     private static Stage gameStage;
 
+    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+
     // ------------- //
     // GUI Elements //
     // ------------- //
@@ -41,13 +47,15 @@ public class W_MainMenu {
         // this game's playthrough
         // THEN open up W_InGame.fxml, passing it the recently input parameters with
         // some of the code below.
+          
+
 
         // items for the dialog
         Integer difficulty[] = { 1, 2, 3 };
 
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
-
+        d.setHeaderText("Please Select Difficulty Level");
         
 
         var loader = new FXMLLoader(getClass().getResource("W_InGame.fxml"));
@@ -59,6 +67,7 @@ public class W_MainMenu {
         stage.setScene(scene);
         gameStage = stage;
         d.showAndWait().ifPresent(choice -> {
+            THEME.play();
             stage.show();
             newStage.close();
             try {

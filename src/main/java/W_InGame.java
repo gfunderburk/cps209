@@ -24,7 +24,7 @@ public class W_InGame {
     // Media Elements //
     // --------------- //
 
-    final AudioClip AUDIO_RESTART = new AudioClip(getClass().getResource("/media/_filename_.wav").toString());
+    //final AudioClip AUDIO_RESTART = new AudioClip(getClass().getResource("/media/_filename_.wav").toString());
 
     // --------------- //
     // View Variables //
@@ -61,7 +61,6 @@ public class W_InGame {
      */
     @FXML
     void onEscClicked() throws IOException {
-        AUDIO_RESTART.play();
         // Stage stage = (Stage) btn_esc.getScene().getWindow();
         // stage.close();
         AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"));

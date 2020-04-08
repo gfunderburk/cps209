@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
@@ -58,9 +59,16 @@ public class W_EscMenu {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == btnYes) {
             // Save the game and close the game and esc windows
-            
             gameStage.close();
-            AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+            
+            TextInputDialog dialog = new TextInputDialog();
+            
+            dialog.setHeaderText("Please enter player name.");
+            //dialog.setContentText("Please enter your name:");
+            Optional<String> playerName = dialog.showAndWait();
+            playerName.ifPresent(name -> System.out.println("Your name: " + name));
+
+            AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"));
             
 
         } else if (result.get() == btnNo) {

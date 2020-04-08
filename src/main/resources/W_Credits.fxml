@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.layout.* ?>
+<?import javafx.scene.image.* ?>
 
-<VBox fx:controller="W_Credits" 
-      xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css" prefHeight="500" prefWidth="700">
-      
-      <Button text="Main Menu" onAction="#btn_mainMenuClicked"/>
+<VBox fx:controller="W_Credits" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css" prefHeight="500" prefWidth="700">
+      <Label text="Credits"/>
+      <Label text="Jeremiah Cox: GUI"/>
+      <Label text="Jonathan Layton: Serialization"/>
+      <Label text="Gunnar Funderburk: Game Play"/>
+      <Button text="Main Menu" onAction="#btn_mainMenuClicked" />
 
 </VBox>

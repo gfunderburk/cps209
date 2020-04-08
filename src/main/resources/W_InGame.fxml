@@ -1,31 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.layout.* ?>
+<?import javafx.scene.image.* ?>
 
-<VBox fx:controller="W_InGame" xmlns:fx="http://javafx.com/fxml" prefHeight="500" 
-      stylesheets="InGameStyles.css" alignment="CENTER" spacing="20" prefWidth="700"
-      fx:id="vbox_masterParent">
+<VBox fx:controller="W_InGame" xmlns:fx="http://javafx.com/fxml" prefHeight="500" stylesheets="InGameStyles.css" alignment="CENTER" spacing="20" prefWidth="700" fx:id="vbox_masterParent">
   <BorderPane>
     <top>
       <HBox>
 
-        <Button onAction="#onEscClicked" text="Escape" fx:id="btn_esc"/>
-        <Label text="           "/>
+        <Button onAction="#onEscClicked" text="Escape" fx:id="btn_esc" />
+        <Label text="           " />
         <VBox>
-          <Label text="Health:"/>
-          <ProgressBar progress="100"/>
+          <Label text="Health:" />
+          <ProgressBar progress="100" />
         </VBox>
-        <Label text="Score: 0"/>
-    
+        <Label text="Score: 0" />
+
       </HBox>
     </top>
   </BorderPane>
 
-  <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" >
-
-  </Pane>
+  <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray"></Pane>
 
 
 </VBox>
