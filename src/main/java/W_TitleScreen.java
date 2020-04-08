@@ -13,7 +13,9 @@ public class W_TitleScreen {
     // ---------------  //
     final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
 
-
+    //  --------------- //
+    //  Stages          //
+    // ---------------  //
     Stage newStage = AppGUI.getStage();
     Stage oldStage = new Stage();
 
