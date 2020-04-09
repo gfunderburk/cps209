@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import Game_model.Game;
+
+import Game_model.*;
 
 public class CerealManager {
 
@@ -59,7 +60,9 @@ public class CerealManager {
     }
 
 
-    public static void loadCerealFile(Cereal loadCereal){
+    public static void loadCerealFile(int cerealIndex){
+
+        var loadCereal = cerealList.get(cerealIndex);
 
         try(BufferedReader rd = new BufferedReader( new FileReader(loadCereal.toString()))) {
                        
@@ -71,7 +74,7 @@ public class CerealManager {
                 line = rd.readLine(); 
             } 
             rd.close(); 
-            //TODO: Game.loadCereal(loadCereal);
+            loadCereal.game.start();
         } 
         catch (IOException e) { 
             System.out.println("Problem loading " + loadCereal.toString()); 
@@ -79,13 +82,18 @@ public class CerealManager {
     }
 
     
-    public static void saveCerealFile(Cereal gameCereal){
-        try(var wr = new PrintWriter( new FileWriter(gameCereal.toString())); ) { 
-            wr.println(gameCereal.SerializeGame()); 
+    public static void saveCerealFile(Game gameSession){
+        try(var wr = new PrintWriter( new FileWriter(gameSession.toString())); ) 
+        { 
+            wr.println(gameSession.Serialize());             
+            for (Entity item : gameSession.entityList) 
+            {
+                wr.println(item.Serialize());
+            }            
             wr.close(); 
         } 
         catch (IOException e) {
-            System.out.println("Problem saving " + gameCereal.toString()); 
+            System.out.println("Problem saving " + gameSession.toString()); 
         }
     }
 

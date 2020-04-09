@@ -6,7 +6,7 @@ package Util_model;
 // Desc:  This class streamlines use of Math.Random features,   
 //        It randomly generates and returns int, double, boolean, and positive/negative.
 //--------------------------------------------------------------------------------------- 
-public class selfRandom {
+public class myRandom {
 
     public static int genRandomInt(int min, int max){
         

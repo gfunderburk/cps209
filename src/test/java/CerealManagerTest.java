@@ -1,6 +1,6 @@
 import org.junit.Test;
 import Data_model.*;
-import Game_model.Game;
+import Game_model.*;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
@@ -49,9 +49,10 @@ public class CerealManagerTest {
         CerealManager.setList(testList);
 
         Cereal testSave = new Cereal(game, now, "testSave");
-        CerealManager.saveCerealFile(testSave);
+        CerealManager.saveCerealFile(testSave.getGame());
         CerealManager.sortList();
         CerealManager.loadCerealDir();
         assertEquals("testSave", CerealManager.getList().get(0).getName());
     }
 }
+
