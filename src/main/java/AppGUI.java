@@ -33,7 +33,7 @@ public class AppGUI extends Application {
         AppGUI.currentStage = stage;
         var load_titleScreen = new FXMLLoader(getClass().getResource("W_TitleScreen.fxml"));
         var scene_a = new Scene(load_titleScreen.load());
-        stage.getIcons().add(new Image("/icons/terminator2.png")); // https://stackoverflow.com/questions/58241811/set-top-left-image-on-dialog-pane-with-javafx
+        stage.getIcons().add(new Image("/icons/terminatorIcon2.png")); // https://stackoverflow.com/questions/58241811/set-top-left-image-on-dialog-pane-with-javafx
         stage.setScene(scene_a);
         stage.show();
 

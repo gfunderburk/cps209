@@ -42,14 +42,8 @@ public class W_MainMenu {
 
     @FXML
     void btn_newGameClicked(ActionEvent event) throws IOException, InterruptedException {
-        BTN_CLICK.play();
-        // TODO: USE https://code.makery.ch/blog/javafx-dialogs-official/
-        // TO BUILD a pop-up box to ask for difficulty level and a playername for the
-        // this game's playthrough
-        // THEN open up W_InGame.fxml, passing it the recently input parameters with
-        // some of the code below.
-          
-
+        // Play button click sounds
+        BTN_CLICK.play();   
 
         // items for the dialog
         Integer difficulty[] = { 1, 2, 3 };
@@ -64,7 +58,7 @@ public class W_MainMenu {
 
         W_InGame game = loader.getController();
         var stage = new Stage();
-        stage.getIcons().add(new Image("/icons/terminator2.png"));
+        stage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
         stage.setScene(scene);
         gameStage = stage;
         d.showAndWait().ifPresent(choice -> {
@@ -81,6 +75,7 @@ public class W_MainMenu {
 
     @FXML
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
+        // Play button click sounds
         BTN_CLICK.play();
         var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
         var scene = new Scene(loader.load());
@@ -97,18 +92,21 @@ public class W_MainMenu {
 
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException {
+        // Play button click sounds
         BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Controls / How to Play", getClass().getResource("W_Controls.fxml"));
     }
 
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException {
+        // Play button click sounds
         BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"));
     }
 
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException {
+        // Play button click sounds
         BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Credits", getClass().getResource("W_Credits.fxml"));
     }
