@@ -1,12 +1,18 @@
 package Game_model;
 
+import Util_model.myMovement;
+import Util_model.myRandom;
+import javafx.geometry.Point3D;
+
 public abstract class Entity implements GameSave{
 
 
     //  Variables  //
 
     
-    int x, y, z, height, imgHeight, width, imgWidth, heading;
+    int height, imgHeight, width, imgWidth;
+    Point3D location;
+    Point3D vector;
     String image;
 
 
@@ -14,18 +20,25 @@ public abstract class Entity implements GameSave{
 
     
     public void move() {
-        // TODO Auto-generated method stub
+        this.location = this.location.add(vector);
+
+        for (Entity item : Game.getIt().entityList) 
+        {            
+            compareDist(item);
+        }
     };
     
+
     public void compareDist(Entity otherOne) {
-        int dis = Util_model.myGeometry.getDistance3D(this.x, this.y, this.z, otherOne.x, otherOne.y, otherOne.z);
-    
-        if(dis == 0) {
+        double dis = Util_model.myGeometry.getDistance3D(this.location, otherOne.location);
+        
+        if(dis < 1) { //TODO: compareDist might be buggy!
             this.collideEvent();
             otherOne.collideEvent();
         }
     };
     
+
     public abstract void collideEvent();
 
     @Override
