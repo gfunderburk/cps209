@@ -44,6 +44,12 @@ public class W_CRUDsaves {
         AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
     }
 
+    @FXML
+    void btn_loadSavedGame(ActionEvent event) {
+        // TODO: Load the game from the .dat file ArrayList 
+        // using the selected row number as the index
+    }
+
 
 
     //  ------------- //

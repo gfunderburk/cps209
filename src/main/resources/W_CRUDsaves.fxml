@@ -35,6 +35,12 @@
           </TableView>
 
 
-      <Button text="Done" onAction="#btn_mainMenuClicked"/>
+      <Button text="Back to Main Menu" onAction="#btn_mainMenuClicked"/>
+
+      <!-- TODO: Load Selected Game must remain disabled until a saved game row is selected
+            After being clicked, the selected game row (which is connected to a .dat file containing the saved game) 
+            will load the saved game -->
+
+      <Button text="Load Selected Game" onAction="#btn_"/>
 
 </VBox>

@@ -7,8 +7,15 @@
  
 <VBox fx:controller="W_TitleScreen" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
     spacing="10" prefHeight="500" prefWidth="700">
+
+    <ImageView FitWidth="600" preserveRatio="true">    
+      <image>
+         <Image url="/icons/backgrounds/titleScreen.png" />
+      </image>
+   </ImageView>
+
     <VBox alignment="CENTER">
-      <ImageView  FitHeight="300" FitWidth="400" layoutX="40" layoutY="5">    
+      <ImageView  FitHeight="100" preserveRatio="true">    
         <image>
               <Image url="/icons/loadingCircle_nobackground.gif"/>
         </image>
