@@ -15,29 +15,34 @@ Button {
     -fx-max-width: 200; 
 }
 
-VBox {
+/* VBox {
     -fx-spacing: 10;
     -fx-padding: 10;
     /* -fx-alignment: center; */
-}
+/* }
 
 HBox {
     -fx-padding: 1;
     -fx-spacing: 1;
     -fx-max-height: 10;
-}
+} */ 
 
 .controls-screen {
-    -fx-padding: 1;
-    -fx-spacing: 1;
-    -fx-max-height: 10;
-    -fx-font-size: 15;
+    -fx-padding: 10;
+    -fx-spacing: 15;
 
 }
 
 .control-names {
-    -fx-padding: 5;
-    -fx-font-size: 10; 
+    -fx-padding: 15;
+    -fx-spacing: 20;
+    -fx-font-size: 15; 
     -fx-font-weight: bold;
  
+}
+
+.textFields {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-font-size: 15;
 }

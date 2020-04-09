@@ -7,7 +7,7 @@
   <!-- Note: The Textboxes need onAction's-->
 
 
-<VBox fx:controller="W_Controls" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
+<VBox fx:controller="W_Controls" xmlns:fx="http://javafx.com/fxml" stylesheets="ControlStyles.css"
     spacing="10" prefHeight="500" prefWidth="700" styleClass="controls-screen" alignment="CENTER">
 
 
@@ -32,8 +32,8 @@
         </VBox>
 
 
-        
-        <VBox styleClass="control-names">
+
+        <VBox styleClass="textFields">
             <TextField  text="Shift"  />
             <TextField  text="W"  />
             <TextField  text="S"  />
