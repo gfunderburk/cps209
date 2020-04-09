@@ -39,14 +39,14 @@ public class Game implements GameSave {
 
     //  Methods  //
 
+    public void start(){
+        // TODO Auto-generated method stub        
+    }
 
     @Override
     public String Serialize() {
-        String result = "";
-        for (Entity item : entityList) {
-            result += item.Serialize();
-        }
-        return result;
+        // TODO Auto-generated method stub
+        return null;
     }
 
 

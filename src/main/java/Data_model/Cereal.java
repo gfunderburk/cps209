@@ -1,13 +1,13 @@
 package Data_model;
 
 import java.time.LocalDateTime;
-import Game_model.GameSave;
+import Game_model.*;
 
 public class Cereal {
 
     // Variables //
 
-    GameSave game;
+    Game game;
     String name;
     LocalDateTime dt;
 
@@ -15,7 +15,7 @@ public class Cereal {
     //  Constructor  //
   
 
-    public Cereal(GameSave game, LocalDateTime dt, String name) {
+    public Cereal(Game game, LocalDateTime dt, String name) {
         this.game = game;
         this.name = name;
         this.dt = java.time.LocalDateTime.now();
@@ -69,11 +69,11 @@ public class Cereal {
     //  Getters-Setters  //
 
 
-    public GameSave getGame() {
+    public Game getGame() {
         return game;
     }
 
-    public void setGame(GameSave game) {
+    public void setGame(Game game) {
         this.game = game;
     }
 
