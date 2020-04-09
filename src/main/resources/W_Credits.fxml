@@ -5,10 +5,10 @@
 <?import javafx.scene.image.* ?>
 
 <VBox fx:controller="W_Credits" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css" prefHeight="500" prefWidth="700">
-      <Label text="Credits"/>
-      <Label text="Jeremiah Cox: GUI"/>
-      <Label text="Jonathan Layton: Serialization"/>
-      <Label text="Gunnar Funderburk: Game Play"/>
-      <Button text="Main Menu" onAction="#btn_mainMenuClicked" />
+      <Label text="Credits" />
+      <Label text="Jeremiah Cox: GUI" styleClass="devNames"/>
+      <Label text="Jonathan Layton: Serialization" styleClass="devNames"/>
+      <Label text="Gunnar Funderburk: Game Play" styleClass="devNames"/>
+      <Button text="Main Menu" onAction="#btn_mainMenuClicked" styleClass="devNames"/>
 
 </VBox>

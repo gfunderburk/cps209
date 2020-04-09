@@ -41,6 +41,6 @@
             After being clicked, the selected game row (which is connected to a .dat file containing the saved game) 
             will load the saved game -->
 
-      <Button text="Load Selected Game" onAction="#btn_"/>
+      <Button text="Load Selected Game" onAction="#btn_loadSavedGame"/>
 
 </VBox>

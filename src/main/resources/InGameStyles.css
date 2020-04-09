@@ -2,6 +2,7 @@
     -fx-padding: 30; /* Add a small padding around the window */
     -fx-spacing: 10;
     -fx-alignment: center;
+    -fx-background-color: rgb(58, 58, 58);
 }
 
 Button {
@@ -14,6 +15,7 @@ Button {
 }
 
 Label {
+    -fx-text-fill: rgb(255, 255, 255);
     /* -fx-padding: 15; */
     -fx-font-size: 15; 
     /* -fx-min-width: 60;  */

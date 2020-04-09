@@ -2,7 +2,7 @@
     -fx-padding: 10; /* Add a small padding around the window */
     -fx-spacing: 10;
     -fx-alignment: center;
-    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-color: rgb(58, 58, 58);
 }
 
 
@@ -13,6 +13,10 @@ Button {
     -fx-max-height: 60; 
     -fx-min-width: 60; 
     -fx-max-width: 200; 
+}
+
+Label {
+    -fx-text-fill: rgb(255, 255, 255);
 }
 
 /* VBox {
@@ -28,12 +32,14 @@ HBox {
 } */ 
 
 .controls-screen {
+    -fx-text-fill: rgb(255, 255, 255);
     -fx-padding: 10;
     -fx-spacing: 15;
 
 }
 
 .control-names {
+    -fx-text-fill: rgb(255, 255, 255);
     -fx-padding: 15;
     -fx-spacing: 20;
     -fx-font-size: 15; 
