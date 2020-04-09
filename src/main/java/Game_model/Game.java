@@ -15,13 +15,15 @@ public class Game implements GameSave {
     //  Variables  //
 
     
+    public enum Mode{Easy, Medium, Hard}
+    public enum StateGame{RUNNING, PAUSED}
+    public StateGame stateGame;
     public int hostilesLeft;
     public int score;
     public int time;
     public int gameLvl;
     public LocalDateTime dt;
     public String playerName;
-    public enum Mode{Easy, Medium, Hard}
     public ArrayList<Entity> entityList = new ArrayList<Entity>();
 
     public boolean gameOver = false;
@@ -40,19 +42,25 @@ public class Game implements GameSave {
     //  Methods  //
 
     public void start(){
-        // TODO Auto-generated method stub        
+        // TODO update windows and such to start the game   
+        stateGame = StateGame.RUNNING;    
+    }
+
+    public void pause(){
+        // TODO update windows and such to pause the game   
+        stateGame = StateGame.PAUSED;    
     }
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
+        // TODO serialize self data
         return null;
     }
 
 
     @Override
     public void deSerialize(String data) {
-        // TODO Auto-generated method stub
+        // TODO load data to self
 
     }
 

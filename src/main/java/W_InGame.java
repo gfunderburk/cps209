@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.Optional;
 
+import Game_model.Entity;
+import Game_model.Game;
+import Game_model.Game.StateGame;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -24,7 +27,8 @@ public class W_InGame {
     // Media Elements //
     // --------------- //
 
-    //final AudioClip AUDIO_RESTART = new AudioClip(getClass().getResource("/media/_filename_.wav").toString());
+    // final AudioClip AUDIO_RESTART = new
+    // AudioClip(getClass().getResource("/media/_filename_.wav").toString());
 
     // --------------- //
     // View Variables //
@@ -97,6 +101,17 @@ public class W_InGame {
             newButton.setDisable(true); // set disable status
 
         return newButton;
+    }
+
+    void timerAnimate() {
+        if (Game.getIt().stateGame == StateGame.RUNNING) {
+            for (Entity entity : Game.getIt().entityList) {
+                entity.move();
+                // updateImg(entity);
+            }
+            // updateGameVars();
+            // updatePlayer();
+        }
     }
 
 }

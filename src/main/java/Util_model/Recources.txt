@@ -1,2 +1,17 @@
 JaxaFX pop-up windows:      https://code.makery.ch/blog/javafx-dialogs-official/
 
+Remove img background:      https://www.techsmith.com/blog/how-to-remove-the-background-from-an-image/
+
+Potential Robot Model:      https://assetstore.unity.com/packages/3d/characters/robots/robot-1-65726
+
+Potential Boss Model:       https://assetstore.unity.com/packages/3d/characters/robots/the-assault-mech-90395
+
+Potential Boss Model:       https://assetstore.unity.com/packages/3d/characters/robots/medium-mech-striker-124342
+
+Potential Robot Model:      https://assetstore.unity.com/packages/3d/characters/robots/sci-fi-warrior-pbr-hp-polyart-106154
+
+Potential Flying Drone Model:    https://assetstore.unity.com/packages/3d/low-poly-combat-drone-82234
+
+WebSite1:    https://assetstore.unity.com/packages/2d/environments/free-platform-game-assets-85838?price=0-0&free=true&q=robot&orderBy=0
+
+2D websiteList:      https://felgo.com/game-resources/16-sites-featuring-free-game-graphics#_OpenGameArt.org
