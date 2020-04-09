@@ -1,6 +1,6 @@
 import org.junit.Test;
 import Data_model.*;
-import Game_model.Game;
+import Game_model.GameSave;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class CerealManagerTest {
 
-    Game game = null;
+    GameSave game = null;
     LocalDateTime now = LocalDateTime.now();
 
     ArrayList<Cereal> testList = new ArrayList<Cereal>(Arrays.asList(
@@ -55,3 +55,4 @@ public class CerealManagerTest {
         assertEquals("testSave", CerealManager.getList().get(0).getName());
     }
 }
+
