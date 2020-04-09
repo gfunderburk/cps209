@@ -5,9 +5,42 @@
 <?import javafx.scene.image.*?>
 
 <VBox fx:controller="W_CRUDsaves" 
-      xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css" fx:id="vbox_CRUDSaves">
+      xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" fx:id="vbox_CRUDSaves">
       <Label text="Do you want to load a saved game?" />
 
-      <Button text="Main Menu" onAction="#btn_mainMenuClicked"/>
+      <TableView fx:id="tableView" prefHeight="500" prefWidth="700">
+
+            <columns>
+        
+              <TableColumn text="#" fx:id="rankingColumn" sortable="false" >
+        
+              </TableColumn>
+        
+              <TableColumn text="Name" fx:id="nameColumn" sortable="false" >
+                <cellValueFactory>
+                  <!-- <PropertyValueFactory property="playername" /> -->
+                </cellValueFactory>
+              </TableColumn>
+        
+              <TableColumn text="Points" fx:id="pointsColumn" sortable="false" >
+                <cellValueFactory>
+                  <!-- <PropertyValueFactory property="points" /> -->
+                </cellValueFactory>
+              </TableColumn>
+            </columns>
+        
+            <placeholder>
+              <Label text="No saved games yet" />
+            </placeholder>
+          </TableView>
+
+
+      <Button text="Back to Main Menu" onAction="#btn_mainMenuClicked"/>
+
+      <!-- TODO: Load Selected Game must remain disabled until a saved game row is selected
+            After being clicked, the selected game row (which is connected to a .dat file containing the saved game) 
+            will load the saved game -->
+
+      <Button text="Load Selected Game" onAction="#btn_loadSavedGame"/>
 
 </VBox>

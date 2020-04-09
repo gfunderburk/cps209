@@ -7,46 +7,43 @@
   <!-- Note: The Textboxes need onAction's-->
 
 
-<VBox fx:controller="W_Controls" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
-    spacing="10" prefHeight="400" prefWidth="250">
+<VBox fx:controller="W_Controls" xmlns:fx="http://javafx.com/fxml" stylesheets="ControlStyles.css"
+    spacing="10" prefHeight="500" prefWidth="700" styleClass="controls-screen" alignment="CENTER">
 
 
     <VBox alignment="CENTER">
 
         <ImageView  FitHeight="100" FitWidth="100" layoutX="40" layoutY="5">    
             <image>
-                <Image url="@gears.png"/>
+                <Image url="/icons/gears.png"/>
             </image>
         </ImageView>
-
-      <Button text="Main Menu" onAction="#btn_mainMenuClicked"/>
 
     </VBox>
 
 
-    <HBox>
-        <Label text="Shoot:" />
-        <TextField  text="Shift"  />
+    <HBox alignment="CENTER">
+
+        <VBox styleClass="control-names">
+            <Label text="Shoot:" />
+            <Label text="Jump:" />
+            <Label text="Duck:" />
+            <Label text="Left/Right:" />
+        </VBox>
+
+
+
+        <VBox styleClass="textFields">
+            <TextField  text="Shift"  />
+            <TextField  text="W"  />
+            <TextField  text="S"  />
+            <TextField  text="A/S"  />
+        </VBox>
+        
+        
     </HBox>
 
-    <HBox>
-        <Label text="Jump:" />
-        <TextField  text="W"  />
-    </HBox>
-
-    <HBox>
-        <Label text="Duck:" />
-        <TextField  text="S"  />
-    </HBox>
-
-    <HBox>
-        <Label text="Left/Right:" />
-        <TextField  text="A/S"  />
-    </HBox>
-
-
-
-
+    <Button text="Main Menu" onAction="#btn_mainMenuClicked"/>
 </VBox>
 
 

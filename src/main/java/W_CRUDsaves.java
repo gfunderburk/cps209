@@ -2,7 +2,10 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -28,6 +31,7 @@ public class W_CRUDsaves {
     VBox vbox_CRUDSaves;
 
 
+
     //  ------------ //
     //  GUI Methods  //     (DIRECT USER EVENTS)
     // ------------  //
@@ -35,7 +39,15 @@ public class W_CRUDsaves {
 
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException {
+        // TODO: Save input
+
         AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+    }
+
+    @FXML
+    void btn_loadSavedGame(ActionEvent event) {
+        // TODO: Load the game from the .dat file ArrayList 
+        // using the selected row number as the index
     }
 
 

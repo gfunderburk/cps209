@@ -30,7 +30,7 @@ public class W_Scoreboard {
 
 
     @FXML
-    void btn_mainMenuClicked(ActionEvent event) throws IOException {
+    void btnMainMenuClicked(ActionEvent event) throws IOException {
         AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
     }
 

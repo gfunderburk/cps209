@@ -2,7 +2,7 @@
     -fx-padding: 10; /* Add a small padding around the window */
     -fx-spacing: 10;
     -fx-alignment: center;
-    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-color: rgb(58, 58, 58);
 }
 
 .btn-OceanGrid{
@@ -15,8 +15,9 @@
 Label {
     -fx-padding: 15;
     -fx-font-size: 30; 
-    -fx-min-width: 60; 
-    -fx-min-height: 90;
+    -fx-text-fill: rgb(255, 255, 255);
+    /* -fx-min-width: 60; 
+    -fx-min-height: 90; */
     -fx-font-weight: bold;
 }
 
@@ -32,5 +33,31 @@ Button {
 VBox {
     -fx-spacing: 10;
     -fx-padding: 10;
-    -fx-alignment: center;
+    /* -fx-alignment: center; */
+}
+
+HBox {
+    -fx-padding: 1;
+    -fx-spacing: 1;
+    -fx-max-height: 10;
+}
+
+.controls-screen {
+    -fx-padding: 1;
+    -fx-spacing: 1;
+    -fx-max-height: 10;
+    -fx-font-size: 15;
+
+}
+
+.control-names {
+    -fx-padding: 5;
+    -fx-font-size: 10; 
+    -fx-font-weight: bold;
+ 
+}
+
+.devNames {
+    -fx-font-size: 20 !important;
+
 }

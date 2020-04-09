@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,6 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 //-----------------------------------------------------------
@@ -22,6 +27,11 @@ public class W_MainMenu {
     Stage newStage = AppGUI.getStage();
     Stage oldStage = new Stage();
 
+    private static Stage gameStage;
+
+    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+
     // ------------- //
     // GUI Elements //
     // ------------- //
@@ -32,31 +42,31 @@ public class W_MainMenu {
 
     @FXML
     void btn_newGameClicked(ActionEvent event) throws IOException, InterruptedException {
-
-        // TODO: USE https://code.makery.ch/blog/javafx-dialogs-official/
-        // TO BUILD a pop-up box to ask for difficulty level and a playername for the
-        // this game's playthrough
-        // THEN open up W_InGame.fxml, passing it the recently input parameters with
-        // some of the code below.
+        // Play button click sounds
+        BTN_CLICK.play();   
 
         // items for the dialog
         Integer difficulty[] = { 1, 2, 3 };
 
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
-
-        var difficultyLevel = (int) d.getSelectedItem();
+        d.setHeaderText("Please Select Difficulty Level");
+        
 
         var loader = new FXMLLoader(getClass().getResource("W_InGame.fxml"));
         var scene = new Scene(loader.load());
 
         W_InGame game = loader.getController();
         var stage = new Stage();
+        stage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
         stage.setScene(scene);
+        gameStage = stage;
         d.showAndWait().ifPresent(choice -> {
+            THEME.play();
             stage.show();
+            newStage.close();
             try {
-                game.initialize(difficultyLevel);
+                game.initialize((int) d.getSelectedItem());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -65,15 +75,11 @@ public class W_MainMenu {
 
     @FXML
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
+        // Play button click sounds
+        BTN_CLICK.play();
         var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
         var scene = new Scene(loader.load());
 
-        // W_CRUDsaves crudsaves = loader.getController();
-        // crudsaves.initialize();
-
-        // var stage = new Stage();
-        // stage.setScene(scene);
-        // stage.show();
 
         newStage.setScene(scene);
         newStage.setTitle("Load/Save Game");
@@ -86,17 +92,27 @@ public class W_MainMenu {
 
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException {
+        // Play button click sounds
+        BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Controls / How to Play", getClass().getResource("W_Controls.fxml"));
     }
 
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException {
+        // Play button click sounds
+        BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"));
     }
 
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException {
+        // Play button click sounds
+        BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Credits", getClass().getResource("W_Credits.fxml"));
+    }
+
+    public static Stage getGameStage() {
+        return gameStage;
     }
 
     // ------------- //
