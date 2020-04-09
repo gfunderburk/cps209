@@ -45,6 +45,12 @@ public class E_Projectile extends Entity{
 
     }
 
+    @Override
+    public void spawn() {
+        // TODO Auto-generated method stub
+
+    }
+
 
     //  Getters-Setters  //
 

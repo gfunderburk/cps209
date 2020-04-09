@@ -63,6 +63,12 @@ public class EH_Avatar extends EntityHumanoid {
 
     }
 
+    @Override
+    public void spawn() {
+        // TODO Auto-generated method stub
+
+    }
+
 
     //  Getters-Setters  //
 

@@ -7,7 +7,7 @@ public abstract class EntityHumanoid extends EntityKillable{
 
     
     int mag, ammo;
-    public static enum positionState {CROUCHING, STANDING, JUMPING, MOVING};
+    public static enum positionState {CROUCHING, STANDING, JUMPING, WALKING};
     public static enum actionState {RELOADING, SHOOTING, THROWING, ENRAGED};
 
 

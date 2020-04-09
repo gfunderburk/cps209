@@ -63,6 +63,12 @@ public class EK_Scenery extends EntityKillable {
 
     }
 
+    @Override
+    public void spawn() {
+        // TODO Auto-generated method stub
+
+    }
+
 
     //  Getters-Setters  //
 

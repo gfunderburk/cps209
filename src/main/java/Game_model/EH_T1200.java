@@ -63,6 +63,12 @@ public class EH_T1200 extends EntityHumanoid {
 
     }
 
+    @Override
+    public void spawn() {
+        // TODO Auto-generated method stub
+
+    }
+
 
     //  Getters-Setters  //
 

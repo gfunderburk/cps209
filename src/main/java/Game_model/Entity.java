@@ -38,6 +38,9 @@ public abstract class Entity implements GameSave{
         }
     };
     
+    public void spawn() {
+        //TODO: make core spawn logic
+    }
 
     public abstract void collideEvent();
 
