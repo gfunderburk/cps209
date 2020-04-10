@@ -7,20 +7,20 @@
   <!-- Note: The Buttons need onAction's-->
  
 <HBox fx:controller="W_MainMenu" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css"
-    spacing="10" prefHeight="500" prefWidth="700">
+    spacing="10" prefHeight="650" prefWidth="700">
     <VBox>
       <ImageView  FitHeight="100" FitWidth="400" layoutX="30" layoutY="0">    
           <image>
-                <Image url="/icons/ts2logo.png"/>
+                <Image url="/icons/ts2logo (2).PNG"/>
           </image>
       </ImageView>
       <ImageView  FitHeight="300" FitWidth="400" layoutX="30" layoutY="3">    
         <image>
-              <Image url="/icons/SAMPLE.png"/>
+              <Image url="/icons/skull (2).PNG"/>
         </image>
       </ImageView>
     </VBox>
-    <VBox>
+    <VBox styleClass="menuButtons">
       <Button text="New Game" onAction="#btn_newGameClicked"/>
       <Button text="Load Game" onAction="#btn_loadSavedGameClicked"/>
       <Button text="Settings" onAction="#btn_ControlsClicked"/>

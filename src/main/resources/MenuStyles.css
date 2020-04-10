@@ -2,12 +2,9 @@
     -fx-padding: 10; /* Add a small padding around the window */
     -fx-spacing: 10;
     -fx-alignment: center;
-    -fx-background-color: rgb(58, 58, 58);
+    -fx-background-color: rgb(156, 156, 156);
 }
 
-.imageview {
-    -fx-background-color: rgb(58, 58, 58);  
-}
 
 Label {
     -fx-padding: 15;
@@ -27,9 +24,10 @@ Button {
     -fx-max-width: 200; 
 }
 
+
 VBox {
     -fx-spacing: 10;
-    -fx-padding: 10;
+    -fx-padding: 15;
     /* -fx-alignment: center; */
 }
 
@@ -37,6 +35,7 @@ HBox {
     -fx-padding: 1;
     -fx-spacing: 1;
     -fx-max-height: 10;
+    -fx-alignment: center;
 }
 
 .controls-screen {

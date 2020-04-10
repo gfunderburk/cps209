@@ -1,7 +1,7 @@
 /* Retrieved from https://stackoverflow.com/questions/33938811/styling-a-tableview-in-css-javafx */
 
 .root{
-    -fx-background-color: #ffffff;
+    -fx-background-color: rgb(156, 156, 156);
 }
 
 .table-view{
@@ -62,4 +62,17 @@
 .table-view > .virtual-flow > .scroll-bar > .increment-button, 
 .table-view > .virtual-flow > .scroll-bar > .decrement-button {
     -fx-opacity: 0;
+}
+
+Button {
+    -fx-padding: 15;
+    -fx-font-size: 20;
+    -fx-min-height: 60;
+}
+
+HBox {
+    -fx-padding: 1;
+    -fx-spacing: 1;
+    -fx-max-height: 10;
+    -fx-alignment: center;
 }
