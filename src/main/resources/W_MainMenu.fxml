@@ -16,7 +16,7 @@
       </ImageView>
       <ImageView  FitHeight="300" FitWidth="400" layoutX="30" layoutY="3">    
         <image>
-              <Image url="/icons/skull.jpg"/>
+              <Image url="/icons/skull.png"/>
         </image>
       </ImageView>
     </VBox>
