@@ -5,7 +5,7 @@
 <?import javafx.scene.image.* ?>
 <!-- Note: The Buttons need onAction's-->
 
-<VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" spacing="10" prefHeight="500" prefWidth="600">
+<VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" spacing="10" prefHeight="500" prefWidth="700">
 
   <TableView fx:id="tableView" prefHeight="500" prefWidth="700">
 
@@ -32,5 +32,8 @@
       <Label text="No Highscore yet" />
     </placeholder>
   </TableView>
-  <Button onAction="#btnMainMenuClicked" text="Main Menu"/>
+  <HBox>
+    <Button onAction="#btnMainMenuClicked" text="Main Menu"/>
+  </HBox>
+  
 </VBox>

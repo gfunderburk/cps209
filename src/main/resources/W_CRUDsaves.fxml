@@ -5,10 +5,10 @@
 <?import javafx.scene.image.*?>
 
 <VBox fx:controller="W_CRUDsaves" 
-      xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" fx:id="vbox_CRUDSaves">
-      <Label text="Do you want to load a saved game?" />
+      xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" fx:id="vbox_CRUDSaves" prefHeight="500" prefWidth="700">
+      
 
-      <TableView fx:id="tableView" prefHeight="500" prefWidth="700">
+      <TableView fx:id="tableView" prefHeight="350" prefWidth="500">
 
             <columns>
         
@@ -35,12 +35,15 @@
           </TableView>
 
 
-      <Button text="Back to Main Menu" onAction="#btn_mainMenuClicked"/>
+      <HBox alignment="CENTER" styleClass="">
+        <Button text="Back to Main Menu" onAction="#btn_mainMenuClicked"/>
 
-      <!-- TODO: Load Selected Game must remain disabled until a saved game row is selected
-            After being clicked, the selected game row (which is connected to a .dat file containing the saved game) 
-            will load the saved game -->
-
-      <Button text="Load Selected Game" onAction="#btn_loadSavedGame"/>
+        <!-- TODO: Load Selected Game must remain disabled until a saved game row is selected
+              After being clicked, the selected game row (which is connected to a .dat file containing the saved game) 
+              will load the saved game -->
+  
+        <Button text="Load Selected Game" onAction="#btn_loadSavedGame"/>
+      </HBox>
+      
 
 </VBox>
