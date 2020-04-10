@@ -1,5 +1,7 @@
 package Game_model;
 
+import Game_model.E_Projectile.TypeRound;
+
 public class EH_Avatar extends EntityHumanoid {
 
 
@@ -13,7 +15,7 @@ public class EH_Avatar extends EntityHumanoid {
 
 
     public EH_Avatar(){
-        
+        this.typeRound = TypeRound.LIGHT_ROUND;        
     }
 
 
@@ -65,6 +67,12 @@ public class EH_Avatar extends EntityHumanoid {
 
     @Override
     public void spawn() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void attack(Entity entity) {
         // TODO Auto-generated method stub
 
     }

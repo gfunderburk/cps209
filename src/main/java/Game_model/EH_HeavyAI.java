@@ -1,6 +1,8 @@
 package Game_model;
 
-public class EH_VTOL extends EntityHumanoid {
+import Game_model.E_Projectile.TypeRound;
+
+public class EH_HeavyAI extends EntityHumanoid {
 
 
     //  Variables  //
@@ -12,7 +14,8 @@ public class EH_VTOL extends EntityHumanoid {
     //  Constructor  //
 
 
-    public EH_VTOL(){
+    public EH_HeavyAI(){
+        this.typeRound = TypeRound.HEAVY_ROUND;
         
     }
 
@@ -65,6 +68,12 @@ public class EH_VTOL extends EntityHumanoid {
 
     @Override
     public void spawn() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void attack(Entity entity) {
         // TODO Auto-generated method stub
 
     }

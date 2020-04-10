@@ -53,18 +53,14 @@ public class ScoreManager {
 
     //   ----   //
 
-    public String Serialize()
+
+    public String toString()
     {
         String result = "";
         for (Score score : scoreList) {
             result += score.Serialize();
         }
         return result;
-    }
-
-    public String toString()
-    {
-        return this.Serialize();
     }
 
 

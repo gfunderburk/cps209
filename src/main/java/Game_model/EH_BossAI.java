@@ -1,6 +1,8 @@
 package Game_model;
 
-public class EH_T800 extends EntityHumanoid {
+import Game_model.E_Projectile.TypeRound;
+
+public class EH_BossAI extends EntityHumanoid {
 
 
     //  Variables  //
@@ -12,8 +14,8 @@ public class EH_T800 extends EntityHumanoid {
     //  Constructor  //
 
 
-    public EH_T800(){
-        
+    public EH_BossAI(){
+        this.typeRound = TypeRound.HEAVY_ROUND;        
     }
 
 
@@ -65,6 +67,12 @@ public class EH_T800 extends EntityHumanoid {
 
     @Override
     public void spawn() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void attack(Entity entity) {
         // TODO Auto-generated method stub
 
     }
