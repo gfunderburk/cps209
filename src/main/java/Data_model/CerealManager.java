@@ -63,7 +63,8 @@ public class CerealManager {
 
     public static void loadCerealFile(int cerealIndex){
 
-        Game.getIt().clean();
+        var loadCereal = cerealList.get(cerealIndex);
+        Game.getIt().cleanLoad();
 
         try(BufferedReader rd = new BufferedReader( new FileReader(loadCereal.toString())))
         {                       
