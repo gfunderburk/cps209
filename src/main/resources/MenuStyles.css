@@ -5,11 +5,8 @@
     -fx-background-color: rgb(58, 58, 58);
 }
 
-.btn-OceanGrid{
-    -fitHeight: 50;
-    -fitWidth: 50;  
-    -pickOnBounds: true;
-    -preserveRatio: true;
+.imageview {
+    -fx-background-color: rgb(58, 58, 58);  
 }
 
 Label {
@@ -61,3 +58,4 @@ HBox {
     -fx-font-size: 20 !important;
 
 }
+

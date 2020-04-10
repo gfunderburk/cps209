@@ -11,12 +11,12 @@
     <VBox>
       <ImageView  FitHeight="100" FitWidth="400" layoutX="30" layoutY="0">    
           <image>
-                <Image url="/icons/ts2logo.JPG"/>
+                <Image url="/icons/ts2logo.png"/>
           </image>
       </ImageView>
       <ImageView  FitHeight="300" FitWidth="400" layoutX="30" layoutY="3">    
         <image>
-              <Image url="/icons/skull.jpg"/>
+              <Image url="/icons/skull.png"/>
         </image>
       </ImageView>
     </VBox>
