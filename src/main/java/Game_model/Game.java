@@ -15,8 +15,9 @@ public class Game implements GameSave {
     //  Variables  //
 
     
-    public enum Mode{Easy, Medium, Hard}
+    public enum StateDifficulty{EASY, MEDIUM, HARD}
     public enum StateGame{RUNNING, PAUSED}
+    public StateDifficulty stateDiff;
     public StateGame stateGame;
     public int hostilesLeft;
     public int score;
@@ -41,7 +42,24 @@ public class Game implements GameSave {
 
     //  Methods  //
 
-    public void start(){
+    
+    public void cleanStart(String playerName, StateDifficulty difficultyMode){
+        this.playerName = playerName;
+        this.stateDiff = difficultyMode;
+        entityList = new ArrayList<Entity>();
+        hostilesLeft = 10;
+        score = 0;
+        time = 0;
+        gameLvl = 1;
+        gameOver = false;
+        cheatMode = false;
+    }
+
+    public void cleanLoad(){
+        entityList = new ArrayList<Entity>();
+    }
+
+    public void play(){
         // TODO update windows and such to start the game   
         stateGame = StateGame.RUNNING;    
     }

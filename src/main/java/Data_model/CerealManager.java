@@ -40,9 +40,10 @@ public class CerealManager {
         File folder = new File(x);
         File[] listOfFiles = folder.listFiles();
 
-        for (File file : listOfFiles) {
-            if (file.isFile()) {
-
+        for (File file : listOfFiles) 
+        {
+            if (file.isFile()) 
+            {
                 // Check IF file ext is .dat
                 String[] item = file.getName().split(".");
                 if(item[item.length - 1].equals(".dat")){
@@ -62,21 +63,22 @@ public class CerealManager {
 
     public static void loadCerealFile(int cerealIndex){
 
-        var loadCereal = cerealList.get(cerealIndex);
+        Game.getIt().clean();
 
-        try(BufferedReader rd = new BufferedReader( new FileReader(loadCereal.toString()))) {
-                       
+        try(BufferedReader rd = new BufferedReader( new FileReader(loadCereal.toString())))
+        {                       
             String line = rd.readLine();
             while (line != null) { 
 
-                loadCereal.deSerialize(line);
+                Game.getIt().deSerialize(line);
                 System.out.println(line); 
                 line = rd.readLine(); 
             } 
             rd.close(); 
-            loadCereal.game.start();
+            Game.getIt().play();
         } 
-        catch (IOException e) { 
+        catch (IOException e) 
+        { 
             System.out.println("Problem loading " + loadCereal.toString()); 
         }
     }
@@ -85,14 +87,16 @@ public class CerealManager {
     public static void saveCerealFile(Game gameSession){
         try(var wr = new PrintWriter( new FileWriter(gameSession.toString())); ) 
         { 
-            wr.println(gameSession.Serialize());             
+            wr.println(gameSession.Serialize());   
+
             for (Entity item : gameSession.entityList) 
             {
                 wr.println(item.Serialize());
             }            
             wr.close(); 
         } 
-        catch (IOException e) {
+        catch(IOException e) 
+        {
             System.out.println("Problem saving " + gameSession.toString()); 
         }
     }

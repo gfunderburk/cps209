@@ -28,7 +28,7 @@ public class Score {
     
     public String Serialize()
     {
-        return " SCORE: " + this.name + " @ " + this.dt + " = " + this.value;
+        return this.name + "," + this.dt + "," + this.value;
     }
 
     public String toString()
