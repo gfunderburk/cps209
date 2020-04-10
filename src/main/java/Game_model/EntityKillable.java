@@ -8,11 +8,11 @@ public abstract class EntityKillable extends Entity {
     
     public int maxHealth, currentHealth;
     public static enum StateLife {HEALTHY, HURT, DEAD}
-    private StateLife stateLife;
+    public  StateLife stateLife;
 
 
     //  Methods  //
-    
+
 
     public void checkLife() {
 

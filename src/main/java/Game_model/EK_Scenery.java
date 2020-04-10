@@ -6,6 +6,10 @@ public class EK_Scenery extends EntityKillable {
     //  Variables  //
 
     
+    public static enum Type {WALL_WOOD, WALL_STONE, CRATE, BARREL};
+    public Type type;
+    public static enum Item {LIGHT_AMMO, HEAVY_AMMO, EXPLOSIVES_AMMO, BOMB};
+    public Item item;
 
 
 

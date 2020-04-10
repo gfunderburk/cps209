@@ -5,7 +5,9 @@ public class E_Projectile extends Entity{
 
     //  Variables  //
 
-    
+
+    public static enum TypeRound {LIGHT_ROUND, HEAVY_ROUND, EXPLOSIVE_ROUND};
+    public TypeRound typeRound;    
 
 
 

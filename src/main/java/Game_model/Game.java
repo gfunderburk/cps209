@@ -2,6 +2,7 @@ package Game_model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Timer;
 
 //--------------------------------------------------------------------------
 //File:   Game.java
@@ -26,7 +27,6 @@ public class Game implements GameSave {
     public LocalDateTime dt;
     public String playerName;
     public ArrayList<Entity> entityList = new ArrayList<Entity>();
-
     public boolean gameOver = false;
     public boolean cheatMode = false;
 
@@ -69,6 +69,10 @@ public class Game implements GameSave {
         stateGame = StateGame.PAUSED;    
     }
 
+    public void applyBonusPts(){
+        // TODO update windows and such to pause the game         
+    }
+
     @Override
     public String Serialize() {
         // TODO serialize self data
@@ -95,3 +99,5 @@ public class Game implements GameSave {
     }
 
 }
+
+

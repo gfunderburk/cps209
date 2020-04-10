@@ -10,10 +10,11 @@ public abstract class Entity implements GameSave{
     //  Variables  //
 
     
-    int height, imgHeight, width, imgWidth;
-    Point3D location;
-    Point3D vector;
-    String image;
+    public int height, width; 
+    public int imgHeight, imgWidth, imgYos, imgXos;
+    public int speed;
+    public Point3D location, vector;
+    public String image;
 
 
     //  Methods  //

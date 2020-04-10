@@ -36,6 +36,14 @@ public class Score {
         return this.Serialize();
     }
 
+    public void deSerialize(String data) {
+        
+        String[] item = data.split(",");        
+        this.name = item[0];
+        this.dt = LocalDateTime.parse(item[1]);
+        this.value = Integer.parseInt(item [2]);
+    }
+
     
     //  Getters-Setters  //
 
