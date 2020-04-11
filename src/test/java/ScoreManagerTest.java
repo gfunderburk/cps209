@@ -21,7 +21,16 @@ public class ScoreManagerTest {
 
 
     @Test
-    public void test_Add_SortScores() 
+    public void test_Add_Scores() 
+    {
+        ScoreManager.setList(testList);
+        ScoreManager.addScore(new Score("userName", now, 100));
+        assertEquals(6, ScoreManager.getList().size());
+        assertEquals("userName", ScoreManager.getList().get(5).getName());
+    }
+
+    @Test
+    public void test_SortScores() 
     {
         ScoreManager.setList(testList);
         ScoreManager.addScore(new Score("userName", now, 100));
