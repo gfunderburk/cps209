@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import Game_model.*;
 
@@ -116,7 +118,8 @@ public class CerealManager {
     
 
     public static void sortList(){
-        cerealList.sort((o1, o2) -> o1.dt.compareTo(o2.dt));
+        Comparator<Cereal> compareByDT = (Cereal o1, Cereal o2) -> o1.dt.compareTo( o2.dt ); 
+        Collections.sort(cerealList, compareByDT.reversed());
     } 
 
     //  ---  //

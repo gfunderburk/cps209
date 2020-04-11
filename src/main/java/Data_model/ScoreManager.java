@@ -1,6 +1,8 @@
 package Data_model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ScoreManager {
 
@@ -40,15 +42,9 @@ public class ScoreManager {
     }
     
     public static void sortScores(){
-        scoreList.sort( (o1, o2) -> 
-        {
-            if(o1.value == o2.value){
-                return 0;
-            }
-            else{
-                return o1.value < o2.value ? -1 : 1;
-            }
-        });
+        
+        Comparator<Score> compareByScore = (Score o1, Score o2) -> o1.value - o2.value; 
+        Collections.sort(scoreList, compareByScore.reversed());
     } 
 
     //   ----   //

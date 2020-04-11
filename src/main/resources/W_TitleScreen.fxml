@@ -15,11 +15,11 @@
    </ImageView>
 
     <VBox alignment="CENTER">
-      <ImageView  FitHeight="100" preserveRatio="true">    
+      <!-- <ImageView  FitHeight="100" preserveRatio="true">    
         <image>
               <Image url="/icons/loadingCircle_nobackground.gif"/>
         </image>
-      </ImageView>
+      </ImageView> -->
 
       <!-- <Button text="Continue" onAction="#onContinueClicked"/> -->
 

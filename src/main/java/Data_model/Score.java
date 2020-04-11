@@ -8,9 +8,9 @@ public class Score {
     //  Variables  //
 
 
-    int value;
-    LocalDateTime dt;
-    String name;
+    public int value;
+    public LocalDateTime dt;
+    public String name;
 
     
     //  Constructor  //

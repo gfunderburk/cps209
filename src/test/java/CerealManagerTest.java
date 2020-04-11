@@ -23,7 +23,16 @@ public class CerealManagerTest {
     
 
     @Test
-    public void test_Add_SortSaves()   throws IOException 
+    public void test_AddSaves()   throws IOException 
+    {
+        CerealManager.setList(testList);
+        CerealManager.addCerealFile(new Cereal(game, now.plusHours(5), "bob"));
+        assertEquals(6, CerealManager.getList().size());
+        assertEquals("bob", CerealManager.getList().get(5).getName());
+    }
+
+    @Test
+    public void test_SortSaves()   throws IOException 
     {
         CerealManager.setList(testList);
         CerealManager.addCerealFile(new Cereal(game, now.plusHours(5), "bob"));

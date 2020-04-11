@@ -1,0 +1,10 @@
+
+Schaub, Stephen, Question about unit testing for the game model: 
+
+The requirements today ask that we implement basic unit tests for both our data (highscore + serial) and our Game model.
+
+We successfully have our data model unit tests, but we are unsure how to unit test the game model currently. 
+
+Most everything in the Game model so far is 
+
+https://github.com/gfunderburk/cps209/tree/master/src/main/java​​​​​​​
