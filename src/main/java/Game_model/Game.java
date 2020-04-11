@@ -30,7 +30,8 @@ public class Game implements GameSave {
     public boolean gameOver = false;
     public boolean cheatMode = false;
 
-    
+
+
     //  Singleton  //
 
 
@@ -69,8 +70,9 @@ public class Game implements GameSave {
         stateGame = StateGame.PAUSED;    
     }
 
-    public void applyBonusPts(){
-        // TODO update windows and such to pause the game         
+    public void checkGameOver(){
+        // TODO IF hostilesLeft = 0, show end-level screen to progress to next level.
+        //   OR IF player health = 0, show end-game screen to offer to save player score.         
     }
 
     @Override
@@ -83,7 +85,6 @@ public class Game implements GameSave {
     @Override
     public void deSerialize(String data) {
         // TODO load data to self
-
     }
 
 
@@ -96,6 +97,94 @@ public class Game implements GameSave {
 
     public static void setIt(Game it) {
         It = it;
+    }
+
+    public StateDifficulty getStateDiff() {
+        return stateDiff;
+    }
+
+    public void setStateDiff(StateDifficulty stateDiff) {
+        this.stateDiff = stateDiff;
+    }
+
+    public StateGame getStateGame() {
+        return stateGame;
+    }
+
+    public void setStateGame(StateGame stateGame) {
+        this.stateGame = stateGame;
+    }
+
+    public int getHostilesLeft() {
+        return hostilesLeft;
+    }
+
+    public void setHostilesLeft(int hostilesLeft) {
+        this.hostilesLeft = hostilesLeft;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getGameLvl() {
+        return gameLvl;
+    }
+
+    public void setGameLvl(int gameLvl) {
+        this.gameLvl = gameLvl;
+    }
+
+    public LocalDateTime getDt() {
+        return dt;
+    }
+
+    public void setDt(LocalDateTime dt) {
+        this.dt = dt;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public ArrayList<Entity> getEntityList() {
+        return entityList;
+    }
+
+    public void setEntityList(ArrayList<Entity> entityList) {
+        this.entityList = entityList;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public boolean isCheatMode() {
+        return cheatMode;
+    }
+
+    public void setCheatMode(boolean cheatMode) {
+        this.cheatMode = cheatMode;
     }
 
 }
