@@ -66,7 +66,8 @@ public class W_InGame {
     @FXML
     void onEscClicked() throws IOException {
         // Stage stage = (Stage) btn_esc.getScene().getWindow();
-        // stage.close();
+        oldStage.setWidth(200);
+        oldStage.setWidth(300);
         AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"));
     }
 

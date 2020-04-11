@@ -35,6 +35,8 @@ public class AppGUI extends Application {
         var scene_a = new Scene(load_titleScreen.load());
         stage.getIcons().add(new Image("/icons/terminatorIcon2.png")); // https://stackoverflow.com/questions/58241811/set-top-left-image-on-dialog-pane-with-javafx
         stage.setScene(scene_a);
+        stage.setHeight(600);
+        stage.setWidth(800);
         stage.show();
 
     }
@@ -54,6 +56,9 @@ public class AppGUI extends Application {
 
         newStage.setScene(scene);
         newStage.setTitle(newWindowName);
+        newStage.setHeight(600);
+        newStage.setWidth(800);
+
         newStage.show();
         
         if(oldStage.isShowing()){
