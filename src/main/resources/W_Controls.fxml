@@ -24,20 +24,41 @@
 
     <HBox alignment="CENTER">
 
+    
+
         <VBox styleClass="control-names">
             <Label text="Shoot:" />
-            <Label text="Jump:" />
-            <Label text="Duck:" />
-            <Label text="Left/Right:" />
+            <Label text="Toggle equipped weapon:"/>
+            <Label text="Reload weapon:" />
+            <Label text="Stand up:" />
+            <Label text="Crouch:" />
+            <Label text="Enter/exit ESC Menu:" />
+            <!--Extra credit: <Label text="Hold [C] for 1.5 sec. = toggle cheat mode:" />-->
+            <Label text="Move left:" />
+            <Label text="Move right:" />
         </VBox>
 
-
+    <!-- [Rightclick] = shoot firearm.
+    [Leftclick] = toggle equiped firearm.
+    [R] = reload equiped firearm.
+    [W] = stand up.
+    [S] = crouch down.
+    [ESC] = enter/exit ESC Menu.
+    Hold [C] for 1.5 sec. = toggle cheatMode. 
+    (Extra Credit)
+    [A] = skoot left.
+    [D] = skoot right. -->
 
         <VBox styleClass="textFields">
-            <TextField  text="Shift"  />
+            <TextField  text="Leftclick"  />
+            <TextField  text="Rightclick" />
+            <TextField  text="R" />
             <TextField  text="W"  />
             <TextField  text="S"  />
-            <TextField  text="A/S"  />
+            <TextField  text="ESC"  />
+            <!--Extra credit toggle for cheat mode: <Toggle /> -->  
+            <TextField  text="A" />
+            <TextField  text="D" />
         </VBox>
         
         

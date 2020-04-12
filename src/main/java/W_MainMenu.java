@@ -60,6 +60,8 @@ public class W_MainMenu {
         var stage = new Stage();
         stage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
         stage.setScene(scene);
+        stage.setHeight(600);
+        stage.setWidth(800);
         gameStage = stage;
         d.showAndWait().ifPresent(choice -> {
             THEME.play();
