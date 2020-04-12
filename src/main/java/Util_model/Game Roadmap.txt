@@ -1,0 +1,103 @@
+
+# Key Responsibilities
+![](https://github.com/gfunderburk/cps209/blob/master/src/main/resources/media/Wiki%20Resources/MemberRoles.png)
+
+
+# Pre-Alpha
+|   Feature  | Required |  Assignee | Status|
+|:--------|:------------:|:------------:|:-----:|
+|Title Screen | _ | Cox |  Completed |
+|MainMenu Screen | Yes | Cox |  Completed |
+|Esc Screen | _ | Cox |  Completed |
+|Help/Controls Screen | Yes | Cox |  Completed |
+|Credits Screen | Yes | Cox |  Completed |
+|Game Assets | _ | Cox |  Completed |
+|VS-Code Project Structure | _ | Layton |  Completed |
+|Game Model Structure | _ | Layton |  Completed |
+|Data Model Structure | _ | Layton |  Completed |
+|Entity Logic Structure | _ | Funderburk |  In Progress |
+
+
+# Alpha
+|   Feature  | Required |  Assignee | Status|
+|:--------|:------------:|:------------:|:-----:|
+| In-game World (lvl-1) | _ | Cox |  Not Started |
+| In-game HUD | _ | Cox |  Not Started |
+| LightAI Animations | _ | Cox |  Not Started |
+| Player Stats | _ | Funderburk |  Not Started |
+| Player Shooting | _ | Funderburk |  Not Started |
+| LightAI Logic | _ | Funderburk |  Not Started |
+| CheatMode Toggle | Yes | Funderburk |  Not Started |
+| Game 3-space  | _ | Layton |  In Progress |
+| Game Physics / Movement | _ | Layton |  In Progress |
+| Load/Save Functionality | Yes | Layton |  In Progress |
+
+
+# Beta
+|   Feature  | Required |  Assignee | Status|
+|:--------|:------------:|:------------:|:-----:|
+| In-game World (lvl-2) | _ | Cox |  Not Started |
+| In-game World (lvl-3) | _ | Cox |  Not Started |
+| HeavyAI Animations | _ | Cox |  Not Started |
+| FlyingAI Animations | _ | Cox |  Not Started |
+| BossAI Animations | _ | Cox |  Not Started |
+| HeavyAI Logic | _ | Funderburk |  Not Started |
+| FlyingAI Logic | _ | Funderburk |  Not Started |
+| BossAI Logic | _ | Funderburk |  Not Started |
+| Scenery Logic | _ | Funderburk |  Not Started |
+| Power-up Logic | _ | Funderburk |  Not Started |
+| Level GameOver Logic | _ | Layton |  Not Started |
+| Level Progression Logic | _ | Layton |  Not Started |
+| Score Functionality | Yes | Layton/Cox |  In Progress |
+
+
+# Release Candidate
+|   Feature  | Required |  Assignee | Status|
+|:--------|:------------:|:------------:|:-----:|
+| Review/Complete Menu Screens | Yes | Cox |  Not Started |
+| Review/Complete Sound Effects | Yes | Cox |  Not Started |
+| Extra Credit Animations | _ | Cox |  Not Started |
+| Difficulty Levels Logic | Yes | Funderburk |  Not Started |
+| Extra Credit Logic | _ | Funderburk |  Not Started |
+| Review Code-Base Structural Integrity | _ | Layton |  Not Started | 
+
+
+# Final Release
+|   Feature  | Required |  Assignee | Status|
+|:--------|:------------:|:------------:|:-----:|  
+|Bug Fixes | _ | Everyone |  Not Started |
+|Comments | _ | Everyone |  Not Started |
+|Review Wiki | _ | Everyone |  Not Started |
+
+
+# Extra Credit Optional
+|   Feature  |  Assignee(s) | Status|
+|:--------|:------------:|:-----:|  
+| Mulitple Player Weapons HUD display | Cox |  Not Started |
+| Mulitple Player Weapons Logic | Funderburk |  Not Started |
+| Hostile Special Attacks Visuals/Sound | Cox |  Not Started |
+| Hostile Special Attacks Logic | Funderburk |  Not Started |
+| LightAI seek cover | Funderburk |  Not Started |
+| Custom User Controls | Layton |  Not Started | 
+ 
+
+
+
+**Note:** the project has the following sections of work.
+
+- in-game dynamic animation
+- in-game static scenery
+- in-game sounds
+- in-game HUD
+- in-game player controls
+- in-game physics movement
+- in-game physics responses to movement
+- in-game hostiles logic
+- in-game world master logic
+- out-game menu theming
+- out-game scoring
+- out-game serialization
+
+|  | _ | Cox |  Not Started |
+|  | _ | Funderburk |  Not Started |
+|  | _ | Layton |  Not Started |
