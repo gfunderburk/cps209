@@ -21,34 +21,30 @@
 # Alpha
 |   Feature  | Required |  Assignee | Status|
 |:--------|:------------:|:------------:|:-----:|
-| In-game World (lvl-1) | _ | Cox |  Not Started |
-| In-game HUD | _ | Cox |  Not Started |
-| LightAI Animations | _ | Cox |  Not Started |
+| In-game Background for (lvl-1) | _ | Cox |  Not Started |
+| In-game HUD | _ | Cox |  In Progress |
+| Highscores Load/Save Functionality | Yes | Cox |  In Progress |
 | Player Stats | _ | Funderburk |  Not Started |
 | Player Shooting | _ | Funderburk |  Not Started |
-| LightAI Logic | _ | Funderburk |  Not Started |
 | CheatMode Toggle | Yes | Funderburk |  Not Started |
+| Game Load/Save Functionality | Yes | Funderburk |  In Progress |
+| LightAI Animations+Logic | _ | Layton |  Not Started |
 | Game 3-space  | _ | Layton |  In Progress |
 | Game Physics / Movement | _ | Layton |  In Progress |
-| Load/Save Functionality | Yes | Layton |  In Progress |
-
 
 # Beta
 |   Feature  | Required |  Assignee | Status|
 |:--------|:------------:|:------------:|:-----:|
-| In-game World (lvl-2) | _ | Cox |  Not Started |
-| In-game World (lvl-3) | _ | Cox |  Not Started |
-| HeavyAI Animations | _ | Cox |  Not Started |
-| FlyingAI Animations | _ | Cox |  Not Started |
-| BossAI Animations | _ | Cox |  Not Started |
-| HeavyAI Logic | _ | Funderburk |  Not Started |
-| FlyingAI Logic | _ | Funderburk |  Not Started |
-| BossAI Logic | _ | Funderburk |  Not Started |
+| In-game Background (lvl-2) | _ | Cox |  Not Started |
+| In-game Background (lvl-3) | _ | Cox |  Not Started |
+| Score Functionality | Yes | Cox |  In Progress |
+| Level GameOver Logic | _ | Funderburk |  Not Started |
+| Level Progression Logic | _ | Funderburk |  Not Started |
 | Scenery Logic | _ | Funderburk |  Not Started |
 | Power-up Logic | _ | Funderburk |  Not Started |
-| Level GameOver Logic | _ | Layton |  Not Started |
-| Level Progression Logic | _ | Layton |  Not Started |
-| Score Functionality | Yes | Layton/Cox |  In Progress |
+| HeavyAI Animations+Logic | _ | Layton |  Not Started |
+| FlyingAI Animations+Logic | _ | Layton |  Not Started |
+| BossAI Animations+Logic | _ | Layton |  Not Started |
 
 
 # Release Candidate
@@ -56,10 +52,9 @@
 |:--------|:------------:|:------------:|:-----:|
 | Review/Complete Menu Screens | Yes | Cox |  Not Started |
 | Review/Complete Sound Effects | Yes | Cox |  Not Started |
-| Extra Credit Animations | _ | Cox |  Not Started |
 | Difficulty Levels Logic | Yes | Funderburk |  Not Started |
-| Extra Credit Logic | _ | Funderburk |  Not Started |
 | Review Code-Base Structural Integrity | _ | Layton |  Not Started | 
+| Extra Credit Work | _ | Everyone |  Not Started |
 
 
 # Final Release
@@ -74,30 +69,8 @@
 |   Feature  |  Assignee(s) | Status|
 |:--------|:------------:|:-----:|  
 | Mulitple Player Weapons HUD display | Cox |  Not Started |
-| Mulitple Player Weapons Logic | Funderburk |  Not Started |
 | Hostile Special Attacks Visuals/Sound | Cox |  Not Started |
-| Hostile Special Attacks Logic | Funderburk |  Not Started |
-| LightAI seek cover | Funderburk |  Not Started |
-| Custom User Controls | Layton |  Not Started | 
- 
-
-
-
-**Note:** the project has the following sections of work.
-
-- in-game dynamic animation
-- in-game static scenery
-- in-game sounds
-- in-game HUD
-- in-game player controls
-- in-game physics movement
-- in-game physics responses to movement
-- in-game hostiles logic
-- in-game world master logic
-- out-game menu theming
-- out-game scoring
-- out-game serialization
-
-|  | _ | Cox |  Not Started |
-|  | _ | Funderburk |  Not Started |
-|  | _ | Layton |  Not Started |
+| Mulitple Player Weapons Logic | Funderburk |  Not Started |
+| Custom User Controls | Funderburk |  Not Started | 
+| Hostile Special Attacks Logic | Layton |  Not Started |
+| LightAI seek cover | Layton |  Not Started |
