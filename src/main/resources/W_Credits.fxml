@@ -7,8 +7,8 @@
 <VBox fx:controller="W_Credits" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css" prefHeight="500" prefWidth="700">
       <Label text="Credits" />
       <Label text="Jeremiah Cox: GUI" styleClass="devNames"/>
-      <Label text="Jonathan Layton: Serialization" styleClass="devNames"/>
-      <Label text="Gunnar Funderburk: Game Play" styleClass="devNames"/>
+      <Label text="Jonathan Layton: Game Play" styleClass="devNames"/>
+      <Label text="Gunnar Funderburk: Serialization/Scenery" styleClass="devNames"/>
       <Button text="Main Menu" onAction="#btn_mainMenuClicked" styleClass="devNames"/>
 
 </VBox>
