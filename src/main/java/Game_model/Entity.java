@@ -10,11 +10,11 @@ public abstract class Entity implements GameSave{
     //  Variables  //
 
     
-    public int height, width; 
-    public int imgHeight, imgWidth, imgYos, imgXos;
-    public int speed;
-    public Point3D location, vector;
-    public String image;
+    protected  int height, width; 
+    protected  int imgHeight, imgWidth, imgYos, imgXos;
+    protected  int speed;
+    protected  Point3D location, vector;
+    protected  String image;
 
 
     //  Methods  //
@@ -23,7 +23,7 @@ public abstract class Entity implements GameSave{
     public void move() {
         this.location = this.location.add(vector);
 
-        for (Entity item : Game.getIt().entityList) 
+        for (Entity item : Game.getIt().getEntityList()) 
         {            
             compareDist(item);
         }

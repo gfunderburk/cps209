@@ -10,7 +10,7 @@ public class ScoreManager {
     //  Variables  //
 
 
-    static private ArrayList<Score> scoreList = new ArrayList<Score>();
+    private ArrayList<Score> scoreList = new ArrayList<Score>();
     
     
     //  Singleton  //
@@ -19,39 +19,36 @@ public class ScoreManager {
     private ScoreManager() {
     }
 
-    static private ScoreManager It = new ScoreManager();
+    private static ScoreManager It = new ScoreManager();
 
+    // Methods //
 
-    //  Methods  //
-
-
-    public static void loadScores(){
-        //TODO: read scores data found in Game.scores file.
+    public void loadScores() {
+        // TODO: read scores data found in Game.scores file.
     }
 
-    public static void saveScores(){
-        //TODO: serialize scores to Game.scores
+    public void saveScores() {
+        // TODO: serialize scores to Game.scores
     }
 
-    public static void addScore(Score newScore){
+    public void addScore(Score newScore) {
         scoreList.add(newScore);
+        sortScores();
     }
 
-    public static void deleteScore(Score score){
+    public void deleteScore(Score score) {
         scoreList.remove(score);
     }
-    
-    public static void sortScores(){
-        
-        Comparator<Score> compareByScore = (Score o1, Score o2) -> o1.value - o2.value; 
+
+    public void sortScores() {
+
+        Comparator<Score> compareByScore = (Score o1, Score o2) -> o1.value - o2.value;
         Collections.sort(scoreList, compareByScore.reversed());
-    } 
+    }
 
-    //   ----   //
+    // ---- //
 
-
-    public String toString()
-    {
+    public String toString() {
         String result = "";
         for (Score score : scoreList) {
             result += score.Serialize();
@@ -59,16 +56,14 @@ public class ScoreManager {
         return result;
     }
 
+    // Getters-Setters //
 
-    //  Getters-Setters  //
-
-
-    public static ArrayList<Score> getList() {
+    public ArrayList<Score> getList() {
         return scoreList;
     }
 
-    public static void setList(ArrayList<Score> scoreList) {
-        ScoreManager.scoreList = scoreList;
+    public void setList(ArrayList<Score> scoreList) {
+        ScoreManager.getIt().setList(scoreList);
     }
 
     public static ScoreManager getIt() {

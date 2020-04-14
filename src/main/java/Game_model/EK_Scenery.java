@@ -7,9 +7,9 @@ public class EK_Scenery extends EntityKillable {
 
     
     public static enum Type {WALL_WOOD, WALL_STONE, CRATE, BARREL};
-    public Type type;
+    private Type type;
     public static enum Item {LIGHT_AMMO, HEAVY_AMMO, EXPLOSIVES_AMMO, BOMB};
-    public Item item;
+    private Item item;
 
 
 
@@ -77,6 +77,21 @@ public class EK_Scenery extends EntityKillable {
     //  Getters-Setters  //
 
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
    
 
 

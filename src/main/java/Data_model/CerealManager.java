@@ -19,7 +19,7 @@ public class CerealManager {
     //  Variables  //
 
 
-    static private ArrayList<Cereal> cerealList = new ArrayList<Cereal>();   // list of game save file names in dir
+    private ArrayList<Cereal> cerealList = new ArrayList<Cereal>();   // list of game save file names in dir
     
     
     //  Singleton  //
@@ -27,13 +27,13 @@ public class CerealManager {
 
     private CerealManager() {}
 
-    static private CerealManager It = new CerealManager();
+    private static CerealManager It = new CerealManager();
 
 
     //  Methods  //
 
 
-    public static void loadCerealDir(){
+    public void loadCerealDir(){
 
         //  Go to save files' directory
         String x = System.getProperty("user.dir") + File.pathSeparator + "SavedData";
@@ -63,7 +63,7 @@ public class CerealManager {
     }
 
 
-    public static void loadCerealFile(int cerealIndex){
+    public void loadCerealFile(int cerealIndex){
 
         var loadCereal = cerealList.get(cerealIndex);
         Game.getIt().cleanLoad();
@@ -89,12 +89,12 @@ public class CerealManager {
     
 
     
-    public static void saveCerealFile(Game gameSession){
+    public void saveCerealFile(Game gameSession){
         try(var wr = new PrintWriter( new FileWriter(gameSession.toString())); ) 
         { 
             wr.println(gameSession.Serialize());   
 
-            for (Entity item : gameSession.entityList) 
+            for (Entity item : gameSession.getEntityList()) 
             {
                 wr.println(item.Serialize());
             }            
@@ -107,17 +107,18 @@ public class CerealManager {
     }
 
 
-    public static void addCerealFile(Cereal newCereal){
+    public void addCerealFile(Cereal newCereal){
         cerealList.add(newCereal);
+        sortList();
     }
 
 
-    public static void deleteCereal(Cereal cereal){
+    public void deleteCereal(Cereal cereal){
         cerealList.remove(cereal);
     }
     
 
-    public static void sortList(){
+    public void sortList(){
         Comparator<Cereal> compareByDT = (Cereal o1, Cereal o2) -> o1.dt.compareTo( o2.dt ); 
         Collections.sort(cerealList, compareByDT.reversed());
     } 
@@ -141,11 +142,11 @@ public class CerealManager {
         return cerealList;
     }
 
-    public static void setList(ArrayList<Cereal> testList) {
-        CerealManager.cerealList = testList;
+    public void setList(ArrayList<Cereal> testList) {
+        cerealList = testList;
     }
 
-    public static CerealManager getIt() {
+    public CerealManager getIt() {
         return It;
     }
 }

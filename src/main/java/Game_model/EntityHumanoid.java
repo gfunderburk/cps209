@@ -6,12 +6,12 @@ public abstract class EntityHumanoid extends EntityKillable{
     //  Variables  //
 
     
-    public static enum StatePosition {CROUCHING, STANDING, JUMPING, WALKING};
-    public static enum StateAction {RELOADING, SHOOTING, THROWING, ENRAGED};
-    public StatePosition statePosition;
-    public StateAction stateAction;
-    public int mag, ammo;
-    public E_Projectile.TypeRound typeRound;
+    protected  static enum StatePosition {CROUCHING, STANDING, JUMPING, WALKING};
+    protected  static enum StateAction {RELOADING, SHOOTING, THROWING, ENRAGED};
+    protected  StatePosition statePosition;
+    protected  StateAction stateAction;
+    protected  int mag, ammo;
+    protected  E_Projectile.TypeRound typeRound;
 
     //  Methods  //
 

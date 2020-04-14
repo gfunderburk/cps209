@@ -10,8 +10,8 @@ import java.util.Arrays;
 
 public class CerealManagerTest {
 
-    Game game = null;
-    LocalDateTime now = LocalDateTime.now();
+    private Game game = null;
+    private LocalDateTime now = LocalDateTime.now();
 
     ArrayList<Cereal> testList = new ArrayList<Cereal>(Arrays.asList(
         new Cereal(game, now, "name0"),

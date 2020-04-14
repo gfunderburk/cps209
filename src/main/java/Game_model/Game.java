@@ -18,17 +18,17 @@ public class Game implements GameSave {
     
     public enum StateDifficulty{EASY, MEDIUM, HARD}
     public enum StateGame{RUNNING, PAUSED}
-    public StateDifficulty stateDiff;
-    public StateGame stateGame;
-    public int hostilesLeft;
-    public int score;
-    public int time;
-    public int gameLvl;
-    public LocalDateTime dt;
-    public String playerName;
-    public ArrayList<Entity> entityList = new ArrayList<Entity>();
-    public boolean gameOver = false;
-    public boolean cheatMode = false;
+    private StateDifficulty stateDiff;
+    private StateGame stateGame;
+    private int hostilesLeft;
+    private int score;
+    private int time;
+    private int gameLvl;
+    private LocalDateTime dt;
+    private String playerName;
+    private ArrayList<Entity> entityList = new ArrayList<Entity>();
+    private boolean gameOver = false;
+    private boolean cheatMode = false;
 
 
 

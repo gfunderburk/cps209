@@ -7,7 +7,7 @@ public class E_Projectile extends Entity{
 
 
     public static enum TypeRound {LIGHT_ROUND, HEAVY_ROUND, EXPLOSIVE_ROUND};
-    public TypeRound typeRound;    
+    private TypeRound typeRound;    
 
 
 
@@ -53,12 +53,15 @@ public class E_Projectile extends Entity{
 
     }
 
-
+    
     //  Getters-Setters  //
 
 
-   
+    public TypeRound getTypeRound() {
+        return typeRound;
+    }
 
-
-
+    public void setTypeRound(TypeRound typeRound) {
+        this.typeRound = typeRound;
+    }
 }

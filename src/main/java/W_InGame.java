@@ -105,8 +105,8 @@ public class W_InGame {
     }
 
     void timerAnimate() {
-        if (Game.getIt().stateGame == StateGame.RUNNING) {
-            for (Entity entity : Game.getIt().entityList) {
+        if (Game.getIt().getStateGame() == StateGame.RUNNING) {
+            for (Entity entity : Game.getIt().getEntityList()) {
                 entity.move();
                 // updateImg(entity);
             }

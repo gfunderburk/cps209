@@ -6,9 +6,9 @@ public abstract class EntityKillable extends Entity {
     //  Variables  //
 
     
-    public int maxHealth, currentHealth;
-    public static enum StateLife {HEALTHY, HURT, DEAD}
-    public  StateLife stateLife;
+    protected  int maxHealth, currentHealth;
+    protected  static enum StateLife {HEALTHY, HURT, DEAD}
+    protected   StateLife stateLife;
 
 
     //  Methods  //
