@@ -138,15 +138,15 @@ public class CerealManager {
     //  Getters-Setters  //
 
 
-    public static ArrayList<Cereal> getList() {
-        return cerealList;
+    public ArrayList<Cereal> getList() {
+        return CerealManager.getIt().getList();
     }
 
     public void setList(ArrayList<Cereal> testList) {
         cerealList = testList;
     }
 
-    public CerealManager getIt() {
+    public static CerealManager getIt() {
         return It;
     }
 }

@@ -34,9 +34,9 @@ public class ScoreManager {
         {                       
             String line = rd.readLine();
             while (line != null) { 
-                var score = new Score(); // create a new score object
-                score.deSerialize(line); // set the score date (name, date/time, score)
-                scoreList.add(score);    // add the new score object to scores list
+                // var score = new Score(null, null, 0); // create a new score object
+                // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
+                scoreList.add(Score.deSerialize(line));    // add the new score object to scores list
                 System.out.println(line); 
                 line = rd.readLine(); 
             } 

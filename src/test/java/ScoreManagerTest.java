@@ -23,42 +23,42 @@ public class ScoreManagerTest {
     @Test
     public void test_Add_Scores() 
     {
-        ScoreManager.setList(testList);
-        ScoreManager.addScore(new Score("userName", now, 100));
-        assertEquals(6, ScoreManager.getList().size());
-        assertEquals("userName", ScoreManager.getList().get(5).getName());
+        ScoreManager.getIt().setList(testList);
+        ScoreManager.getIt().addScore(new Score("userName", now, 100));
+        assertEquals(6, ScoreManager.getIt().getList().size());
+        assertEquals("userName", ScoreManager.getIt().getList().get(5).getName());
     }
 
     @Test
     public void test_SortScores() 
     {
-        ScoreManager.setList(testList);
-        ScoreManager.addScore(new Score("userName", now, 100));
-        assertEquals(6, ScoreManager.getList().size());
-        assertEquals("userName", ScoreManager.getList().get(5).getName());
+        ScoreManager.getIt().setList(testList);
+        ScoreManager.getIt().addScore(new Score("userName", now, 100));
+        assertEquals(6, ScoreManager.getIt().getList().size());
+        assertEquals("userName", ScoreManager.getIt().getList().get(5).getName());
 
-        ScoreManager.sortScores();
-        assertEquals("userName", ScoreManager.getList().get(0).getName());
+        ScoreManager.getIt().sortScores();
+        assertEquals("userName", ScoreManager.getIt().getList().get(0).getName());
     }
 
     @Test
     public void test_DeleteScore()   throws IOException 
     {
-        ScoreManager.setList(testList);
-        ScoreManager.deleteScore(ScoreManager.getList().get(0));
-        assertEquals(4, ScoreManager.getList().size());
-        assertEquals("name1", ScoreManager.getList().get(0).getName());
+        ScoreManager.getIt().setList(testList);
+        ScoreManager.getIt().deleteScore(ScoreManager.getIt().getList().get(0));
+        assertEquals(4, ScoreManager.getIt().getList().size());
+        assertEquals("name1", ScoreManager.getIt().getList().get(0).getName());
     }
     
     @Test
     public void test_LoadScores()   throws IOException 
     {
-        ScoreManager.setList(testList);
+        ScoreManager.getIt().setList(testList);
 
-        ScoreManager.addScore(new Score("userName", now, 100));
-        ScoreManager.sortScores();
-        ScoreManager.saveScores();
-        ScoreManager.loadScores();
-        assertEquals("userName", ScoreManager.getList().get(0).getName());
+        ScoreManager.getIt().addScore(new Score("userName", now, 100));
+        ScoreManager.getIt().sortScores();
+        ScoreManager.getIt().saveScores();
+        ScoreManager.getIt().loadScores();
+        assertEquals("userName", ScoreManager.getIt().getList().get(0).getName());
     }
 }

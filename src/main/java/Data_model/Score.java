@@ -16,11 +16,11 @@ public class Score {
     //  Constructor  //
 
 
-    // public Score(String name, LocalDateTime dt, int value) {
-    //     this.value = value;
-    //     this.dt = dt;
-    //     this.name = name.trim();
-    // }
+    public Score(String name, LocalDateTime dt, int value) {
+        this.value = value;
+        this.dt = dt;
+        this.name = name.trim();
+    }
 
     
     //  Methods  //
@@ -36,12 +36,16 @@ public class Score {
         return this.Serialize();
     }
 
-    public void deSerialize(String data) {
+    public static Score deSerialize(String data) {
         
         String[] item = data.split(",");        
-        this.name = item[0];
-        this.dt = LocalDateTime.parse(item[1]);
-        this.value = Integer.parseInt(item [2]);
+        var name = item[0].trim();
+        var dt = LocalDateTime.parse(item[1].trim());
+        var value = Integer.parseInt(item [2].trim());
+
+        var newScore = new Score(name, dt, value);
+
+        return newScore;
     }
 
     

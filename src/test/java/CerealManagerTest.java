@@ -25,43 +25,43 @@ public class CerealManagerTest {
     @Test
     public void test_AddSaves()   throws IOException 
     {
-        CerealManager.setList(testList);
-        CerealManager.addCerealFile(new Cereal(game, now.plusHours(5), "bob"));
-        assertEquals(6, CerealManager.getList().size());
-        assertEquals("bob", CerealManager.getList().get(5).getName());
+        CerealManager.getIt().setList(testList);
+        CerealManager.getIt().addCerealFile(new Cereal(game, now.plusHours(5), "bob"));
+        assertEquals(6, CerealManager.getIt().getList().size());
+        assertEquals("bob", CerealManager.getIt().getList().get(5).getName());
     }
 
     @Test
     public void test_SortSaves()   throws IOException 
     {
-        CerealManager.setList(testList);
-        CerealManager.addCerealFile(new Cereal(game, now.plusHours(5), "bob"));
-        assertEquals(6, CerealManager.getList().size());
-        assertEquals("bob", CerealManager.getList().get(5).getName());
+        CerealManager.getIt().setList(testList);
+        CerealManager.getIt().addCerealFile(new Cereal(game, now.plusHours(5), "bob"));
+        assertEquals(6, CerealManager.getIt().getList().size());
+        assertEquals("bob", CerealManager.getIt().getList().get(5).getName());
 
-        CerealManager.sortList();
-        assertEquals("bob", CerealManager.getList().get(0).getName());
+        CerealManager.getIt().sortList();
+        assertEquals("bob", CerealManager.getIt().getList().get(0).getName());
     }
 
     @Test
     public void test_DeleteSave()   throws IOException 
     {
-        CerealManager.setList(testList);
-        CerealManager.deleteCereal(CerealManager.getList().get(0));
-        assertEquals(4, CerealManager.getList().size());
-        assertEquals("name1", CerealManager.getList().get(0).getName());
+        CerealManager.getIt().setList(testList);
+        CerealManager.getIt().deleteCereal(CerealManager.getIt().getList().get(0));
+        assertEquals(4, CerealManager.getIt().getList().size());
+        assertEquals("name1", CerealManager.getIt().getList().get(0).getName());
     }
 
     @Test
     public void test_LoadSaveDir()   throws IOException 
     {
-        CerealManager.setList(testList);
+        CerealManager.getIt().setList(testList);
 
         Cereal testSave = new Cereal(game, now, "testSave");
-        CerealManager.saveCerealFile(testSave.getGame());
-        CerealManager.sortList();
-        CerealManager.loadCerealDir();
-        assertEquals("testSave", CerealManager.getList().get(0).getName());
+        CerealManager.getIt().saveCerealFile(testSave.getGame());
+        CerealManager.getIt().sortList();
+        CerealManager.getIt().loadCerealDir();
+        assertEquals("testSave", CerealManager.getIt().getList().get(0).getName());
     }
 }
 
