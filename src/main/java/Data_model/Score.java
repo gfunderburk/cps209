@@ -16,11 +16,11 @@ public class Score {
     //  Constructor  //
 
 
-    public Score(String name, LocalDateTime dt, int value) {
-        this.value = value;
-        this.dt = dt;
-        this.name = name.trim();
-    }
+    // public Score(String name, LocalDateTime dt, int value) {
+    //     this.value = value;
+    //     this.dt = dt;
+    //     this.name = name.trim();
+    // }
 
     
     //  Methods  //

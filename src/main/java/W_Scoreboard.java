@@ -21,6 +21,8 @@ public class W_Scoreboard {
     //  GUI Elements  //
     // -------------  //
 
+    // Create initialize method that can read array list and populate high scores? Do in MainWindow?
+
 
 
 

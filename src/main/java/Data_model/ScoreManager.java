@@ -1,5 +1,10 @@
 package Data_model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,11 +29,42 @@ public class ScoreManager {
     // Methods //
 
     public void loadScores() {
-        // TODO: read scores data found in Game.scores file.
+        // TODO: read scores data found in Game.scores file and update scorelist.
+        try(BufferedReader rd = new BufferedReader( new FileReader("scores.dat")))
+        {                       
+            String line = rd.readLine();
+            while (line != null) { 
+                var score = new Score(); // create a new score object
+                score.deSerialize(line); // set the score date (name, date/time, score)
+                scoreList.add(score);    // add the new score object to scores list
+                System.out.println(line); 
+                line = rd.readLine(); 
+            } 
+            rd.close(); 
+
+        } 
+        catch (IOException e) 
+        { 
+            System.out.println("Problem loading scores.dat"); 
+        }
     }
 
     public void saveScores() {
         // TODO: serialize scores to Game.scores
+        try(var wr = new PrintWriter( new FileWriter("scores.dat")); ) 
+        { 
+            //wr.println(gameSession.Serialize());   //what does this do?
+
+            for (Score item : getList()) 
+            {
+                wr.println(item.Serialize());
+            }            
+            wr.close(); 
+        } 
+        catch(IOException e) 
+        {
+            System.out.println("Problem saving " + toString()); 
+        }
     }
 
     public void addScore(Score newScore) {

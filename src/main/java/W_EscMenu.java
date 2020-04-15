@@ -66,7 +66,12 @@ public class W_EscMenu {
             dialog.setHeaderText("Please enter player name.");
             //dialog.setContentText("Please enter your name:");
             Optional<String> playerName = dialog.showAndWait();
-            playerName.ifPresent(name -> System.out.println("Your name: " + name));
+            playerName.ifPresent(name -> {
+                System.out.println("Your name: " + name);
+
+                //TODO: write code to call game save and score save methods here
+                //Update scoresList and highscores screen
+            });
 
             AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"));
             
