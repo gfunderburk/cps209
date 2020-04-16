@@ -84,7 +84,8 @@ public class W_EscMenu {
 
         } else {
             // ... user chose CANCEL or closed the dialog
-            AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"));
+            newStage.show();
+            //AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"));
             
         }
         

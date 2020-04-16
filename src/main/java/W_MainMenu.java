@@ -37,6 +37,7 @@ public class W_MainMenu {
     private static Stage gameStage;
     private ScoreManager scoreManager = ScoreManager.getIt();
 
+
     final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
     final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
 
@@ -85,14 +86,53 @@ public class W_MainMenu {
 
     @FXML
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
+        W_CRUDsaves CRUDInstance = W_CRUDsaves.instance();
+        // Play button click sounds
+        BTN_CLICK.play();
+        var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
+        //TODO: instead of adding a new VBox to the window, make W_CRUDSaves.java controller static and reference variables in there
+        var tableView = new TableView();
+
+        TableColumn<String, String> column1 = new TableColumn<>("Score");
+        column1.setCellValueFactory(new PropertyValueFactory<>("score"));
+    
+        TableColumn<String, String> column2 = new TableColumn<>("Name");
+        column2.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<String, String> column3 = new TableColumn<>("Date");
+        column3.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        tableView.getColumns().add(column1);
+        tableView.getColumns().add(column2);
+        tableView.getColumns().add(column3);
+
+        var vbox = CRUDInstance.getVbox_CRUDSaves();
+        vbox.getChildren().add(tableView);
+
+        
+        var scene = new Scene(loader.load());
+        newStage.setScene(scene);
+        newStage.setTitle("Load/Save Game");
+        newStage.show();
+
+        if (oldStage.isShowing()) {
+            oldStage.close();
+        }
+    }
+
+    @FXML
+    void btn_ControlsClicked(ActionEvent event) throws IOException {
+        // Play button click sounds
+        BTN_CLICK.play();
+        AppGUI.windowLoad(oldStage, newStage, "Controls / How to Play", getClass().getResource("W_Controls.fxml"));
+    }
+
+    @FXML
+    void btn_scoreboardClicked(ActionEvent event) throws IOException {
         // Play button click sounds
         BTN_CLICK.play();
 
-        // var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
-        // var scene = new Scene(loader.load());
-
-        //TODO: instead of adding a new VBox to the window, make W_CRUDSaves.java controller static and reference variables in there
-
+        //Load Scores
         scoreManager.loadScores();
         var scores = scoreManager.getList();
         TableView tableView = new TableView();
@@ -127,27 +167,6 @@ public class W_MainMenu {
         
     
         VBox vbox = new VBox(tableView);
-        var scene = new Scene(vbox);
-        newStage.setScene(scene);
-        newStage.setTitle("Load/Save Game");
-        newStage.show();
-
-        if (oldStage.isShowing()) {
-            oldStage.close();
-        }
-    }
-
-    @FXML
-    void btn_ControlsClicked(ActionEvent event) throws IOException {
-        // Play button click sounds
-        BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Controls / How to Play", getClass().getResource("W_Controls.fxml"));
-    }
-
-    @FXML
-    void btn_scoreboardClicked(ActionEvent event) throws IOException {
-        // Play button click sounds
-        BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"));
     }
 

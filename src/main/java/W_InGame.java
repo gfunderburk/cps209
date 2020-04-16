@@ -5,6 +5,8 @@ import Game_model.Entity;
 import Game_model.Game;
 import Game_model.Game.StateGame;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -66,9 +68,16 @@ public class W_InGame {
     @FXML
     void onEscClicked() throws IOException {
         // Stage stage = (Stage) btn_esc.getScene().getWindow();
-        oldStage.setWidth(200);
-        oldStage.setWidth(300);
-        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"));
+
+        var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
+        var scene = new Scene(loader.load());
+
+        newStage.setScene(scene);
+        newStage.setTitle("ESC Menu");
+        newStage.setHeight(300);
+        newStage.setWidth(400);
+
+        newStage.show();
     }
 
     // ------------- //

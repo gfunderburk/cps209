@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
@@ -11,6 +12,16 @@ import javafx.stage.Stage;
 
 public class W_CRUDsaves {
 
+
+    //  ------------ //
+    //   Singleton   //
+    // ------------  //
+
+    private static W_CRUDsaves CRUDinstance = new W_CRUDsaves();
+
+    public static W_CRUDsaves instance() {
+        return CRUDinstance;
+    }
 
     //  --------------- //
     //  View Variables  //
@@ -28,7 +39,10 @@ public class W_CRUDsaves {
 
 
     @FXML
-    VBox vbox_CRUDSaves;
+    VBox vbox_CRUDSaves = new VBox();
+
+    // @FXML
+    // TableView tableView;
 
 
 
@@ -81,4 +95,13 @@ public class W_CRUDsaves {
 
         return newButton;
     }
+
+    public VBox getVbox_CRUDSaves() {
+        return vbox_CRUDSaves;
+    }
+
+    public void setVbox_CRUDSaves(VBox vbox_CRUDSaves) {
+        this.vbox_CRUDSaves = vbox_CRUDSaves;
+    }
+
 }
