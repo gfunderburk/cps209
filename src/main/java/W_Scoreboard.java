@@ -3,6 +3,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import javafx.scene.layout.*;
 
 public class W_Scoreboard {
 
@@ -10,7 +11,11 @@ public class W_Scoreboard {
     //  --------------- //
     //  View Variables  //
     // ---------------  //
+    private static W_Scoreboard scoreboardInstance = new W_Scoreboard();
 
+    public static W_Scoreboard getInstance() {
+        return scoreboardInstance;
+    }
 
 
     Stage newStage = AppGUI.getStage();
@@ -21,7 +26,9 @@ public class W_Scoreboard {
     //  GUI Elements  //
     // -------------  //
 
-    // Create initialize method that can read array list and populate high scores? Do in MainWindow?
+    @FXML
+    VBox vbox_scoreboard;
+
 
 
 
@@ -35,6 +42,17 @@ public class W_Scoreboard {
     void btnMainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
     }
+
+    
+
+    public VBox getVbox_scoreboard() {
+        return vbox_scoreboard;
+    }
+
+    public void setVbox_scoreboard(VBox vbox_scoreboard) {
+        this.vbox_scoreboard = vbox_scoreboard;
+    }
+
 
 
     //  ------------- //

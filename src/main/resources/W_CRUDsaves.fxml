@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<!-- <VBox fx:controller="W_CRUDsaves" 
-      xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" fx:id="vbox_CRUDSaves" prefHeight="500" prefWidth="700"> -->
+<VBox fx:controller="W_CRUDsaves" 
+      xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" prefHeight="500" prefWidth="700" fx:id="vbox_CRUDSaves">
       
 
       <!-- <TableView fx:id="tableView" prefHeight="350" prefWidth="500">
@@ -46,6 +46,6 @@
       </HBox>
       
 
-<!-- </VBox> -->
+</VBox>
 
 

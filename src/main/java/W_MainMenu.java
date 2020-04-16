@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -93,7 +94,10 @@ public class W_MainMenu {
         // Play button click sounds
         BTN_CLICK.play();
         var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
-        //TODO: instead of adding a new VBox to the window, make W_CRUDSaves.java controller static and reference variables in there
+
+        //TODO: instead of adding a new VBox to the window, make W_CRUDSaves.java controller static and reference variables in there?
+        //TODO: connect this method to the game load method. I accidentally started writing the tableView stuff in here for the High Scores but they should apply
+
         var tableView = new TableView();
 
         TableColumn<String, String> column1 = new TableColumn<>("Score");
@@ -118,9 +122,6 @@ public class W_MainMenu {
         newStage.setTitle("Load/Save Game");
         newStage.show();
 
-        // if (oldStage.isShowing()) {
-        //     oldStage.close();
-        // }
     }
 
     @FXML
@@ -132,26 +133,29 @@ public class W_MainMenu {
 
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {
+        W_Scoreboard scoreboardInstance = W_Scoreboard.getInstance();
+        var vbox = scoreboardInstance.getVbox_scoreboard();
         // Play button click sounds
         BTN_CLICK.play();
 
         //Load Scores
         scoreManager.loadScores();
         var scores = scoreManager.getList();
-        TableView tableView = new TableView();
 
-        TableColumn<String, String> column1 = new TableColumn<>("Score");
-        column1.setCellValueFactory(new PropertyValueFactory<>("score"));
+        // TableView tableView = new TableView();
+
+        // TableColumn<String, String> column1 = new TableColumn<>("Score");
+        // column1.setCellValueFactory(new PropertyValueFactory<>("score"));
     
-        TableColumn<String, String> column2 = new TableColumn<>("Name");
-        column2.setCellValueFactory(new PropertyValueFactory<>("name"));
+        // TableColumn<String, String> column2 = new TableColumn<>("Name");
+        // column2.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<String, String> column3 = new TableColumn<>("Date");
-        column3.setCellValueFactory(new PropertyValueFactory<>("date"));
+        // TableColumn<String, String> column3 = new TableColumn<>("Date");
+        // column3.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        tableView.getColumns().add(column1);
-        tableView.getColumns().add(column2);
-        tableView.getColumns().add(column3);
+        // tableView.getColumns().add(column1);
+        // tableView.getColumns().add(column2);
+        // tableView.getColumns().add(column3);
 
 
         if (scores.size() > 0) {
@@ -159,16 +163,23 @@ public class W_MainMenu {
                 score.getDt();
                 score.getScore();
                 score.getName();
-                //add each of these things to a row in the table
-                tableView.getItems().add(0, score.getScore());
-                tableView.getItems().add(1, score.getName());
-                tableView.getItems().add(2, score.getDt());
+
+                Label lblScore = new Label();
+                lblScore.setText(score.getScore() + "    " + score.getName() + "    " + score.getDt());
+                vbox.getChildren().add(lblScore);
+                
+                // //add each of these things to a row in the table
+                // tableView.getItems().add(0, score.getScore());
+                // tableView.getItems().add(1, score.getName());
+                // tableView.getItems().add(2, score.getDt());
                         
             }
 
         }        
     
-        VBox vbox = new VBox(tableView);
+        // VBox vbox = new VBox(tableView);
+        // oldStage.getChildren().add(vbox);
+
         AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
     }
 
