@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<!-- <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
@@ -18,13 +18,13 @@
         
               <TableColumn text="Name" fx:id="nameColumn" sortable="false" >
                 <cellValueFactory>
-                  <!-- <PropertyValueFactory property="playername" /> -->
+                  <PropertyValueFactory property="playername" />
                 </cellValueFactory>
               </TableColumn>
         
               <TableColumn text="Points" fx:id="pointsColumn" sortable="false" >
                 <cellValueFactory>
-                  <!-- <PropertyValueFactory property="points" /> -->
+                  <PropertyValueFactory property="points" />
                 </cellValueFactory>
               </TableColumn>
             </columns>
@@ -38,12 +38,14 @@
       <HBox alignment="CENTER" styleClass="">
         <Button text="Back to Main Menu" onAction="#btn_mainMenuClicked"/>
 
-        <!-- TODO: Load Selected Game must remain disabled until a saved game row is selected
+        TODO: Load Selected Game must remain disabled until a saved game row is selected
               After being clicked, the selected game row (which is connected to a .dat file containing the saved game) 
-              will load the saved game -->
+              will load the saved game
   
         <Button text="Load Selected Game" onAction="#btn_loadSavedGame"/>
       </HBox>
       
 
-</VBox>
+</VBox> -->
+
+
