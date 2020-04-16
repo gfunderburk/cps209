@@ -12,7 +12,7 @@ public class myMovement {
 
 
 
-    public static Point3D getHeading(Point3D targetPoint, Point3D sourcePoint, int sourceSpeed){
+    public static Point3D getHeading(Point3D targetPoint, Point3D sourcePoint, double sourceSpeed){
         Point3D pt = new Point3D(targetPoint.getX()-sourcePoint.getX(), 
                                           targetPoint.getY()-sourcePoint.getY(), 
                                           targetPoint.getZ()-sourcePoint.getZ());
@@ -42,7 +42,24 @@ public class myMovement {
     }
 
 
+    public static enum Point3D_Comp{x, y, z};
+    public static Point3D setNewPointComp(Point3D point, Point3D_Comp component, double value){
+        switch(component){
 
+            case x:
+                point = new Point3D(value, point.getY(), point.getZ());
+                break;
+
+            case y:
+                point = new Point3D(point.getX(), value, point.getZ());
+                break;
+
+            case z:
+                point = new Point3D(point.getX(), point.getY(), value); 
+                break;
+        }
+        return point;
+    }
     
 
 }

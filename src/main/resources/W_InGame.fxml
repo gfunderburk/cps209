@@ -17,6 +17,11 @@
         </VBox>
         <Label text="Score: 0" />
 
+            <VBox spacing="10" minWidth="50">
+                <Label fx:id="lbl_Id" text="" />
+                <Label fx:id="lbl_Speed" text="" />
+                <Label fx:id="lbl_Loc" text="" />
+            </VBox>
       </HBox>
     </top>
   </BorderPane>

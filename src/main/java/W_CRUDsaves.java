@@ -38,10 +38,10 @@ public class W_CRUDsaves {
 
 
     @FXML
-    void btn_mainMenuClicked(ActionEvent event) throws IOException {
+    void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         // TODO: Save input
 
-        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
     }
 
     @FXML

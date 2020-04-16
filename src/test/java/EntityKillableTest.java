@@ -16,10 +16,10 @@ public class EntityKillableTest {
 
 
     ArrayList<Entity> testList = new ArrayList<Entity>(Arrays.asList(
-        new EK_Scenery(),
-        new EK_Scenery(),
-        new EK_Scenery(),
-        new EK_Scenery()
+        new EK_Scenery(0, 0, 0, null, null),
+        new EK_Scenery(0, 0, 0, null, null),
+        new EK_Scenery(0, 0, 0, null, null),
+        new EK_Scenery(0, 0, 0, null, null)
     ));
 
     @Test
@@ -38,11 +38,11 @@ public class EntityKillableTest {
     @Test
     public void test_GameOverCheck()   throws IOException 
     {
-        Game.getIt().setHostilesLeft(5);
+        // Game.getIt().setHostilesLeft(5);
         
         assertEquals(false, Game.getIt().isGameOver());
 
-        Game.getIt().setHostilesLeft(0);
+        // Game.getIt().setHostilesLeft(0);
 
         Game.getIt().checkGameOver();  // Should detect a gameOver event and change game state accordingly.
 

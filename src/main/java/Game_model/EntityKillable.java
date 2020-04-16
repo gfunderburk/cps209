@@ -58,4 +58,32 @@ public abstract class EntityKillable extends Entity {
 
     @Override
     public abstract void deSerialize(String data);
+
+
+    //  Getter - Setters  //
+
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+
+    public StateLife getStateLife() {
+        return stateLife;
+    }
+
+    public void setStateLife(StateLife stateLife) {
+        this.stateLife = stateLife;
+    }
 }

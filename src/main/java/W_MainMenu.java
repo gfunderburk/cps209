@@ -51,25 +51,28 @@ public class W_MainMenu {
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
         d.setHeaderText("Please Select Difficulty Level");
-        
 
-        var loader = new FXMLLoader(getClass().getResource("W_InGame.fxml"));
-        var scene = new Scene(loader.load());
+        // var loader = new FXMLLoader(getClass().getResource("W_InGame.fxml"));
+        // var scene = new Scene(loader.load());
 
-        W_InGame game = loader.getController();
-        var stage = new Stage();
-        stage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
-        stage.setScene(scene);
-        stage.setHeight(600);
-        stage.setWidth(800);
-        gameStage = stage;
-        d.showAndWait().ifPresent(choice -> {
+        // var stage = new Stage();
+        // stage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
+        // stage.setScene(scene);
+        // stage.setHeight(600);
+        // stage.setWidth(800);
+        // gameStage = stage;
+        d.showAndWait().ifPresent(choice -> 
+        {
             THEME.play();
-            stage.show();
-            newStage.close();
-            try {
-                game.initialize((int) d.getSelectedItem());
-            } catch (InterruptedException e) {
+            // stage.show();            
+            //newStage.close();
+            try 
+            {
+                AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, d.getSelectedItem());
+                // game.initialize((int) d.getSelectedItem());
+            } 
+            catch (InterruptedException | IOException e) 
+            {
                 e.printStackTrace();
             }
         });
@@ -79,38 +82,39 @@ public class W_MainMenu {
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
         BTN_CLICK.play();
-        var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
-        var scene = new Scene(loader.load());
+        AppGUI.windowLoad(oldStage, newStage, "Load/Save Game", getClass().getResource("W_CRUDsaves.fxml"), true, null);
+        // var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
+        // var scene = new Scene(loader.load());
 
 
-        newStage.setScene(scene);
-        newStage.setTitle("Load/Save Game");
-        newStage.show();
+        // newStage.setScene(scene);
+        // newStage.setTitle("Load/Save Game");
+        // newStage.show();
 
-        if (oldStage.isShowing()) {
-            oldStage.close();
-        }
+        // if (oldStage.isShowing()) {
+        //     oldStage.close();
+        // }
     }
 
     @FXML
-    void btn_ControlsClicked(ActionEvent event) throws IOException {
+    void btn_ControlsClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
         BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Controls / How to Play", getClass().getResource("W_Controls.fxml"));
+        AppGUI.windowLoad(oldStage, newStage, "Controls / How to Play", getClass().getResource("W_Controls.fxml"), true, null);
     }
 
     @FXML
-    void btn_scoreboardClicked(ActionEvent event) throws IOException {
+    void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
         BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"));
+        AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
     }
 
     @FXML
-    void btn_creditsClicked(ActionEvent event) throws IOException {
+    void btn_creditsClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
         BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Credits", getClass().getResource("W_Credits.fxml"));
+        AppGUI.windowLoad(oldStage, newStage, "Credits", getClass().getResource("W_Credits.fxml"), true, null);
     }
 
     public static Stage getGameStage() {

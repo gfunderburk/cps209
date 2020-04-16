@@ -35,8 +35,8 @@ public class AppGUI extends Application {
         var scene_a = new Scene(load_titleScreen.load());
         stage.getIcons().add(new Image("/icons/terminatorIcon2.png")); // https://stackoverflow.com/questions/58241811/set-top-left-image-on-dialog-pane-with-javafx
         stage.setScene(scene_a);
-        stage.setHeight(600);
-        stage.setWidth(800);
+        stage.setHeight(900);
+        stage.setWidth(1440);
         stage.show();
 
     }
@@ -49,20 +49,30 @@ public class AppGUI extends Application {
         return currentStage;
     }
 
-    public static void windowLoad(Stage oldStage, Stage newStage, String newWindowName, URL windowURL) throws IOException {
+    public static void windowLoad(Stage oldStage, Stage newStage, String newWindowName, URL windowURL, boolean closeOldWindow, Object windowInitData) throws IOException,
+            InterruptedException {
 
         var loader = new FXMLLoader(windowURL);
         var scene = new Scene(loader.load());
 
         newStage.setScene(scene);
         newStage.setTitle(newWindowName);
-        newStage.setHeight(600);
-        newStage.setWidth(800);
+        newStage.setWidth(1440);
+        newStage.setHeight(900);
+        newStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
 
         newStage.show();
         
-        if(oldStage.isShowing()){
-            oldStage.close();
+        if(closeOldWindow){
+            if(oldStage.isShowing()){
+                oldStage.close();
+            }
+        }
+
+        if(newWindowName.equals("Game")){            
+            W_InGame game = loader.getController();
+            game.ingameScene = scene;
+            game.initialize((int)windowInitData);
         }
     }
 
