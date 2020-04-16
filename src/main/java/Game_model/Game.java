@@ -2,7 +2,11 @@ package Game_model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Timer;
+import java.util.Collections;
+import java.util.Comparator;
+
+import Util_model.myRandom;
+import javafx.geometry.Point3D;
 
 //--------------------------------------------------------------------------
 //File:   Game.java
@@ -20,10 +24,15 @@ public class Game implements GameSave {
     public enum StateGame{RUNNING, PAUSED}
     private StateDifficulty stateDiff;
     private StateGame stateGame;
-    private int hostilesLeft;
+    private int LAI_Left, HAI_Left, FAI_Left;
     private int score;
     private int time;
     private int gameLvl;
+    private int currentEnitity;
+    private int newMobSpawnDelay, spawnDelayCount;
+    private int gamePhysicsWidth = 104;
+    private int gamePhysicsHeight = 65;
+    private int gamePhysicsDepth = 10;
     private LocalDateTime dt;
     private String playerName;
     private ArrayList<Entity> entityList = new ArrayList<Entity>();
@@ -44,35 +53,49 @@ public class Game implements GameSave {
     //  Methods  //
 
     
-    public void cleanStart(String playerName, StateDifficulty difficultyMode){
-        this.playerName = playerName;
-        this.stateDiff = difficultyMode;
-        entityList = new ArrayList<Entity>();
-        hostilesLeft = 10;
-        score = 0;
-        time = 0;
-        gameLvl = 1;
-        gameOver = false;
-        cheatMode = false;
+    public void spawnerAdmin(boolean forceFullPopulate){
+        var test = new EH_LightAI();
+        test.spawn();
+        var test1 = new EH_LightAI();
+        test1.spawn();
+        var test2 = new EH_LightAI();
+        test2.spawn();
     }
 
-    public void cleanLoad(){
+    public void startGame(String playerName, int difficultyLevel, int GameLevel){
+        for (Entity scenery : GameLevels.getIt().getLvl1_Scenery()) {
+            entityList.add(scenery);            
+        }
+        spawnerAdmin(true);
+        stateGame = StateGame.RUNNING;
+    }
+
+    public void loadGame(){
         entityList = new ArrayList<Entity>();
     }
 
-    public void play(){
-        // TODO update windows and such to start the game   
+    public void play(){ 
         stateGame = StateGame.RUNNING;    
     }
 
-    public void pause(){
-        // TODO update windows and such to pause the game   
+    public void pause(){ 
         stateGame = StateGame.PAUSED;    
     }
 
     public void checkGameOver(){
         // TODO IF hostilesLeft = 0, show end-level screen to progress to next level.
         //   OR IF player health = 0, show end-game screen to offer to save player score.         
+    }
+
+	public void sortEntityList() {
+        Comparator<Entity> compareByScore = (Entity o1, Entity o2) -> (int)o1.getLocation().getZ() - (int)o2.getLocation().getZ();
+        Collections.sort(entityList, compareByScore.reversed()); //TODO: check for BUG .reversed());
+    }
+
+    public Point3D randomPoint3D(){
+        return new Point3D(myRandom.genRandomInt(0, Game.getIt().getGamePhysicsWidth()), 
+                            myRandom.genRandomInt(0, Game.getIt().getGamePhysicsHeight()), 
+                            myRandom.genRandomInt(0, Game.getIt().getGamePhysicsDepth()));
     }
 
     @Override
@@ -115,13 +138,6 @@ public class Game implements GameSave {
         this.stateGame = stateGame;
     }
 
-    public int getHostilesLeft() {
-        return hostilesLeft;
-    }
-
-    public void setHostilesLeft(int hostilesLeft) {
-        this.hostilesLeft = hostilesLeft;
-    }
 
     public int getScore() {
         return score;
@@ -187,6 +203,77 @@ public class Game implements GameSave {
         this.cheatMode = cheatMode;
     }
 
+    public int getCurrentEnitity() {
+        return currentEnitity;
+    }
+
+    public void setCurrentEnitity(int currentEnitity) {
+        this.currentEnitity = currentEnitity;
+    }
+
+    public int getGamePhysicsWidth() {
+        return gamePhysicsWidth;
+    }
+
+    public void setGamePhysicsWidth(int gamePhysicsWidth) {
+        this.gamePhysicsWidth = gamePhysicsWidth;
+    }
+
+    public int getGamePhysicsHeight() {
+        return gamePhysicsHeight;
+    }
+
+    public void setGamePhysicsHeight(int gamePhysicsHeight) {
+        this.gamePhysicsHeight = gamePhysicsHeight;
+    }
+
+    public int getGamePhysicsDepth() {
+        return gamePhysicsDepth;
+    }
+
+    public void setGamePhysicsDepth(int gamePhysicsDepth) {
+        this.gamePhysicsDepth = gamePhysicsDepth;
+    }
+
+    public int getLAI_Left() {
+        return LAI_Left;
+    }
+
+    public void setLAI_Left(int lAI_Left) {
+        LAI_Left = lAI_Left;
+    }
+
+    public int getHAI_Left() {
+        return HAI_Left;
+    }
+
+    public void setHAI_Left(int hAI_Left) {
+        HAI_Left = hAI_Left;
+    }
+
+    public int getFAI_Left() {
+        return FAI_Left;
+    }
+
+    public void setFAI_Left(int fAI_Left) {
+        FAI_Left = fAI_Left;
+    }
+
+    public int getNewMobSpawnDelay() {
+        return newMobSpawnDelay;
+    }
+
+    public void setNewMobSpawnDelay(int newMobSpawnDelay) {
+        this.newMobSpawnDelay = newMobSpawnDelay;
+    }
+
+    public int getSpawnDelayCount() {
+        return spawnDelayCount;
+    }
+
+    public void setSpawnDelayCount(int spawnDelayCount) {
+        this.spawnDelayCount = spawnDelayCount;
+    }
 }
 
 

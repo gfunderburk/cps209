@@ -1,5 +1,7 @@
 package Game_model;
 
+import javafx.geometry.Point3D;
+
 public class EK_Scenery extends EntityKillable {
 
 
@@ -16,8 +18,10 @@ public class EK_Scenery extends EntityKillable {
     //  Constructor  //
 
 
-    public EK_Scenery(){
-        
+    public EK_Scenery(int x, int y, int z, Type type, Item item){
+        this.type = type;
+        if(item != null) this.item = item;
+        this.location = new Point3D(x, y, z);
     }
 
 

@@ -1,5 +1,7 @@
 package Game_model;
 
+import java.io.File;
+
 import Game_model.E_Projectile.TypeRound;
 
 public class EH_LightAI extends EntityHumanoid {
@@ -7,7 +9,6 @@ public class EH_LightAI extends EntityHumanoid {
 
     //  Variables  //
 
-    
 
 
 
@@ -16,7 +17,11 @@ public class EH_LightAI extends EntityHumanoid {
 
     public EH_LightAI(){
         this.typeRound = TypeRound.LIGHT_ROUND;
-        
+        this.imageDir = File.separator + "light_terminators" + File.separator;
+        this.imageState = "lightRobotRifleFrontFacing_Shooting.png";
+        this.width = 10;
+        this.height = 50;
+        this.speed = 1;
     }
 
 
@@ -45,6 +50,7 @@ public class EH_LightAI extends EntityHumanoid {
     @Override
     public void move() {
         // TODO Auto-generated method stub
+        super.move();
 
     }
 
@@ -69,7 +75,7 @@ public class EH_LightAI extends EntityHumanoid {
     @Override
     public void spawn() {
         // TODO Auto-generated method stub
-
+        super.spawn();
     }
 
     @Override

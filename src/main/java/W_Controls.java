@@ -35,8 +35,8 @@ public class W_Controls {
 
 
     @FXML
-    void btn_mainMenuClicked(ActionEvent event) throws IOException {
+    void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         // TODO: get input from textfields and 
-        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
     }
 }

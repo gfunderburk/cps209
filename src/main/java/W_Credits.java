@@ -30,8 +30,8 @@ public class W_Credits {
 
 
     @FXML
-    void btn_mainMenuClicked(ActionEvent event) throws IOException {
-        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+    void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
+        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
     }
     
 

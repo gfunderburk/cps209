@@ -43,7 +43,7 @@ public class W_EscMenu {
 
 
     @FXML
-    void btn_onQuitClicked(ActionEvent event) throws IOException {
+    void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
         // - Yes = Save game
         // - No  = Main Menu
@@ -73,27 +73,30 @@ public class W_EscMenu {
                 //Update scoresList and highscores screen
             });
 
-            AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"));
+            AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"), true, null);
             
 
         } else if (result.get() == btnNo) {
             // Return to main menu and close the game window
             gameStage.close();
-            AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"));
+            AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
             
 
         } else {
             // ... user chose CANCEL or closed the dialog
-            newStage.show();
-            //AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"));
+            AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);
             
         }
         
     }
 
     @FXML
-    void btn_onResumeClicked(ActionEvent event) throws IOException {
+    void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
         // Return to game window
-        newStage.close();
+        // newStage.close();
+
+        // temporary fix
+        int GameDiff = 1;
+        AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, GameDiff);
     }
 }
