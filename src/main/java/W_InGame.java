@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -35,8 +36,8 @@ public class W_InGame {
     // View Variables //
     // --------------- //
 
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
+    Stage oldStage = AppGUI.getStage();
+    Stage newStage = new Stage();
     Scene ingameScene;
     int difficulty;
     boolean mouseWithinPane;
@@ -71,9 +72,6 @@ public class W_InGame {
      */
     @FXML
     void onEscClicked() throws IOException, InterruptedException {
-        // Stage stage = (Stage) btn_esc.getScene().getWindow();
-        oldStage.setWidth(200);
-        oldStage.setWidth(300);
         AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), false, null);
     }
 
@@ -86,8 +84,6 @@ public class W_InGame {
     void initialize(int difficultyLevel) throws InterruptedException {
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
-        // vbox_masterParent.getChildren().add(createButton("Test Button","btn_return",
-        // false));   
         
         Game.getIt().startGame("Joe", difficultyLevel, 1);
         var keyFrame = new KeyFrame(Duration.seconds(.2), e -> timerAnimate());

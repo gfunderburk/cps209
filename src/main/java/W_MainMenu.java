@@ -166,11 +166,9 @@ public class W_MainMenu {
                         
             }
 
-        }
-        
+        }        
     
         VBox vbox = new VBox(tableView);
-        //AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"));
         AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
     }
 
@@ -183,6 +181,10 @@ public class W_MainMenu {
 
     public static Stage getGameStage() {
         return gameStage;
+    }
+
+    public static void setGameStage(Stage stage) {
+        gameStage = stage;
     }
 
     // ------------- //

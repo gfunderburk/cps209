@@ -93,10 +93,11 @@ public class W_EscMenu {
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
         // Return to game window
-        // newStage.close();
-
+        newStage.close();
+        gameStage.show();
+        
         // temporary fix
-        int GameDiff = 1;
-        AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, GameDiff);
+        // int GameDiff = 1;
+        // AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, GameDiff);
     }
 }

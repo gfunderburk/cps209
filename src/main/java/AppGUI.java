@@ -60,7 +60,7 @@ public class AppGUI extends Application {
         newStage.setWidth(1440);
         newStage.setHeight(900);
         newStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
-
+        currentStage = newStage;
         newStage.show();
         
         if(closeOldWindow){
@@ -69,7 +69,8 @@ public class AppGUI extends Application {
             }
         }
 
-        if(newWindowName.equals("Game")){            
+        if(newWindowName.equals("Game")){   
+            W_MainMenu.setGameStage(newStage);         
             W_InGame game = loader.getController();
             game.ingameScene = scene;
             game.initialize((int)windowInitData);
