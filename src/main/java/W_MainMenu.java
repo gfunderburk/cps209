@@ -1,13 +1,20 @@
 import java.io.File;
 import java.io.IOException;
+
+import Data_model.Score;
+import Data_model.ScoreManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -28,6 +35,7 @@ public class W_MainMenu {
     Stage oldStage = new Stage();
 
     private static Stage gameStage;
+    private ScoreManager scoreManager = ScoreManager.getIt();
 
     final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
     final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
@@ -82,14 +90,50 @@ public class W_MainMenu {
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
         BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Load/Save Game", getClass().getResource("W_CRUDsaves.fxml"), true, null);
+
         // var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
         // var scene = new Scene(loader.load());
 
+        //TODO: instead of adding a new VBox to the window, make W_CRUDSaves.java controller static and reference variables in there
 
-        // newStage.setScene(scene);
-        // newStage.setTitle("Load/Save Game");
-        // newStage.show();
+        scoreManager.loadScores();
+        var scores = scoreManager.getList();
+        TableView tableView = new TableView();
+
+        TableColumn<String, String> column1 = new TableColumn<>("Score");
+        column1.setCellValueFactory(new PropertyValueFactory<>("score"));
+    
+        TableColumn<String, String> column2 = new TableColumn<>("Name");
+        column2.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<String, String> column3 = new TableColumn<>("Date");
+        column3.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        tableView.getColumns().add(column1);
+        tableView.getColumns().add(column2);
+        tableView.getColumns().add(column3);
+
+
+        if (scores.size() > 0) {
+            for (Score score: scores) {
+                score.getDt();
+                score.getScore();
+                score.getName();
+                //add each of these things to a row in the table
+                tableView.getItems().add(0, score.getScore());
+                tableView.getItems().add(1, score.getName());
+                tableView.getItems().add(2, score.getDt());
+                        
+            }
+
+        }
+        
+    
+        VBox vbox = new VBox(tableView);
+        var scene = new Scene(vbox);
+        newStage.setScene(scene);
+        newStage.setTitle("Load/Save Game");
+        newStage.show();
 
         // if (oldStage.isShowing()) {
         //     oldStage.close();
