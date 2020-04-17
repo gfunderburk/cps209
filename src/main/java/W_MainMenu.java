@@ -3,11 +3,14 @@ import java.io.IOException;
 
 import Data_model.Score;
 import Data_model.ScoreManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -32,11 +35,15 @@ public class W_MainMenu {
     // View Variables //
     // --------------- //
 
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
+    Stage oldStage = AppGUI.getStage();
+    Stage newStage = new Stage();
 
     private static Stage gameStage;
     private ScoreManager scoreManager = ScoreManager.getIt();
+
+    private ObservableList<Label> labels = 
+        FXCollections.observableArrayList();
+    
 
 
     final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
@@ -113,8 +120,10 @@ public class W_MainMenu {
         tableView.getColumns().add(column2);
         tableView.getColumns().add(column3);
 
+        //tableView.getColumns().add(0, "hi");
+
         var vbox = CRUDInstance.getVbox_CRUDSaves();
-        vbox.getChildren().add(tableView);
+        vbox.getChildren().add(new Label("Test"));
 
         
         var scene = new Scene(loader.load());
@@ -134,7 +143,10 @@ public class W_MainMenu {
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {
         W_Scoreboard scoreboardInstance = W_Scoreboard.getInstance();
-        var vbox = scoreboardInstance.getVbox_scoreboard();
+        var loader = new FXMLLoader(getClass().getResource("W_ScoreBoard.fxml"));
+        
+        
+        var listView = scoreboardInstance.getListView();
         // Play button click sounds
         BTN_CLICK.play();
 
@@ -160,13 +172,13 @@ public class W_MainMenu {
 
         if (scores.size() > 0) {
             for (Score score: scores) {
-                score.getDt();
-                score.getScore();
-                score.getName();
+                System.out.println(score.getDt());
+                System.out.println(score.getScore());
+                System.out.println(score.getName());
 
                 Label lblScore = new Label();
                 lblScore.setText(score.getScore() + "    " + score.getName() + "    " + score.getDt());
-                vbox.getChildren().add(lblScore);
+                labels.add(lblScore);
                 
                 // //add each of these things to a row in the table
                 // tableView.getItems().add(0, score.getScore());
@@ -176,11 +188,18 @@ public class W_MainMenu {
             }
 
         }        
+
+        listView.setItems(labels);
+        var scene = new Scene(loader.load());
+        newStage.setScene(scene);
+        newStage.setTitle("High Scores");
+        newStage.show();
     
         // VBox vbox = new VBox(tableView);
         // oldStage.getChildren().add(vbox);
 
-        AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
+
+        //AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
     }
 
     @FXML

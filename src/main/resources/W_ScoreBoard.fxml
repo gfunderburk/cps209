@@ -7,6 +7,8 @@
 
 <VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" spacing="10" prefHeight="500" prefWidth="700" fx:id="vbox_scoreboard">
 
+  <ListView fx:id="listView"/> 
+  
   <!-- <TableView fx:id="tableView" prefHeight="500" prefWidth="700">
 
     <columns>

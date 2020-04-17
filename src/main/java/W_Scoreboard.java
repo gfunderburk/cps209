@@ -3,6 +3,8 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 
 public class W_Scoreboard {
@@ -29,6 +31,9 @@ public class W_Scoreboard {
     @FXML
     VBox vbox_scoreboard;
 
+    @FXML
+    ListView<Label> listView;
+
 
 
 
@@ -43,7 +48,7 @@ public class W_Scoreboard {
         AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
     }
 
-    
+
 
     public VBox getVbox_scoreboard() {
         return vbox_scoreboard;
@@ -51,6 +56,14 @@ public class W_Scoreboard {
 
     public void setVbox_scoreboard(VBox vbox_scoreboard) {
         this.vbox_scoreboard = vbox_scoreboard;
+    }
+
+    public ListView<Label> getListView() {
+        return listView;
+    }
+
+    public void setListView(ListView<Label> listView) {
+        this.listView = listView;
     }
 
 

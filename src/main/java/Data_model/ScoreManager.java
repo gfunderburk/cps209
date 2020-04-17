@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import javafx.scene.control.ListView;
+
 public class ScoreManager {
 
 
@@ -17,6 +19,7 @@ public class ScoreManager {
 
     private ArrayList<Score> scoreList = new ArrayList<Score>();
     
+
     
     //  Singleton  //
 
