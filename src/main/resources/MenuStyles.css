@@ -1,4 +1,5 @@
 .root {
+    padding-top: 30;
     -fx-padding: 10; /* Add a small padding around the window */
     -fx-spacing: 10;
     -fx-alignment: center;

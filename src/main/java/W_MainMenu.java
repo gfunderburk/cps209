@@ -35,14 +35,12 @@ public class W_MainMenu {
     // View Variables //
     // --------------- //
 
-    Stage oldStage = AppGUI.getStage();
-    Stage newStage = new Stage();
+    Stage newStage = AppGUI.getStage();
+    Stage oldStage = new Stage();
 
     private static Stage gameStage;
-    private ScoreManager scoreManager = ScoreManager.getIt();
+    
 
-    private ObservableList<Label> labels = 
-        FXCollections.observableArrayList();
     
 
 
@@ -142,64 +140,9 @@ public class W_MainMenu {
 
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {
-        W_Scoreboard scoreboardInstance = W_Scoreboard.getInstance();
-        var loader = new FXMLLoader(getClass().getResource("W_ScoreBoard.fxml"));
-        
-        
-        var listView = scoreboardInstance.getListView();
-        // Play button click sounds
+        //W_Scoreboard scoreboardInstance = W_Scoreboard.getInstance();      
         BTN_CLICK.play();
-
-        //Load Scores
-        scoreManager.loadScores();
-        var scores = scoreManager.getList();
-
-        // TableView tableView = new TableView();
-
-        // TableColumn<String, String> column1 = new TableColumn<>("Score");
-        // column1.setCellValueFactory(new PropertyValueFactory<>("score"));
-    
-        // TableColumn<String, String> column2 = new TableColumn<>("Name");
-        // column2.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        // TableColumn<String, String> column3 = new TableColumn<>("Date");
-        // column3.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-        // tableView.getColumns().add(column1);
-        // tableView.getColumns().add(column2);
-        // tableView.getColumns().add(column3);
-
-
-        if (scores.size() > 0) {
-            for (Score score: scores) {
-                System.out.println(score.getDt());
-                System.out.println(score.getScore());
-                System.out.println(score.getName());
-
-                Label lblScore = new Label();
-                lblScore.setText(score.getScore() + "    " + score.getName() + "    " + score.getDt());
-                labels.add(lblScore);
-                
-                // //add each of these things to a row in the table
-                // tableView.getItems().add(0, score.getScore());
-                // tableView.getItems().add(1, score.getName());
-                // tableView.getItems().add(2, score.getDt());
-                        
-            }
-
-        }        
-
-        listView.setItems(labels);
-        var scene = new Scene(loader.load());
-        newStage.setScene(scene);
-        newStage.setTitle("High Scores");
-        newStage.show();
-    
-        // VBox vbox = new VBox(tableView);
-        // oldStage.getChildren().add(vbox);
-
-
-        //AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
+        AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
     }
 
     @FXML

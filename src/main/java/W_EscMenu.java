@@ -19,8 +19,8 @@ public class W_EscMenu {
 
 
 
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
+    Stage oldStage = AppGUI.getStage();
+    Stage newStage = new Stage();
     Stage gameStage = W_MainMenu.getGameStage();
 
 
@@ -49,6 +49,7 @@ public class W_EscMenu {
         // - No  = Main Menu
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to save before quitting?");
+        
 
         ButtonType btnYes = new ButtonType("Yes");
         ButtonType btnNo = new ButtonType("No");
@@ -79,6 +80,7 @@ public class W_EscMenu {
         } else if (result.get() == btnNo) {
             // Return to main menu and close the game window
             gameStage.close();
+            
             AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
             
 

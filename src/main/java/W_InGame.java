@@ -72,7 +72,7 @@ public class W_InGame {
      */
     @FXML
     void onEscClicked() throws IOException, InterruptedException {
-        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), false, null);
+        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);
     }
 
     // ------------- //
