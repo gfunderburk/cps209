@@ -58,6 +58,7 @@ public class AppGUI extends Application {
         newStage.show();
         
         if(closeOldWindow){
+            oldStage.close();
             if(oldStage.isShowing()){
                 oldStage.close();
             }

@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -42,6 +43,8 @@ public class W_InGame {
     final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
     final AudioClip SHOOT_FOOTSOLDIER = new AudioClip(getClass().getResource("/media/footsoldiergun.wav").toString());
     final AudioClip SHOOT_50CAL = new AudioClip(getClass().getResource("/media/50cal.mp3").toString());
+
+    final Image CROSSHAIRS = new Image("/icons/crosshairs_3.PNG");
     // --------------- //
     // View Variables //
     // --------------- //
@@ -84,14 +87,20 @@ public class W_InGame {
     @FXML
     void onEscClicked() throws IOException, InterruptedException {
         BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);
+
+        // Save game here and upon resume, load the temporarily saved game?
+        // How do we pause the game?
+
+        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), false, null);
     }
 
 
     @FXML
     void mouseEnteredPane(){
         mouseWithinPane = true;
-        pane.getScene().setCursor(Cursor.CROSSHAIR);
+        pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
+        CROSSHAIRS.getWidth() / 2,
+        CROSSHAIRS.getHeight() /2));
     }
 
 

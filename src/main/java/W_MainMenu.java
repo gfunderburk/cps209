@@ -44,6 +44,7 @@ public class W_MainMenu {
     // GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
 
+
     @FXML
     void btn_newGameClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
@@ -67,11 +68,12 @@ public class W_MainMenu {
         // gameStage = stage;
         d.showAndWait().ifPresent(choice -> 
         {
-            //THEME.play();
+            THEME.stop();
             // stage.show();            
             //newStage.close();
             try 
             {
+                gameStage = newStage;
                 AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, d.getSelectedItem());
                 // game.initialize((int) d.getSelectedItem());
             } 

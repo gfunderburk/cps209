@@ -25,6 +25,7 @@ public class W_CRUDsaves {
     // --------------- //
 
     final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
 
     // ----------- //
     //  Singleton  //
@@ -61,21 +62,7 @@ public class W_CRUDsaves {
     // GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
 
-    // @FXML
-    // void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
-    //     BTN_CLICK.play();
-    //     // TODO: Save input
 
-    //     AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
-    // }
-
-    // @FXML
-    // void btn_loadSavedGame(ActionEvent event) {
-    //     BTN_CLICK.play();
-    //     // TODO: Load the game from the .dat file ArrayList
-    //     // using the selected row number as the index
-
-    // }
 
     // ------------- //
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
@@ -145,7 +132,8 @@ public class W_CRUDsaves {
             //Feed into windowLoad method?
 
             try {
-                BTN_CLICK.play();
+                THEME.stop();
+                
                 AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
