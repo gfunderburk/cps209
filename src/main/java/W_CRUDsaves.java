@@ -21,10 +21,9 @@ import javafx.stage.Stage;
 
 public class W_CRUDsaves {
 
-
-    //  ------------ //
-    //   Singleton   //
-    // ------------  //
+    // ------------ //
+    // Singleton //
+    // ------------ //
 
     private static W_CRUDsaves CRUDinstance = new W_CRUDsaves();
 
@@ -33,36 +32,26 @@ public class W_CRUDsaves {
     }
 
     private CerealManager cerealManager = CerealManager.getIt();
-    
 
-    //  --------------- //
-    //  View Variables  //
-    // ---------------  //
-
-
+    // --------------- //
+    // View Variables //
+    // --------------- //
 
     Stage newStage = AppGUI.getStage();
     Stage oldStage = new Stage();
 
-
-    //  ------------- //
-    //  GUI Elements  //
-    // -------------  //
-
+    // ------------- //
+    // GUI Elements //
+    // ------------- //
 
     @FXML
     VBox vbox_CRUDSaves;
 
     private ObservableList<Games> rows = FXCollections.observableArrayList();
 
-
-
-
-
-    //  ------------ //
-    //  GUI Methods  //     (DIRECT USER EVENTS)
-    // ------------  //
-
+    // ------------ //
+    // GUI Methods // (DIRECT USER EVENTS)
+    // ------------ //
 
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
@@ -73,23 +62,23 @@ public class W_CRUDsaves {
 
     @FXML
     void btn_loadSavedGame(ActionEvent event) {
-        // TODO: Load the game from the .dat file ArrayList 
+        // TODO: Load the game from the .dat file ArrayList
         // using the selected row number as the index
 
     }
 
-
-
-    //  ------------- //
-    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
-    // -------------  //
-
-
+    // ------------- //
+    // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
+    // ------------- //
 
     @FXML
     void initialize() throws InterruptedException {
+        // TODO: add load methods here
+
+        cerealManager.loadCerealDir(); // load method?
 
         var saves = cerealManager.getList();
+
         TableView tableView = new TableView();
 
         TableColumn<String, String> column1 = new TableColumn<>("Score");
@@ -112,8 +101,8 @@ public class W_CRUDsaves {
 
         }
 
-        //TODO: add load game method here 
-        
+        // TODO: add load game method here
+
         tableView.getItems().clear();
         tableView.setItems(rows);
 
@@ -131,6 +120,25 @@ public class W_CRUDsaves {
                 e1.printStackTrace();
             }
         });
+
+        Button btnLoadSavedGame = new Button("Load Selected Game");
+        btnLoadSavedGame.setOnAction(e -> {
+            // TODO: Add code here to load saved game
+            //Get selected row
+            //Get data from selected row
+            //
+
+            try {
+                AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, null);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
+
         btnMainMenu.setAlignment(Pos.CENTER);
         vbox_CRUDSaves.getChildren().addAll(tableView, btnMainMenu);
     }
