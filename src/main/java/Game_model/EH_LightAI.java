@@ -25,6 +25,9 @@ public class EH_LightAI extends EntityHumanoid {
         this.width = 10;
         this.height = 50;
         this.speed = 1;
+        this.maxHealth = 10;
+        this.currentHealth = this.maxHealth;
+        this.stateLife = StateLife.HEALTHY;
     }
 
 

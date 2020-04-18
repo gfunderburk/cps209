@@ -1,7 +1,6 @@
 package Game_model;
 
 import Util_model.myMovement;
-import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
 
 public abstract class Entity implements GameSave{
@@ -43,7 +42,7 @@ public abstract class Entity implements GameSave{
             outOfBoundsEvent(1);
         }
 
-        // Check X within borders
+        // Check Y within borders
         if(this.location.getY() > Game.getIt().getGamePhysicsHeight()){
             outOfBoundsEvent(4);
         }
@@ -51,7 +50,7 @@ public abstract class Entity implements GameSave{
             outOfBoundsEvent(3);
         }
 
-        // Check X within borders
+        // Check Z within borders
         if(this.location.getZ() > Game.getIt().getGamePhysicsDepth()){
             outOfBoundsEvent(6);
         }
@@ -65,12 +64,12 @@ public abstract class Entity implements GameSave{
                 
                 if(dis < 1) {
                     this.collideEvent(otherEntity);
-                    otherEntity.collideEvent(this);
+                    //otherEntity.collideEvent(this);
                 }
             }
         }
     };
-    
+
     public abstract void collideEvent(Entity collidedEntity);
 
     public void outOfBoundsEvent(int boundsCode){

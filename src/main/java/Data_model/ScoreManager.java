@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import javafx.scene.control.ListView;
-
 public class ScoreManager {
 
 

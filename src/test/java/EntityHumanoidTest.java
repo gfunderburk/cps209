@@ -1,10 +1,5 @@
 import org.junit.Test;
-import Game_model.*;
-
-import static org.junit.Assert.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 // EntityHumanoidTest.java is the primary file to test Game functionality. 
 // Since most all of the game logic hinges upon responding to projectile collisions, 

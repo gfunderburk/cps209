@@ -74,6 +74,7 @@ public class E_Projectile extends Entity {
     @Override
     public void collideEvent(Entity otherEntity) {
         // TODO Auto-generated method stub
+        otherEntity.setCurrentHealth();
 
     }
 
