@@ -105,11 +105,14 @@ public class W_Scoreboard {
                 e1.printStackTrace();
             }
         });
+
         Label title = new Label("High Scores");
         title.getStyleClass().clear();
         title.getStyleClass().add("titles");
         btnMainMenu.setAlignment(Pos.CENTER);
-        vbox_scoreboard.getChildren().addAll(title, tableView, btnMainMenu);
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(btnMainMenu);
+        vbox_scoreboard.getChildren().addAll(title, tableView, hbox);
     }
 
 
