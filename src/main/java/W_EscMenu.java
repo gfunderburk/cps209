@@ -1,6 +1,10 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
+import Data_model.Score;
+import Data_model.ScoreManager;
 import Game_model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,9 +13,17 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class W_EscMenu {
+    Game game = Game.getIt();
+    
+    // --------------- //
+    // Media Elements //
+    // --------------- //
+
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
 
 
     //  --------------- //
@@ -45,6 +57,8 @@ public class W_EscMenu {
 
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
+        var scoreManager = ScoreManager.getIt();
+        BTN_CLICK.play();
         //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
         // - Yes = Save game
         // - No  = Main Menu
@@ -70,16 +84,23 @@ public class W_EscMenu {
             Optional<String> playerName = dialog.showAndWait();
             playerName.ifPresent(name -> {
                 System.out.println("Your name: " + name);
+                var newDate = LocalDateTime.now();
+                var newScore = new Score(name, newDate, game.getScore());
+                scoreManager.getList().clear();
+                scoreManager.loadScores();
+                scoreManager.addScore(newScore);
+                scoreManager.saveScores();
+                game.setGameOver(true);
 
-                //TODO: write code to call game save and score save methods here
-                //Update scoresList and highscores screen
+                //TODO: write code to call game save methods here
             });
 
             AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"), true, null);            
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
-            gameStage.close();            
+            gameStage.close();
+            game.setGameOver(true);            
             AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
 
         } else {
@@ -90,6 +111,7 @@ public class W_EscMenu {
 
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
+        BTN_CLICK.play();
         // Return to game window
         newStage.close();
         gameStage.show();

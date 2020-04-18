@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -23,6 +24,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
@@ -34,13 +36,18 @@ import javafx.util.Duration;
 
 public class W_InGame {
 
+    // Singleton Game Instance
+    Game game = Game.getIt();
+
     // --------------- //
     // Media Elements //
     // --------------- //
 
-    // final AudioClip AUDIO_RESTART = new
-    // AudioClip(getClass().getResource("/media/_filename_.wav").toString());
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip SHOOT_FOOTSOLDIER = new AudioClip(getClass().getResource("/media/footsoldiergun.wav").toString());
+    final AudioClip SHOOT_50CAL = new AudioClip(getClass().getResource("/media/50cal.mp3").toString());
 
+    final Image CROSSHAIRS = new Image("/icons/crosshairs_3.PNG");
     // --------------- //
     // View Variables //
     // --------------- //
@@ -69,9 +76,11 @@ public class W_InGame {
     Label lbl_Loc;
     @FXML
     Label lbl_Speed;
+    @FXML
+    Label lbl_Score;
 
     // ------------ //
-    // GUI Methods // (DIRECT USER EVENTS)
+    //  GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
 
     /**
@@ -82,14 +91,23 @@ public class W_InGame {
      */
     @FXML
     void onEscClicked() throws IOException, InterruptedException {
-        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);
+        
+        BTN_CLICK.play();
+
+        // Save game here and upon resume, load the temporarily saved game?
+        // How do we pause the game?
+        
+        game.pause();
+        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), false, null);
     }
 
 
     @FXML
     void mouseEnteredPane(){
         mouseWithinPane = true;
-        pane.getScene().setCursor(Cursor.CROSSHAIR);
+        pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
+        CROSSHAIRS.getWidth() / 2,
+        CROSSHAIRS.getHeight() /2));
     }
 
 
@@ -111,7 +129,11 @@ public class W_InGame {
 
     @FXML
     void mouseClickedPane(MouseEvent event) {
+        SHOOT_FOOTSOLDIER.play();
+        //Increase score here?
+        game.setScore(game.getScore() + 20); // Temporary Score Setting for testing of high scores
         EH_Avatar.getIt().attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
+        lbl_Score.setText("Score: " + game.getScore());
     }
     
 

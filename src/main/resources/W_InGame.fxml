@@ -15,7 +15,7 @@
           <Label text="Health:" />
           <ProgressBar progress="100" />
         </VBox>
-        <Label text="Score: 0" />
+        <Label fx:id="lbl_Score" text="Score: 0" />
 
             <VBox spacing="10" minWidth="50">
                 <Label fx:id="lbl_Id" text="" />

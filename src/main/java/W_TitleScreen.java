@@ -7,11 +7,17 @@ import javafx.stage.Stage;
 
 public class W_TitleScreen {
 
+    // --------------- //
+    // Media Elements //
+    // --------------- //
+
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
 
     //  --------------- //
     //  View Variables  //
     // ---------------  //
-    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+    
 
     //  --------------- //
     //  Stages          //
@@ -34,6 +40,7 @@ public class W_TitleScreen {
 
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
+        BTN_CLICK.play();
         new W_Scoreboard();
         AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
         THEME.play();

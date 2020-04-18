@@ -13,13 +13,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 
 public class W_Scoreboard {
 
     // --------------- //
-    // View Variables //
+    // Media Elements //
     // --------------- //
 
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+
+    // --------------- //
+    // View Variables //
+    // --------------- //
+    
     private static W_Scoreboard scoreboardInstance = new W_Scoreboard();
 
     public static W_Scoreboard getInstance() {
@@ -58,9 +65,10 @@ public class W_Scoreboard {
 
     public void initialize() {
         // Load Scores
+        scoreManager.getList().clear();
         scoreManager.loadScores();
         var scores = scoreManager.getList();
-        rows.clear();
+        rows.clear(); //clear observable list
 
         TableView tableView = new TableView();
 
@@ -84,13 +92,14 @@ public class W_Scoreboard {
             }
 
         }
-        tableView.getItems().clear();
-        tableView.setItems(rows);
+        tableView.getItems().clear(); //Clear tableview
+        tableView.setItems(rows); //add the new combination of scores
 
         Button btnMainMenu = new Button("Main Menu");
         btnMainMenu.setOnAction(e -> {
 
             try {
+                BTN_CLICK.play();
                 AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true,
                         null);
             } catch (IOException e1) {
