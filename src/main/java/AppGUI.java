@@ -1,15 +1,10 @@
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import Game_model.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 //------------------------------------------------------------------
@@ -32,13 +27,8 @@ public class AppGUI extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         AppGUI.currentStage = stage;
-        var load_titleScreen = new FXMLLoader(getClass().getResource("W_TitleScreen.fxml"));
-        var scene_a = new Scene(load_titleScreen.load());
-        stage.getIcons().add(new Image("/icons/terminatorIcon2.png")); // https://stackoverflow.com/questions/58241811/set-top-left-image-on-dialog-pane-with-javafx
-        stage.setScene(scene_a);
-        stage.setHeight(900);
-        stage.setWidth(1440);
-        stage.show();
+        AppGUI.windowLoad(null, stage, "Title Screen", getClass().getResource("W_TitleScreen.fxml"), false, null);
+
 
     }
 
@@ -58,8 +48,11 @@ public class AppGUI extends Application {
 
         newStage.setScene(scene);
         newStage.setTitle(newWindowName);
-        newStage.setWidth(1440);
-        newStage.setHeight(900);
+        newStage.setWidth(1340);
+        newStage.setHeight(600);
+        
+        newStage.setFullScreen(true);
+        newStage.setFullScreenExitHint("");
         newStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
         currentStage = newStage;
         newStage.show();

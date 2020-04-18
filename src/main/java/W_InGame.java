@@ -5,16 +5,11 @@ import java.util.ArrayList;
 import Game_model.EH_Avatar;
 import Game_model.E_Projectile;
 import Game_model.Entity;
-import Game_model.EntityHumanoid;
 import Game_model.Game;
 import Game_model.Game.StateGame;
-import Util_model.myMovement;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -87,8 +82,7 @@ public class W_InGame {
      */
     @FXML
     void onEscClicked() throws IOException, InterruptedException {
-        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), false, null);
-        Game.getIt().pause();
+        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);
     }
 
 
