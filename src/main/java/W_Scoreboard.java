@@ -65,9 +65,10 @@ public class W_Scoreboard {
 
     public void initialize() {
         // Load Scores
+        scoreManager.getList().clear();
         scoreManager.loadScores();
         var scores = scoreManager.getList();
-        rows.clear();
+        rows.clear(); //clear observable list
 
         TableView tableView = new TableView();
 
@@ -91,8 +92,8 @@ public class W_Scoreboard {
             }
 
         }
-        tableView.getItems().clear();
-        tableView.setItems(rows);
+        tableView.getItems().clear(); //Clear tableview
+        tableView.setItems(rows); //add the new combination of scores
 
         Button btnMainMenu = new Button("Main Menu");
         btnMainMenu.setOnAction(e -> {

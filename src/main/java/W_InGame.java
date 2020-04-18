@@ -36,6 +36,9 @@ import javafx.util.Duration;
 
 public class W_InGame {
 
+    // Singleton Game Instance
+    Game game = Game.getIt();
+
     // --------------- //
     // Media Elements //
     // --------------- //
@@ -73,9 +76,11 @@ public class W_InGame {
     Label lbl_Loc;
     @FXML
     Label lbl_Speed;
+    @FXML
+    Label lbl_Score;
 
     // ------------ //
-    // GUI Methods // (DIRECT USER EVENTS)
+    //  GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
 
     /**
@@ -86,11 +91,13 @@ public class W_InGame {
      */
     @FXML
     void onEscClicked() throws IOException, InterruptedException {
+        
         BTN_CLICK.play();
 
         // Save game here and upon resume, load the temporarily saved game?
         // How do we pause the game?
-
+        
+        game.pause();
         AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), false, null);
     }
 
@@ -123,7 +130,10 @@ public class W_InGame {
     @FXML
     void mouseClickedPane(MouseEvent event) {
         SHOOT_FOOTSOLDIER.play();
+        //Increase score here?
+        game.setScore(game.getScore() + 20); // Temporary Score Setting for testing of high scores
         EH_Avatar.getIt().attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
+        lbl_Score.setText("Score: " + game.getScore());
     }
     
 

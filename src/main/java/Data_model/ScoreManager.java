@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import javafx.scene.control.ListView;
-
 public class ScoreManager {
 
 
@@ -39,7 +37,7 @@ public class ScoreManager {
             while (line != null) { 
                 // var score = new Score(null, null, 0); // create a new score object
                 // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
-                scoreList.add(Score.deSerialize(line));    // add the new score object to scores list
+                addScore(Score.deSerialize(line));    // add the new score object to scores list
                 System.out.println(line); 
                 line = rd.readLine(); 
             } 
