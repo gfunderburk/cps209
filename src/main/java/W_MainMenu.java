@@ -14,6 +14,13 @@ import javafx.stage.Stage;
 public class W_MainMenu {
 
     // --------------- //
+    // Media Elements //
+    // --------------- //
+
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+
+    // --------------- //
     // View Variables //
     // --------------- //
 
@@ -26,8 +33,8 @@ public class W_MainMenu {
     
 
 
-    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+
+
 
     // ------------- //
     // GUI Elements //
@@ -60,7 +67,7 @@ public class W_MainMenu {
         // gameStage = stage;
         d.showAndWait().ifPresent(choice -> 
         {
-            THEME.play();
+            //THEME.play();
             // stage.show();            
             //newStage.close();
             try 

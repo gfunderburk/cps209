@@ -9,9 +9,17 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class W_EscMenu {
+
+    
+    // --------------- //
+    // Media Elements //
+    // --------------- //
+
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
 
 
     //  --------------- //
@@ -45,6 +53,7 @@ public class W_EscMenu {
 
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
+        BTN_CLICK.play();
         //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
         // - Yes = Save game
         // - No  = Main Menu
@@ -90,6 +99,7 @@ public class W_EscMenu {
 
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
+        BTN_CLICK.play();
         // Return to game window
         newStage.close();
         gameStage.show();

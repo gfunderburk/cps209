@@ -23,6 +23,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
@@ -38,9 +39,9 @@ public class W_InGame {
     // Media Elements //
     // --------------- //
 
-    // final AudioClip AUDIO_RESTART = new
-    // AudioClip(getClass().getResource("/media/_filename_.wav").toString());
-
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip SHOOT_FOOTSOLDIER = new AudioClip(getClass().getResource("/media/footsoldiergun.wav").toString());
+    final AudioClip SHOOT_50CAL = new AudioClip(getClass().getResource("/media/50cal.mp3").toString());
     // --------------- //
     // View Variables //
     // --------------- //
@@ -82,6 +83,7 @@ public class W_InGame {
      */
     @FXML
     void onEscClicked() throws IOException, InterruptedException {
+        BTN_CLICK.play();
         AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);
     }
 
@@ -111,6 +113,7 @@ public class W_InGame {
 
     @FXML
     void mouseClickedPane(MouseEvent event) {
+        SHOOT_FOOTSOLDIER.play();
         EH_Avatar.getIt().attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
     }
     

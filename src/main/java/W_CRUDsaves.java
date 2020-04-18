@@ -15,13 +15,20 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class W_CRUDsaves {
 
-    // ------------ //
-    // Singleton //
-    // ------------ //
+    // --------------- //
+    // Media Elements  //
+    // --------------- //
+
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+
+    // ----------- //
+    //  Singleton  //
+    // ----------- //
 
     private static W_CRUDsaves CRUDinstance = new W_CRUDsaves();
 
@@ -54,19 +61,21 @@ public class W_CRUDsaves {
     // GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
 
-    @FXML
-    void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
-        // TODO: Save input
+    // @FXML
+    // void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
+    //     BTN_CLICK.play();
+    //     // TODO: Save input
 
-        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
-    }
+    //     AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
+    // }
 
-    @FXML
-    void btn_loadSavedGame(ActionEvent event) {
-        // TODO: Load the game from the .dat file ArrayList
-        // using the selected row number as the index
+    // @FXML
+    // void btn_loadSavedGame(ActionEvent event) {
+    //     BTN_CLICK.play();
+    //     // TODO: Load the game from the .dat file ArrayList
+    //     // using the selected row number as the index
 
-    }
+    // }
 
     // ------------- //
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
@@ -116,6 +125,7 @@ public class W_CRUDsaves {
         btnMainMenu.setOnAction(e -> {
 
             try {
+                BTN_CLICK.play();
                 AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true,
                         null);
             } catch (IOException e1) {
@@ -135,6 +145,7 @@ public class W_CRUDsaves {
             //Feed into windowLoad method?
 
             try {
+                BTN_CLICK.play();
                 AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
