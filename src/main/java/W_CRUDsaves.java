@@ -1,12 +1,21 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
 
+import Data_model.Cereal;
+import Data_model.CerealManager;
+import Game_model.Game;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,6 +32,9 @@ public class W_CRUDsaves {
         return CRUDinstance;
     }
 
+    private CerealManager cerealManager = CerealManager.getIt();
+    
+
     //  --------------- //
     //  View Variables  //
     // ---------------  //
@@ -38,11 +50,12 @@ public class W_CRUDsaves {
     // -------------  //
 
 
-    
-    VBox vbox_CRUDSaves = new VBox();
+    @FXML
+    VBox vbox_CRUDSaves;
 
-    // @FXML
-    // TableView tableView;
+    private ObservableList<Games> rows = FXCollections.observableArrayList();
+
+
 
 
 
@@ -62,6 +75,7 @@ public class W_CRUDsaves {
     void btn_loadSavedGame(ActionEvent event) {
         // TODO: Load the game from the .dat file ArrayList 
         // using the selected row number as the index
+
     }
 
 
@@ -74,8 +88,51 @@ public class W_CRUDsaves {
 
     @FXML
     void initialize() throws InterruptedException {
-        // vbox_CRUDSaves.getChildren().add(createButton("Load Saved Game", "btn_load", false));
-        // vbox_CRUDSaves.getChildren().add(createButton("Return to Main Menu", "btn_back", false));
+
+        var saves = cerealManager.getList();
+        TableView tableView = new TableView();
+
+        TableColumn<String, String> column1 = new TableColumn<>("Score");
+        column1.setCellValueFactory(new PropertyValueFactory<>("score"));
+
+        TableColumn<String, String> column2 = new TableColumn<>("Name");
+        column2.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<String, String> column3 = new TableColumn<>("Date");
+        column3.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        tableView.getColumns().add(column1);
+        tableView.getColumns().add(column2);
+        tableView.getColumns().add(column3);
+
+        if (saves.size() > 0) {
+            for (Cereal game : saves) {
+                rows.add(new Games(game.getGame(), game.getName(), game.getDt()));
+            }
+
+        }
+
+        //TODO: add load game method here 
+        
+        tableView.getItems().clear();
+        tableView.setItems(rows);
+
+        Button btnMainMenu = new Button("Main Menu");
+        btnMainMenu.setOnAction(e -> {
+
+            try {
+                AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true,
+                        null);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
+        btnMainMenu.setAlignment(Pos.CENTER);
+        vbox_CRUDSaves.getChildren().addAll(tableView, btnMainMenu);
     }
 
 
@@ -102,6 +159,33 @@ public class W_CRUDsaves {
 
     public void setVbox_CRUDSaves(VBox vbox_CRUDSaves) {
         this.vbox_CRUDSaves = vbox_CRUDSaves;
+    }
+
+    public static class Games {
+ 
+        private final Game game;
+        private final String name;
+        private final String date;
+ 
+        private Games(Game game, String newName, LocalDateTime newDate) {
+
+            this.game = game;
+            this.name = newName;
+            this.date = newDate.getMonthValue() + "/" + newDate.getDayOfMonth() + "/" + newDate.getYear();
+        }
+
+        public Game getGame() {
+            return game;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
     }
 
 }

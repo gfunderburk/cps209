@@ -103,31 +103,8 @@ public class W_MainMenu {
         //TODO: instead of adding a new VBox to the window, make W_CRUDSaves.java controller static and reference variables in there?
         //TODO: connect this method to the game load method. I accidentally started writing the tableView stuff in here for the High Scores but they should apply
 
-        var tableView = new TableView();
-
-        TableColumn<String, String> column1 = new TableColumn<>("Score");
-        column1.setCellValueFactory(new PropertyValueFactory<>("score"));
-    
-        TableColumn<String, String> column2 = new TableColumn<>("Name");
-        column2.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        TableColumn<String, String> column3 = new TableColumn<>("Date");
-        column3.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-        tableView.getColumns().add(column1);
-        tableView.getColumns().add(column2);
-        tableView.getColumns().add(column3);
-
-        //tableView.getColumns().add(0, "hi");
-
-        var vbox = CRUDInstance.getVbox_CRUDSaves();
-        vbox.getChildren().add(new Label("Test"));
-
+        AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
         
-        var scene = new Scene(loader.load());
-        newStage.setScene(scene);
-        newStage.setTitle("Load/Save Game");
-        newStage.show();
 
     }
 
