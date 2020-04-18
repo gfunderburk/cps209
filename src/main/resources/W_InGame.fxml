@@ -26,7 +26,14 @@
     </top>
   </BorderPane>
 
-  <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray"></Pane>
+  <Pane fx:id="pane" prefHeight="800" prefWidth="1440" style="-fx-background-color: lightgray" 
+  onMouseMoved="#onMouseMoved" onMouseEntered="#mouseEnteredPane" onMouseExited="#mouseExitedPane" onMouseClicked="#mouseClickedPane" />
 
+  <!-- <ImageView fx:id="pane" prefHeight="800" prefWidth="1440"
+  onMouseMoved="#onMouseMoved" onMouseEntered="#mouseEnteredPane" onMouseExited="#mouseExitedPane" onMouseClicked="#mouseClickedPane"  >    
+    <image>
+        <Image url="/icons/backgrounds/lvl0Background.png" />
+    </image>
+  </ImageView> -->
 
 </VBox>

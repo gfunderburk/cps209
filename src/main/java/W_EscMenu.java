@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.Optional;
 
+import Game_model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,7 +17,6 @@ public class W_EscMenu {
     //  --------------- //
     //  View Variables  //
     // ---------------  //
-
 
 
     Stage newStage = AppGUI.getStage();
@@ -55,8 +55,8 @@ public class W_EscMenu {
         ButtonType btnCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(btnYes, btnNo, btnCancel);
-
         Optional<ButtonType> result = alert.showAndWait();
+
         if (result.get() == btnYes) {
             // Save the game and close the game and esc windows
             gameStage.close();
@@ -73,21 +73,17 @@ public class W_EscMenu {
                 //Update scoresList and highscores screen
             });
 
-            AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"), true, null);
-            
-
-        } else if (result.get() == btnNo) {
+            AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"), true, null);            
+        } 
+        else if (result.get() == btnNo) {
             // Return to main menu and close the game window
             gameStage.close();
-            AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
-            
-
-        } else {
+            AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);           
+        } 
+        else {
             // ... user chose CANCEL or closed the dialog
-            AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);
-            
-        }
-        
+            AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);            
+        }        
     }
 
     @FXML
@@ -95,9 +91,6 @@ public class W_EscMenu {
         // Return to game window
         newStage.close();
         gameStage.show();
-        
-        // temporary fix
-        // int GameDiff = 1;
-        // AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, GameDiff);
+        Game.getIt().play();
     }
 }

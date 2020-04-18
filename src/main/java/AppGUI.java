@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import Game_model.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -74,6 +75,8 @@ public class AppGUI extends Application {
             W_InGame game = loader.getController();
             game.ingameScene = scene;
             game.initialize((int)windowInitData);
+
+            // if(windowInitData != null) Game.getIt().startNewGame();
         }
     }
 

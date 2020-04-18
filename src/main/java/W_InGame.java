@@ -1,17 +1,31 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import Game_model.EH_Avatar;
+import Game_model.E_Projectile;
 import Game_model.Entity;
+import Game_model.EntityHumanoid;
 import Game_model.Game;
 import Game_model.Game.StateGame;
+import Util_model.myMovement;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,6 +55,7 @@ public class W_InGame {
     Scene ingameScene;
     int difficulty;
     boolean mouseWithinPane;
+    double mouseX, mouseY, paneW, paneH;
 
     // ------------- //
     // GUI Elements //
@@ -73,7 +88,38 @@ public class W_InGame {
     @FXML
     void onEscClicked() throws IOException, InterruptedException {
         AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), false, null);
+        Game.getIt().pause();
     }
+
+
+    @FXML
+    void mouseEnteredPane(){
+        mouseWithinPane = true;
+        pane.getScene().setCursor(Cursor.CROSSHAIR);
+    }
+
+
+    @FXML
+    void mouseExitedPane(){
+        mouseWithinPane = false;
+        pane.getScene().setCursor(Cursor.DEFAULT);
+    }
+    
+
+    @FXML
+    void onMouseMoved(MouseEvent event) {
+        // if(mouseWithinPane){
+        //     mouseX = event.getX();
+        //     mouseY = event.getY();
+        // }
+    }
+
+
+    @FXML
+    void mouseClickedPane(MouseEvent event) {
+        EH_Avatar.getIt().attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
+    }
+    
 
     // ------------- //
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
@@ -84,12 +130,29 @@ public class W_InGame {
     void initialize(int difficultyLevel) throws InterruptedException {
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
+        // pane.setOnMouseEntered(me -> pane.getScene().setCursor(Cursor.HAND) );
+        // pane.setOnMouseExited(me -> pane.getScene().setCursor(Cursor.DEFAULT) );
+        //pane.setOnMouseClicked(me -> EH_Avatar.getIt().attack(event.getX(), event.getY(), pane.getWidth(), pane.getHeight()));
         
         Game.getIt().startGame("Joe", difficultyLevel, 1);
-        var keyFrame = new KeyFrame(Duration.seconds(.2), e -> timerAnimate());
+        
+        String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
+        Image lvlImage = new Image(imageAddress);
+        
+        BackgroundImage background = new BackgroundImage(lvlImage,
+                                                        BackgroundRepeat.NO_REPEAT,
+                                                        BackgroundRepeat.NO_REPEAT,
+                                                        BackgroundPosition.DEFAULT,
+                                                        BackgroundSize.DEFAULT);
+        pane.setBackground(new Background(background));
+        
+        
+        //  Set Global Animation Timer
+        var keyFrame = new KeyFrame(Duration.seconds(.1), e -> timerAnimate());
         var clockTimeline = new Timeline(keyFrame);
         clockTimeline.setCycleCount(Timeline.INDEFINITE);
         clockTimeline.play();
+        
     }
 
 
@@ -106,14 +169,23 @@ public class W_InGame {
             for (Entity entity : Game.getIt().getEntityList()) {
                 drawEntity(entity);
             }
+
+            //  Delete any dead entity images
+            for (Entity entity : Game.getIt().getDeadEntityList()) {
+                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
+                if(oldEntityImg != null){
+                    pane.getChildren().remove(oldEntityImg);
+                }     
+            }
+            Game.getIt().setDeadEntityList(new ArrayList<Entity>());
         }
     }
 
 
     public void drawEntity(Entity entity){
-        lbl_Loc.setText("( X= " + (int)entity.getLocation().getX() + ", Y= " + (int)entity.getLocation().getY() + ", Z= " + (int)entity.getLocation().getZ() + ")");;
-        lbl_Id.setText("" + entity.getId());
-        lbl_Speed.setText("" + entity.getSpeed());
+        // lbl_Loc.setText("( X= " + (int)entity.getLocation().getX() + ", Y= " + (int)entity.getLocation().getY() + ", Z= " + (int)entity.getLocation().getZ() + ")");;
+        // lbl_Id.setText("" + entity.getId());
+        // lbl_Speed.setText("" + entity.getSpeed());
     
 
         //  Delete old entity image if it exists
@@ -126,36 +198,46 @@ public class W_InGame {
         String imageAddress = File.separator+"icons"+entity.getImage();
         ImageView newEntityImg = new ImageView(imageAddress);
 
-        // newEntityImg.setPreserveRatio(true);
         newEntityImg.setId("" + entity.getId());
         newEntityImg.setUserData(entity.getId());
         newEntityImg.getStyleClass().add("gameEntity");
-        
+        // newEntityImg.setOnMouseClicked(me -> {
+        //     EH_Avatar.getIt().attack(Game.getIt().findEntityById(Integer.parseInt(newEntityImg.getId())));
+        // });
         pane.getChildren().add(newEntityImg);
         
+        //  Variables
+
         Point3D loc = entity.getLocation();
-
-        double paneW = pane.getWidth();
-        double paneH = pane.getHeight();
-
+        paneW = pane.getWidth();
+        paneH = pane.getHeight();
         double paneWper = paneW * .01;
         double paneHper = paneH * .01;
 
         //  Set ImageView Width/Height
 
-        double imgW = (paneWper * entity.getWidth()) - (loc.getZ() * 5);   // set width according to z depth (deeper z = narrower)
+        double imgW = paneWper * entity.getWidth(); // set vanillaWidth
+        double imgH = paneHper * entity.getHeight(); // set vanillaHeight
+
+        imgW -= (0.05 * loc.getZ() * imgW);   // set width according to z depth (deeper z = narrower)
+        imgH -= (0.05 * loc.getZ() * imgH);   // set height according to z depth (deeper z = shorter)
+    
         newEntityImg.setFitWidth(imgW);
-
-        double imgH = (paneHper * entity.getHeight()) - (loc.getZ() * 15);   // set height according to z depth (deeper z = shorter)
         newEntityImg.setFitHeight(imgH);
-
+        
         //  Set ImageView (x,y)
 
         double imgX = ( loc.getX() * paneW ) / Game.getIt().getGamePhysicsWidth();   // set x according to physical and visual world ratio     
         double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
 
-        imgX = imgX - (0.5 * imgW);  //  center width on item pt.
-        imgY = imgY + (1.0 * imgH) + (loc.getZ() * 20); //  adjust y according to depth (deeper z = higher)
+        imgX -= (0.5 * imgW);  //  center width on item pt.
+
+        if(entity instanceof E_Projectile){
+            imgY += (0.5 * imgH);
+        }
+        else{
+            imgY += ( (1.0 * imgH) + (loc.getZ() * 20) ); //  adjust y according to depth (deeper z = higher)
+        }
 
         newEntityImg.relocate(imgX, paneH - imgY); 
     }

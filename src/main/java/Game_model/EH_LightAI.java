@@ -3,6 +3,9 @@ package Game_model;
 import java.io.File;
 
 import Game_model.E_Projectile.TypeRound;
+import Util_model.myMovement;
+import Util_model.myMovement.Point3D_Comp;
+import javafx.geometry.Point3D;
 
 public class EH_LightAI extends EntityHumanoid {
 
@@ -49,13 +52,28 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public void move() {
-        // TODO Auto-generated method stub
-        super.move();
+        this.sameMoveCount++;
 
+        if(this.sameMoveCount > 20){
+            this.sameMoveCount = 0;
+
+            if(this.standStill){
+                this.vector = new Point3D(0,0,0);
+            }
+            else{
+                Point3D newDest = Game.getIt().randomPoint3D();
+                this.vector = myMovement.getHeading(newDest, this.location, this.speed);
+                this.vector = myMovement.setNewPointComp(this.vector, Point3D_Comp.y, 0);
+            }
+
+            this.standStill = this.standStill ? false : true;
+        }
+
+        super.move();
     }
 
     @Override
-    public void collideEvent() {
+    public void collideEvent(Entity otherEntity) {
         // TODO Auto-generated method stub
 
     }
@@ -74,12 +92,21 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public void spawn() {
-        // TODO Auto-generated method stub
+        this.location = Game.getIt().randomPoint3D();
+        this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.y, 0);
+        this.vector = new Point3D(0, 0, 0);
+
         super.spawn();
     }
 
     @Override
     public void attack(Entity entity) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void deSpawn() {
         // TODO Auto-generated method stub
 
     }
