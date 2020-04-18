@@ -11,11 +11,13 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -40,12 +42,15 @@ public class W_CRUDsaves {
     Stage newStage = AppGUI.getStage();
     Stage oldStage = new Stage();
 
+    LocalDateTime now = LocalDateTime.now();
+
     // ------------- //
     // GUI Elements //
     // ------------- //
 
     @FXML
     VBox vbox_CRUDSaves;
+
 
     private ObservableList<Games> rows = FXCollections.observableArrayList();
 
@@ -71,38 +76,43 @@ public class W_CRUDsaves {
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // ------------- //
 
-    @FXML
-    void initialize() throws InterruptedException {
+
+    public void initialize() {
         // TODO: add load methods here
 
-        cerealManager.loadCerealDir(); // load method?
+        //cerealManager.loadCerealDir(); // load method?
 
-        var saves = cerealManager.getList();
+        //var saves = cerealManager.getList();
 
         TableView tableView = new TableView();
 
-        TableColumn<String, String> column1 = new TableColumn<>("Score");
-        column1.setCellValueFactory(new PropertyValueFactory<>("score"));
+
+        TableColumn<String, String> column1 = new TableColumn<>("Date");
+        column1.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         TableColumn<String, String> column2 = new TableColumn<>("Name");
         column2.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<String, String> column3 = new TableColumn<>("Date");
-        column3.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         tableView.getColumns().add(column1);
         tableView.getColumns().add(column2);
-        tableView.getColumns().add(column3);
 
-        if (saves.size() > 0) {
-            for (Cereal game : saves) {
-                rows.add(new Games(game.getGame(), game.getName(), game.getDt()));
-            }
 
-        }
+        // if (saves.size() > 0) {
+        //     rows.clear();
+        //     for (Cereal game : saves) {
+        //         rows.add(new Games(game.getGame(), game.getName(), game.getDt()));
+        //     }
 
-        // TODO: add load game method here
+        // }
+        // else {
 
+        rows.clear();
+        rows.add(new Games(null, "Jeremy", now));
+        rows.add(new Games(null, "Gunnar", now));
+        
+
+  
         tableView.getItems().clear();
         tableView.setItems(rows);
 
@@ -126,7 +136,7 @@ public class W_CRUDsaves {
             // TODO: Add code here to load saved game
             //Get selected row
             //Get data from selected row
-            //
+            //Feed into windowLoad method?
 
             try {
                 AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, null);
@@ -139,8 +149,14 @@ public class W_CRUDsaves {
             }
         });
 
+        Label title = new Label("Saved Games");
+        title.getStyleClass().clear();
+        title.getStyleClass().add("titles");
         btnMainMenu.setAlignment(Pos.CENTER);
-        vbox_CRUDSaves.getChildren().addAll(tableView, btnMainMenu);
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(btnMainMenu, btnLoadSavedGame);
+    
+        vbox_CRUDSaves.getChildren().addAll(title, tableView, hbox);
     }
 
 

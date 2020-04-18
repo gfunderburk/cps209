@@ -68,14 +68,15 @@ public class W_Scoreboard {
 
         TableView tableView = new TableView();
 
-        TableColumn<String, String> column1 = new TableColumn<>("Score");
-        column1.setCellValueFactory(new PropertyValueFactory<>("score"));
+        TableColumn<String, String> column1 = new TableColumn<>("Date");
+        column1.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         TableColumn<String, String> column2 = new TableColumn<>("Name");
         column2.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<String, String> column3 = new TableColumn<>("Date");
-        column3.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        TableColumn<String, String> column3 = new TableColumn<>("Score");
+        column3.setCellValueFactory(new PropertyValueFactory<>("score"));
 
         tableView.getColumns().add(column1);
         tableView.getColumns().add(column2);
@@ -83,7 +84,7 @@ public class W_Scoreboard {
 
         if (scores.size() > 0) {
             for (Score score : scores) {
-                rows.add(new Scores(score.getScore(), score.getName(), score.getDt()));
+                rows.add(new Scores(score.getDt(), score.getName(), score.getScore()));
             }
 
         }
@@ -104,8 +105,11 @@ public class W_Scoreboard {
                 e1.printStackTrace();
             }
         });
+        Label title = new Label("High Scores");
+        title.getStyleClass().clear();
+        title.getStyleClass().add("titles");
         btnMainMenu.setAlignment(Pos.CENTER);
-        vbox_scoreboard.getChildren().addAll(tableView, btnMainMenu);
+        vbox_scoreboard.getChildren().addAll(title, tableView, btnMainMenu);
     }
 
 
@@ -130,7 +134,7 @@ public class W_Scoreboard {
         private final String name;
         private final String date;
  
-        private Scores(int newScore, String newName, LocalDateTime newDate) {
+        private Scores(LocalDateTime newDate, String newName, int newScore) {
 
             this.score = newScore;
             this.name = newName;

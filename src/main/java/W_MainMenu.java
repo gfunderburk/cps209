@@ -95,15 +95,13 @@ public class W_MainMenu {
 
     @FXML
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
-        W_CRUDsaves CRUDInstance = W_CRUDsaves.instance();
+        // W_CRUDsaves CRUDInstance = W_CRUDsaves.instance();
+        // CRUDInstance.initialize();
+
         // Play button click sounds
         BTN_CLICK.play();
-        var loader = new FXMLLoader(getClass().getResource("W_CRUDsaves.fxml"));
 
-        //TODO: instead of adding a new VBox to the window, make W_CRUDSaves.java controller static and reference variables in there?
-        //TODO: connect this method to the game load method. I accidentally started writing the tableView stuff in here for the High Scores but they should apply
-
-        AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
+        AppGUI.windowLoad(oldStage, newStage, "Saved Games", getClass().getResource("W_CRUDsaves.fxml"), true, null);
         
 
     }
