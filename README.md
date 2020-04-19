@@ -32,7 +32,7 @@ None
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
 |Jeremiah Cox  |  42.8         |   17.2        |
-|Gunnar Funderburk | ?  |  ?  |
+|Gunnar Funderburk | 30  |  30  |
 |Jonathan Layton  |  41   |  29 (Dr. Scaub 10 hour extension) |
 
 ### Journals
