@@ -24,4 +24,9 @@ Provide a table showing how many hours each team member has invested to this poi
 |:------------:|:-------------:|:-------------:|
 |Jeremiah Cox  |  42.8         |   17.2        |
 |Gunnar Funderburk | ?  | ?   |
-|Jonny Layton  |  ?   |  ? |
+|Jonathan Layton  |  ?   |  ? |
+
+### Journals
+- [Jeremiah Cox](https://github.com/gfunderburk/cps209/wiki/Journal_Cox)
+- [Gunnar Funderburk](https://github.com/gfunderburk/cps209/wiki/Journal_Funderburk)
+- [Jonathan Layton](https://github.com/gfunderburk/cps209/wiki/Journal_Layton)
