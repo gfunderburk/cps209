@@ -3,7 +3,7 @@
 ## Instructions: 
 To play the game, select New Game or Load Game. If you select Load Game, you will need to select a saved game from the list and then select Load Selected Game button at the bottom of the screen. Now the game will begin! Enemy Terminators will appear on the screen and will randomly move around, attempting to kill you. The goal is to kill them before they kill you! Left-click on the Terminator in order to shoot. Good luck!  
 
-*Note: Loading saved game and collision damage does not work yet (coming soon with Beta release!).
+*Note: Loading saved game and collision damage does not work yet (coming soon with Beta release!). Code for loading Saved Game is finished, just not working properly yet.
 
 ## Work Completed: 
 
