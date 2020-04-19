@@ -18,7 +18,6 @@ A link to your screen recording.
 
 
 ## Expenses: 
-Provide a table showing how many hours each team member has invested to this point, how many hours they have remaining out of their individual time budget, and link to each team member’s journal.  
 
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
