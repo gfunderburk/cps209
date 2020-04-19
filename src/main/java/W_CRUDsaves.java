@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import Data_model.CerealManager;
+
 import Game_model.Game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +37,6 @@ public class W_CRUDsaves {
         return CRUDinstance;
     }
 
-    private CerealManager cerealManager = CerealManager.getIt();
 
     // --------------- //
     // View Variables //
