@@ -22,7 +22,7 @@ To play the game, select New Game or Load Game. If you select Load Game, you wil
 None 
 
 ## Recording: 
-A link to your screen recording.  
+[Screen Recording](https://www.youtube.com/watch?v=U_WG0o-7tb4&feature=youtu.be)
 
 
 ## Expenses: 
