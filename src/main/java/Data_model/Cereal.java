@@ -1,6 +1,12 @@
 package Data_model;
 
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import Game_model.*;
 
 public class Cereal {
@@ -10,10 +16,8 @@ public class Cereal {
     Game game;
     String name;
     LocalDateTime dt;
-
-
-    //  Constructor  //
-  
+    
+    // Constructor //
 
     public Cereal(Game game, LocalDateTime dt, String name) {
         this.game = game;
@@ -21,52 +25,62 @@ public class Cereal {
         this.dt = java.time.LocalDateTime.now();
     }
 
+    // Methods //
 
-    //  Methods  //
-
-    
-    public String toString()
-    {
+    public String toString() {
         return this.dt + "_" + this.name + ".dat";
     }
 
-
-    public String SerializeGame()
+    public void SerializeGame() throws FileNotFoundException
     {
-        //TODO: Serialize objects in game.
-        return null;
+       
+        Entity [] cerealArray= (Entity[]) game.getIt().getEntityList().toArray();
+        for(Entity ent:cerealArray){
+
+            try(DataOutputStream writer=new DataOutputStream(new FileOutputStream("cereal.dat"))){
+              
+                writer.writeUTF(ent.Serialize()+"\n");
+                
+
+            }catch(IOException e){
+                System.out.println("An Error has Occured During Serialization    (SerializeGame() Line:36-)");
+            }
+        }
+        
     }
 
 
 	public void deSerialize(String line) {
-
+    
         String[] attrList = line.split(",");
         switch(attrList[0]){
 
             case "G":
-                //TODO: De-Cereal G
+                game.deSerialize(line);
                 break;
                 
             case "U":
-                //TODO: De-Cereal U
+             
+                EH_Avatar.DeSerialize(line);
                 break;
 
             case "H":
-                //TODO: De-Cereal H
+                EH_LightAI dude=new EH_LightAI();
+                dude.deSerialize(line);
+                dude.spawn();
                 break;
 
             case "S":
-                //TODO: De-Cereal S
+                
                 break;
             
             case "P":
-                //TODO: De-Cereal P
+               E_Projectile bull=new E_Projectile();
+              bull.deSerialize(line);
+              bull.spawn();
                 break;
         }
-	}
-
-
-    //  Getters-Setters  //
+	};
 
 
     public Game getGame() {
@@ -92,4 +106,5 @@ public class Cereal {
     public void setDt(LocalDateTime dt) {
         this.dt = dt;
     }
+
 }

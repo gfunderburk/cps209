@@ -100,14 +100,45 @@ public class Game implements GameSave {
 
     @Override
     public String Serialize() {
-        // TODO serialize self data
-        return null;
+        String cereal="G,"+stateDiff+","+stateGame+","+LAI_Left+","+HAI_Left+","+FAI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
+        
+       
+        return cereal;
     }
 
 
     @Override
     public void deSerialize(String data) {
-        // TODO load data to self
+        String[] deCereal=data.split(",");
+        if(deCereal[1].equals("EASY")){
+            stateDiff=stateDiff.EASY;
+        }
+        if(deCereal[1].equals("MEDIUM")){
+            stateDiff=stateDiff.MEDIUM;
+        }
+        if(deCereal[1].equals("HARD")){
+            stateDiff=stateDiff.HARD;
+        }
+        stateGame=(deCereal[2].equals("RUNNING"))? stateGame.RUNNING:stateGame.PAUSED;
+        
+        
+        LAI_Left=Integer.parseInt(deCereal[3]);
+        HAI_Left=Integer.parseInt(deCereal[4]);
+        FAI_Left=Integer.parseInt(deCereal[5]);
+        score=Integer.parseInt(deCereal[6]);
+        time=Integer.parseInt(deCereal[7]);
+        gameLvl=Integer.parseInt(deCereal[8]);
+        currentEnitity=Integer.parseInt(deCereal[9]);
+        newMobSpawnDelay=Integer.parseInt(deCereal[10]);
+        spawnDelayCount=Integer.parseInt(deCereal[11]);
+        //note 12 was purposely skipped
+        playerName=deCereal[13];
+        gameOver= (deCereal[14].equals("True")) ? true:false;
+        cheatMode=(deCereal[15].equals("True"))?true:false;
+
+
+               
+        
     }
 
 

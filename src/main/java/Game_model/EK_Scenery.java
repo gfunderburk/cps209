@@ -30,7 +30,7 @@ public class EK_Scenery extends EntityKillable {
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 

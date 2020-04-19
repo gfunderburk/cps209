@@ -7,31 +7,27 @@ public class EH_Avatar extends EntityHumanoid {
 
     //  Variables  //
 
-    
+    static TypeRound roundType = TypeRound.LIGHT_ROUND;
 
+    // Constructor //
 
-
-    //  Constructor  //
-
-
-    public EH_Avatar(){
-        this.typeRound = TypeRound.LIGHT_ROUND;        
+    public EH_Avatar() {
+        this.typeRound = TypeRound.LIGHT_ROUND;
     }
 
-
-    //  Methods  //
-
+    // Methods //
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
-        return null;
+        return ("U ," + typeRound + "");
     }
 
-
-    @Override
-    public void deSerialize(String data) {
-        // TODO Auto-generated method stub
+    public static void DeSerialize(String data) {
+        String deceral = data.split(",")[1];
+        if (deceral.equals("LIGHT_ROUND")) {
+            roundType = TypeRound.LIGHT_ROUND;
+        }
+        
 
     }
 
@@ -73,6 +69,12 @@ public class EH_Avatar extends EntityHumanoid {
 
     @Override
     public void attack(Entity entity) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void deSerialize(String data) {
         // TODO Auto-generated method stub
 
     }
