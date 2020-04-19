@@ -22,8 +22,8 @@ A link to your screen recording.
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
 |Jeremiah Cox  |  42.8         |   17.2        |
-|Gunnar Funderburk | ?  | ?   |
-|Jonathan Layton  |  ?   |  ? |
+|Gunnar Funderburk | ?  |  ?  |
+|Jonathan Layton  |  41   |  29 (Dr. Scaub 10 hour extension) |
 
 ### Journals
 - [Jeremiah Cox](https://github.com/gfunderburk/cps209/wiki/Journal_Cox)
