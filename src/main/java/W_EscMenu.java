@@ -1,6 +1,11 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
+import Data_model.Score;
+import Data_model.ScoreManager;
+import Game_model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -8,9 +13,17 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class W_EscMenu {
+    Game game = Game.getIt();
+    
+    // --------------- //
+    // Media Elements //
+    // --------------- //
+
+    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
 
 
     //  --------------- //
@@ -19,8 +32,8 @@ public class W_EscMenu {
 
 
 
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
+    Stage oldStage = AppGUI.getStage();
+    Stage newStage = new Stage();
     Stage gameStage = W_MainMenu.getGameStage();
 
 
@@ -44,19 +57,22 @@ public class W_EscMenu {
 
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
+        var scoreManager = ScoreManager.getIt();
+        BTN_CLICK.play();
         //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
         // - Yes = Save game
         // - No  = Main Menu
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to save before quitting?");
+        
 
         ButtonType btnYes = new ButtonType("Yes");
         ButtonType btnNo = new ButtonType("No");
         ButtonType btnCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(btnYes, btnNo, btnCancel);
-
         Optional<ButtonType> result = alert.showAndWait();
+
         if (result.get() == btnYes) {
             // Save the game and close the game and esc windows
             gameStage.close();
@@ -68,36 +84,37 @@ public class W_EscMenu {
             Optional<String> playerName = dialog.showAndWait();
             playerName.ifPresent(name -> {
                 System.out.println("Your name: " + name);
+                var newDate = LocalDateTime.now();
+                var newScore = new Score(name, newDate, game.getScore());
+                scoreManager.getList().clear();
+                scoreManager.loadScores();
+                scoreManager.addScore(newScore);
+                scoreManager.saveScores();
+                game.setGameOver(true);
 
-                //TODO: write code to call game save and score save methods here
-                //Update scoresList and highscores screen
+                //TODO: write code to call game save methods here
             });
 
-            AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"), true, null);
-            
-
-        } else if (result.get() == btnNo) {
+            AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"), true, null);            
+        } 
+        else if (result.get() == btnNo) {
             // Return to main menu and close the game window
             gameStage.close();
+            game.setGameOver(true);            
             AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
-            
 
         } else {
             // ... user chose CANCEL or closed the dialog
-            AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);
-            
-        }
-        
+            AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);            
+        }        
     }
 
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
+        BTN_CLICK.play();
         // Return to game window
         newStage.close();
         gameStage.show();
-        
-        // temporary fix
-        // int GameDiff = 1;
-        // AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, GameDiff);
+        Game.getIt().play();
     }
 }

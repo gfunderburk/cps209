@@ -10,95 +10,118 @@ public abstract class Entity implements GameSave{
     //  Variables  //
 
     
-    protected  int height, width, Id; 
-    protected  double speed;
+    protected  int Id; 
+    protected  double height, width, speed;
     protected  int sameMoveCount;
-    protected  boolean standStill = true;
+    protected  boolean standStill = false;
     protected  Point3D location, vector;
     protected  String imageDir, imageState;
+    protected  int collisionCode; 
+    /*
+    0 =  none, 
+    1 =  <X, 
+    2 =  >X, 
+    3 =  <Y, 
+    4 =  >Y, 
+    5 =  <Z, 
+    6 =  >Z
+    */ 
 
 
     //  Methods  //
 
     
     public void move() {
-        this.sameMoveCount++;
-
-        if(this.sameMoveCount > 20){
-            this.sameMoveCount = 0;
-
-            if(this.standStill){
-                this.vector = new Point3D(0,0,0);
-            }
-            else{
-                Point3D newDest = Game.getIt().randomPoint3D();
-                this.vector = myMovement.getHeading(newDest, this.location, this.speed);
-                this.vector = myMovement.setNewPointComp(this.vector, Point3D_Comp.y, 0);
-            }
-
-            this.standStill = this.standStill ? false : true;
-        }
-
+        
         this.location = this.location.add(this.vector);
 
         // Check X within borders
         if(this.location.getX() > Game.getIt().getGamePhysicsWidth()){
-            this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.x, Game.getIt().getGamePhysicsWidth());
+            outOfBoundsEvent(2);
         }
         else if(this.location.getX() < 0){
-            this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.x, 0);
+            outOfBoundsEvent(1);
         }
 
         // Check X within borders
         if(this.location.getY() > Game.getIt().getGamePhysicsHeight()){
-            this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.y, Game.getIt().getGamePhysicsHeight());
+            outOfBoundsEvent(4);
         }
         else if(this.location.getY() < 0){
-            this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.y, 0);
+            outOfBoundsEvent(3);
         }
 
         // Check X within borders
         if(this.location.getZ() > Game.getIt().getGamePhysicsDepth()){
-            this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.z, Game.getIt().getGamePhysicsDepth());
+            outOfBoundsEvent(6);
         }
         else if(this.location.getZ() < 0){
-            this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.z, 0);
+            outOfBoundsEvent(5);
         }
 
-
-
-        for (Entity item : Game.getIt().getEntityList()) 
-        {            
-            compareDist(item);
-        }
-    };
-    
-
-    public void compareDist(Entity otherOne) {
-
-        if(this != otherOne){
-            double dis = Util_model.myGeometry.getDistance3D(this.location, otherOne.location);
-            
-            if(dis < 1) { //TODO: compareDist might be buggy!
-                this.collideEvent();
-                otherOne.collideEvent();
+        for (Entity otherEntity : Game.getIt().getEntityList()){            
+            if(this != otherEntity){
+                double dis = Util_model.myGeometry.getDistance3D(this.location, otherEntity.location);
+                
+                if(dis < 1) {
+                    this.collideEvent(otherEntity);
+                    otherEntity.collideEvent(this);
+                }
             }
         }
     };
+    
+    public abstract void collideEvent(Entity collidedEntity);
+
+    public void outOfBoundsEvent(int boundsCode){
+        if(this instanceof E_Projectile){
+            this.deSpawn();  
+        } 
+        else{
+
+            switch(boundsCode){
+
+                case 1:
+                    this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.x, 0); 
+                    break;
+
+                case 2:   
+                    this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.x, Game.getIt().getGamePhysicsWidth());
+                    break;
+
+                case 3:
+                    this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.y, 0);
+                    break;
+
+                case 4:
+                    this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.y, Game.getIt().getGamePhysicsHeight());
+                    break;
+
+                case 5:
+                    this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.z, 0);
+                    break;
+
+                case 6:
+                    this.location = myMovement.setNewPointComp(this.location, myMovement.Point3D_Comp.z, Game.getIt().getGamePhysicsDepth());
+                    break;
+
+                default:
+            }
+        }
+    }
+
     
     public void spawn() {
         Game.getIt().setCurrentEnitity(Game.getIt().getCurrentEnitity() + 1);
         this.Id = Game.getIt().getCurrentEnitity();
 
-        this.location = Game.getIt().randomPoint3D();
-        this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.y, 0);
-
-        this.vector = myMovement.getHeading(Game.getIt().randomPoint3D(), this.location, this.speed);
-
         Game.getIt().getEntityList().add(this);
     }
 
-    public abstract void collideEvent();
+    public void deSpawn(){
+        Game.getIt().getDeadEntityList().add(this);
+        Game.getIt().getEntityList().remove(this);
+    };
 
     @Override
     public abstract String Serialize();
@@ -110,7 +133,7 @@ public abstract class Entity implements GameSave{
     //  Getter - Setters  //
 
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
@@ -118,7 +141,7 @@ public abstract class Entity implements GameSave{
         this.height = height;
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 

@@ -1,5 +1,6 @@
 .root {
-    -fx-padding: 10; /* Add a small padding around the window */
+    padding-top: 30;
+    -fx-padding: 50; /* Add a small padding around the window */
     -fx-spacing: 10;
     -fx-alignment: center;
     -fx-background-color: rgb(156, 156, 156);
@@ -32,7 +33,7 @@ VBox {
 }
 
 HBox {
-    -fx-padding: 1;
+    -fx-padding: 30;
     -fx-spacing: 1;
     -fx-max-height: 10;
     -fx-alignment: center;

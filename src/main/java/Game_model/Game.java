@@ -34,8 +34,9 @@ public class Game implements GameSave {
     private int gamePhysicsHeight = 65;
     private int gamePhysicsDepth = 10;
     private LocalDateTime dt;
-    private String playerName;
+    private String playerName, lvlBackground;
     private ArrayList<Entity> entityList = new ArrayList<Entity>();
+    private ArrayList<Entity> deadEntityList = new ArrayList<Entity>();
     private boolean gameOver = false;
     private boolean cheatMode = false;
 
@@ -67,8 +68,19 @@ public class Game implements GameSave {
             entityList.add(scenery);            
         }
         spawnerAdmin(true);
+        gameLvl = GameLevel;
         stateGame = StateGame.RUNNING;
     }
+
+    // public void startNewGame(){
+    //     gameLvl =  1;
+    //     for (Entity scenery : GameLevels.getIt().getLvl1_Scenery()) {
+    //         entityList.add(scenery);            
+    //     }
+    //     spawnerAdmin(true);
+    //     stateGame = StateGame.RUNNING;
+    // }
+
 
     public void loadGame(){
         entityList = new ArrayList<Entity>();
@@ -82,6 +94,10 @@ public class Game implements GameSave {
         stateGame = StateGame.PAUSED;    
     }
 
+    public Entity findEntityById(int Id){
+        return entityList.stream().filter(it -> it.Id == Id).findFirst().get();
+    }
+
     public void checkGameOver(){
         // TODO IF hostilesLeft = 0, show end-level screen to progress to next level.
         //   OR IF player health = 0, show end-game screen to offer to save player score.         
@@ -89,7 +105,7 @@ public class Game implements GameSave {
 
 	public void sortEntityList() {
         Comparator<Entity> compareByScore = (Entity o1, Entity o2) -> (int)o1.getLocation().getZ() - (int)o2.getLocation().getZ();
-        Collections.sort(entityList, compareByScore.reversed()); //TODO: check for BUG .reversed());
+        Collections.sort(entityList, compareByScore.reversed());
     }
 
     public Point3D randomPoint3D(){
@@ -304,6 +320,22 @@ public class Game implements GameSave {
 
     public void setSpawnDelayCount(int spawnDelayCount) {
         this.spawnDelayCount = spawnDelayCount;
+    }
+
+    public String getLvlBackground() {
+        return lvlBackground;
+    }
+
+    public void setLvlBackground(String lvlBackground) {
+        this.lvlBackground = lvlBackground;
+    }
+
+    public ArrayList<Entity> getDeadEntityList() {
+        return deadEntityList;
+    }
+
+    public void setDeadEntityList(ArrayList<Entity> deadEntityList) {
+        this.deadEntityList = deadEntityList;
     }
 }
 

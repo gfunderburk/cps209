@@ -7,38 +7,5 @@
 
 <VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" spacing="10" prefHeight="500" prefWidth="700" fx:id="vbox_scoreboard">
 
-  <!-- <TableView fx:id="tableView" prefHeight="500" prefWidth="700">
-
-    <columns>
-
-      <TableColumn text="#" fx:id="rankingColumn" sortable="false" >
-
-      </TableColumn>
-
-      <TableColumn text="Name" fx:id="nameColumn" sortable="false" >
-        <cellValueFactory>
-          <PropertyValueFactory property="playername" />
-        </cellValueFactory>
-      </TableColumn>
-
-      <TableColumn text="Points" fx:id="pointsColumn" sortable="false" >
-        <cellValueFactory>
-          <PropertyValueFactory property="points" />
-        </cellValueFactory>
-      </TableColumn>
-    </columns>
-
-    <placeholder>
-      <Label text="No Highscore yet" />
-    </placeholder>
-  </TableView> -->
-
-    <BorderPane>
-    <bottom>
-      <HBox>
-        <Button onAction="#btnMainMenuClicked" text="Main Menu"/>
-      </HBox>
-    </bottom>
-  </BorderPane>
   
 </VBox>

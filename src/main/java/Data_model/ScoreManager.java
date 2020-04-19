@@ -17,6 +17,7 @@ public class ScoreManager {
 
     private ArrayList<Score> scoreList = new ArrayList<Score>();
     
+
     
     //  Singleton  //
 
@@ -36,7 +37,7 @@ public class ScoreManager {
             while (line != null) { 
                 // var score = new Score(null, null, 0); // create a new score object
                 // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
-                scoreList.add(Score.deSerialize(line));    // add the new score object to scores list
+                addScore(Score.deSerialize(line));    // add the new score object to scores list
                 System.out.println(line); 
                 line = rd.readLine(); 
             } 

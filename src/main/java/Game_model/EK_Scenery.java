@@ -54,7 +54,7 @@ public class EK_Scenery extends EntityKillable {
     }
 
     @Override
-    public void collideEvent() {
+    public void collideEvent(Entity otherEntity) {
         // TODO Auto-generated method stub
 
     }

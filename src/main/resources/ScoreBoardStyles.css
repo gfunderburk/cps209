@@ -2,6 +2,8 @@
 
 .root{
     -fx-background-color: rgb(156, 156, 156);
+    -fx-padding: 30px;
+    -fx-flex-align: center;
 }
 
 .table-view{
@@ -68,6 +70,7 @@ Button {
     -fx-padding: 15;
     -fx-font-size: 20;
     -fx-min-height: 60;
+    -fx-alignment: center;
 }
 
 HBox {
@@ -75,4 +78,15 @@ HBox {
     -fx-spacing: 1;
     -fx-max-height: 10;
     -fx-alignment: center;
+}
+
+.titles {
+    -fx-padding: 15;
+    -fx-font-size: 30; 
+    -fx-text-fill: rgb(255, 255, 255);
+    /* -fx-min-width: 60; 
+    -fx-min-height: 90; */
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+
 }

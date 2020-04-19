@@ -16,7 +16,7 @@ public abstract class EntityHumanoid extends EntityKillable{
     //  Methods  //
 
     public void attack(Entity entity) {
-
+        E_Projectile.makeProjectile(this, entity);
     };
 
     @Override

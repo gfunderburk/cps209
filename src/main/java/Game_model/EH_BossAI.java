@@ -48,7 +48,7 @@ public class EH_BossAI extends EntityHumanoid {
     }
 
     @Override
-    public void collideEvent() {
+    public void collideEvent(Entity otherEntity) {
         // TODO Auto-generated method stub
 
     }
@@ -73,6 +73,12 @@ public class EH_BossAI extends EntityHumanoid {
 
     @Override
     public void attack(Entity entity) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void deSpawn() {
         // TODO Auto-generated method stub
 
     }

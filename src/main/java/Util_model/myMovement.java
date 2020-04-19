@@ -11,22 +11,68 @@ public class myMovement {
     // } 
 
 
+    public static Point3D getHeading(double targetX, double targetY, double sourceX, double sourceY, double movementSpeed){
 
-    public static Point3D getHeading(Point3D targetPoint, Point3D sourcePoint, double sourceSpeed){
+        //  Get offset from sourcePoint to targetPoint
+        double rawXoffset = targetX - sourceX;
+        double rawYoffset = targetY - sourceY;
+
+        //  Get the unit circle coords
+        double xyAngle = Math.toDegrees(Math.atan(rawYoffset/rawXoffset));
+        boolean Xpos = rawXoffset > 0;
+        boolean Ypos = rawYoffset > 0;
+
+        if(!Xpos & Ypos){
+            xyAngle += 180;
+        }
+        else if(!Xpos & !Ypos ){
+            xyAngle += 180;
+        }
+        else if(Xpos & !Ypos){
+            xyAngle += 360;
+        }
+
+        double unitX = Math.cos(Math.toRadians(xyAngle));
+        double unitY = Math.sin(Math.toRadians(xyAngle));
+        double unitZ = 1.0;
+
+        //  Get phi + theta from unit circle coords
+        double r = Math.sqrt( square(unitX) + square(unitY) + square(unitZ) );
+        double phi = Math.acos(1/r);
+        double theta = xyAngle;
+
+        //  Translate phi + theta to (x,y,z) coords
+        double X = movementSpeed * Math.sin(phi) * Math.cos(Math.toRadians(theta));
+        double Y = movementSpeed * Math.sin(phi) * Math.sin(Math.toRadians(theta));
+        double Z = movementSpeed * Math.cos(phi);
+        return new Point3D(X, Y, Z);
+
+        // r = √(x2+y2+z2)
+        // θ = atan2(y, x)
+        // Φ = acos(z/r)
+
+        // x = r sinϕ cosθ
+        // y = r sinϕ sinθ
+        // z = r cosϕ
+    }
+
+    public static Point3D getHeading(Point3D targetPoint, Point3D sourcePoint, double movementSpeed){
+
+        //  Get offset from sourcePoint to targetPoint
         Point3D pt = new Point3D(targetPoint.getX()-sourcePoint.getX(), 
-                                          targetPoint.getY()-sourcePoint.getY(), 
-                                          targetPoint.getZ()-sourcePoint.getZ());
+                                targetPoint.getY()-sourcePoint.getY(), 
+                                targetPoint.getZ()-sourcePoint.getZ());
 
+        //  Get phi + theta from new point
         double r = Math.sqrt( square(pt.getX()) + square(pt.getY()) + square(pt.getZ()) );
-        double theta = Math.acos( pt.getZ() / r );
-        double phi = Math.atan2(pt.getY(), pt.getX());
+        double phi = Math.acos( pt.getZ() / r );
+        double theta = Math.atan2(pt.getY(), pt.getX());
             
-
-        double x = sourceSpeed * Math.sin(theta) * Math.cos(phi);
-        double y = sourceSpeed * Math.sin(theta) * Math.sin(phi);
-        double z = sourceSpeed * Math.cos(theta);
-
-        return new Point3D(x, y, z);
+        //  Translate phi + theta to (x,y,z) coords
+        double X = movementSpeed * Math.sin(phi) * Math.cos(theta);
+        double Y = movementSpeed * Math.sin(phi) * Math.sin(theta);
+        double Z = movementSpeed * Math.cos(phi);
+        return new Point3D(X, Y, Z);
         
         // x = r cos(Φ) sin(θ)
         // y = r sin(Φ) sin(θ)
