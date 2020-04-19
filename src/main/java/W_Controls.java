@@ -19,8 +19,6 @@ public class W_Controls {
     // ---------------  //
 
 
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
 
 
     //  ------------- //
@@ -45,6 +43,6 @@ public class W_Controls {
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         BTN_CLICK.play();
         // TODO: get input from textfields and 
-        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
+        AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
     }
 }

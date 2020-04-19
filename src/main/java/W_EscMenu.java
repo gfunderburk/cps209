@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -30,11 +29,6 @@ public class W_EscMenu {
     //  View Variables  //
     // ---------------  //
 
-
-
-    Stage oldStage = AppGUI.getStage();
-    Stage newStage = new Stage();
-    Stage gameStage = W_MainMenu.getGameStage();
 
 
     //  ------------- //
@@ -75,8 +69,10 @@ public class W_EscMenu {
 
         if (result.get() == btnYes) {
             // Save the game and close the game and esc windows
-            gameStage.close();
             
+            AppGUI.getPopupStage().close();
+            Game.getIt().closeGame();
+
             TextInputDialog dialog = new TextInputDialog();
             
             dialog.setHeaderText("Please enter player name.");
@@ -90,31 +86,29 @@ public class W_EscMenu {
                 scoreManager.loadScores();
                 scoreManager.addScore(newScore);
                 scoreManager.saveScores();
-                game.setGameOver(true);
 
                 //TODO: write code to call game save methods here
             });
 
-            AppGUI.windowLoad(oldStage, newStage, "High Scores", getClass().getResource("W_ScoreBoard.fxml"), true, null);            
+            AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
-            gameStage.close();
-            game.setGameOver(true);            
-            AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
+            AppGUI.getPopupStage().close();         
+            Game.getIt().closeGame();
+            AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
+
 
         } else {
             // ... user chose CANCEL or closed the dialog
-            AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), true, null);            
         }        
     }
 
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
-        BTN_CLICK.play();
         // Return to game window
-        newStage.close();
-        gameStage.show();
+        BTN_CLICK.play();
+        AppGUI.getPopupStage().close();
         Game.getIt().play();
     }
 }

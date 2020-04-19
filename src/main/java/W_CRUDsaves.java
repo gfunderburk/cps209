@@ -16,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
 
 public class W_CRUDsaves {
 
@@ -43,8 +42,6 @@ public class W_CRUDsaves {
     // View Variables //
     // --------------- //
 
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
 
     LocalDateTime now = LocalDateTime.now();
 
@@ -113,8 +110,7 @@ public class W_CRUDsaves {
 
             try {
                 BTN_CLICK.play();
-                AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true,
-                        null);
+                AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -134,7 +130,7 @@ public class W_CRUDsaves {
             try {
                 THEME.stop();
                 
-                AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, null);
+                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

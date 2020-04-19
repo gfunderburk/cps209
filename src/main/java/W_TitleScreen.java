@@ -19,13 +19,6 @@ public class W_TitleScreen {
     // ---------------  //
     
 
-    //  --------------- //
-    //  Stages          //
-    // ---------------  //
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
-
-
     //  ------------- //
     //  GUI Elements  //
     // -------------  //
@@ -42,7 +35,7 @@ public class W_TitleScreen {
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         BTN_CLICK.play();
         new W_Scoreboard();
-        AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true, null);
+        AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
         THEME.play();
     }
 

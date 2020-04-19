@@ -17,20 +17,54 @@ public class AppGUI extends Application {
 
 
     //  --------------- //
-    //  Media Elements  //
+    //    Variables     //
     // ---------------  //
-    
-                                                                                                
+
 
     private static Stage currentStage;
+    private static Stage popupStage = new Stage();
+
+
+    //  --------------- //
+    //     Methods      //
+    // ---------------  //
+
 
     @Override
     public void start(Stage stage) throws Exception {
         AppGUI.currentStage = stage;
-        AppGUI.windowLoad(null, stage, "Title Screen", getClass().getResource("W_TitleScreen.fxml"), false, null);
-
-
+        AppGUI.windowLoad("Title Screen", getClass().getResource("W_TitleScreen.fxml"), null);
     }
+
+
+    public static void windowLoad(String newWindowTitle, URL windowURL, Object windowInitData) 
+        throws IOException, InterruptedException {
+
+        var loader = new FXMLLoader(windowURL);
+        var scene = new Scene(loader.load());
+
+        currentStage.setScene(scene);
+        currentStage.setTitle(newWindowTitle);
+        currentStage.setWidth(1440);
+        currentStage.setHeight(900);
+        // newStage.setFullScreen(true);
+        currentStage.setFullScreenExitHint("");
+        currentStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
+
+        if(newWindowTitle.equals("Game")){           
+            W_InGame game = loader.getController();
+            game.ingameScene = scene;
+            game.initialize((int)windowInitData);
+        }
+
+        currentStage.show();
+    }
+
+
+    //  --------------- //
+    //   Get-Setters    //
+    // ---------------  //
+
 
     public static void setStage(Stage newStage) {
         currentStage = newStage;
@@ -40,38 +74,12 @@ public class AppGUI extends Application {
         return currentStage;
     }
 
-    public static void windowLoad(Stage oldStage, Stage newStage, String newWindowName, URL windowURL, boolean closeOldWindow, Object windowInitData) throws IOException,
-            InterruptedException {
+    public static Stage getPopupStage() {
+        return popupStage;
+    }
 
-        var loader = new FXMLLoader(windowURL);
-        var scene = new Scene(loader.load());
-
-        newStage.setScene(scene);
-        newStage.setTitle(newWindowName);
-        newStage.setWidth(1340);
-        newStage.setHeight(600);
-        
-        newStage.setFullScreen(true);
-        newStage.setFullScreenExitHint("");
-        newStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
-        currentStage = newStage;
-        newStage.show();
-        
-        if(closeOldWindow){
-            oldStage.close();
-            if(oldStage.isShowing()){
-                oldStage.close();
-            }
-        }
-
-        if(newWindowName.equals("Game")){   
-            W_MainMenu.setGameStage(newStage);         
-            W_InGame game = loader.getController();
-            game.ingameScene = scene;
-            game.initialize((int)windowInitData);
-
-            // if(windowInitData != null) Game.getIt().startNewGame();
-        }
+    public static void setPopupStage(Stage popupStage) {
+        AppGUI.popupStage = popupStage;
     }
 
 }

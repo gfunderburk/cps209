@@ -10,6 +10,7 @@ import Game_model.Game.StateGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
@@ -52,8 +53,6 @@ public class W_InGame {
     // View Variables //
     // --------------- //
 
-    Stage oldStage = AppGUI.getStage();
-    Stage newStage = new Stage();
     Scene ingameScene;
     int difficulty;
     boolean mouseWithinPane;
@@ -93,12 +92,16 @@ public class W_InGame {
     void onEscClicked() throws IOException, InterruptedException {
         
         BTN_CLICK.play();
-
-        // Save game here and upon resume, load the temporarily saved game?
-        // How do we pause the game?
-        
         game.pause();
-        AppGUI.windowLoad(oldStage, newStage, "Esc Menu", getClass().getResource("W_EscMenu.fxml"), false, null);
+        
+        // Load ESC_Menu
+        var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
+        var scene = new Scene(loader.load());        
+        AppGUI.getPopupStage().setScene(scene);
+        AppGUI.getPopupStage().setTitle("ESC Menu");
+        AppGUI.getPopupStage().setWidth(400);
+        AppGUI.getPopupStage().setHeight(300);
+        AppGUI.getPopupStage().show();
     }
 
 
@@ -106,7 +109,7 @@ public class W_InGame {
     void mouseEnteredPane(){
         mouseWithinPane = true;
         pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
-        CROSSHAIRS.getWidth() / 2,
+        CROSSHAIRS.getWidth() /2,
         CROSSHAIRS.getHeight() /2));
     }
 
@@ -176,19 +179,19 @@ public class W_InGame {
         if (Game.getIt().getStateGame() == StateGame.RUNNING) { 
 
             // move entities physically in Model
-            for (Entity entity : Game.getIt().getEntityList()) {
-                entity.move();
+            for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
+                Game.getIt().getEntityList().get(i).move();
             }
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
 
             // draw entities visually in View
             for (Entity entity : Game.getIt().getEntityList()) {
                 drawEntity(entity);
-            }
+            }        
 
             //  Delete any dead entity images
-            for (Entity entity : Game.getIt().getDeadEntityList()) {
-                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
+            for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
                 if(oldEntityImg != null){
                     pane.getChildren().remove(oldEntityImg);
                 }     

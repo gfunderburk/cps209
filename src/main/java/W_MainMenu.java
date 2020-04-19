@@ -1,10 +1,8 @@
-
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
 
 //-----------------------------------------------------------
 //File:   Window_MainWindow.java
@@ -24,21 +22,11 @@ public class W_MainMenu {
     // View Variables //
     // --------------- //
 
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
-
-    private static Stage gameStage;
     
-
-    
-
-
-
-
-
     // ------------- //
     // GUI Elements //
     // ------------- //
+
 
     // ------------ //
     // GUI Methods // (DIRECT USER EVENTS)
@@ -56,16 +44,6 @@ public class W_MainMenu {
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
         d.setHeaderText("Please Select Difficulty Level");
-
-        // var loader = new FXMLLoader(getClass().getResource("W_InGame.fxml"));
-        // var scene = new Scene(loader.load());
-
-        // var stage = new Stage();
-        // stage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
-        // stage.setScene(scene);
-        // stage.setHeight(600);
-        // stage.setWidth(800);
-        // gameStage = stage;
         d.showAndWait().ifPresent(choice -> 
         {
             THEME.stop();
@@ -73,8 +51,7 @@ public class W_MainMenu {
             //newStage.close();
             try 
             {
-                gameStage = newStage;
-                AppGUI.windowLoad(oldStage, newStage, "Game", getClass().getResource("W_InGame.fxml"), true, d.getSelectedItem());
+                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
                 // game.initialize((int) d.getSelectedItem());
             } 
             catch (InterruptedException | IOException e) 
@@ -89,41 +66,29 @@ public class W_MainMenu {
         // W_CRUDsaves CRUDInstance = W_CRUDsaves.instance();
         // CRUDInstance.initialize();
 
-        // Play button click sounds
         BTN_CLICK.play();
-
-        AppGUI.windowLoad(oldStage, newStage, "Saved Games", getClass().getResource("W_CRUDsaves.fxml"), true, null);
-        
-
+        AppGUI.windowLoad("Saved Games", getClass().getResource("W_CRUDsaves.fxml"), null);
     }
 
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
         BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Controls / How to Play", getClass().getResource("W_Controls.fxml"), true, null);
+        AppGUI.windowLoad("Controls / How to Play", getClass().getResource("W_Controls.fxml"), null);
     }
 
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {
         //W_Scoreboard scoreboardInstance = W_Scoreboard.getInstance();      
         BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Scoreboard", getClass().getResource("W_Scoreboard.fxml"), true, null);
+        AppGUI.windowLoad("Scoreboard", getClass().getResource("W_Scoreboard.fxml"), null);
     }
 
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
         BTN_CLICK.play();
-        AppGUI.windowLoad(oldStage, newStage, "Credits", getClass().getResource("W_Credits.fxml"), true, null);
-    }
-
-    public static Stage getGameStage() {
-        return gameStage;
-    }
-
-    public static void setGameStage(Stage stage) {
-        gameStage = stage;
+        AppGUI.windowLoad("Credits", getClass().getResource("W_Credits.fxml"), null);
     }
 
     // ------------- //

@@ -37,8 +37,6 @@ public class W_Scoreboard {
 
     private ObservableList<Scores> rows = FXCollections.observableArrayList();
 
-    Stage newStage = AppGUI.getStage();
-    Stage oldStage = new Stage();
 
     // ------------- //
     // GUI Elements //
@@ -100,8 +98,7 @@ public class W_Scoreboard {
 
             try {
                 BTN_CLICK.play();
-                AppGUI.windowLoad(oldStage, newStage, "Main Menu", getClass().getResource("W_MainMenu.fxml"), true,
-                        null);
+                AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

@@ -113,7 +113,6 @@ public abstract class Entity implements GameSave{
     public void spawn() {
         Game.getIt().setCurrentEnitity(Game.getIt().getCurrentEnitity() + 1);
         this.Id = Game.getIt().getCurrentEnitity();
-
         Game.getIt().getEntityList().add(this);
     }
 
