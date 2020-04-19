@@ -49,8 +49,8 @@ public class W_InGame {
     final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
     final AudioClip SHOOT_FOOTSOLDIER = new AudioClip(getClass().getResource("/media/footsoldiergun.wav").toString());
     final AudioClip SHOOT_50CAL = new AudioClip(getClass().getResource("/media/50cal.mp3").toString());
-
     final Image CROSSHAIRS = new Image("/icons/crosshairs_3.PNG");
+
     // --------------- //
     // View Variables //
     // --------------- //
@@ -153,7 +153,6 @@ public class W_InGame {
         System.out.println(this.difficulty);
         // pane.setOnMouseEntered(me -> pane.getScene().setCursor(Cursor.HAND) );
         // pane.setOnMouseExited(me -> pane.getScene().setCursor(Cursor.DEFAULT) );
-        //pane.setOnMouseClicked(me -> EH_Avatar.getIt().attack(event.getX(), event.getY(), pane.getWidth(), pane.getHeight()));
         
         Game.getIt().startGame("Joe", difficultyLevel, 1);
         
