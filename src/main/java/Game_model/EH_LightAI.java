@@ -36,14 +36,29 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
-        return null;
+        return "H,"+typeRound+","+imageDir+","+imageState+","+width+","+height+","+speed;
+       
     }
 
 
     @Override
-    public void deSerialize(String data) {
-        // TODO Auto-generated method stub
+    public  void deSerialize(String data) {
+     String[] deCereal=data.split(",");
+     if(deCereal[1].equals("LIGHT_ROUND")){
+        typeRound=TypeRound.LIGHT_ROUND;
+    }
+    if(deCereal[1].equals("HEAVY_ROUND")){
+        typeRound=TypeRound.HEAVY_ROUND;
+    }
+    if(deCereal[1].equals("EXPLOSIVE_ROUND")){
+       typeRound=TypeRound.EXPLOSIVE_ROUND;
+   }
+   imageDir=deCereal[2];
+   imageState=deCereal[3];
+   width=Integer.parseInt(deCereal[4]);
+   height=Integer.parseInt(deCereal[5]);
+   speed=Double.parseDouble(deCereal[6]);
+
 
     }
 

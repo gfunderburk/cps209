@@ -55,14 +55,26 @@ public class E_Projectile extends Entity {
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
-        return null;
+        return ("P,"+typeRound+"");
+        
+       
     }
 
 
     @Override
-    public void deSerialize(String data) {
-        // TODO Auto-generated method stub
+    public  void deSerialize(String data) {
+    String decereal=data.split(",")[1];
+     if(decereal=="LIGHT_ROUND"){
+         typeRound=TypeRound.LIGHT_ROUND;
+     }
+     if(decereal=="HEAVY_ROUND"){
+         typeRound=TypeRound.HEAVY_ROUND;
+     }
+     if(decereal=="EXPLOSIVE_ROUND"){
+        typeRound=TypeRound.EXPLOSIVE_ROUND;
+    }
+       
+        
 
     }
 
