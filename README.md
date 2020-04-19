@@ -22,7 +22,7 @@ A link to your screen recording.
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
 |Jeremiah Cox  |  42.8         |   17.2        |
-|Gunnar Funderburk | ?  | ?   |
+|Gunnar Funderburk | 41  |  29 (Dr. Scaub 10 hour extension)  |
 |Jonathan Layton  |  ?   |  ? |
 
 ### Journals
