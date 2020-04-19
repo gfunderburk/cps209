@@ -1,10 +1,13 @@
 import java.io.IOException;
 import java.net.URL;
 
+import Game_model.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 //------------------------------------------------------------------
@@ -15,6 +18,7 @@ import javafx.stage.Stage;
 
 public class AppGUI extends Application {
 
+    
 
     //  --------------- //
     //  Media Elements  //
@@ -43,6 +47,8 @@ public class AppGUI extends Application {
     public static void windowLoad(Stage oldStage, Stage newStage, String newWindowName, URL windowURL, boolean closeOldWindow, Object windowInitData) throws IOException,
             InterruptedException {
 
+        Game instance = Game.getIt();
+
         var loader = new FXMLLoader(windowURL);
         var scene = new Scene(loader.load());
 
@@ -68,6 +74,12 @@ public class AppGUI extends Application {
             W_MainMenu.setGameStage(newStage);         
             W_InGame game = loader.getController();
             game.ingameScene = scene;
+
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
+                if(key.isShiftDown()) {
+                    //((instance.isCheatMode() == true) ? instance.setCheatMode(false) : instance.);
+                }
+             });
             game.initialize((int)windowInitData);
 
             // if(windowInitData != null) Game.getIt().startNewGame();
