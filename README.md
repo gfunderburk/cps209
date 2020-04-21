@@ -3,18 +3,27 @@
 ## Instructions: 
 To play the game, select New Game or Load Game. If you select Load Game, you will need to select a saved game from the list and then select Load Selected Game button at the bottom of the screen. Now the game will begin! Enemy Terminators will appear on the screen and will randomly move around, attempting to kill you. The goal is to kill them before they kill you! Left-click on the Terminator in order to shoot. Good luck!  
 
+*Note: Loading saved game and collision damage does not work yet (coming soon with Beta release!). Code for loading Saved Game is finished, just not working properly yet.
+
 ## Work Completed: 
-- In-game Background for (lvl-1)
-- In-game HUD
-- Highscores Load/Save Functionality
-- Player Shooting
-- Game 3-space  
+
+|   Feature  | Required |  Assignee |
+|:--------|:------------:|:------------:|
+| In-game Background for (lvl-1) | _ | Layton |  
+| Highscores Load/Save Functionality | Yes | Cox |  
+| Game Load/Save Functionality | Yes | Funderburk | 
+| LightAI Animations+Logic | _ | Layton |
+| Player Shooting | _ | Layton |
+| Game 3-space  | _ | Layton |
+| Game Physics / Movement | _ | Layton |
+
 
 ## Known Issues: 
-List any major issues.  
+None 
 
 ## Recording: 
-A link to your screen recording.  
+
+- [Game Demo Screen Recording](https://youtu.be/4OJjVRsCHcA)
 
 
 ## Expenses: 
@@ -22,7 +31,7 @@ A link to your screen recording.
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
 |Jeremiah Cox  |  42.8         |   17.2        |
-|Gunnar Funderburk | ?  |  ?  |
+|Gunnar Funderburk | 30  |  30  |
 |Jonathan Layton  |  41   |  29 (Dr. Scaub 10 hour extension) |
 
 ### Journals
