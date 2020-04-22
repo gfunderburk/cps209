@@ -1,11 +1,8 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
-
-
 import Game_model.Game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

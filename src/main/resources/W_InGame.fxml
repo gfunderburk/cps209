@@ -5,6 +5,8 @@
 <?import javafx.scene.image.* ?>
 
 <VBox fx:controller="W_InGame" xmlns:fx="http://javafx.com/fxml" prefHeight="500" stylesheets="InGameStyles.css" alignment="CENTER" spacing="20" prefWidth="700" fx:id="vbox_masterParent">
+  
+  
   <BorderPane>
     <top>
       <HBox>
@@ -26,14 +28,15 @@
     </top>
   </BorderPane>
 
-  <Pane fx:id="pane" prefHeight="800" prefWidth="1440" style="-fx-background-color: lightgray" 
-  onMouseMoved="#onMouseMoved" onMouseEntered="#mouseEnteredPane" onMouseExited="#mouseExitedPane" onMouseClicked="#mouseClickedPane" />
+  <Pane fx:id="pane" prefHeight="800" prefWidth="1440" 
+  onMouseMoved="#onMouseMoved" onMouseEntered="#mouseEnteredPane" onMouseExited="#mouseExitedPane" onMouseClicked="#mouseClickedPane" >
+  </Pane>
 
-  <!-- <ImageView fx:id="pane" prefHeight="800" prefWidth="1440"
-  onMouseMoved="#onMouseMoved" onMouseEntered="#mouseEnteredPane" onMouseExited="#mouseExitedPane" onMouseClicked="#mouseClickedPane"  >    
+<!-- 
+  <ImageView fx:id="paneImg" >    
     <image>
-        <Image url="/icons/backgrounds/lvl0Background.png" />
+        <Image url="/icons/backgrounds/lvl1Background.png" />
     </image>
   </ImageView> -->
-
+  
 </VBox>

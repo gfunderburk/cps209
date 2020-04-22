@@ -58,19 +58,26 @@ public abstract class Entity implements GameSave{
             outOfBoundsEvent(5);
         }
 
-        for (Entity otherEntity : Game.getIt().getEntityList()){            
-            if(this != otherEntity){
-                double dis = Util_model.myGeometry.getDistance3D(this.location, otherEntity.location);
-                
-                if(dis < 1) {
-                    this.collideEvent(otherEntity);
-                    //otherEntity.collideEvent(this);
-                }
-            }
+        for (int i = 0; i < Game.getIt().getEntityList().size(); i++){    
+            
+            Entity otherEntity = Game.getIt().getEntityList().get(i);
+
+            if(this instanceof E_Projectile & !(otherEntity instanceof E_Projectile)){        
+                if(this != otherEntity){
+                    double dis = Util_model.myGeometry.getDistance3D(this.location, otherEntity.location);
+                    
+                    if(dis < 50) {
+                            this.collideEvent(otherEntity);
+                            otherEntity.collideEvent(this);
+                            break;
+                    }
+            }   }
         }
     };
 
+
     public abstract void collideEvent(Entity collidedEntity);
+
 
     public void outOfBoundsEvent(int boundsCode){
         if(this instanceof E_Projectile){
@@ -118,7 +125,10 @@ public abstract class Entity implements GameSave{
 
     public void deSpawn(){
         Game.getIt().getDeadEntityList().add(this);
-        Game.getIt().getEntityList().remove(this);
+        var index = Game.getIt().getEntityList().indexOf(this);
+        if(index != -1) {
+            Game.getIt().getEntityList().remove(index);
+        }
     };
 
     @Override

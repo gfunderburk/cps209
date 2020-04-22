@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 import Util_model.myRandom;
 import javafx.geometry.Point3D;
 
@@ -24,7 +23,7 @@ public class Game implements GameSave {
     public enum StateGame{RUNNING, PAUSED}
     private StateDifficulty stateDiff;
     private StateGame stateGame;
-    private int LAI_Left, HAI_Left, FAI_Left;
+    private int AI_Left, AI_Left_ToSpawn, currentAIspawnCnt, maxAISpawnCnt;
     private int score;
     private int time;
     private int gameLvl;
@@ -55,20 +54,36 @@ public class Game implements GameSave {
 
     
     public void spawnerAdmin(boolean forceFullPopulate){
-        var test = new EH_LightAI();
-        test.spawn();
-        var test1 = new EH_LightAI();
-        test1.spawn();
-        var test2 = new EH_LightAI();
-        test2.spawn();
+
+        while(true)
+        if( AI_Left > 0 & 
+            AI_Left_ToSpawn > 0 &
+            (currentAIspawnCnt < maxAISpawnCnt | forceFullPopulate) )
+            {
+                switch(gameLvl)
+                {
+                    case 1:
+                        var test1 = new EH_LightAI();
+                        test1.spawn();
+                        break;
+                    case 2:
+                        var test2 = new EH_HeavyAI();
+                        test2.spawn();
+                        break;
+                    case 3:
+                        var test3 = new EH_FlyingAI();
+                        test3.spawn();
+                        break;
+                    default:    
+                }
+        }
+        else break;
     }
 
     public void startGame(String playerName, int difficultyLevel, int GameLevel){
-        for (Entity scenery : GameLevels.getIt().getLvl1_Scenery()) {
-            entityList.add(scenery);            
-        }
-        spawnerAdmin(true);
-        gameLvl = GameLevel;
+        setDifficultySettings(difficultyLevel);
+        setLevelSettings(GameLevel);
+        spawnerAdmin(false);
         stateGame = StateGame.RUNNING;
     }
 
@@ -107,8 +122,17 @@ public class Game implements GameSave {
     }
 
     public void checkGameOver(){
-        // TODO IF hostilesLeft = 0, show end-level screen to progress to next level.
-        //   OR IF player health = 0, show end-game screen to offer to save player score.         
+        //TODO: Fill in game over logic
+        if(AI_Left <= 0){
+            var test = entityList;
+            stateGame = StateGame.PAUSED; 
+        }        
+        else if(EH_Avatar.getIt().currentHealth <= 0){
+            stateGame = StateGame.PAUSED;
+        }
+        else{
+            spawnerAdmin(false);
+        }
     }
 
 	public void sortEntityList() {
@@ -124,7 +148,7 @@ public class Game implements GameSave {
 
     @Override
     public String Serialize() {
-        String cereal="G,"+stateDiff+","+stateGame+","+LAI_Left+","+HAI_Left+","+FAI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
+        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
         
        
         return cereal;
@@ -135,35 +159,103 @@ public class Game implements GameSave {
     public void deSerialize(String data) {
         String[] deCereal=data.split(",");
         if(deCereal[1].equals("EASY")){
-            stateDiff=stateDiff.EASY;
+            stateDiff= StateDifficulty.EASY;
         }
         if(deCereal[1].equals("MEDIUM")){
-            stateDiff=stateDiff.MEDIUM;
+            stateDiff= StateDifficulty.MEDIUM;
         }
         if(deCereal[1].equals("HARD")){
-            stateDiff=stateDiff.HARD;
+            stateDiff= StateDifficulty.HARD;
         }
-        stateGame=(deCereal[2].equals("RUNNING"))? stateGame.RUNNING:stateGame.PAUSED;
+        stateGame=(deCereal[2].equals("RUNNING"))? StateGame.RUNNING : StateGame.PAUSED;
         
         
-        LAI_Left=Integer.parseInt(deCereal[3]);
-        HAI_Left=Integer.parseInt(deCereal[4]);
-        FAI_Left=Integer.parseInt(deCereal[5]);
-        score=Integer.parseInt(deCereal[6]);
-        time=Integer.parseInt(deCereal[7]);
-        gameLvl=Integer.parseInt(deCereal[8]);
-        currentEnitity=Integer.parseInt(deCereal[9]);
-        newMobSpawnDelay=Integer.parseInt(deCereal[10]);
-        spawnDelayCount=Integer.parseInt(deCereal[11]);
-        //note 12 was purposely skipped
-        playerName=deCereal[13];
-        gameOver= (deCereal[14].equals("True")) ? true:false;
-        cheatMode=(deCereal[15].equals("True"))?true:false;
+        AI_Left=Integer.parseInt(deCereal[3]);
+        score=Integer.parseInt(deCereal[4]);
+        time=Integer.parseInt(deCereal[5]);
+        gameLvl=Integer.parseInt(deCereal[6]);
+        currentEnitity=Integer.parseInt(deCereal[7]);
+        newMobSpawnDelay=Integer.parseInt(deCereal[8]);
+        spawnDelayCount=Integer.parseInt(deCereal[9]);
+        //NOTE: [10] (DT) is skipped.
+        playerName=deCereal[11];
+        gameOver= (deCereal[12].equals("True")) ? true:false;
+        cheatMode=(deCereal[13].equals("True"))?true:false;
 
 
                
         
     }
+
+
+
+    private void setDifficultySettings(int difficultyLevel){
+        switch(difficultyLevel){
+            case 1:
+            stateDiff = StateDifficulty.EASY;
+            break;
+            case 2:
+            stateDiff = StateDifficulty.MEDIUM;
+            break;            
+            case 3:
+            stateDiff = StateDifficulty.HARD;
+            break;
+            default:
+        }
+
+        switch(stateDiff){
+
+            case EASY:
+            maxAISpawnCnt = 3;
+            break;
+
+            case MEDIUM:
+            maxAISpawnCnt = 5;
+            break;
+            
+            case HARD:
+            maxAISpawnCnt = 7;
+            break;
+            default:
+        }
+    }
+
+    
+
+    private void setLevelSettings(int GameLevel){
+
+        switch(GameLevel){
+
+            case 1:
+                gameLvl = 1;
+                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) {
+                    entityList.add(scenery);            
+                }
+                AI_Left = GameLevels.getIt().getLvlAICnt(gameLvl);
+                AI_Left_ToSpawn = GameLevels.getIt().getLvlAICnt(gameLvl);
+                break;
+
+            case 2:
+                gameLvl = 2;
+                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) {
+                    entityList.add(scenery);            
+                }
+                AI_Left = GameLevels.getIt().getLvlAICnt(gameLvl);
+                AI_Left_ToSpawn = GameLevels.getIt().getLvlAICnt(gameLvl);
+                break;   
+
+            case 3:
+                gameLvl = 3;
+                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) {
+                    entityList.add(scenery);            
+                }
+                AI_Left = GameLevels.getIt().getLvlAICnt(gameLvl);
+                AI_Left_ToSpawn = GameLevels.getIt().getLvlAICnt(gameLvl);
+                break;
+                default:
+        }
+    }
+
 
 
     //  Getters-Setters  //
@@ -290,28 +382,12 @@ public class Game implements GameSave {
         this.gamePhysicsDepth = gamePhysicsDepth;
     }
 
-    public int getLAI_Left() {
-        return LAI_Left;
+    public int getAI_Left() {
+        return AI_Left;
     }
 
-    public void setLAI_Left(int lAI_Left) {
-        LAI_Left = lAI_Left;
-    }
-
-    public int getHAI_Left() {
-        return HAI_Left;
-    }
-
-    public void setHAI_Left(int hAI_Left) {
-        HAI_Left = hAI_Left;
-    }
-
-    public int getFAI_Left() {
-        return FAI_Left;
-    }
-
-    public void setFAI_Left(int fAI_Left) {
-        FAI_Left = fAI_Left;
+    public void setAI_Left(int hAI_Left) {
+        AI_Left = hAI_Left;
     }
 
     public int getNewMobSpawnDelay() {
@@ -345,6 +421,31 @@ public class Game implements GameSave {
     public void setDeadEntityList(ArrayList<Entity> deadEntityList) {
         this.deadEntityList = deadEntityList;
     }
+
+    public int getAI_Left_ToSpawn() {
+        return AI_Left_ToSpawn;
+    }
+
+    public void setAI_Left_ToSpawn(int aI_Left_ToSpawn) {
+        AI_Left_ToSpawn = aI_Left_ToSpawn;
+    }
+
+    public int getCurrentAIspawnCnt() {
+        return currentAIspawnCnt;
+    }
+
+    public void setCurrentAIspawnCnt(int currentAIspawnCnt) {
+        this.currentAIspawnCnt = currentAIspawnCnt;
+    }
+
+    public int getMaxAISpawnCnt() {
+        return maxAISpawnCnt;
+    }
+
+    public void setMaxAISpawnCnt(int maxAISpawnCnt) {
+        this.maxAISpawnCnt = maxAISpawnCnt;
+    }
+
 }
 
 

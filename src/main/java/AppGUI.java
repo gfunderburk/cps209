@@ -49,7 +49,7 @@ public class AppGUI extends Application {
         currentStage.setTitle(newWindowTitle);
         currentStage.setWidth(1340);
         currentStage.setHeight(600);
-        currentStage.setFullScreen(true);
+        // currentStage.setFullScreen(true);
         currentStage.setFullScreenExitHint("");
         currentStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
 

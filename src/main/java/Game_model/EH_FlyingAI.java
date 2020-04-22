@@ -1,6 +1,9 @@
 package Game_model;
 
 import Game_model.E_Projectile.TypeRound;
+import Util_model.myMovement;
+import Util_model.myMovement.Point3D_Comp;
+import javafx.geometry.Point3D;
 
 public class EH_FlyingAI extends EntityHumanoid {
 
@@ -44,7 +47,24 @@ public class EH_FlyingAI extends EntityHumanoid {
 
     @Override
     public void move() {
-        // TODO Auto-generated method stub
+        this.sameMoveCount++;
+
+        if(this.sameMoveCount > 20){
+            this.sameMoveCount = 0;
+
+            if(this.standStill){
+                this.vector = new Point3D(0,0,0);
+            }
+            else{
+                Point3D newDest = Game.getIt().randomPoint3D();
+                this.vector = myMovement.getHeading(newDest, this.location, this.speed);
+                this.vector = myMovement.setNewPointComp(this.vector, Point3D_Comp.y, 0);
+            }
+
+            this.standStill = this.standStill ? false : true;
+        }
+
+        super.move();
 
     }
 
@@ -82,6 +102,11 @@ public class EH_FlyingAI extends EntityHumanoid {
     public void deSpawn() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void reload() {
+        super.reload();
     }
 
 

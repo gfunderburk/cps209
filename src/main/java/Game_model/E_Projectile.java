@@ -15,7 +15,12 @@ public class E_Projectile extends Entity {
     private static double lightRoundSpeed = 1;
     private static double heavyRoundSpeed = 1;
     private static double explosiveRoundSpeed = 1;
+    private static double lightRoundDmg = 1;
+    private static double heavyRoundDmg = 2;
+    private static double explosiveRoundDmg = 3;
+    
     private TypeRound typeRound;    
+    private boolean AvatarsProjectile;
 
 
 
@@ -25,6 +30,7 @@ public class E_Projectile extends Entity {
     public static void makeProjectile(EntityHumanoid thisEntity, Entity thatEntity){
 
         E_Projectile bullet = new E_Projectile();
+        if(thisEntity == EH_Avatar.getIt()) bullet.AvatarsProjectile = true;
         bullet.typeRound = thisEntity.getTypeRound();
         bullet.imageDir = File.separator + "projectiles" + File.separator;
         bullet.imageState = "bulletRed.png";
@@ -39,6 +45,7 @@ public class E_Projectile extends Entity {
     public static void makeProjectile(double targetX, double targetY){
 
         E_Projectile bullet = new E_Projectile();
+        bullet.AvatarsProjectile = true;
         bullet.typeRound = EH_Avatar.getIt().getTypeRound();
         bullet.imageDir = File.separator + "projectiles" + File.separator;
         bullet.imageState = "bulletRed.png";
@@ -85,9 +92,7 @@ public class E_Projectile extends Entity {
 
     @Override
     public void collideEvent(Entity otherEntity) {
-        // TODO Auto-generated method stub
-        // otherEntity.setCurrentHealth();
-
+        this.deSpawn();
     }
 
     @Override
@@ -132,4 +137,60 @@ public class E_Projectile extends Entity {
                 return -1;
         }
 	}
+
+    public static double getLightRoundSpeed() {
+        return lightRoundSpeed;
+    }
+
+    public static void setLightRoundSpeed(double lightRoundSpeed) {
+        E_Projectile.lightRoundSpeed = lightRoundSpeed;
+    }
+
+    public static double getHeavyRoundSpeed() {
+        return heavyRoundSpeed;
+    }
+
+    public static void setHeavyRoundSpeed(double heavyRoundSpeed) {
+        E_Projectile.heavyRoundSpeed = heavyRoundSpeed;
+    }
+
+    public static double getExplosiveRoundSpeed() {
+        return explosiveRoundSpeed;
+    }
+
+    public static void setExplosiveRoundSpeed(double explosiveRoundSpeed) {
+        E_Projectile.explosiveRoundSpeed = explosiveRoundSpeed;
+    }
+
+    public static double getLightRoundDmg() {
+        return lightRoundDmg;
+    }
+
+    public static void setLightRoundDmg(double lightRoundDmg) {
+        E_Projectile.lightRoundDmg = lightRoundDmg;
+    }
+
+    public static double getHeavyRoundDmg() {
+        return heavyRoundDmg;
+    }
+
+    public static void setHeavyRoundDmg(double heavyRoundDmg) {
+        E_Projectile.heavyRoundDmg = heavyRoundDmg;
+    }
+
+    public static double getExplosiveRoundDmg() {
+        return explosiveRoundDmg;
+    }
+
+    public static void setExplosiveRoundDmg(double explosiveRoundDmg) {
+        E_Projectile.explosiveRoundDmg = explosiveRoundDmg;
+    }
+
+    public boolean isAvatarsProjectile() {
+        return AvatarsProjectile;
+    }
+
+    public void setAvatarsProjectile(boolean avatarsProjectile) {
+        AvatarsProjectile = avatarsProjectile;
+    }
 }
