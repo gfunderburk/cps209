@@ -4,6 +4,7 @@ import java.io.File;
 
 import Game_model.E_Projectile.TypeRound;
 import Util_model.myMovement;
+import Util_model.myRandom;
 import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
 
@@ -64,8 +65,7 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public void deathEvent() {
-        // TODO Auto-generated method stub
-
+        this.deSpawn();
     }
 
     @Override
@@ -87,29 +87,57 @@ public class EH_LightAI extends EntityHumanoid {
             this.standStill = this.standStill ? false : true;
         }
 
+        if(this.standStill & myRandom.genRandomBoolean()){
+            attack(EH_Avatar.getIt());
+        }
+
         super.move();
     }
 
     @Override
     public void collideEvent(Entity otherEntity) {
-        // TODO Auto-generated method stub
+        E_Projectile ent = (E_Projectile)otherEntity;
 
+        if(ent.isAvatarsProjectile()){
+            switch(ent.getTypeRound()){
+
+                case LIGHT_ROUND:
+                    this.currentHealth -= E_Projectile.getLightRoundDmg();
+                    break;
+                
+                case HEAVY_ROUND:
+                    this.currentHealth -= E_Projectile.getHeavyRoundDmg();
+                    break;
+
+                case EXPLOSIVE_ROUND:
+                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg();
+                    break;
+
+                default:
+                    break;
+            }
+            this.checkLife();    
+        }
     }
 
     @Override
     public void hurtEvent() {
-        // TODO Auto-generated method stub
+        this.imageState = "lightRobotNoGunFrontFacing.png";
 
     }
 
     @Override
     public void recoverEvent() {
-        // TODO Auto-generated method stub
+        this.imageState = "lightRobotRifleFrontFacing_Shooting.png";
 
     }
 
     @Override
     public void spawn() {
+        
+        Game.getIt().setAI_Left_ToSpawn(Game.getIt().getAI_Left_ToSpawn() - 1);
+        Game.getIt().setCurrentAIspawnCnt(Game.getIt().getCurrentAIspawnCnt() + 1);
+
         this.location = Game.getIt().randomPoint3D();
         this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.y, 0);
         this.vector = new Point3D(0, 0, 0);
@@ -119,14 +147,21 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public void attack(Entity entity) {
-        // TODO Auto-generated method stub
-
+        super.attack(entity);
     }
 
     @Override
     public void deSpawn() {
-        // TODO Auto-generated method stub
+        Game.getIt().setAI_Left(Game.getIt().getAI_Left() - 1);
+        Game.getIt().setCurrentAIspawnCnt(Game.getIt().getCurrentAIspawnCnt() - 1);
+        Game.getIt().checkGameOver();
 
+        super.deSpawn();
+    }
+
+    @Override
+    public void reload() {
+        super.reload();
     }
 
 

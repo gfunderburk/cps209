@@ -30,7 +30,7 @@
 
   <Pane fx:id="pane" prefHeight="800" prefWidth="1440" 
   onMouseMoved="#onMouseMoved" onMouseEntered="#mouseEnteredPane" onMouseExited="#mouseExitedPane" onMouseClicked="#mouseClickedPane" >
-  <Pane/>
+  </Pane>
 
 <!-- 
   <ImageView fx:id="paneImg" >    

@@ -19,6 +19,11 @@ public abstract class EntityHumanoid extends EntityKillable{
         E_Projectile.makeProjectile(this, entity);
     };
 
+    public void reload(){
+        this.mag = 30;
+        this.ammo -= 30;
+    };
+
     @Override
     public abstract String Serialize();
 

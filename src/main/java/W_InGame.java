@@ -202,11 +202,7 @@ public class W_InGame {
     }
 
 
-    public void drawEntity(Entity entity){
-        // lbl_Loc.setText("( X= " + (int)entity.getLocation().getX() + ", Y= " + (int)entity.getLocation().getY() + ", Z= " + (int)entity.getLocation().getZ() + ")");;
-        // lbl_Id.setText("" + entity.getId());
-        // lbl_Speed.setText("" + entity.getSpeed());
-    
+    public void drawEntity(Entity entity){    
 
         //  Delete old entity image if it exists
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());

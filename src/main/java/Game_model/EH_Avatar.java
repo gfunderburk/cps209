@@ -19,6 +19,10 @@ public class EH_Avatar extends EntityHumanoid {
     private EH_Avatar(){
         this.typeRound = TypeRound.LIGHT_ROUND;  
         this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, Game.getIt().getGamePhysicsHeight()/2, 0));       
+        this.currentHealth = 10;
+        this.maxHealth = 10;
+        this.mag = 30;
+        this.ammo = 300;
     }
 
     private static EH_Avatar It = new EH_Avatar();
@@ -56,8 +60,29 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
     @Override
-    public void collideEvent(Entity otherEntity) {
-        // TODO Auto-generated method stub
+    public void collideEvent(Entity otherEntity) { 
+        E_Projectile ent = (E_Projectile)otherEntity;
+
+        if(! ent.isAvatarsProjectile()){
+            switch(ent.getTypeRound()){
+
+                case LIGHT_ROUND:
+                    this.currentHealth -= E_Projectile.getLightRoundDmg();
+                    break;
+                
+                case HEAVY_ROUND:
+                    this.currentHealth -= E_Projectile.getHeavyRoundDmg();
+                    break;
+
+                case EXPLOSIVE_ROUND:
+                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg();
+                    break;
+
+                default:
+                    break;
+            }
+            this.checkLife();    
+        }
 
     }
 
@@ -81,15 +106,22 @@ public class EH_Avatar extends EntityHumanoid {
 
     @Override
     public void attack(Entity entity){
-        //Point3D aimedVector = myMovement.getHeading(entity.getLocation(), this.getLocation(), E_Projectile.getRoundTypeSpeed(this.getTypeRound()));
-        E_Projectile.makeProjectile(this, entity);        
+        
+        if(this.mag > 0){        
+            //Point3D aimedVector = myMovement.getHeading(entity.getLocation(), this.getLocation(), E_Projectile.getRoundTypeSpeed(this.getTypeRound()));
+            E_Projectile.makeProjectile(this, entity);   
+            this.mag -= 1;
+        }     
     }
 
     public void attack(double targetX, double targetY, double paneX, double paneY) {
 
-        targetX = (targetX*Game.getIt().getGamePhysicsWidth()) / paneX;
-        targetY = (targetY*Game.getIt().getGamePhysicsHeight()) / paneY;
-        E_Projectile.makeProjectile(targetX, targetY);
+        if(this.mag > 0){  
+            targetX = (targetX*Game.getIt().getGamePhysicsWidth()) / paneX;
+            targetY = (targetY*Game.getIt().getGamePhysicsHeight()) / paneY;
+            E_Projectile.makeProjectile(targetX, targetY);
+            this.mag -= 1;
+        }     
     }
 
     @Override
@@ -102,6 +134,13 @@ public class EH_Avatar extends EntityHumanoid {
     public void deSerialize(String data) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void reload() {
+        if(this.mag < 30 & this.ammo > 0){
+            super.reload();
+        }
     }
 
 
