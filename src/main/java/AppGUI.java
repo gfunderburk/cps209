@@ -56,6 +56,13 @@ public class AppGUI extends Application {
         if(newWindowTitle.equals("Game")){           
             W_InGame game = loader.getController();
             game.ingameScene = scene;
+
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
+                if(key.isShiftDown()) {
+                    //((instance.isCheatMode() == true) ? instance.setCheatMode(false) : instance.);
+                }
+             });
+             
             game.initialize((int)windowInitData);
         }
 
