@@ -23,8 +23,8 @@ public class EH_LightAI extends EntityHumanoid {
         this.typeRound = TypeRound.LIGHT_ROUND;
         this.imageDir = File.separator + "light_terminators" + File.separator;
         this.imageState = "lightRobotRifleFrontFacing_Shooting.png";
-        this.width = 10;
-        this.height = 50;
+        this.width = LaiW;
+        this.height = LaiH;
         this.speed = 1;
         this.maxHealth = 10;
         this.currentHealth = this.maxHealth;
@@ -44,23 +44,21 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public  void deSerialize(String data) {
-     String[] deCereal=data.split(",");
-     if(deCereal[1].equals("LIGHT_ROUND")){
-        typeRound=TypeRound.LIGHT_ROUND;
-    }
-    if(deCereal[1].equals("HEAVY_ROUND")){
-        typeRound=TypeRound.HEAVY_ROUND;
-    }
-    if(deCereal[1].equals("EXPLOSIVE_ROUND")){
-       typeRound=TypeRound.EXPLOSIVE_ROUND;
-   }
-   imageDir=deCereal[2];
-   imageState=deCereal[3];
-   width=Integer.parseInt(deCereal[4]);
-   height=Integer.parseInt(deCereal[5]);
-   speed=Double.parseDouble(deCereal[6]);
-
-
+        String[] deCereal=data.split(",");
+        if(deCereal[1].equals("LIGHT_ROUND")){
+            typeRound=TypeRound.LIGHT_ROUND;
+        }
+        if(deCereal[1].equals("HEAVY_ROUND")){
+            typeRound=TypeRound.HEAVY_ROUND;
+        }
+        if(deCereal[1].equals("EXPLOSIVE_ROUND")){
+            typeRound=TypeRound.EXPLOSIVE_ROUND;
+        }
+        imageDir=deCereal[2];
+        imageState=deCereal[3];
+        width=Integer.parseInt(deCereal[4]);
+        height=Integer.parseInt(deCereal[5]);
+        speed=Double.parseDouble(deCereal[6]);
     }
 
     @Override
@@ -75,7 +73,7 @@ public class EH_LightAI extends EntityHumanoid {
         if(this.sameMoveCount > 20){
             this.sameMoveCount = 0;
 
-            if(this.standStill){
+            if(!this.standStill){
                 this.vector = new Point3D(0,0,0);
             }
             else{
@@ -116,13 +114,14 @@ public class EH_LightAI extends EntityHumanoid {
                 default:
                     break;
             }
+            Game.getIt().setScore(Game.getIt().getScore() + 10);
             this.checkLife();    
         }
     }
 
     @Override
     public void hurtEvent() {
-        this.imageState = "lightRobotNoGunFrontFacing.png";
+        this.imageState = "lightRobotRifleFrontFacing_Shooting_hurt.png";
 
     }
 

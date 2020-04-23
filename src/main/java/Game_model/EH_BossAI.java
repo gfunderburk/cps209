@@ -1,6 +1,12 @@
 package Game_model;
 
+import java.io.File;
+
 import Game_model.E_Projectile.TypeRound;
+import Util_model.myMovement;
+import Util_model.myRandom;
+import Util_model.myMovement.Point3D_Comp;
+import javafx.geometry.Point3D;
 
 public class EH_BossAI extends EntityHumanoid {
 
@@ -15,7 +21,15 @@ public class EH_BossAI extends EntityHumanoid {
 
 
     public EH_BossAI(){
-        this.typeRound = TypeRound.HEAVY_ROUND;        
+        this.typeRound = TypeRound.EXPLOSIVE_ROUND;
+        this.imageDir = File.separator + "boss_terminators" + File.separator;
+        this.imageState = "bossTankHeadOn_Standing.png";
+        this.width = BaiW;
+        this.height = BaiH;
+        this.speed = 1;
+        this.maxHealth = 10;
+        this.currentHealth = this.maxHealth;
+        this.stateLife = StateLife.HEALTHY;        
     }
 
 
@@ -35,53 +49,109 @@ public class EH_BossAI extends EntityHumanoid {
 
     }
 
+
     @Override
     public void deathEvent() {
-        // TODO Auto-generated method stub
-
+        this.deSpawn();
     }
 
     @Override
     public void move() {
-        // TODO Auto-generated method stub
+        this.sameMoveCount++;
 
+        if(this.sameMoveCount > 20){
+            this.sameMoveCount = 0;
+
+            if(!this.standStill){
+                this.vector = new Point3D(0,0,0);
+            }
+            else{
+                Point3D newDest = Game.getIt().randomPoint3D();
+                this.vector = myMovement.getHeading(newDest, this.location, this.speed);
+                this.vector = myMovement.setNewPointComp(this.vector, Point3D_Comp.y, 0);
+            }
+
+            this.standStill = this.standStill ? false : true;
+        }
+
+        if(this.standStill & myRandom.genRandomBoolean()){
+            attack(EH_Avatar.getIt());
+        }
+
+        super.move();
     }
 
     @Override
     public void collideEvent(Entity otherEntity) {
-        // TODO Auto-generated method stub
+        E_Projectile ent = (E_Projectile)otherEntity;
 
+        if(ent.isAvatarsProjectile()){
+            switch(ent.getTypeRound()){
+
+                case LIGHT_ROUND:
+                    this.currentHealth -= E_Projectile.getLightRoundDmg();
+                    break;
+                
+                case HEAVY_ROUND:
+                    this.currentHealth -= E_Projectile.getHeavyRoundDmg();
+                    break;
+
+                case EXPLOSIVE_ROUND:
+                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg();
+                    break;
+
+                default:
+                    break;
+            }
+            Game.getIt().setScore(Game.getIt().getScore() + 10);
+            this.checkLife();    
+        }
     }
 
     @Override
     public void hurtEvent() {
-        // TODO Auto-generated method stub
+        this.imageState = "bossTankHeadOn_Standing_hurt.png";
 
     }
 
     @Override
     public void recoverEvent() {
-        // TODO Auto-generated method stub
+        this.imageState = "bossTankHeadOn_Standing.png";
 
     }
 
     @Override
     public void spawn() {
-        // TODO Auto-generated method stub
+        
+        Game.getIt().setAI_Left_ToSpawn(Game.getIt().getAI_Left_ToSpawn() - 1);
+        Game.getIt().setCurrentAIspawnCnt(Game.getIt().getCurrentAIspawnCnt() + 1);
 
+        this.location = Game.getIt().randomPoint3D();
+        this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.y, 0);
+        this.vector = new Point3D(0, 0, 0);
+
+        super.spawn();
     }
 
     @Override
     public void attack(Entity entity) {
-        // TODO Auto-generated method stub
-
+        super.attack(entity);
     }
 
     @Override
     public void deSpawn() {
-        // TODO Auto-generated method stub
+        Game.getIt().setAI_Left(Game.getIt().getAI_Left() - 1);
+        Game.getIt().setCurrentAIspawnCnt(Game.getIt().getCurrentAIspawnCnt() - 1);
+        Game.getIt().checkGameOver();
 
+        super.deSpawn();
     }
+
+    @Override
+    public void reload() {
+        super.reload();
+    }
+
 
 
     //  Getters-Setters  //
