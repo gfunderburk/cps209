@@ -33,7 +33,7 @@
             <Label text="Stand up:" />
             <Label text="Crouch:" />
             <Label text="Enter/exit ESC Menu:" />
-            <!--Extra credit: <Label text="Hold [C] for 1.5 sec. = toggle cheat mode:" />-->
+            <Label text="Hold [C] for 1.5 sec. = toggle cheat mode:" />
             <Label text="Move left:" />
             <Label text="Move right:" />
         </VBox>
