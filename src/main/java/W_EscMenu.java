@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import Data_model.Cereal;
 import Data_model.Score;
 import Data_model.ScoreManager;
 import Game_model.Game;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 public class W_EscMenu {
     Game game = Game.getIt();
     
+    
     // --------------- //
     // Media Elements //
     // --------------- //
@@ -29,6 +31,8 @@ public class W_EscMenu {
     //  View Variables  //
     // ---------------  //
 
+    private LocalDateTime newDate;
+    private String newName;
 
 
     //  ------------- //
@@ -71,7 +75,7 @@ public class W_EscMenu {
             // Save the game and close the game and esc windows
             
             AppGUI.getPopupStage().close();
-            Game.getIt().closeGame();
+            
 
             TextInputDialog dialog = new TextInputDialog();
             
@@ -79,16 +83,19 @@ public class W_EscMenu {
             //dialog.setContentText("Please enter your name:");
             Optional<String> playerName = dialog.showAndWait();
             playerName.ifPresent(name -> {
-                System.out.println("Your name: " + name);
-                var newDate = LocalDateTime.now();
+                newName = name;
+                newDate = LocalDateTime.now();
                 var newScore = new Score(name, newDate, game.getScore());
                 scoreManager.getList().clear();
                 scoreManager.loadScores();
                 scoreManager.addScore(newScore);
-                scoreManager.saveScores();
-
-                //TODO: write code to call game save methods here
+                scoreManager.saveScores();            
             });
+
+            Cereal cereal = new Cereal(game, newDate, newName);
+            cereal.SerializeGame();
+
+            Game.getIt().closeGame();
 
             AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
         } 

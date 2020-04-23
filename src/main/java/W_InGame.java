@@ -39,8 +39,10 @@ import javafx.scene.input.KeyEvent;
 
 public class W_InGame {
 
-    // Singleton Game Instance
+    // Singleton Instance Variables
     Game game = Game.getIt();
+    EH_Avatar avatar = EH_Avatar.getIt();
+
 
     // --------------- //
     // Media Elements //
@@ -133,8 +135,14 @@ public class W_InGame {
     @FXML
     void mouseClickedPane(MouseEvent event) {
         SHOOT_FOOTSOLDIER.play();
-        EH_Avatar.getIt().attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
-        lbl_Score.setText("Score: " + game.getScore());
+        avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
+        if (avatar.getMag() > 1) {
+            avatar.setMag(avatar.getMag() - 1);
+        } else {
+            avatar.setMag(0);
+        }
+        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
+        lbl_Score.setText("Score: " + game.getScore()); 
     }
     
 
@@ -145,7 +153,9 @@ public class W_InGame {
 
     @FXML
     void initialize(int difficultyLevel) throws InterruptedException {
-        lbl_ammoStats.setText("1000/1000");
+        //TODO: get ammo and mag variables from EntityKillable
+
+        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
         // pane.setOnMouseEntered(me -> pane.getScene().setCursor(Cursor.HAND) );
