@@ -72,13 +72,11 @@ public class W_InGame {
     Pane pane;
 
     @FXML
-    Label lbl_Id;
-    @FXML
-    Label lbl_Loc;
-    @FXML
-    Label lbl_Speed;
+    Label lbl_ammoStats;
+
     @FXML
     Label lbl_Score;
+    
 
     // ------------ //
     //  GUI Methods // (DIRECT USER EVENTS)
@@ -149,6 +147,7 @@ public class W_InGame {
 
     @FXML
     void initialize(int difficultyLevel) throws InterruptedException {
+        lbl_ammoStats.setText("1000/1000");
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
         // pane.setOnMouseEntered(me -> pane.getScene().setCursor(Cursor.HAND) );
