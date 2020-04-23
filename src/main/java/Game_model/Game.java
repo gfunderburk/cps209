@@ -251,6 +251,9 @@ public class Game implements GameSave {
                 }
                 AI_Left = GameLevels.getIt().getLvlAICnt(gameLvl);
                 AI_Left_ToSpawn = GameLevels.getIt().getLvlAICnt(gameLvl);
+
+                Entity bigBoss = new EH_BossAI();
+                bigBoss.spawn();
                 break;
                 default:
         }

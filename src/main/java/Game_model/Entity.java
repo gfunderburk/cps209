@@ -1,6 +1,7 @@
 package Game_model;
 
 import Util_model.myMovement;
+import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
 
 public abstract class Entity implements GameSave{
@@ -8,7 +9,14 @@ public abstract class Entity implements GameSave{
 
     //  Variables  //
 
-    
+    protected static double LaiH = 50;
+    protected static double LaiW = 10; 
+    protected static double HaiH = 55;
+    protected static double HaiW = 12; 
+    protected static double FaiH = 7;
+    protected static double FaiW = 7; 
+    protected static double BaiH = 80;
+    protected static double BaiW = 20; 
     protected  int Id; 
     protected  double height, width, speed;
     protected  int sameMoveCount;
@@ -33,6 +41,7 @@ public abstract class Entity implements GameSave{
     public void move() {
         
         this.location = this.location.add(this.vector);
+        // this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.z, 0);
 
         // Check X within borders
         if(this.location.getX() > Game.getIt().getGamePhysicsWidth()){
@@ -203,5 +212,105 @@ public abstract class Entity implements GameSave{
 
     public String getImage(){
         return imageDir + imageState;
+    }
+
+    public static double getLaiH() {
+        return LaiH;
+    }
+
+    public static void setLaiH(double laiH) {
+        LaiH = laiH;
+    }
+
+    public static double getLaiW() {
+        return LaiW;
+    }
+
+    public static void setLaiW(double laiW) {
+        LaiW = laiW;
+    }
+
+    public static double getHaiH() {
+        return HaiH;
+    }
+
+    public static void setHaiH(double haiH) {
+        HaiH = haiH;
+    }
+
+    public static double getHaiW() {
+        return HaiW;
+    }
+
+    public static void setHaiW(double haiW) {
+        HaiW = haiW;
+    }
+
+    public static double getFaiH() {
+        return FaiH;
+    }
+
+    public static void setFaiH(double faiH) {
+        FaiH = faiH;
+    }
+
+    public static double getFaiW() {
+        return FaiW;
+    }
+
+    public static void setFaiW(double faiW) {
+        FaiW = faiW;
+    }
+
+    public static double getBaiH() {
+        return BaiH;
+    }
+
+    public static void setBaiH(double baiH) {
+        BaiH = baiH;
+    }
+
+    public static double getBaiW() {
+        return BaiW;
+    }
+
+    public static void setBaiW(double baiW) {
+        BaiW = baiW;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public int getSameMoveCount() {
+        return sameMoveCount;
+    }
+
+    public void setSameMoveCount(int sameMoveCount) {
+        this.sameMoveCount = sameMoveCount;
+    }
+
+    public boolean isStandStill() {
+        return standStill;
+    }
+
+    public void setStandStill(boolean standStill) {
+        this.standStill = standStill;
+    }
+
+    public void setImageDir(String imageDir) {
+        this.imageDir = imageDir;
+    }
+
+    public int getCollisionCode() {
+        return collisionCode;
+    }
+
+    public void setCollisionCode(int collisionCode) {
+        this.collisionCode = collisionCode;
     }
 }

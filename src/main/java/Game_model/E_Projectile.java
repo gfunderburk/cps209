@@ -21,6 +21,7 @@ public class E_Projectile extends Entity {
     
     private TypeRound typeRound;    
     private boolean AvatarsProjectile;
+    private double visualYoffset, visualXoffset;
 
 
 
@@ -36,6 +37,7 @@ public class E_Projectile extends Entity {
         bullet.imageState = "bulletRed.png";
         bullet.width = 2.5;
         bullet.height = 2.5;
+        bullet.calcOffsets(thisEntity);
         bullet.setLocation(thisEntity.getLocation());
         bullet.setVector(myMovement.getHeading(EH_Avatar.getIt().getLocation(), thisEntity.getLocation(), getRoundTypeSpeed(thisEntity.getTypeRound())));        
         bullet.spawn();
@@ -59,6 +61,36 @@ public class E_Projectile extends Entity {
 
     //  Methods  //
 
+    public void calcOffsets(Entity thisEntity){
+        if(thisEntity instanceof EH_LightAI){
+            EH_LightAI ai = (EH_LightAI)thisEntity;
+            
+            this.visualYoffset = 35;
+            this.visualXoffset = -3;
+
+        }else 
+        if(thisEntity instanceof EH_HeavyAI){
+            EH_HeavyAI ai = (EH_HeavyAI)thisEntity;
+
+            this.visualYoffset = 44;
+            this.visualXoffset = -2;
+
+        }else 
+        if(thisEntity instanceof EH_FlyingAI){
+            EH_FlyingAI ai = (EH_FlyingAI)thisEntity;
+
+            this.visualYoffset = 2;
+            this.visualXoffset = 2;
+
+        }else 
+        if(thisEntity instanceof EH_BossAI){
+            EH_BossAI ai = (EH_BossAI)thisEntity;
+
+            this.visualYoffset = 68;
+            this.visualXoffset = 2;
+
+        }
+    }
 
     @Override
     public String Serialize() {
@@ -192,5 +224,21 @@ public class E_Projectile extends Entity {
 
     public void setAvatarsProjectile(boolean avatarsProjectile) {
         AvatarsProjectile = avatarsProjectile;
+    }
+
+    public double getVisualYoffset() {
+        return visualYoffset;
+    }
+
+    public void setVisualYoffset(int visualYoffset) {
+        this.visualYoffset = visualYoffset;
+    }
+
+    public double getVisualXoffset() {
+        return visualXoffset;
+    }
+
+    public void setVisualXoffset(int visualXoffset) {
+        this.visualXoffset = visualXoffset;
     }
 }

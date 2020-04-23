@@ -19,7 +19,7 @@ public abstract class EntityKillable extends Entity {
         if(this.stateLife != StateLife.DEAD)
         {
 
-            if(currentHealth >= (maxHealth / 2))
+            if(currentHealth > (maxHealth / 2))
             {
                 if(this.stateLife != StateLife.HEALTHY)
                 {

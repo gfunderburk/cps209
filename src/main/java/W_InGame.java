@@ -133,8 +133,6 @@ public class W_InGame {
     @FXML
     void mouseClickedPane(MouseEvent event) {
         SHOOT_FOOTSOLDIER.play();
-        //Increase score here?
-        game.setScore(game.getScore() + 20); // Temporary Score Setting for testing of high scores
         EH_Avatar.getIt().attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         lbl_Score.setText("Score: " + game.getScore());
     }
@@ -231,8 +229,8 @@ public class W_InGame {
 
         //  Set ImageView Width/Height
 
-        double imgW = paneWper * entity.getWidth(); // set vanillaWidth
-        double imgH = paneHper * entity.getHeight(); // set vanillaHeight
+        double imgW = paneWper * entity.getWidth(); // set z=0 Width
+        double imgH = paneHper * entity.getHeight(); // set z=0 Height
 
         imgW -= (0.05 * loc.getZ() * imgW);   // set width according to z depth (deeper z = narrower)
         imgH -= (0.05 * loc.getZ() * imgH);   // set height according to z depth (deeper z = shorter)
@@ -246,12 +244,23 @@ public class W_InGame {
         double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
 
         imgX -= (0.5 * imgW);  //  center width on item pt.
+        imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
 
         if(entity instanceof E_Projectile){
-            imgY += (0.5 * imgH);
+            E_Projectile ent = (E_Projectile)entity;
+
+            imgY += (0.5 * imgH); // center img on Y-axis
+            if(! ent.isAvatarsProjectile()){
+                double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
+                double YvisualOffsetRaw = (paneHper * ent.getVisualYoffset()); // offset Y for entity type @ z=0
+                double XvisualOffsetDepthed = (0.05 * loc.getZ() * XvisualOffsetRaw);
+                double YvisualOffsetDepthed = (0.05 * loc.getZ() * YvisualOffsetRaw);
+                imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
+                imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
+            }
         }
         else{
-            imgY += ( (1.0 * imgH) + (loc.getZ() * 20) ); //  adjust y according to depth (deeper z = higher)
+            imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
         }
 
         newEntityImg.relocate(imgX, paneH - imgY); 
