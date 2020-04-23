@@ -78,6 +78,9 @@ public class W_InGame {
 
     @FXML
     Label lbl_Score;
+
+    @FXML
+    ProgressBar progBar_health;
     
 
     // ------------ //
@@ -134,15 +137,18 @@ public class W_InGame {
 
     @FXML
     void mouseClickedPane(MouseEvent event) {
-        SHOOT_FOOTSOLDIER.play();
+        
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         if (avatar.getMag() > 1) {
+            SHOOT_FOOTSOLDIER.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
+            BTN_CLICK.play();
             avatar.setMag(0);
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
+        progBar_health.setProgress(50); // avatar.getCurrentHealth()
     }
     
 
