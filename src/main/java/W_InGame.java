@@ -87,6 +87,8 @@ public class W_InGame {
 
     @FXML
     ProgressBar progBar_health;
+
+    private double health = avatar.getCurrentHealth();
     
 
     // ------------ //
@@ -154,7 +156,7 @@ public class W_InGame {
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
-        updateHealth();
+        updateHealthBar();
 
     }
     
@@ -163,25 +165,38 @@ public class W_InGame {
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // ------------- //
 
-    void updateHealth() {
-        avatar.setCurrentHealth(75);
-        var health = avatar.getCurrentHealth()/100;
+    void updateHealthBar() {
+        //avatar.setCurrentHealth(75);
+        //health = avatar.getCurrentHealth();
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
-        progBar_health.setProgress(.75F);
+        progBar_health.setProgress(health);
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
     }
 
+    //Used for debugging of healthBar functionality...will remove before submission
+    // void minusHealthBar() {
+    //     health -= 0.01;
+    //     vbox_health.getChildren().clear();
+    //     progBar_health = new ProgressBar();
+    //     progBar_health.setProgress(health);
+    //     vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+    //     // plusHealthBar();
+    // }
+
+    // void plusHealthBar() {
+    //     KeyFrame timer = new KeyFrame(Duration.seconds(1), e -> {
+    //         health += .01;
+    //         updateHealthBar();
+    //     });
+    //     var timeline = new Timeline(timer);
+    //     timeline.play();
+    // }
 
     @FXML
     void initialize(int difficultyLevel) throws InterruptedException {
-        //TODO: get ammo and mag variables from EntityKillable
-        avatar.setMaxHealth(100);
-        avatar.setCurrentHealth(100);
-        progBar_health = new ProgressBar();
-        progBar_health.setProgress(1);
-        vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+        updateHealthBar();
 
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         this.difficulty = difficultyLevel;
@@ -296,6 +311,7 @@ public class W_InGame {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 SHOOT_FOOTSOLDIER.play();
+                updateHealthBar();
             }
         }
         else{

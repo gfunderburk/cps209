@@ -1,7 +1,10 @@
 package Game_model;
 
 import Game_model.E_Projectile.TypeRound;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Point3D;
+import javafx.util.Duration;
 
 public class EH_Avatar extends EntityHumanoid {
 
@@ -19,8 +22,8 @@ public class EH_Avatar extends EntityHumanoid {
     private EH_Avatar(){
         this.typeRound = TypeRound.LIGHT_ROUND;  
         this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, Game.getIt().getGamePhysicsHeight()/2, 0));       
-        this.currentHealth = 100;
-        this.maxHealth = 100;
+        this.currentHealth = 1;
+        this.maxHealth = 1;
         this.mag = 30;
         this.ammo = 300;
     }
@@ -95,6 +98,17 @@ public class EH_Avatar extends EntityHumanoid {
     @Override
     public void recoverEvent() {
         // TODO Auto-generated method stub
+        //Experimented by adding a thread since it was freezing up while I was debugging.
+        //wasn't sure if it was trying to access the currentHealth variable from multiple places at the same time.
+        //this didn't seem to do anything however, so do as you please here!
+        // Thread thread = new Thread( () -> {
+        //     KeyFrame timer = new KeyFrame(Duration.seconds(1), e -> {
+        //     currentHealth += .01;
+        //     });
+        //     var timeline = new Timeline(timer);
+        //     timeline.play();
+        // });
+        // thread.start();
 
     }
 

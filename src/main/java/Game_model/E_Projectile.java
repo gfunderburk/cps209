@@ -15,9 +15,9 @@ public class E_Projectile extends Entity {
     private static double lightRoundSpeed = 1;
     private static double heavyRoundSpeed = 1;
     private static double explosiveRoundSpeed = 1;
-    private static double lightRoundDmg = 1;
-    private static double heavyRoundDmg = 2;
-    private static double explosiveRoundDmg = 3;
+    private static double lightRoundDmg = .01;
+    private static double heavyRoundDmg = .02;
+    private static double explosiveRoundDmg = .03;
     
     private TypeRound typeRound;    
     private boolean AvatarsProjectile;
