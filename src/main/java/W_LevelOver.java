@@ -16,7 +16,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
-public class W_EscMenu implements AppGUI_popupWin{
+public class W_LevelOver implements AppGUI_popupWin {
     
     
     // --------------- //
@@ -55,7 +55,7 @@ public class W_EscMenu implements AppGUI_popupWin{
         // - Yes = Save game
         // - No  = Main Menu
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setHeaderText("Do you want to save before quitting?");
+        alert.setHeaderText("Do you want to save your game progress so far?");
         
 
         ButtonType btnYes = new ButtonType("Yes");
@@ -66,7 +66,8 @@ public class W_EscMenu implements AppGUI_popupWin{
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == btnYes) {
-            // Save the game and close the game and esc windows
+            // Save the score and get the name before showing high scores screen
+            BTN_CLICK.play();
             
             AppGUI.getPopupStage().close();
             
@@ -86,8 +87,8 @@ public class W_EscMenu implements AppGUI_popupWin{
                 scoreManager.saveScores();            
             });
 
-            Cereal cereal = new Cereal(game, newDate, newName);
-            cereal.SerializeGame();
+            // Cereal cereal = new Cereal(game, newDate, newName);
+            // cereal.SerializeGame();
 
             Game.getIt().closeGame();
 
@@ -95,6 +96,7 @@ public class W_EscMenu implements AppGUI_popupWin{
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
+            BTN_CLICK.play();
             AppGUI.getPopupStage().close();         
             Game.getIt().closeGame();
             AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
@@ -102,24 +104,16 @@ public class W_EscMenu implements AppGUI_popupWin{
 
         } else {
             // ... user chose CANCEL or closed the dialog
+            BTN_CLICK.play();
         }        
-    }
-
-    @FXML
-    void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
-        // Return to game window
-        BTN_CLICK.play();
-        AppGUI.getPopupStage().close();
-        Game.getIt().play();
     }
 
     //  ------------- //
     //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // -------------  //
 
-    
-    public void initialize() {
-        game.pause();
-    }
 
+    public void initialize(){
+        game.pause();
+    } 
 }

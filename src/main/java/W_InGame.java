@@ -88,8 +88,6 @@ public class W_InGame {
 
     @FXML
     ProgressBar progBar_health;
-
-    private double health = avatar.getCurrentHealth();
     
 
     // ------------ //
@@ -100,22 +98,14 @@ public class W_InGame {
      * Action: closes GameWindow and ends the game instance.
      * 
      * @throws IOException
-     * @throws InterruptedException
+     * 
+     * @ @throws InterruptedException
      */
     @FXML
-    void onEscClicked() throws IOException, InterruptedException {
-        
-        BTN_CLICK.play();
-        game.pause();
-        
+    void onEscClicked() throws IOException {
         // Load ESC_Menu
-        var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
-        var scene = new Scene(loader.load());        
-        AppGUI.getPopupStage().setScene(scene);
-        AppGUI.getPopupStage().setTitle("ESC Menu");
-        AppGUI.getPopupStage().setWidth(400);
-        AppGUI.getPopupStage().setHeight(300);
-        AppGUI.getPopupStage().show();
+        BTN_CLICK.play();
+        AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
     }
 
 
@@ -157,8 +147,6 @@ public class W_InGame {
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
-        health = 0;
-        updateHealth();
 
     }
     
@@ -167,35 +155,25 @@ public class W_InGame {
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // ------------- //
 
-    void updateHealth() {
-        //avatar.setCurrentHealth(75);
-        //health = avatar.getCurrentHealth();
+    void updateHealthGUI() throws IOException {
+        double health = avatar.getCurrentHealth();
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
-        if (health < 0 || health == 0) {
-            // AppGUI.getPopupStage().close();
-            game.closeGame();
-                        
-            //launch YOU HAVE DIED message
-            // Load Game over menu
-            var loader = new FXMLLoader(getClass().getResource("W_GameOver.fxml"));
-            try {
-                scene = new Scene(loader.load());
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            AppGUI.getPopupStage().setScene(scene);
-            AppGUI.getPopupStage().setTitle("GAME OVER");
-            AppGUI.getPopupStage().setWidth(400);
-            AppGUI.getPopupStage().setHeight(300);
-            //AppGUI.getPopupStage().setFullScreen(true);
-            AppGUI.getPopupStage().show();
-        } 
+        if (Game.getIt().isGameOver()) {
+            // Game.getIt().closeGame();
 
+            if(Game.getIt().isPlayerWinner()){
+                // Load-Launch "YOU HAVE COMPLETED THE LEVEL!" LevelOver menu
+                AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER");
+            }
+            else{
+                // Load-Launch "YOU HAVE DIED!" GameOver menu
+                AppGUI.popupLoad(getClass().getResource("W_GameOver.fxml"), "GAME OVER");
+            }
+        } 
     }
 
     //Used for debugging of healthBar functionality...will remove before submission
@@ -218,10 +196,9 @@ public class W_InGame {
     // }
 
     @FXML
-    void initialize(int difficultyLevel) throws InterruptedException {
-        updateHealth();
+    void initialize(int difficultyLevel) throws InterruptedException, IOException  {
 
-        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
+        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
         // pane.setOnMouseEntered(me -> pane.getScene().setCursor(Cursor.HAND) );
@@ -241,7 +218,11 @@ public class W_InGame {
         
         
         //  Set Global Animation Timer
-        var keyFrame = new KeyFrame(Duration.seconds(.05), e -> timerAnimate());
+        var keyFrame = new KeyFrame(Duration.seconds(.05), e -> 
+        {
+            try {timerAnimate();} 
+            catch (IOException e1){e1.printStackTrace();}
+        });
         var clockTimeline = new Timeline(keyFrame);
         clockTimeline.setCycleCount(Timeline.INDEFINITE);
         clockTimeline.play();
@@ -249,7 +230,7 @@ public class W_InGame {
     }
 
 
-    void timerAnimate() {
+    void timerAnimate() throws IOException {
         if (Game.getIt().getStateGame() == StateGame.RUNNING) { 
 
             // move entities physically in Model
@@ -271,6 +252,7 @@ public class W_InGame {
                 }     
             }
             Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+            updateHealthGUI(); // 
         }
     }
 
@@ -334,7 +316,6 @@ public class W_InGame {
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
                 // SHOOT_FOOTSOLDIER.play();
-                updateHealth();
             }
         }
         else{

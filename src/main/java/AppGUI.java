@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 
 import javafx.application.Application;
@@ -42,6 +43,19 @@ public class AppGUI extends Application {
         currentStage.show();
     }
 
+    public static void popupLoad(URL windowURL, String windowTitle) throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader(windowURL);
+        Scene scene = new Scene(loader.load());
+        AppGUI_popupWin ctrl = (AppGUI_popupWin)loader.getController();
+        ctrl.initialize();
+        
+        AppGUI.getPopupStage().setScene(scene);
+        AppGUI.getPopupStage().setTitle(windowTitle);
+        AppGUI.getPopupStage().setWidth(400);
+        AppGUI.getPopupStage().setHeight(300);
+        AppGUI.getPopupStage().show();
+    }
 
     public static void windowLoad(String newWindowTitle, URL windowURL, Object windowInitData) 
         throws IOException, InterruptedException {

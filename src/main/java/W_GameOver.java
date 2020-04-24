@@ -16,8 +16,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
-public class W_GameOver {
-    Game game = Game.getIt();
+public class W_GameOver implements AppGUI_popupWin{
     
     
     // --------------- //
@@ -31,6 +30,7 @@ public class W_GameOver {
     //  View Variables  //
     // ---------------  //
 
+    Game game = Game.getIt();
     private LocalDateTime newDate;
     private String newName;
 
@@ -45,12 +45,6 @@ public class W_GameOver {
     //  ------------ //
     //  GUI Methods  //     (DIRECT USER EVENTS)
     // ------------  //
-
-
-
-    //  ------------- //
-    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
-    // -------------  //
 
 
     @FXML
@@ -113,4 +107,13 @@ public class W_GameOver {
             BTN_CLICK.play();
         }        
     }
+
+    //  ------------- //
+    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
+    // -------------  //
+
+
+    public void initialize(){
+        game.pause();
+    } 
 }

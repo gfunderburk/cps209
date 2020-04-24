@@ -176,6 +176,7 @@ public class EH_LightAI extends EntityHumanoid {
                         
                     case 1:
                         this.newDirection();
+                        this.imageState = this.imgMovingL+ending(); 
 
                     default:
                         if(this.subStateInt%3==0) this.imageState = (this.subStateInt%2==0) ? this.imgMovingL+ending() : this.imgMovingR+ending(); 

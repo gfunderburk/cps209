@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import Game_model.EntityKillable.StateLife;
 import Util_model.myRandom;
 import javafx.geometry.Point3D;
 
@@ -36,7 +38,7 @@ public class Game implements GameSave {
     private String playerName, lvlBackground;
     private ArrayList<Entity> entityList = new ArrayList<Entity>();
     private ArrayList<Entity> deadEntityList = new ArrayList<Entity>();
-    private boolean gameOver = false;
+    private boolean gameOver, playerWin;
     private boolean cheatMode = false;
     private int gameLevel;
 
@@ -123,13 +125,13 @@ public class Game implements GameSave {
     }
 
     public void checkGameOver(){
-        //TODO: Fill in game over logic
         if(AI_Left <= 0){
-            var test = entityList;
-            stateGame = StateGame.PAUSED; 
+            gameOver = true;
+            playerWin = true;
         }        
-        else if(EH_Avatar.getIt().currentHealth <= 0){
-            //stateGame = StateGame.PAUSED;
+        else if(EH_Avatar.getIt().getStateLife() == StateLife.DEAD){
+            // gameOver = true;
+            playerWin = false;
         }
         else{
             spawnerAdmin(false);
@@ -457,6 +459,14 @@ public class Game implements GameSave {
 
     public void setGameLevel(int gameLevel) {
         this.gameLevel = gameLevel;
+    }
+
+    public boolean isPlayerWinner() {
+        return playerWin;
+    }
+
+    public void setPlayerWinner(boolean playerWin) {
+        this.playerWin = playerWin;
     }
 
 }
