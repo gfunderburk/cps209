@@ -3,6 +3,7 @@ package Game_model;
 import java.io.File;
 
 import Util_model.myMovement;
+import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
 
 public class E_Projectile extends Entity {
@@ -12,9 +13,9 @@ public class E_Projectile extends Entity {
 
 
     public static enum TypeRound {LIGHT_ROUND, HEAVY_ROUND, EXPLOSIVE_ROUND};
-    private static double lightRoundSpeed = 1;
-    private static double heavyRoundSpeed = 1;
-    private static double explosiveRoundSpeed = 1;
+    private static double lightRoundMoveFactor = 1;
+    private static double heavyRoundMoveFactor = 2;
+    private static double explosiveRoundMoveFactor = 3;
     private static double lightRoundDmg = 1;
     private static double heavyRoundDmg = 2;
     private static double explosiveRoundDmg = 3;
@@ -22,6 +23,7 @@ public class E_Projectile extends Entity {
     private TypeRound typeRound;    
     private boolean AvatarsProjectile;
     private double visualYoffset, visualXoffset;
+    private double moveFactor, damage;
 
 
 
@@ -31,15 +33,24 @@ public class E_Projectile extends Entity {
     public static void makeProjectile(EntityHumanoid thisEntity, Entity thatEntity){
 
         E_Projectile bullet = new E_Projectile();
-        if(thisEntity == EH_Avatar.getIt()) bullet.AvatarsProjectile = true;
-        bullet.typeRound = thisEntity.getTypeRound();
+        bullet.AvatarsProjectile = false;
+        bullet.setTypeRound(thisEntity.getTypeRound());
         bullet.imageDir = File.separator + "projectiles" + File.separator;
         bullet.imageState = "bulletRed.png";
+        bullet.stateIntFactor = 1;
         bullet.width = 2.5;
         bullet.height = 2.5;
         bullet.calcOffsets(thisEntity);
         bullet.setLocation(thisEntity.getLocation());
-        bullet.setVector(myMovement.getHeading(EH_Avatar.getIt().getLocation(), thisEntity.getLocation(), getRoundTypeSpeed(thisEntity.getTypeRound())));        
+
+        Point3D target = new Point3D(0, 0, 0);        
+        if(EH_Avatar.getIt().location.getX() > thisEntity.getLocation().getX()){
+            target = myMovement.setNewPointComp(target, Point3D_Comp.x, thisEntity.getLocation().getX() + 1);
+        }
+        else {
+            target = myMovement.setNewPointComp(target, Point3D_Comp.x, thisEntity.getLocation().getX() - 1);
+        }
+        bullet.setVector(myMovement.getHeading(target, thisEntity.getLocation(), getRoundTypeSpeed(thisEntity.getTypeRound())));        
         bullet.spawn();
     }
 
@@ -48,9 +59,10 @@ public class E_Projectile extends Entity {
 
         E_Projectile bullet = new E_Projectile();
         bullet.AvatarsProjectile = true;
-        bullet.typeRound = EH_Avatar.getIt().getTypeRound();
+        bullet.setTypeRound(EH_Avatar.getIt().getTypeRound());
         bullet.imageDir = File.separator + "projectiles" + File.separator;
         bullet.imageState = "bulletRed.png";
+        bullet.stateIntFactor = 1;
         bullet.width = 2.5;
         bullet.height = 2.5;
         bullet.setLocation(new Point3D(targetX, targetY, 0));
@@ -102,24 +114,44 @@ public class E_Projectile extends Entity {
 
     @Override
     public  void deSerialize(String data) {
-    String decereal=data.split(",")[1];
-     if(decereal=="LIGHT_ROUND"){
-         typeRound=TypeRound.LIGHT_ROUND;
-     }
-     if(decereal=="HEAVY_ROUND"){
-         typeRound=TypeRound.HEAVY_ROUND;
-     }
-     if(decereal=="EXPLOSIVE_ROUND"){
-        typeRound=TypeRound.EXPLOSIVE_ROUND;
-    }
-       
-        
-
+        String decereal=data.split(",")[1];
+        if(decereal=="LIGHT_ROUND"){
+            typeRound=TypeRound.LIGHT_ROUND;
+        }
+        if(decereal=="HEAVY_ROUND"){
+            typeRound=TypeRound.HEAVY_ROUND;
+        }
+        if(decereal=="EXPLOSIVE_ROUND"){
+            typeRound=TypeRound.EXPLOSIVE_ROUND;
+        }    
     }
 
     @Override
     public void move() {
         super.move();
+        
+        if(this.isAvatarsProjectile()){
+
+            Entity otherEntity = Game.getIt().getEntityList()
+                                .stream()
+                                .filter(ent -> !(ent instanceof E_Projectile) )
+                                .filter(ent -> (ent.location.getX() + ent.width * .5) > this.location.getX())
+                                .filter(ent -> (ent.location.getX() - ent.width * .5) < this.location.getX())
+                                .filter(ent -> (ent.location.getX() + ent.height * .5) > this.location.getY())
+                                .filter(ent -> (ent.location.getX() - ent.height * .5) < this.location.getY())
+                                .findAny()
+                                .orElse(null);      // .collect(Collectors.toList()));
+                                
+            if(otherEntity != null){
+                Game.getIt().setScore(Game.getIt().getScore() + 1);
+                this.collideEvent(otherEntity);
+                otherEntity.collideEvent(this);
+            }
+        }
+        else if(this.location.getZ() <= 0){
+            this.collideEvent(null);
+            EH_Avatar.getIt().collideEvent(this);
+        }
     }
 
     @Override
@@ -150,6 +182,25 @@ public class E_Projectile extends Entity {
 
     public void setTypeRound(TypeRound typeRound) {
         this.typeRound = typeRound;
+
+        switch(this.typeRound){
+            case LIGHT_ROUND:
+                this.moveFactor = lightRoundMoveFactor;
+                this.damage = lightRoundDmg;
+                break;
+
+            case HEAVY_ROUND:
+                this.moveFactor = heavyRoundMoveFactor;
+                this.damage = heavyRoundDmg;
+                break;
+
+            case EXPLOSIVE_ROUND:
+                this.moveFactor = explosiveRoundMoveFactor;
+                this.damage = explosiveRoundDmg;
+                break;
+            
+            default:
+        }
     }
 
 
@@ -157,13 +208,13 @@ public class E_Projectile extends Entity {
 		switch(roundType){
 
             case LIGHT_ROUND:
-                return lightRoundSpeed;
+                return lightRoundMoveFactor;
                 
             case HEAVY_ROUND:
-                return heavyRoundSpeed;
+                return heavyRoundMoveFactor;
                 
             case EXPLOSIVE_ROUND:
-                return explosiveRoundSpeed;
+                return explosiveRoundMoveFactor;
 
             default:
                 return -1;
@@ -171,27 +222,27 @@ public class E_Projectile extends Entity {
 	}
 
     public static double getLightRoundSpeed() {
-        return lightRoundSpeed;
+        return lightRoundMoveFactor;
     }
 
     public static void setLightRoundSpeed(double lightRoundSpeed) {
-        E_Projectile.lightRoundSpeed = lightRoundSpeed;
+        E_Projectile.lightRoundMoveFactor = lightRoundSpeed;
     }
 
     public static double getHeavyRoundSpeed() {
-        return heavyRoundSpeed;
+        return heavyRoundMoveFactor;
     }
 
     public static void setHeavyRoundSpeed(double heavyRoundSpeed) {
-        E_Projectile.heavyRoundSpeed = heavyRoundSpeed;
+        E_Projectile.heavyRoundMoveFactor = heavyRoundSpeed;
     }
 
     public static double getExplosiveRoundSpeed() {
-        return explosiveRoundSpeed;
+        return explosiveRoundMoveFactor;
     }
 
     public static void setExplosiveRoundSpeed(double explosiveRoundSpeed) {
-        E_Projectile.explosiveRoundSpeed = explosiveRoundSpeed;
+        E_Projectile.explosiveRoundMoveFactor = explosiveRoundSpeed;
     }
 
     public static double getLightRoundDmg() {
@@ -240,5 +291,13 @@ public class E_Projectile extends Entity {
 
     public void setVisualXoffset(int visualXoffset) {
         this.visualXoffset = visualXoffset;
+    }
+
+    @Override
+    protected void subStateUpdate() {
+        if(this.subStateInt >= this.moveFactor){
+            this.subStateInt = 0;
+            this.move();
+        }
     }
 }

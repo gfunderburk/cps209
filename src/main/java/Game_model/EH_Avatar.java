@@ -18,10 +18,10 @@ public class EH_Avatar extends EntityHumanoid {
 
     private EH_Avatar(){
         this.typeRound = TypeRound.LIGHT_ROUND;  
-        this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, Game.getIt().getGamePhysicsHeight()/2, 0));       
+        this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, 0));       
         this.currentHealth = 10;
         this.maxHealth = 10;
-        this.mag = 30;
+        this.mag = 300;
         this.ammo = 300;
     }
 
@@ -49,8 +49,7 @@ public class EH_Avatar extends EntityHumanoid {
 
     @Override
     public void deathEvent() {
-        // TODO Auto-generated method stub
-
+        Game.getIt().checkGameOver();
     }
 
     @Override
@@ -107,11 +106,11 @@ public class EH_Avatar extends EntityHumanoid {
     @Override
     public void attack(Entity entity){
         
-        if(this.mag > 0){        
-            //Point3D aimedVector = myMovement.getHeading(entity.getLocation(), this.getLocation(), E_Projectile.getRoundTypeSpeed(this.getTypeRound()));
-            E_Projectile.makeProjectile(this, entity);   
-            this.mag -= 1;
-        }     
+        // if(this.mag > 0){        
+        //     //Point3D aimedVector = myMovement.getHeading(entity.getLocation(), this.getLocation(), E_Projectile.getRoundTypeSpeed(this.getTypeRound()));
+        //     E_Projectile.makeProjectile(this, entity);   
+        //     this.mag -= 1;
+        // }     
     }
 
     public void attack(double targetX, double targetY, double paneX, double paneY) {
@@ -120,7 +119,7 @@ public class EH_Avatar extends EntityHumanoid {
             targetX = (targetX*Game.getIt().getGamePhysicsWidth()) / paneX;
             targetY = (targetY*Game.getIt().getGamePhysicsHeight()) / paneY;
             E_Projectile.makeProjectile(targetX, targetY);
-            this.mag -= 1;
+            // this.mag -= 1;
         }     
     }
 
@@ -141,6 +140,18 @@ public class EH_Avatar extends EntityHumanoid {
         if(this.mag < 30 & this.ammo > 0){
             super.reload();
         }
+    }
+
+    @Override
+    public void stateIncrement() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected void subStateUpdate() {
+        // TODO Auto-generated method stub
+
     }
 
 

@@ -30,6 +30,7 @@ public class EH_HeavyAI extends EntityHumanoid {
         this.maxHealth = 10;
         this.currentHealth = this.maxHealth;
         this.stateLife = StateLife.HEALTHY;
+        this.stateAction = StateAction.MOVING;
         
     }
 
@@ -150,6 +151,18 @@ public class EH_HeavyAI extends EntityHumanoid {
     @Override
     public void reload() {
         super.reload();
+    }
+
+    @Override
+    public void stateIncrement() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected void subStateUpdate() {
+        // TODO Auto-generated method stub
+
     }
 
 

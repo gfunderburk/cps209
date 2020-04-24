@@ -1,5 +1,6 @@
 package Util_model;
 
+import java.util.Random;
 
 //---------------------------------------------------------------------------------------
 // Class:  selfRandom
@@ -25,29 +26,12 @@ public class myRandom {
 
 
     public static boolean genRandomBoolean(){
-
-        int range = 1000 - 1 + 1;
-        int rand = (int)(Math.random() * range) + 1; 
-
-        if(rand%2 == 0){
-            return true;
-        }
-        else{
-            return false;
-        }
+        var ran = new Random();
+        return ran.nextBoolean();
     }
 
     
     public static int genRandomPosNeg(){
-
-        int range = 1000 - 1 + 1;
-        int rand = (int)(Math.random() * range) + 1; 
-
-        if(rand%2 == 0){
-            return 1;
-        }
-        else{
-            return -1;
-        }
+        return genRandomBoolean() ? 1 : -1;
     }
 }

@@ -96,6 +96,18 @@ public class EK_Scenery extends EntityKillable {
     public void setItem(Item item) {
         this.item = item;
     }
+
+    @Override
+    public void stateIncrement() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected void subStateUpdate() {
+        // TODO Auto-generated method stub
+
+    }
    
 
 

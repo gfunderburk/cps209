@@ -175,7 +175,7 @@ public class W_InGame {
         
         
         //  Set Global Animation Timer
-        var keyFrame = new KeyFrame(Duration.seconds(.1), e -> timerAnimate());
+        var keyFrame = new KeyFrame(Duration.seconds(.05), e -> timerAnimate());
         var clockTimeline = new Timeline(keyFrame);
         clockTimeline.setCycleCount(Timeline.INDEFINITE);
         clockTimeline.play();
@@ -188,7 +188,7 @@ public class W_InGame {
 
             // move entities physically in Model
             for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
-                Game.getIt().getEntityList().get(i).move();
+                Game.getIt().getEntityList().get(i).stateIncrement();
             }
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
 
@@ -254,7 +254,6 @@ public class W_InGame {
         double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
 
         imgX -= (0.5 * imgW);  //  center width on item pt.
-        imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
 
         if(entity instanceof E_Projectile){
             E_Projectile ent = (E_Projectile)entity;
@@ -267,10 +266,12 @@ public class W_InGame {
                 double YvisualOffsetDepthed = (0.05 * loc.getZ() * YvisualOffsetRaw);
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
+                imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
             }
         }
         else{
             imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
+            imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
         }
 
         newEntityImg.relocate(imgX, paneH - imgY); 

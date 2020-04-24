@@ -128,7 +128,7 @@ public class Game implements GameSave {
             stateGame = StateGame.PAUSED; 
         }        
         else if(EH_Avatar.getIt().currentHealth <= 0){
-            stateGame = StateGame.PAUSED;
+            //stateGame = StateGame.PAUSED;
         }
         else{
             spawnerAdmin(false);
