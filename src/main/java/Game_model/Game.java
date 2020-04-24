@@ -38,6 +38,7 @@ public class Game implements GameSave {
     private ArrayList<Entity> deadEntityList = new ArrayList<Entity>();
     private boolean gameOver = false;
     private boolean cheatMode = false;
+    private int gameLevel;
 
 
 
@@ -148,7 +149,7 @@ public class Game implements GameSave {
 
     @Override
     public String Serialize() {
-        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
+        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode+","+gameLevel;
         
        
         return cereal;
@@ -181,6 +182,7 @@ public class Game implements GameSave {
         playerName=deCereal[11];
         gameOver= (deCereal[12].equals("True")) ? true:false;
         cheatMode=(deCereal[13].equals("True"))?true:false;
+        gameLevel=(Integer.parseInt(deCereal[14]));
 
 
                
@@ -447,6 +449,14 @@ public class Game implements GameSave {
 
     public void setMaxAISpawnCnt(int maxAISpawnCnt) {
         this.maxAISpawnCnt = maxAISpawnCnt;
+    }
+
+    public int getGameLevel() {
+        return gameLevel;
+    }
+
+    public void setGameLevel(int gameLevel) {
+        this.gameLevel = gameLevel;
     }
 
 }

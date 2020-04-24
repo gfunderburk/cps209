@@ -13,9 +13,9 @@
 
         <Button onAction="#onEscClicked" text="Escape" fx:id="btn_esc" />
         <Label text="           " />
-        <VBox>
-          <Label text="Health:" />
-          <ProgressBar progress="100" />
+        <VBox fx:id="vbox_health">
+          <!-- <Label text="Health:" />
+          <ProgressBar fx:id="progBar_health" /> -->
         </VBox>
         <Label fx:id="lbl_Score" text="Score: 0" />
         <Label fx:id="lbl_ammoStats" text="" />

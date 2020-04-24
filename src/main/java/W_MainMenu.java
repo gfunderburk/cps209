@@ -1,4 +1,10 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+
+import Data_model.Cereal;
+import Game_model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
@@ -10,6 +16,7 @@ import javafx.scene.media.AudioClip;
 //----------------------------------------------------------- 
 
 public class W_MainMenu {
+    Game game = Game.getIt();
 
     // --------------- //
     // Media Elements //
@@ -43,6 +50,7 @@ public class W_MainMenu {
 
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
+        game.setGameLevel((int) d.getSelectedItem());
         d.setHeaderText("Please Select Difficulty Level");
         d.showAndWait().ifPresent(choice -> 
         {
@@ -51,7 +59,7 @@ public class W_MainMenu {
             //newStage.close();
             try 
             {
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
+                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLevel());
                 // game.initialize((int) d.getSelectedItem());
             } 
             catch (InterruptedException | IOException e) 
@@ -65,9 +73,28 @@ public class W_MainMenu {
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
         // W_CRUDsaves CRUDInstance = W_CRUDsaves.instance();
         // CRUDInstance.initialize();
+        Cereal cereal = new Cereal(game, LocalDateTime.now(), "hello");
 
         BTN_CLICK.play();
-        AppGUI.windowLoad("Saved Games", getClass().getResource("W_CRUDsaves.fxml"), null);
+        try(BufferedReader rd = new BufferedReader( new FileReader("cereal.dat")))
+        {                       
+            String line = rd.readLine();
+            while (line != null) { 
+                // var score = new Score(null, null, 0); // create a new score object
+                // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
+
+                cereal.deSerialize(line);    // add the new score object to scores list
+                System.out.println(line); 
+                line = rd.readLine(); 
+            } 
+            rd.close(); 
+
+        } 
+        catch (IOException e) 
+        { 
+            System.out.println("Problem loading scores.dat"); 
+        }
+        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLevel());
     }
 
     @FXML

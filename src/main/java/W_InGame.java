@@ -51,6 +51,8 @@ public class W_InGame {
     final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
     final AudioClip SHOOT_FOOTSOLDIER = new AudioClip(getClass().getResource("/media/footsoldiergun.wav").toString());
     final AudioClip SHOOT_50CAL = new AudioClip(getClass().getResource("/media/50cal.mp3").toString());
+    final AudioClip SHOOT_M16 = new AudioClip(getClass().getResource("/media/m16.mp3").toString());
+    final AudioClip SHOOT_SHOTGUN = new AudioClip(getClass().getResource("/media/shotgun.mp3").toString());
     final Image CROSSHAIRS = new Image("/icons/crosshairs_3.PNG");
 
     // --------------- //
@@ -58,6 +60,7 @@ public class W_InGame {
     // --------------- //
 
     Scene ingameScene;
+    Scene scene;
     int difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
@@ -69,7 +72,11 @@ public class W_InGame {
     @FXML
     VBox vbox_masterParent;
     @FXML
+    VBox vbox_health;
+
+    @FXML
     Button btn_esc;
+
     @FXML
     Pane pane;
 
@@ -78,6 +85,11 @@ public class W_InGame {
 
     @FXML
     Label lbl_Score;
+
+    @FXML
+    ProgressBar progBar_health;
+
+    private double health = avatar.getCurrentHealth();
     
 
     // ------------ //
@@ -134,15 +146,20 @@ public class W_InGame {
 
     @FXML
     void mouseClickedPane(MouseEvent event) {
-        SHOOT_FOOTSOLDIER.play();
+
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         if (avatar.getMag() > 1) {
+            SHOOT_M16.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
+            BTN_CLICK.play();
             avatar.setMag(0);
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
+        health = 0;
+        updateHealth();
+
     }
     
 
@@ -150,10 +167,59 @@ public class W_InGame {
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // ------------- //
 
+    void updateHealth() {
+        //avatar.setCurrentHealth(75);
+        //health = avatar.getCurrentHealth();
+        vbox_health.getChildren().clear();
+        progBar_health = new ProgressBar();
+        progBar_health.setProgress(health);
+        vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+
+        if (health < 0 || health == 0) {
+            // AppGUI.getPopupStage().close();
+            game.closeGame();
+                        
+            //launch YOU HAVE DIED message
+            // Load Game over menu
+            var loader = new FXMLLoader(getClass().getResource("W_GameOver.fxml"));
+            try {
+                scene = new Scene(loader.load());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            AppGUI.getPopupStage().setScene(scene);
+            AppGUI.getPopupStage().setTitle("GAME OVER");
+            AppGUI.getPopupStage().setWidth(400);
+            AppGUI.getPopupStage().setHeight(300);
+            //AppGUI.getPopupStage().setFullScreen(true);
+            AppGUI.getPopupStage().show();
+        } 
+
+    }
+
+    //Used for debugging of healthBar functionality...will remove before submission
+    // void minusHealthBar() {
+    //     health -= 0.01;
+    //     vbox_health.getChildren().clear();
+    //     progBar_health = new ProgressBar();
+    //     progBar_health.setProgress(health);
+    //     vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+    //     // plusHealthBar();
+    // }
+
+    // void plusHealthBar() {
+    //     KeyFrame timer = new KeyFrame(Duration.seconds(1), e -> {
+    //         health += .01;
+    //         updateHealth();
+    //     });
+    //     var timeline = new Timeline(timer);
+    //     timeline.play();
+    // }
 
     @FXML
     void initialize(int difficultyLevel) throws InterruptedException {
-        //TODO: get ammo and mag variables from EntityKillable
+        updateHealth();
 
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         this.difficulty = difficultyLevel;
@@ -209,7 +275,7 @@ public class W_InGame {
     }
 
 
-    public void drawEntity(Entity entity){    
+    public void drawEntity(Entity entity) {
 
         //  Delete old entity image if it exists
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
@@ -267,12 +333,16 @@ public class W_InGame {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
+                // SHOOT_FOOTSOLDIER.play();
+                updateHealth();
             }
         }
         else{
             imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
             imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
         }
+
+        
 
         newEntityImg.relocate(imgX, paneH - imgY); 
     }

@@ -38,7 +38,7 @@ public class ScoreManager {
                 // var score = new Score(null, null, 0); // create a new score object
                 // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
                 addScore(Score.deSerialize(line));    // add the new score object to scores list
-                System.out.println(line); 
+                //System.out.println(line); 
                 line = rd.readLine(); 
             } 
             rd.close(); 
