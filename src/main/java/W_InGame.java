@@ -60,6 +60,7 @@ public class W_InGame {
     // --------------- //
 
     Scene ingameScene;
+    Scene scene;
     int difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
@@ -156,7 +157,8 @@ public class W_InGame {
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
-        updateHealthBar();
+        health = 0;
+        updateHealth();
 
     }
     
@@ -165,13 +167,34 @@ public class W_InGame {
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // ------------- //
 
-    void updateHealthBar() {
+    void updateHealth() {
         //avatar.setCurrentHealth(75);
         //health = avatar.getCurrentHealth();
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+
+        if (health < 0 || health == 0) {
+            // AppGUI.getPopupStage().close();
+            game.closeGame();
+                        
+            //launch YOU HAVE DIED message
+            // Load Game over menu
+            var loader = new FXMLLoader(getClass().getResource("W_GameOver.fxml"));
+            try {
+                scene = new Scene(loader.load());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            AppGUI.getPopupStage().setScene(scene);
+            AppGUI.getPopupStage().setTitle("GAME OVER");
+            AppGUI.getPopupStage().setWidth(400);
+            AppGUI.getPopupStage().setHeight(300);
+            //AppGUI.getPopupStage().setFullScreen(true);
+            AppGUI.getPopupStage().show();
+        } 
 
     }
 
@@ -188,7 +211,7 @@ public class W_InGame {
     // void plusHealthBar() {
     //     KeyFrame timer = new KeyFrame(Duration.seconds(1), e -> {
     //         health += .01;
-    //         updateHealthBar();
+    //         updateHealth();
     //     });
     //     var timeline = new Timeline(timer);
     //     timeline.play();
@@ -196,7 +219,7 @@ public class W_InGame {
 
     @FXML
     void initialize(int difficultyLevel) throws InterruptedException {
-        updateHealthBar();
+        updateHealth();
 
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         this.difficulty = difficultyLevel;
@@ -252,7 +275,7 @@ public class W_InGame {
     }
 
 
-    public void drawEntity(Entity entity){    
+    public void drawEntity(Entity entity) {
 
         //  Delete old entity image if it exists
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
@@ -311,7 +334,7 @@ public class W_InGame {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 SHOOT_FOOTSOLDIER.play();
-                updateHealthBar();
+                updateHealth();
             }
         }
         else{
