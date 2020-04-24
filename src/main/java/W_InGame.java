@@ -101,7 +101,8 @@ public class W_InGame {
         
         // Load ESC_Menu
         var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
-        var scene = new Scene(loader.load());        
+        var scene = new Scene(loader.load());  
+        scene.setOnKeyPressed((KeyEvent event) -> {if(event.getCode()==KeyCode.R){System.out.print("Reload");}});   
         AppGUI.getPopupStage().setScene(scene);
         AppGUI.getPopupStage().setTitle("ESC Menu");
         AppGUI.getPopupStage().setWidth(400);
