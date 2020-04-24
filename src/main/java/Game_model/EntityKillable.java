@@ -6,7 +6,7 @@ public abstract class EntityKillable extends Entity {
     //  Variables  //
 
     
-    protected  int maxHealth, currentHealth;
+    protected  double maxHealth, currentHealth;
     protected  static enum StateLife {HEALTHY, HURT, DEAD}
     protected   StateLife stateLife;
 
@@ -63,19 +63,19 @@ public abstract class EntityKillable extends Entity {
     //  Getter - Setters  //
 
 
-    public int getMaxHealth() {
+    public double getMaxHealth() {
         return maxHealth;
     }
 
-    public void setMaxHealth(int maxHealth) {
+    public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
     }
 
-    public int getCurrentHealth() {
+    public double getCurrentHealth() {
         return currentHealth;
     }
 
-    public void setCurrentHealth(int currentHealth) {
+    public void setCurrentHealth(double currentHealth) {
         this.currentHealth = currentHealth;
     }
 
