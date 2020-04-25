@@ -40,8 +40,6 @@ public class Game implements GameSave {
     private ArrayList<Entity> deadEntityList = new ArrayList<Entity>();
     private boolean gameOver, playerWin;
     private boolean cheatMode = false;
-    private int gameLevel;
-
 
 
     //  Singleton  //
@@ -83,7 +81,8 @@ public class Game implements GameSave {
         else break;
     }
 
-    public void startGame(String playerName, int difficultyLevel, int GameLevel){
+    public void startGame(String playerName, String difficultyLevel, int GameLevel){
+        reset();
         setDifficultySettings(difficultyLevel);
         setLevelSettings(1);
         spawnerAdmin(false);
@@ -99,12 +98,45 @@ public class Game implements GameSave {
     //     stateGame = StateGame.RUNNING;
     // }
 
-    public void closeGame(){
+    private void reset() {
+        //reset all variables
+        EH_Avatar.getIt().setCurrentHealth(EH_Avatar.getIt().getMaxHealth());
+        EH_Avatar.getIt().setMag(300);
+        EH_Avatar.getIt().setAmmo(300);
+        stateDiff = StateDifficulty.EASY;
+        stateGame = StateGame.PAUSED;
+        AI_Left = 0; 
+        AI_Left_ToSpawn = 0; 
+        currentAIspawnCnt = 0;
+        maxAISpawnCnt = 0;
+        score = 0;
+        time = 0;
+        gameLvl = 1;
+        //currentEnitity = 0;
+        newMobSpawnDelay = 0;
+        spawnDelayCount = 0;
+        gamePhysicsWidth = 104;
+        gamePhysicsHeight = 65;
+        gamePhysicsDepth = 10;
+        dt = LocalDateTime.now();
+        playerName = "";
+        lvlBackground = "";
+        // for (Entity i: entityList) {
+        //     i.deSpawn();
+        // }
+        entityList.clear();
+        deadEntityList.clear();
+        gameOver = false;
+        playerWin = false;
+        cheatMode = false;
+    }
+
+    public void closeGame() {
         for(int i=0; i<entityList.size(); i++){
             entityList.get(0).deSpawn();
         }
         entityList = new ArrayList<Entity>();
-        currentEnitity = 0;
+        //currentEnitity = 0;
     }
 
 
@@ -151,7 +183,7 @@ public class Game implements GameSave {
 
     @Override
     public String Serialize() {
-        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode+","+gameLevel;
+        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
         
        
         return cereal;
@@ -183,25 +215,21 @@ public class Game implements GameSave {
         //NOTE: [10] (DT) is skipped.
         playerName=deCereal[11];
         gameOver= (deCereal[12].equals("True")) ? true:false;
-        cheatMode=(deCereal[13].equals("True"))?true:false;
-        gameLevel=(Integer.parseInt(deCereal[14]));
-
-
-               
+        cheatMode=(deCereal[13].equals("True"))?true:false;               
         
     }
 
 
 
-    private void setDifficultySettings(int difficultyLevel){
+    private void setDifficultySettings(String difficultyLevel){
         switch(difficultyLevel){
-            case 1:
+            case "Easy":
             stateDiff = StateDifficulty.EASY;
             break;
-            case 2:
+            case "Medium":
             stateDiff = StateDifficulty.MEDIUM;
             break;            
-            case 3:
+            case "Hard":
             stateDiff = StateDifficulty.HARD;
             break;
             default:
@@ -458,19 +486,20 @@ public class Game implements GameSave {
         this.maxAISpawnCnt = maxAISpawnCnt;
     }
 
-    public int getGameLevel() {
-        return gameLevel;
-    }
-
-    public void setGameLevel(int gameLevel) {
-        this.gameLevel = gameLevel;
-    }
 
     public boolean isPlayerWinner() {
         return playerWin;
     }
 
     public void setPlayerWinner(boolean playerWin) {
+        this.playerWin = playerWin;
+    }
+
+    public boolean isPlayerWin() {
+        return playerWin;
+    }
+
+    public void setPlayerWin(boolean playerWin) {
         this.playerWin = playerWin;
     }
 

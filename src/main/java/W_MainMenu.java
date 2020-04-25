@@ -46,11 +46,11 @@ public class W_MainMenu {
         BTN_CLICK.play();   
 
         // items for the dialog
-        Integer difficulty[] = { 1, 2, 3 };
+        String difficulty[] = {"Easy", "Medium", "Hard" };
 
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
-        game.setGameLevel((int) d.getSelectedItem());
+        game.setGameLvl(1);
         d.setHeaderText("Please Select Difficulty Level");
         d.showAndWait().ifPresent(choice -> 
         {
@@ -59,7 +59,7 @@ public class W_MainMenu {
             //newStage.close();
             try 
             {
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLevel());
+                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
                 // game.initialize((int) d.getSelectedItem());
             } 
             catch (InterruptedException | IOException e) 
@@ -83,6 +83,7 @@ public class W_MainMenu {
                 // var score = new Score(null, null, 0); // create a new score object
                 // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
 
+                // Make method to clear everything before loading in the saved stuff
                 cereal.deSerialize(line);    // add the new score object to scores list
                 System.out.println(line); 
                 line = rd.readLine(); 
@@ -94,7 +95,7 @@ public class W_MainMenu {
         { 
             System.out.println("Problem loading scores.dat"); 
         }
-        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLevel());
+        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLvl());
     }
 
     @FXML

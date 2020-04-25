@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 
+import Game_model.Game;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ public class AppGUI extends Application {
 
     private static Stage currentStage;
     private static Stage popupStage = new Stage();
+    private static Game game = Game.getIt();
 
 
     //  --------------- //
@@ -86,9 +88,10 @@ public class AppGUI extends Application {
         // currentStage.setFullScreenExitHint("");
         currentStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
 
-        if(newWindowTitle.equals("Game")){           
-            W_InGame game = loader.getController();
-            game.ingameScene = scene;
+        if(newWindowTitle.equals("Game")){    
+                   
+            W_InGame gameScene = loader.getController();
+            gameScene.ingameScene = scene;
 
             scene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
                 if(key.isShiftDown()) {
@@ -96,7 +99,7 @@ public class AppGUI extends Application {
                 }
              });
 
-            game.initialize((int)windowInitData);
+            gameScene.initialize((String) windowInitData, game.getGameLvl());
         }
 
         // currentStage.show();

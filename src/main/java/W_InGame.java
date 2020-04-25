@@ -63,7 +63,7 @@ public class W_InGame {
 
     Scene ingameScene;
     Scene scene;
-    int difficulty;
+    String difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
 
@@ -103,6 +103,7 @@ public class W_InGame {
      * 
      * @ @throws InterruptedException
      */
+
     @FXML
     void onEscClicked() throws IOException {
         // Load ESC_Menu
@@ -200,13 +201,14 @@ public class W_InGame {
     // }
 
     @FXML
-    void initialize(int difficultyLevel) throws InterruptedException, IOException  {
-
+    void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
+        
+        resetPane();
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
         
-        Game.getIt().startGame("Joe", difficultyLevel, 1);
+        Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         
         String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
         Image lvlImage = new Image(imageAddress);
@@ -220,7 +222,7 @@ public class W_InGame {
         
         
         //  Set Global Animation Timer
-        var keyFrame = new KeyFrame(Duration.seconds(.1), e -> 
+        var keyFrame = new KeyFrame(Duration.seconds(.05), e -> 
         {
             try {timerAnimate();} 
             catch (IOException e1){e1.printStackTrace();}
@@ -231,26 +233,7 @@ public class W_InGame {
         
     }
 
-    void resetPane(){
-        
-            //  Delete any dead entity images
-            for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
-                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-                if(oldEntityImg != null){
-                    pane.getChildren().remove(oldEntityImg);
-                }     
-            }        
-            Game.getIt().setEntityList(new ArrayList<Entity>());    
-            
-            //  Delete any dead entity images
-            for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
-                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-                if(oldEntityImg != null){
-                    pane.getChildren().remove(oldEntityImg);
-                }     
-            }
-            Game.getIt().setDeadEntityList(new ArrayList<Entity>());
-    }
+
 
     void timerAnimate() throws IOException {
         if (Game.getIt().getStateGame() == StateGame.RUNNING) { 
@@ -261,34 +244,36 @@ public class W_InGame {
             }
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
 
+            pane.getChildren().clear();
+
             // draw entities visually in View
             for (Entity entity : Game.getIt().getEntityList()) {
                 drawEntity(entity);
             }        
 
-            //  Delete any dead entity images
-            for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
-                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-                if(oldEntityImg != null){
-                    pane.getChildren().remove(oldEntityImg);
-                }     
-            }
-            Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+            // //  Delete any dead entity images
+            // for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+            //     ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            //     if(oldEntityImg != null){
+            //         pane.getChildren().remove(oldEntityImg);
+            //     }     
+            // }
+            // Game.getIt().setDeadEntityList(new ArrayList<Entity>());
             updateHealthGUI();
         }
     }
 
     public void drawEntity(Entity entity) {
 
-        //  Delete old entity image if it exists
-        ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
-        if(oldEntityImg != null){
-            pane.getChildren().remove(oldEntityImg);
-        }   
-        else{
-            System.out.println("imageView not found: " + entity.Serialize());
-            System.out.println("----- ID#  " + entity.getId());
-        }         
+        // //  Delete old entity image if it exists
+        // ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
+        // if(oldEntityImg != null){
+        //     pane.getChildren().remove(oldEntityImg);
+        // }
+        // else{
+        //     System.out.println("imageView not found: " + entity.Serialize());
+        //     System.out.println("----- ID#  " + entity.getId());
+        // }                
 
         //  Create and/or Redraw entity image 
        
@@ -376,5 +361,26 @@ public class W_InGame {
             // });
         // });
         // thread.start();
+    }
+
+    void resetPane(){
+        
+        //  Delete any dead entity images
+        for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
+            ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            if(oldEntityImg != null){
+                pane.getChildren().remove(oldEntityImg);
+            }     
+        }        
+        Game.getIt().setEntityList(new ArrayList<Entity>());    
+        
+        //  Delete any dead entity images
+        for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+            ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            if(oldEntityImg != null){
+                pane.getChildren().remove(oldEntityImg);
+            }     
+        }
+        Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
 }
