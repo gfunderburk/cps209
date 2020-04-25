@@ -40,8 +40,6 @@ public class Game implements GameSave {
     private ArrayList<Entity> deadEntityList = new ArrayList<Entity>();
     private boolean gameOver, playerWin;
     private boolean cheatMode = false;
-    private int gameLevel;
-
 
 
     //  Singleton  //
@@ -110,7 +108,7 @@ public class Game implements GameSave {
         maxAISpawnCnt = 0;
         score = 0;
         time = 0;
-        gameLvl = 0;
+        gameLvl = 1;
         currentEnitity = 0;
         newMobSpawnDelay = 0;
         spawnDelayCount = 0;
@@ -125,7 +123,6 @@ public class Game implements GameSave {
         gameOver = false;
         playerWin = false;
         cheatMode = false;
-        gameLevel = 0;
     }
 
     public void closeGame() {
@@ -180,7 +177,7 @@ public class Game implements GameSave {
 
     @Override
     public String Serialize() {
-        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode+","+gameLevel;
+        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
         
        
         return cereal;
@@ -212,11 +209,7 @@ public class Game implements GameSave {
         //NOTE: [10] (DT) is skipped.
         playerName=deCereal[11];
         gameOver= (deCereal[12].equals("True")) ? true:false;
-        cheatMode=(deCereal[13].equals("True"))?true:false;
-        gameLevel=(Integer.parseInt(deCereal[14]));
-
-
-               
+        cheatMode=(deCereal[13].equals("True"))?true:false;               
         
     }
 
@@ -482,19 +475,20 @@ public class Game implements GameSave {
         this.maxAISpawnCnt = maxAISpawnCnt;
     }
 
-    public int getGameLevel() {
-        return gameLevel;
-    }
-
-    public void setGameLevel(int gameLevel) {
-        this.gameLevel = gameLevel;
-    }
 
     public boolean isPlayerWinner() {
         return playerWin;
     }
 
     public void setPlayerWinner(boolean playerWin) {
+        this.playerWin = playerWin;
+    }
+
+    public boolean isPlayerWin() {
+        return playerWin;
+    }
+
+    public void setPlayerWin(boolean playerWin) {
         this.playerWin = playerWin;
     }
 

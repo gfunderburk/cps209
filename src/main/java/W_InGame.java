@@ -205,7 +205,7 @@ public class W_InGame {
         // pane.setOnMouseEntered(me -> pane.getScene().setCursor(Cursor.HAND) );
         // pane.setOnMouseExited(me -> pane.getScene().setCursor(Cursor.DEFAULT) );
         
-        Game.getIt().startGame("Joe", difficultyLevel, 1);
+        Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         
         String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
         Image lvlImage = new Image(imageAddress);

@@ -50,7 +50,7 @@ public class W_MainMenu {
 
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
-        game.setGameLevel((int) d.getSelectedItem());
+        game.setGameLvl(1);
         d.setHeaderText("Please Select Difficulty Level");
         d.showAndWait().ifPresent(choice -> 
         {
@@ -59,7 +59,7 @@ public class W_MainMenu {
             //newStage.close();
             try 
             {
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLevel());
+                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
                 // game.initialize((int) d.getSelectedItem());
             } 
             catch (InterruptedException | IOException e) 
@@ -95,7 +95,7 @@ public class W_MainMenu {
         { 
             System.out.println("Problem loading scores.dat"); 
         }
-        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLevel());
+        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLvl());
     }
 
     @FXML
