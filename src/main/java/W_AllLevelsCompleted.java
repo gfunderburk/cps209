@@ -10,14 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
-public class W_LevelOver implements AppGUI_popupWin {
+public class W_AllLevelsCompleted implements AppGUI_popupWin{
     
     
     // --------------- //
@@ -56,7 +55,7 @@ public class W_LevelOver implements AppGUI_popupWin {
         // - Yes = Save game
         // - No  = Main Menu
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setHeaderText("Do you want to save your game progress so far?");
+        alert.setHeaderText("Do you want to save your score?");
         
 
         ButtonType btnYes = new ButtonType("Yes");
@@ -93,7 +92,7 @@ public class W_LevelOver implements AppGUI_popupWin {
 
             Game.getIt().closeGame();
 
-            //AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
+            AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
@@ -106,36 +105,7 @@ public class W_LevelOver implements AppGUI_popupWin {
         } else {
             // ... user chose CANCEL or closed the dialog
             BTN_CLICK.play();
-        }      
-        
-
-
-         // items for the dialog
-         String difficulty[] = {"Easy", "Medium", "Hard" };
- 
-         // create a choice dialog
-         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
-         if (game.getGameLvl() < 3) {
-            game.setGameLvl(game.getGameLvl() + 1);
-         }
-         else {
-             game.setGameLvl(3);
-         }
-         
-         d.setHeaderText("Please Select Difficulty Level");
-         d.showAndWait().ifPresent(choice -> 
-         {
-
-             try 
-             {
-                 System.out.println(game.getGameLvl());
-                 AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
-             } 
-             catch (InterruptedException | IOException e) 
-             {
-                 e.printStackTrace();
-             }
-         });
+        }        
     }
 
     //  ------------- //

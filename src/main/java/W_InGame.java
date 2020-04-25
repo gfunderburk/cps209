@@ -172,24 +172,9 @@ public class W_InGame implements EventHandler<KeyEvent>{
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
-        game.setPlayerWin(true);
-        game.setGameOver(true);
     }
 
-    // //Written by Funderburk, pushed by Cox
-    // @Override
-    // public void handle(KeyEvent event) {
-    //     System.out.println(event.getCharacter());
-    //    if(event.getCharacter()=="R"){
-    //     System.out.print("RELOAD");
-    //     avatar.getIt().reload();
-    //    }
-    //    if(event.getCharacter()=="C"){
-    //        System.out.print("CHEAT");
-    //        game.getIt().toggleCheatMode(cheatMode);
-    //    }
-    // }
-    
+   
 
     // ------------- //
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
@@ -209,7 +194,14 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
             if(game.isPlayerWinner()){
                 // Load-Launch "YOU HAVE COMPLETED THE LEVEL!" LevelOver menu
-                AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER");
+                if (game.getGameLvl() == 3) {
+                    //launch message with all levels completed
+                    AppGUI.popupLoad(getClass().getResource("W_AllLevelsCompleted.fxml"), "VICTORY!!!");
+                }
+                else {
+                    AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER");
+                }
+                
             }
             else{
                 // Load-Launch "YOU HAVE DIED!" GameOver menu

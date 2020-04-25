@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox fx:controller="W_AllLevelsCompleted" 
+      xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css">
+
+      <Label text="YOU WON!" />
+      
+      
+      <Button text="Quit to Main Menu" onAction="#btn_onQuitClicked"/>
+      
+      
+
+</VBox>
