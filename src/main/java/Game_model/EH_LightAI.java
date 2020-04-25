@@ -28,7 +28,7 @@ public class EH_LightAI extends EntityHumanoid {
         this.imgReloading = "lightRobot_Reloading";
         this.imgAttacking = "lightRobot_Shooting";    
         this.imgSpecialAttack = "lightRobot_Shooting_special";    
-        // this.imageState = imgMovingL;
+        this.imageState = imgMovingL+ending();
         this.stateAction = StateAction.MOVING;
         this.stateLife = StateLife.HEALTHY;
         this.typeRound = TypeRound.LIGHT_ROUND;
