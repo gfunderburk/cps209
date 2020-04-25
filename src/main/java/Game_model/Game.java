@@ -83,7 +83,8 @@ public class Game implements GameSave {
         else break;
     }
 
-    public void startGame(String playerName, int difficultyLevel, int GameLevel){
+    public void startGame(String playerName, String difficultyLevel, int GameLevel){
+        reset();
         setDifficultySettings(difficultyLevel);
         setLevelSettings(GameLevel);
         spawnerAdmin(false);
@@ -99,7 +100,35 @@ public class Game implements GameSave {
     //     stateGame = StateGame.RUNNING;
     // }
 
-    public void closeGame(){
+    private void reset() {
+        //reset all variables
+        stateDiff = StateDifficulty.EASY;
+        stateGame = StateGame.PAUSED;
+        AI_Left = 0; 
+        AI_Left_ToSpawn = 0; 
+        currentAIspawnCnt = 0;
+        maxAISpawnCnt = 0;
+        score = 0;
+        time = 0;
+        gameLvl = 0;
+        currentEnitity = 0;
+        newMobSpawnDelay = 0;
+        spawnDelayCount = 0;
+        gamePhysicsWidth = 104;
+        gamePhysicsHeight = 65;
+        gamePhysicsDepth = 10;
+        dt = LocalDateTime.now();
+        playerName = "";
+        lvlBackground = "";
+        entityList.clear();
+        deadEntityList.clear();
+        gameOver = false;
+        playerWin = false;
+        cheatMode = false;
+        gameLevel = 0;
+    }
+
+    public void closeGame() {
         for(int i=0; i<entityList.size(); i++){
             entityList.get(0).deSpawn();
         }
@@ -193,15 +222,15 @@ public class Game implements GameSave {
 
 
 
-    private void setDifficultySettings(int difficultyLevel){
+    private void setDifficultySettings(String difficultyLevel){
         switch(difficultyLevel){
-            case 1:
+            case "Easy":
             stateDiff = StateDifficulty.EASY;
             break;
-            case 2:
+            case "Medium":
             stateDiff = StateDifficulty.MEDIUM;
             break;            
-            case 3:
+            case "Hard":
             stateDiff = StateDifficulty.HARD;
             break;
             default:

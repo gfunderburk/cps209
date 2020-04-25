@@ -61,7 +61,7 @@ public class W_InGame {
 
     Scene ingameScene;
     Scene scene;
-    int difficulty;
+    String difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
 
@@ -101,6 +101,7 @@ public class W_InGame {
      * 
      * @ @throws InterruptedException
      */
+
     @FXML
     void onEscClicked() throws IOException {
         // Load ESC_Menu
@@ -196,7 +197,7 @@ public class W_InGame {
     // }
 
     @FXML
-    void initialize(int difficultyLevel) throws InterruptedException, IOException  {
+    void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
 
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;

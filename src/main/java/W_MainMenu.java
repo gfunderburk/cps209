@@ -46,7 +46,7 @@ public class W_MainMenu {
         BTN_CLICK.play();   
 
         // items for the dialog
-        Integer difficulty[] = { 1, 2, 3 };
+        String difficulty[] = {"Easy", "Medium", "Hard" };
 
         // create a choice dialog
         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
@@ -83,6 +83,7 @@ public class W_MainMenu {
                 // var score = new Score(null, null, 0); // create a new score object
                 // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
 
+                // Make method to clear everything before loading in the saved stuff
                 cereal.deSerialize(line);    // add the new score object to scores list
                 System.out.println(line); 
                 line = rd.readLine(); 
