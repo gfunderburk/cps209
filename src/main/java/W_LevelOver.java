@@ -129,7 +129,7 @@ public class W_LevelOver implements AppGUI_popupWin {
              try 
              {
                  System.out.println(game.getGameLvl());
-                 AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
+                 AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{d.getSelectedItem(), game.getGameLvl()});
              } 
              catch (InterruptedException | IOException e) 
              {

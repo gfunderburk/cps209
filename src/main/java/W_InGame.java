@@ -204,9 +204,6 @@ public class W_InGame implements EventHandler<KeyEvent>{
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
-        if(health == 0 || health < 0) {
-            game.setGameOver(true);
-        }
 
         if (game.isGameOver()) {
             // Game.getIt().closeGame();
@@ -227,6 +224,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
     void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
         
         resetPane();
+        Game.resetGameSingleton();
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);

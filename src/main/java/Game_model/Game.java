@@ -82,7 +82,8 @@ public class Game implements GameSave {
     }
 
     public void startGame(String playerName, String difficultyLevel, int GameLevel){
-        reset();
+        // reset();
+        // resetGameSingleton();
         setDifficultySettings(difficultyLevel);
         setLevelSettings(GameLevel);
         spawnerAdmin(false);
@@ -97,6 +98,12 @@ public class Game implements GameSave {
     //     spawnerAdmin(true);
     //     stateGame = StateGame.RUNNING;
     // }
+
+
+    public static void resetGameSingleton() {
+        It = new Game();
+    }
+
 
     private void reset() {
         //reset all variables

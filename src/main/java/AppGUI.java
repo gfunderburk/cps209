@@ -59,7 +59,7 @@ public class AppGUI extends Application {
         AppGUI.getPopupStage().show();
     }
 
-    public static void windowLoad(String newWindowTitle, URL windowURL, Object windowInitData) 
+    public static void windowLoad(String newWindowTitle, URL windowURL, Object[] windowInitData) 
         throws IOException, InterruptedException {
 
         currentStage.close();
@@ -102,7 +102,7 @@ public class AppGUI extends Application {
                 }
              });
 
-            gameScene.initialize((String) windowInitData, game.getGameLvl());
+            gameScene.initialize((String)windowInitData[0], (int)windowInitData[1]);
         }
 
         currentStage.show();

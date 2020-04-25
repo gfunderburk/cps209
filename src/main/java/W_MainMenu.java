@@ -30,6 +30,7 @@ public class W_MainMenu {
     // View Variables //
     // --------------- //
     String difficulty = "";
+    int gameLvl;
     
     // ------------- //
     // GUI Elements //
@@ -60,7 +61,8 @@ public class W_MainMenu {
             //newStage.close();
             try 
             {
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
+                String result = (String) d.getSelectedItem();
+                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{result, 1});
                 // game.initialize((int) d.getSelectedItem());
             } 
             catch (InterruptedException | IOException e) 
@@ -98,7 +100,7 @@ public class W_MainMenu {
         }
         
         if (game.getStateDiff() == StateDifficulty.EASY) {
-            difficulty = "Easy";
+            difficulty = "Easy";            
         }
         else if (game.getStateDiff() == StateDifficulty.MEDIUM) {
             difficulty = "Medium";
@@ -106,7 +108,7 @@ public class W_MainMenu {
         else if (game.getStateDiff() == StateDifficulty.HARD) {
             difficulty = "Hard";
         }
-        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), difficulty);
+        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{difficulty, game.getGameLvl()});
     }
 
     @FXML
