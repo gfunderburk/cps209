@@ -11,7 +11,11 @@ import Game_model.Game;
 import Game_model.Game.StateGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+<<<<<<< HEAD
 import javafx.event.EventHandler;
+=======
+import javafx.application.Platform;
+>>>>>>> aa3958e707ad38d1dcb096e87615f87817acb5f4
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -49,6 +53,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     Game game = Game.getIt();
     boolean cheatMode=false;
     EH_Avatar avatar = EH_Avatar.getIt();
+    static Object lock = new Object();
 
 
     // --------------- //
@@ -58,6 +63,8 @@ public class W_InGame implements EventHandler<KeyEvent> {
     final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
     final AudioClip SHOOT_FOOTSOLDIER = new AudioClip(getClass().getResource("/media/footsoldiergun.wav").toString());
     final AudioClip SHOOT_50CAL = new AudioClip(getClass().getResource("/media/50cal.mp3").toString());
+    final AudioClip SHOOT_M16 = new AudioClip(getClass().getResource("/media/m16.mp3").toString());
+    final AudioClip SHOOT_SHOTGUN = new AudioClip(getClass().getResource("/media/shotgun.mp3").toString());
     final Image CROSSHAIRS = new Image("/icons/crosshairs_3.PNG");
 
     // --------------- //
@@ -65,7 +72,8 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // --------------- //
 
     Scene ingameScene;
-    int difficulty;
+    Scene scene;
+    String difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
 
@@ -76,7 +84,11 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     VBox vbox_masterParent;
     @FXML
+    VBox vbox_health;
+
+    @FXML
     Button btn_esc;
+
     @FXML
     Pane pane;
 
@@ -98,15 +110,14 @@ public class W_InGame implements EventHandler<KeyEvent> {
      * Action: closes GameWindow and ends the game instance.
      * 
      * @throws IOException
-     * @throws InterruptedException
+     * 
+     * @ @throws InterruptedException
      */
+
     @FXML
-    void onEscClicked() throws IOException, InterruptedException {
-        
-        BTN_CLICK.play();
-        game.pause();
-        
+    void onEscClicked() throws IOException {
         // Load ESC_Menu
+<<<<<<< HEAD
         var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
         var scene = new Scene(loader.load());  
         scene.setOnKeyPressed((KeyEvent event) -> {if(event.getCode()==KeyCode.R){System.out.print("Reload");}});   
@@ -115,15 +126,21 @@ public class W_InGame implements EventHandler<KeyEvent> {
         AppGUI.getPopupStage().setWidth(400);
         AppGUI.getPopupStage().setHeight(300);
         AppGUI.getPopupStage().show();
+=======
+        BTN_CLICK.play();
+        AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
+>>>>>>> aa3958e707ad38d1dcb096e87615f87817acb5f4
     }
 
 
     @FXML
     void mouseEnteredPane(){
         mouseWithinPane = true;
-        pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
-        CROSSHAIRS.getWidth() /2,
-        CROSSHAIRS.getHeight() /2));
+        ImageCursor cursor = new ImageCursor(CROSSHAIRS, 40, 40);
+        pane.getScene().setCursor(cursor);
+        // pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
+        // CROSSHAIRS.getWidth() /2,
+        // CROSSHAIRS.getHeight() /2));
     }
 
 
@@ -145,10 +162,10 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     @FXML
     void mouseClickedPane(MouseEvent event) {
-        
+
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         if (avatar.getMag() > 1) {
-            SHOOT_FOOTSOLDIER.play();
+            SHOOT_M16.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
             BTN_CLICK.play();
@@ -156,7 +173,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
-        progBar_health.setProgress(50); // avatar.getCurrentHealth()
+
     }
     
 
@@ -164,18 +181,55 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // ------------- //
 
+    void updateHealthGUI() throws IOException {
+        double health = avatar.getCurrentHealth();
+        vbox_health.getChildren().clear();
+        progBar_health = new ProgressBar();
+        progBar_health.setProgress(health);
+        vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+
+        if (Game.getIt().isGameOver()) {
+            // Game.getIt().closeGame();
+
+            if(Game.getIt().isPlayerWinner()){
+                // Load-Launch "YOU HAVE COMPLETED THE LEVEL!" LevelOver menu
+                AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER");
+            }
+            else{
+                // Load-Launch "YOU HAVE DIED!" GameOver menu
+                AppGUI.popupLoad(getClass().getResource("W_GameOver.fxml"), "GAME OVER");
+            }
+        } 
+    }
+
+    //Used for debugging of healthBar functionality...will remove before submission
+    // void minusHealthBar() {
+    //     health -= 0.01;
+    //     vbox_health.getChildren().clear();
+    //     progBar_health = new ProgressBar();
+    //     progBar_health.setProgress(health);
+    //     vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+    //     // plusHealthBar();
+    // }
+
+    // void plusHealthBar() {
+    //     KeyFrame timer = new KeyFrame(Duration.seconds(1), e -> {
+    //         health += .01;
+    //         updateHealth();
+    //     });
+    //     var timeline = new Timeline(timer);
+    //     timeline.play();
+    // }
 
     @FXML
-    void initialize(int difficultyLevel) throws InterruptedException {
-        //TODO: get ammo and mag variables from EntityKillable
-
-        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
+    void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
+        
+        resetPane();
+        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
-        // pane.setOnMouseEntered(me -> pane.getScene().setCursor(Cursor.HAND) );
-        // pane.setOnMouseExited(me -> pane.getScene().setCursor(Cursor.DEFAULT) );
         
-        Game.getIt().startGame("Joe", difficultyLevel, 1);
+        Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         
         String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
         Image lvlImage = new Image(imageAddress);
@@ -189,7 +243,11 @@ public class W_InGame implements EventHandler<KeyEvent> {
         
         
         //  Set Global Animation Timer
-        var keyFrame = new KeyFrame(Duration.seconds(.1), e -> timerAnimate());
+        var keyFrame = new KeyFrame(Duration.seconds(.05), e -> 
+        {
+            try {timerAnimate();} 
+            catch (IOException e1){e1.printStackTrace();}
+        });
         var clockTimeline = new Timeline(keyFrame);
         clockTimeline.setCycleCount(Timeline.INDEFINITE);
         clockTimeline.play();
@@ -197,43 +255,59 @@ public class W_InGame implements EventHandler<KeyEvent> {
     }
 
 
-    void timerAnimate() {
+
+    void timerAnimate() throws IOException {
         if (Game.getIt().getStateGame() == StateGame.RUNNING) { 
 
             // move entities physically in Model
             for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
-                Game.getIt().getEntityList().get(i).move();
+                Game.getIt().getEntityList().get(i).stateIncrement();
             }
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
+
+            pane.getChildren().clear();
 
             // draw entities visually in View
             for (Entity entity : Game.getIt().getEntityList()) {
                 drawEntity(entity);
             }        
 
-            //  Delete any dead entity images
-            for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
-                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-                if(oldEntityImg != null){
-                    pane.getChildren().remove(oldEntityImg);
-                }     
-            }
-            Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+            // //  Delete any dead entity images
+            // for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+            //     ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            //     if(oldEntityImg != null){
+            //         pane.getChildren().remove(oldEntityImg);
+            //     }     
+            // }
+            // Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+            updateHealthGUI();
         }
     }
 
+    public void drawEntity(Entity entity) {
 
-    public void drawEntity(Entity entity){    
-
-        //  Delete old entity image if it exists
-        ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
-        if(oldEntityImg != null){
-            pane.getChildren().remove(oldEntityImg);
-        }            
+        // //  Delete old entity image if it exists
+        // ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
+        // if(oldEntityImg != null){
+        //     pane.getChildren().remove(oldEntityImg);
+        // }
+        // else{
+        //     System.out.println("imageView not found: " + entity.Serialize());
+        //     System.out.println("----- ID#  " + entity.getId());
+        // }                
 
         //  Create and/or Redraw entity image 
+       
+        ImageView newEntityImg = null;
+       try{
         String imageAddress = File.separator+"icons"+entity.getImage();
-        ImageView newEntityImg = new ImageView(imageAddress);
+        newEntityImg = new ImageView(imageAddress);
+       }
+       catch(Exception e){
+        System.out.println(entity.Serialize() + "  -  " + entity.getImage());
+        return;
+       }
+        // final ImageView newEntityImg = newEntityImgIntermediary; 
 
         newEntityImg.setId("" + entity.getId());
         newEntityImg.setUserData(entity.getId());
@@ -243,52 +317,94 @@ public class W_InGame implements EventHandler<KeyEvent> {
         // });
         pane.getChildren().add(newEntityImg);
         
-        //  Variables
-
-        Point3D loc = entity.getLocation();
-        paneW = pane.getWidth();
-        paneH = pane.getHeight();
-        double paneWper = paneW * .01;
-        double paneHper = paneH * .01;
-
-        //  Set ImageView Width/Height
-
-        double imgW = paneWper * entity.getWidth(); // set z=0 Width
-        double imgH = paneHper * entity.getHeight(); // set z=0 Height
-
-        imgW -= (0.05 * loc.getZ() * imgW);   // set width according to z depth (deeper z = narrower)
-        imgH -= (0.05 * loc.getZ() * imgH);   // set height according to z depth (deeper z = shorter)
-    
-        newEntityImg.setFitWidth(imgW);
-        newEntityImg.setFitHeight(imgH);
         
-        //  Set ImageView (x,y)
+        // Thread thread = new Thread(() -> {
+            //  Variables
+            
+            Point3D loc = entity.getLocation();
+            paneW = pane.getWidth();
+            paneH = pane.getHeight();
+            double paneWper = paneW * .01;
+            double paneHper = paneH * .01;
 
-        double imgX = ( loc.getX() * paneW ) / Game.getIt().getGamePhysicsWidth();   // set x according to physical and visual world ratio     
-        double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
+            //  Set ImageView Width/Height
 
-        imgX -= (0.5 * imgW);  //  center width on item pt.
-        imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
+            double imgW = paneWper * entity.getWidth(); // set z=0 Width
+            double imgH = paneHper * entity.getHeight(); // set z=0 Height
 
-        if(entity instanceof E_Projectile){
-            E_Projectile ent = (E_Projectile)entity;
+            imgW -= (0.05 * loc.getZ() * imgW);   // set width according to z depth (deeper z = narrower)
+            imgH -= (0.05 * loc.getZ() * imgH);   // set height according to z depth (deeper z = shorter)
+        
+            
+            //  Set ImageView (x,y)
 
-            imgY += (0.5 * imgH); // center img on Y-axis
-            if(! ent.isAvatarsProjectile()){
-                double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
-                double YvisualOffsetRaw = (paneHper * ent.getVisualYoffset()); // offset Y for entity type @ z=0
-                double XvisualOffsetDepthed = (0.05 * loc.getZ() * XvisualOffsetRaw);
-                double YvisualOffsetDepthed = (0.05 * loc.getZ() * YvisualOffsetRaw);
-                imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
-                imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
+            double imgX = ( loc.getX() * paneW ) / Game.getIt().getGamePhysicsWidth();   // set x according to physical and visual world ratio     
+            double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
+
+            imgX -= (0.5 * imgW);  //  center width on item pt.
+
+            if(entity instanceof E_Projectile){
+                E_Projectile ent = (E_Projectile)entity;
+
+                imgY += (0.5 * imgH); // center img on Y-axis
+                if(! ent.isAvatarsProjectile()){
+                    double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
+                    double YvisualOffsetRaw = (paneHper * ent.getVisualYoffset()); // offset Y for entity type @ z=0
+                    double XvisualOffsetDepthed = (0.05 * loc.getZ() * XvisualOffsetRaw);
+                    double YvisualOffsetDepthed = (0.05 * loc.getZ() * YvisualOffsetRaw);
+                    imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
+                    imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
+                    imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
+                    // SHOOT_FOOTSOLDIER.play();
+                }
             }
-        }
-        else{
-            imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
-        }
+            else{
+                imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
+                imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
+            }
 
-        newEntityImg.relocate(imgX, paneH - imgY); 
+
+            newEntityImg.setFitWidth(imgW);
+            newEntityImg.setFitHeight(imgH);
+            newEntityImg.relocate(imgX, paneH - imgY);
+
+
+            // final double fimgX = imgX;
+            // final double fimgY = imgY;
+            // final double fimgW = imgW;
+            // final double fimgH = imgH;
+            // Platform.runLater(() -> {
+            //     synchronized (lock) {
+            //         newEntityImg.setFitWidth(fimgW);
+            //         newEntityImg.setFitHeight(fimgH);
+            //         newEntityImg.relocate(fimgX, paneH - fimgY);
+            //     }
+            // });
+        // });
+        // thread.start();
     }
+
+    void resetPane(){
+        
+        //  Delete any dead entity images
+        for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
+            ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            if(oldEntityImg != null){
+                pane.getChildren().remove(oldEntityImg);
+            }     
+        }        
+        Game.getIt().setEntityList(new ArrayList<Entity>());    
+        
+        //  Delete any dead entity images
+        for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+            ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            if(oldEntityImg != null){
+                pane.getChildren().remove(oldEntityImg);
+            }     
+        }
+        Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+    }
+<<<<<<< HEAD
 
     @Override
     public void handle(KeyEvent event) {
@@ -304,3 +420,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     }
 }
+=======
+}
+>>>>>>> aa3958e707ad38d1dcb096e87615f87817acb5f4

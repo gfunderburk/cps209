@@ -16,8 +16,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
-public class W_EscMenu {
-    Game game = Game.getIt();
+public class W_EscMenu implements AppGUI_popupWin{
     
     
     // --------------- //
@@ -31,6 +30,7 @@ public class W_EscMenu {
     //  View Variables  //
     // ---------------  //
 
+    Game game = Game.getIt();
     private LocalDateTime newDate;
     private String newName;
 
@@ -45,12 +45,6 @@ public class W_EscMenu {
     //  ------------ //
     //  GUI Methods  //     (DIRECT USER EVENTS)
     // ------------  //
-
-
-
-    //  ------------- //
-    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
-    // -------------  //
 
 
     @FXML
@@ -118,4 +112,14 @@ public class W_EscMenu {
         AppGUI.getPopupStage().close();
         Game.getIt().play();
     }
+
+    //  ------------- //
+    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
+    // -------------  //
+
+    
+    public void initialize() {
+        game.pause();
+    }
+
 }

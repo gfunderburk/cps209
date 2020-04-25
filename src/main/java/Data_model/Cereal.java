@@ -35,7 +35,11 @@ public class Cereal {
     public void SerializeGame() throws FileNotFoundException
     {
        
+<<<<<<< HEAD
         ArrayList <Entity>cerealArray=  game.getIt().getEntityList();
+=======
+        ArrayList<Entity> cerealArray= Game.getIt().getEntityList();
+>>>>>>> aa3958e707ad38d1dcb096e87615f87817acb5f4
         for(Entity ent:cerealArray){
 
             try(DataOutputStream writer=new DataOutputStream(new FileOutputStream("cereal.dat"))){

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox fx:controller="W_LevelOver" 
+      xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css">
+
+      <Label text="Level OVER" />
+      
+      
+      <Button text="Continue to Next Level" onAction="#btn_onQuitClicked"/>
+      
+      
+
+</VBox>

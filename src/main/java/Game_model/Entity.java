@@ -1,5 +1,9 @@
 package Game_model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import Util_model.myMovement;
 import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
@@ -17,7 +21,7 @@ public abstract class Entity implements GameSave{
     protected static double FaiW = 7; 
     protected static double BaiH = 80;
     protected static double BaiW = 20; 
-    protected  int Id; 
+    protected  int Id, stateInt, stateIntFactor, subStateInt; 
     protected  double height, width, speed;
     protected  int sameMoveCount;
     protected  boolean standStill = false;
@@ -37,8 +41,18 @@ public abstract class Entity implements GameSave{
 
     //  Methods  //
 
-    
-    public void move() {
+    public void stateIncrement(){
+        this.stateInt++;
+        if(this.stateInt == stateIntFactor){
+            stateInt = 0;
+            subStateInt++;
+            subStateUpdate();
+        }  
+    };
+
+    protected abstract void subStateUpdate();
+
+    protected void move() {
         
         this.location = this.location.add(this.vector);
         // this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.z, 0);
@@ -65,22 +79,6 @@ public abstract class Entity implements GameSave{
         }
         else if(this.location.getZ() < 0){
             outOfBoundsEvent(5);
-        }
-
-        for (int i = 0; i < Game.getIt().getEntityList().size(); i++){    
-            
-            Entity otherEntity = Game.getIt().getEntityList().get(i);
-
-            if(this instanceof E_Projectile & !(otherEntity instanceof E_Projectile)){        
-                if(this != otherEntity){
-                    double dis = Util_model.myGeometry.getDistance3D(this.location, otherEntity.location);
-                    
-                    if(dis < 50) {
-                            this.collideEvent(otherEntity);
-                            otherEntity.collideEvent(this);
-                            break;
-                    }
-            }   }
         }
     };
 
@@ -138,6 +136,7 @@ public abstract class Entity implements GameSave{
         if(index != -1) {
             Game.getIt().getEntityList().remove(index);
         }
+        Game.getIt().spawnerAdmin(false);
     };
 
     @Override
@@ -211,7 +210,7 @@ public abstract class Entity implements GameSave{
     }
 
     public String getImage(){
-        return imageDir + imageState;
+        return this.imageDir + this.imageState;
     }
 
     public static double getLaiH() {

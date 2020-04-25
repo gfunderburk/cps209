@@ -15,20 +15,29 @@ public class EH_LightAI extends EntityHumanoid {
 
 
 
-
     //  Constructor  //
 
 
     public EH_LightAI(){
-        this.typeRound = TypeRound.LIGHT_ROUND;
         this.imageDir = File.separator + "light_terminators" + File.separator;
-        this.imageState = "lightRobotRifleFrontFacing_Shooting.png";
+        this.imgDying1 = "lightRobotDying1.png";
+        this.imgDying2 = "lightRobotDying2.png";
+        this.imgDying3 = "lightRobotDying3.png";
+        this.imgMovingL = "lightRobot_Moving_LeftFoot";
+        this.imgMovingR = "lightRobot_Moving_RightFoot";
+        this.imgReloading = "lightRobot_Reloading";
+        this.imgAttacking = "lightRobot_Shooting";    
+        this.imgSpecialAttack = "lightRobot_Shooting_special";    
+        this.imageState = imgMovingL+ending();
+        this.stateAction = StateAction.MOVING;
+        this.stateLife = StateLife.HEALTHY;
+        this.typeRound = TypeRound.LIGHT_ROUND;
         this.width = LaiW;
         this.height = LaiH;
         this.speed = 1;
         this.maxHealth = 10;
+        this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth;
-        this.stateLife = StateLife.HEALTHY;
     }
 
 
@@ -63,34 +72,20 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public void deathEvent() {
-        this.deSpawn();
+        this.enterState(StateAction.DYING);
     }
 
     @Override
     public void move() {
-        this.sameMoveCount++;
-
-        if(this.sameMoveCount > 20){
-            this.sameMoveCount = 0;
-
-            if(!this.standStill){
-                this.vector = new Point3D(0,0,0);
-            }
-            else{
-                Point3D newDest = Game.getIt().randomPoint3D();
-                this.vector = myMovement.getHeading(newDest, this.location, this.speed);
-                this.vector = myMovement.setNewPointComp(this.vector, Point3D_Comp.y, 0);
-            }
-
-            this.standStill = this.standStill ? false : true;
-        }
-
-        if(this.standStill & myRandom.genRandomBoolean()){
-            attack(EH_Avatar.getIt());
-        }
-
         super.move();
     }
+
+    public void newDirection(){
+        Point3D newDest = Game.getIt().randomPoint3D();
+        this.vector = myMovement.getHeading(newDest, this.location, this.speed);
+        this.vector = myMovement.setNewPointComp(this.vector, Point3D_Comp.y, 0);
+    }
+
 
     @Override
     public void collideEvent(Entity otherEntity) {
@@ -114,20 +109,19 @@ public class EH_LightAI extends EntityHumanoid {
                 default:
                     break;
             }
-            Game.getIt().setScore(Game.getIt().getScore() + 10);
             this.checkLife();    
         }
     }
 
     @Override
     public void hurtEvent() {
-        this.imageState = "lightRobotRifleFrontFacing_Shooting_hurt.png";
+        // this.imageState = "lightRobot_Shooting_hurt";
 
     }
 
     @Override
     public void recoverEvent() {
-        this.imageState = "lightRobotRifleFrontFacing_Shooting.png";
+        // this.imageState = "lightRobot_Shooting";
 
     }
 
@@ -146,6 +140,7 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public void attack(Entity entity) {
+        this.mag--;
         super.attack(entity);
     }
 
@@ -162,6 +157,107 @@ public class EH_LightAI extends EntityHumanoid {
     public void reload() {
         super.reload();
     }
+
+    @Override
+    protected void subStateUpdate() {
+        switch(this.stateAction){
+
+            case MOVING:                
+                switch(this.subStateInt){
+
+                    case 20:
+                        if(myRandom.genRandomInt(1, 4) != 4){
+                            enterState(StateAction.ATTACKING);
+                        }
+                        else{
+                            enterState(StateAction.SPECIAL_ATTACK);
+                        }
+                        break;
+                        
+                    case 1:
+                        this.newDirection();
+                        this.imageState = this.imgMovingL+ending(); 
+
+                    default:
+                        if(this.subStateInt%3==0) this.imageState = (this.subStateInt%2==0) ? this.imgMovingL+ending() : this.imgMovingR+ending(); 
+                        this.move();
+                }
+                break;
+
+            case ATTACKING:
+                switch(this.subStateInt){
+
+                    case 20:
+                        enterState(StateAction.MOVING);
+                        this.imageState = this.imgMovingL+ending(); 
+                        break;
+
+                    default:
+                        if(this.mag <= 0) enterState(StateAction.RELOADING); 
+                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
+                }
+                break;
+
+            case SPECIAL_ATTACK:
+                switch(this.subStateInt){
+
+                    case 30:
+                        enterState(StateAction.MOVING);
+                        setTypeRound(TypeRound.LIGHT_ROUND);
+                        break;
+
+                    default:
+                        setTypeRound(TypeRound.HEAVY_ROUND);
+                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
+                }
+                break;
+
+            case RELOADING:
+                switch(this.subStateInt){
+
+                    case 10:
+                        this.mag = 30;
+                        enterState(StateAction.ATTACKING);
+
+                    default:
+                }
+                break;
+
+            case DYING:
+                switch(this.subStateInt){
+
+                    case 1: 
+                        this.imageState = imgDying1;
+                        break;
+
+                    case 7: 
+                        this.imageState = imgDying2;
+                        break;
+
+                    case 14: 
+                        this.imageState = imgDying3;
+                        break;
+
+                    case 21:
+                        enterState(StateAction.DEAD);
+
+                    default:                        
+                }
+                break;
+
+
+            case DEAD:
+                Game.getIt().setScore(Game.getIt().getScore() + 10);
+                this.deSpawn();
+                break;
+
+            default:
+                enterState(StateAction.MOVING);
+                this.imageState = this.imgMovingL+ending(); 
+                break;
+        }
+    }
+
 
 
     //  Getters-Setters  //
