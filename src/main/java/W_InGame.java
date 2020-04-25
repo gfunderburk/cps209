@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import Game_model.EH_Avatar;
 import Game_model.E_Projectile;
 import Game_model.Entity;
@@ -9,8 +11,8 @@ import Game_model.Game;
 import Game_model.Game.StateGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -20,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -32,17 +35,22 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
+
 import javafx.scene.input.KeyEvent;
+
 
 //------------------------------------------------------------------
 //File:   Window_InGame.java
 //Desc:   This class is for active in-game gameplay.
 //------------------------------------------------------------------ 
 
+
 public class W_InGame implements EventHandler<KeyEvent>{
+
 
     // Singleton Instance Variables
     Game game = Game.getIt();
+    
     EH_Avatar avatar = EH_Avatar.getIt();
     static Object lock = new Object();
 
@@ -109,8 +117,18 @@ public class W_InGame implements EventHandler<KeyEvent>{
     @FXML
     void onEscClicked() throws IOException {
         // Load ESC_Menu
+        var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
+        var scene = new Scene(loader.load());  
+        scene.setOnKeyPressed((KeyEvent event) -> {if(event.getCode()==KeyCode.R){System.out.print("Reload");}});   
+        AppGUI.getPopupStage().setScene(scene);
+        AppGUI.getPopupStage().setTitle("ESC Menu");
+        AppGUI.getPopupStage().setWidth(400);
+        AppGUI.getPopupStage().setHeight(300);
+        AppGUI.getPopupStage().show();
+
         BTN_CLICK.play();
         AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
+
     }
 
 
@@ -158,19 +176,19 @@ public class W_InGame implements EventHandler<KeyEvent>{
         game.setGameOver(true);
     }
 
-    //Written by Funderburk, pushed by Cox
-    @Override
-    public void handle(KeyEvent event) {
-        System.out.println(event.getCharacter());
-       if(event.getCharacter()=="R"){
-        System.out.print("RELOAD");
-        avatar.getIt().reload();
-       }
-       if(event.getCharacter()=="C"){
-           System.out.print("CHEAT");
-           game.getIt().toggleCheatMode(cheatMode);
-       }
-    }
+    // //Written by Funderburk, pushed by Cox
+    // @Override
+    // public void handle(KeyEvent event) {
+    //     System.out.println(event.getCharacter());
+    //    if(event.getCharacter()=="R"){
+    //     System.out.print("RELOAD");
+    //     avatar.getIt().reload();
+    //    }
+    //    if(event.getCharacter()=="C"){
+    //        System.out.print("CHEAT");
+    //        game.getIt().toggleCheatMode(cheatMode);
+    //    }
+    // }
     
 
     // ------------- //
@@ -401,5 +419,20 @@ public class W_InGame implements EventHandler<KeyEvent>{
             }     
         }
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+    }
+
+
+    @Override
+    public void handle(KeyEvent event) {
+        System.out.println(event.getCharacter());
+       if( event.getCharacter()=="R"){
+        System.out.print("RELOAD");
+        avatar.reload();
+       }
+       if(event.getCharacter()=="C"){
+           System.out.print("CHEAT");
+           game.toggleCheatMode(cheatMode);
+       }
+
     }
 }
