@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import Game_model.EH_Avatar;
 import Game_model.E_Projectile;
 import Game_model.Entity;
@@ -9,6 +11,7 @@ import Game_model.Game;
 import Game_model.Game.StateGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -18,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -30,17 +34,20 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
+
 import javafx.scene.input.KeyEvent;
+
 
 //------------------------------------------------------------------
 //File:   Window_InGame.java
 //Desc:   This class is for active in-game gameplay.
 //------------------------------------------------------------------ 
 
-public class W_InGame {
+public class W_InGame implements EventHandler<KeyEvent> {
 
     // Singleton Instance Variables
     Game game = Game.getIt();
+    boolean cheatMode=false;
     EH_Avatar avatar = EH_Avatar.getIt();
 
 
@@ -281,5 +288,19 @@ public class W_InGame {
         }
 
         newEntityImg.relocate(imgX, paneH - imgY); 
+    }
+
+    @Override
+    public void handle(KeyEvent event) {
+        System.out.println(event.getCharacter());
+       if( event.getCharacter()=="R"){
+        System.out.print("RELOAD");
+        //avatar.getIt().reload();
+       }
+       if(event.getCharacter()=="C"){
+           System.out.print("CHEAT");
+           // game.getIt().toggleCheatMode(cheatMode);
+       }
+
     }
 }

@@ -260,7 +260,9 @@ public class Game implements GameSave {
                 default:
         }
     }
-
+    public void toggleCheatMode(boolean cheatMode) {
+        this.cheatMode = cheatMode ? false : true;
+    }
 
 
     //  Getters-Setters  //
