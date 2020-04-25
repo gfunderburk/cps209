@@ -181,23 +181,23 @@ public class W_InGame implements EventHandler<KeyEvent>{
     // ------------- //
 
     void updateHealthGUI() throws IOException {
-        double health = avatar.getCurrentHealth();
+        double health = avatar.getCurrentHealth()/10;
         //System.out.println(health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
-        if (health < 5) {
+        if (health < .5) {
             progBar_health.setStyle("-fx-accent: red;");
         } else {
             progBar_health.setStyle("-fx-accent: lime;");
         }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
-        // if(health == 0 || health < 0) {
-        //     game.setGameOver(true);
-        // }
+        if(health == 0 || health < 0) {
+            game.setGameOver(true);
+        }
 
         if (game.isGameOver()) {
             // Game.getIt().closeGame();
@@ -356,7 +356,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
                     imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                     imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                     imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                    //SHOOT_M16.play();
+                    //SHOOT_SHOTGUN.play();
                 }
             }
             else{
