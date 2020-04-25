@@ -22,16 +22,25 @@ public class EH_FlyingAI extends EntityHumanoid {
 
 
     public EH_FlyingAI(){
-        this.typeRound = TypeRound.LIGHT_ROUND;
         this.imageDir = File.separator + "flying_terminators" + File.separator;
-        this.imageState = "headOnViewWRecoil_Firing.png";
+        this.imgDying1 = "flyingRobotDying1.png";
+        this.imgDying2 = "flyingRobotDying2.png";
+        this.imgDying3 = "flyingRobotDying3.png";
+        this.imgMovingL = "flyingRobot";
+        this.imgMovingR = "flyingRobot";
+        this.imgReloading = "flyingRobot";
+        this.imgAttacking = "flyingRobot";    
+        this.imgSpecialAttack = "flyingRobot";    
+        this.imageState = imgMovingL+ending();
+        this.stateAction = StateAction.MOVING;
+        this.stateLife = StateLife.HEALTHY;
+        this.typeRound = TypeRound.LAZER_ROUND;
         this.width = FaiW;
         this.height = FaiH;
         this.speed = 1;
         this.maxHealth = 10;
+        this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth;
-        this.stateLife = StateLife.HEALTHY;
-        this.stateAction = StateAction.MOVING;
     }
 
 
@@ -52,32 +61,42 @@ public class EH_FlyingAI extends EntityHumanoid {
     }
     @Override
     public void deathEvent() {
-        this.deSpawn();
+        this.enterState(StateAction.DYING);
     }
+
+    // @Override
+    // public void move() {
+    //     this.sameMoveCount++;
+
+    //     if(this.sameMoveCount > 20){
+    //         this.sameMoveCount = 0;
+
+    //         if(!this.standStill){
+    //             this.vector = new Point3D(0,0,0);
+    //         }
+    //         else{
+    //             Point3D newDest = Game.getIt().randomPoint3D();
+    //             this.vector = myMovement.getHeading(newDest, this.location, this.speed);
+    //         }
+
+    //         this.standStill = this.standStill ? false : true;
+    //     }
+
+    //     if(this.standStill & myRandom.genRandomBoolean()){
+    //         attack(EH_Avatar.getIt());
+    //     }
+
+    //     super.move();
+    // }
 
     @Override
     public void move() {
-        this.sameMoveCount++;
-
-        if(this.sameMoveCount > 20){
-            this.sameMoveCount = 0;
-
-            if(!this.standStill){
-                this.vector = new Point3D(0,0,0);
-            }
-            else{
-                Point3D newDest = Game.getIt().randomPoint3D();
-                this.vector = myMovement.getHeading(newDest, this.location, this.speed);
-            }
-
-            this.standStill = this.standStill ? false : true;
-        }
-
-        if(this.standStill & myRandom.genRandomBoolean()){
-            attack(EH_Avatar.getIt());
-        }
-
         super.move();
+    }
+
+    public void newDirection(){
+        Point3D newDest = Game.getIt().randomPoint3D();
+        this.vector = myMovement.getHeading(newDest, this.location, this.speed);
     }
 
     @Override
@@ -152,14 +171,101 @@ public class EH_FlyingAI extends EntityHumanoid {
     }
 
     @Override
-    public void stateIncrement() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     protected void subStateUpdate() {
-        // TODO Auto-generated method stub
+        switch(this.stateAction){
+
+            case MOVING:                
+                switch(this.subStateInt){
+
+                    case 20:
+                        if(myRandom.genRandomInt(1, 4) != 4){
+                            enterState(StateAction.ATTACKING);
+                        }
+                        else{
+                            enterState(StateAction.SPECIAL_ATTACK);
+                        }
+                        break;
+                        
+                    case 1:
+                        this.newDirection();
+                        this.imageState = this.imgMovingL+ending(); 
+
+                    default:
+                        if(this.subStateInt%3==0) this.imageState = (this.subStateInt%2==0) ? this.imgMovingL+ending() : this.imgMovingR+ending(); 
+                        this.move();
+                }
+                break;
+
+            case ATTACKING:
+                switch(this.subStateInt){
+
+                    case 20:
+                        enterState(StateAction.MOVING);
+                        this.imageState = this.imgMovingL+ending(); 
+                        break;
+
+                    default:
+                        if(this.mag <= 0) enterState(StateAction.RELOADING); 
+                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
+                }
+                break;
+
+            case SPECIAL_ATTACK:
+                switch(this.subStateInt){
+
+                    case 30:
+                        enterState(StateAction.MOVING);
+                        break;
+
+                    default:
+                        attack(EH_Avatar.getIt());
+                }
+                break;
+
+            case RELOADING:
+                switch(this.subStateInt){
+
+                    case 10:
+                        this.mag = 30;
+                        enterState(StateAction.ATTACKING);
+
+                    default:
+                }
+                break;
+
+            case DYING:
+                switch(this.subStateInt){
+
+                    case 1: 
+                        this.imageState = imgDying1;
+                        break;
+
+                    case 7: 
+                        this.imageState = imgDying2;
+                        break;
+
+                    case 14: 
+                        this.imageState = imgDying3;
+                        break;
+
+                    case 21:
+                        enterState(StateAction.DEAD);
+
+                    default:                        
+                }
+                break;
+
+
+            case DEAD:
+                Game.getIt().setScore(Game.getIt().getScore() + 10);
+                this.deSpawn();
+                break;
+
+            default:
+                enterState(StateAction.MOVING);
+                this.imageState = this.imgMovingL+ending(); 
+                break;
+        }
 
     }
 

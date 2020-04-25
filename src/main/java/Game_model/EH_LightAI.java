@@ -203,11 +203,11 @@ public class EH_LightAI extends EntityHumanoid {
 
                     case 30:
                         enterState(StateAction.MOVING);
-                        this.typeRound = TypeRound.LIGHT_ROUND;
+                        setTypeRound(TypeRound.LIGHT_ROUND);
                         break;
 
                     default:
-                        this.typeRound = TypeRound.HEAVY_ROUND;
+                        setTypeRound(TypeRound.HEAVY_ROUND);
                         if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
                 }
                 break;

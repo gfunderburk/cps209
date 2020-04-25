@@ -9,6 +9,7 @@ import Game_model.Game;
 import Game_model.Game.StateGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -42,6 +43,7 @@ public class W_InGame {
     // Singleton Instance Variables
     Game game = Game.getIt();
     EH_Avatar avatar = EH_Avatar.getIt();
+    static Object lock = new Object();
 
 
     // --------------- //
@@ -112,9 +114,11 @@ public class W_InGame {
     @FXML
     void mouseEnteredPane(){
         mouseWithinPane = true;
-        pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
-        CROSSHAIRS.getWidth() /2,
-        CROSSHAIRS.getHeight() /2));
+        ImageCursor cursor = new ImageCursor(CROSSHAIRS, 40, 40);
+        pane.getScene().setCursor(cursor);
+        // pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
+        // CROSSHAIRS.getWidth() /2,
+        // CROSSHAIRS.getHeight() /2));
     }
 
 
@@ -201,8 +205,6 @@ public class W_InGame {
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
-        // pane.setOnMouseEntered(me -> pane.getScene().setCursor(Cursor.HAND) );
-        // pane.setOnMouseExited(me -> pane.getScene().setCursor(Cursor.DEFAULT) );
         
         Game.getIt().startGame("Joe", difficultyLevel, 1);
         
@@ -218,7 +220,7 @@ public class W_InGame {
         
         
         //  Set Global Animation Timer
-        var keyFrame = new KeyFrame(Duration.seconds(.05), e -> 
+        var keyFrame = new KeyFrame(Duration.seconds(.1), e -> 
         {
             try {timerAnimate();} 
             catch (IOException e1){e1.printStackTrace();}
@@ -229,6 +231,26 @@ public class W_InGame {
         
     }
 
+    void resetPane(){
+        
+            //  Delete any dead entity images
+            for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
+                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+                if(oldEntityImg != null){
+                    pane.getChildren().remove(oldEntityImg);
+                }     
+            }        
+            Game.getIt().setEntityList(new ArrayList<Entity>());    
+            
+            //  Delete any dead entity images
+            for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+                if(oldEntityImg != null){
+                    pane.getChildren().remove(oldEntityImg);
+                }     
+            }
+            Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+    }
 
     void timerAnimate() throws IOException {
         if (Game.getIt().getStateGame() == StateGame.RUNNING) { 
@@ -252,10 +274,9 @@ public class W_InGame {
                 }     
             }
             Game.getIt().setDeadEntityList(new ArrayList<Entity>());
-            updateHealthGUI(); // 
+            updateHealthGUI();
         }
     }
-
 
     public void drawEntity(Entity entity) {
 
@@ -263,11 +284,24 @@ public class W_InGame {
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
         if(oldEntityImg != null){
             pane.getChildren().remove(oldEntityImg);
-        }            
+        }   
+        else{
+            System.out.println("imageView not found: " + entity.Serialize());
+            System.out.println("----- ID#  " + entity.getId());
+        }         
 
         //  Create and/or Redraw entity image 
+       
+        ImageView newEntityImg = null;
+       try{
         String imageAddress = File.separator+"icons"+entity.getImage();
-        ImageView newEntityImg = new ImageView(imageAddress);
+        newEntityImg = new ImageView(imageAddress);
+       }
+       catch(Exception e){
+        System.out.println(entity.Serialize() + "  -  " + entity.getImage());
+        return;
+       }
+        // final ImageView newEntityImg = newEntityImgIntermediary; 
 
         newEntityImg.setId("" + entity.getId());
         newEntityImg.setUserData(entity.getId());
@@ -277,54 +311,70 @@ public class W_InGame {
         // });
         pane.getChildren().add(newEntityImg);
         
-        //  Variables
-
-        Point3D loc = entity.getLocation();
-        paneW = pane.getWidth();
-        paneH = pane.getHeight();
-        double paneWper = paneW * .01;
-        double paneHper = paneH * .01;
-
-        //  Set ImageView Width/Height
-
-        double imgW = paneWper * entity.getWidth(); // set z=0 Width
-        double imgH = paneHper * entity.getHeight(); // set z=0 Height
-
-        imgW -= (0.05 * loc.getZ() * imgW);   // set width according to z depth (deeper z = narrower)
-        imgH -= (0.05 * loc.getZ() * imgH);   // set height according to z depth (deeper z = shorter)
-    
-        newEntityImg.setFitWidth(imgW);
-        newEntityImg.setFitHeight(imgH);
         
-        //  Set ImageView (x,y)
+        // Thread thread = new Thread(() -> {
+            //  Variables
+            
+            Point3D loc = entity.getLocation();
+            paneW = pane.getWidth();
+            paneH = pane.getHeight();
+            double paneWper = paneW * .01;
+            double paneHper = paneH * .01;
 
-        double imgX = ( loc.getX() * paneW ) / Game.getIt().getGamePhysicsWidth();   // set x according to physical and visual world ratio     
-        double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
+            //  Set ImageView Width/Height
 
-        imgX -= (0.5 * imgW);  //  center width on item pt.
+            double imgW = paneWper * entity.getWidth(); // set z=0 Width
+            double imgH = paneHper * entity.getHeight(); // set z=0 Height
 
-        if(entity instanceof E_Projectile){
-            E_Projectile ent = (E_Projectile)entity;
+            imgW -= (0.05 * loc.getZ() * imgW);   // set width according to z depth (deeper z = narrower)
+            imgH -= (0.05 * loc.getZ() * imgH);   // set height according to z depth (deeper z = shorter)
+        
+            
+            //  Set ImageView (x,y)
 
-            imgY += (0.5 * imgH); // center img on Y-axis
-            if(! ent.isAvatarsProjectile()){
-                double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
-                double YvisualOffsetRaw = (paneHper * ent.getVisualYoffset()); // offset Y for entity type @ z=0
-                double XvisualOffsetDepthed = (0.05 * loc.getZ() * XvisualOffsetRaw);
-                double YvisualOffsetDepthed = (0.05 * loc.getZ() * YvisualOffsetRaw);
-                imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
-                imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
-                imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                // SHOOT_FOOTSOLDIER.play();
+            double imgX = ( loc.getX() * paneW ) / Game.getIt().getGamePhysicsWidth();   // set x according to physical and visual world ratio     
+            double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
+
+            imgX -= (0.5 * imgW);  //  center width on item pt.
+
+            if(entity instanceof E_Projectile){
+                E_Projectile ent = (E_Projectile)entity;
+
+                imgY += (0.5 * imgH); // center img on Y-axis
+                if(! ent.isAvatarsProjectile()){
+                    double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
+                    double YvisualOffsetRaw = (paneHper * ent.getVisualYoffset()); // offset Y for entity type @ z=0
+                    double XvisualOffsetDepthed = (0.05 * loc.getZ() * XvisualOffsetRaw);
+                    double YvisualOffsetDepthed = (0.05 * loc.getZ() * YvisualOffsetRaw);
+                    imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
+                    imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
+                    imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
+                    // SHOOT_FOOTSOLDIER.play();
+                }
             }
-        }
-        else{
-            imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
-            imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-        }
+            else{
+                imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
+                imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
+            }
 
-        
 
-        newEntityImg.relocate(imgX, paneH - imgY); 
+            newEntityImg.setFitWidth(imgW);
+            newEntityImg.setFitHeight(imgH);
+            newEntityImg.relocate(imgX, paneH - imgY);
+
+
+            // final double fimgX = imgX;
+            // final double fimgY = imgY;
+            // final double fimgW = imgW;
+            // final double fimgH = imgH;
+            // Platform.runLater(() -> {
+            //     synchronized (lock) {
+            //         newEntityImg.setFitWidth(fimgW);
+            //         newEntityImg.setFitHeight(fimgH);
+            //         newEntityImg.relocate(fimgX, paneH - fimgY);
+            //     }
+            // });
+        // });
+        // thread.start();
     }
 }

@@ -12,18 +12,41 @@ public class E_Projectile extends Entity {
     //  Variables  //
 
 
-    public static enum TypeRound {LIGHT_ROUND, HEAVY_ROUND, EXPLOSIVE_ROUND};
-    private static double lightRoundMoveFactor = 1;
-    private static double heavyRoundMoveFactor = 2;
-    private static double explosiveRoundMoveFactor = 3;
-    private static double lightRoundDmg = .01;
-    private static double heavyRoundDmg = .02;
-    private static double explosiveRoundDmg = .03;
+    protected static double lazerRoundDmg = .0075;
+    protected static double lazerRound_width = 1.5;
+    protected static double lazerRoundMoveFactor = 1;
+    protected static String lazerRound_FireImg = "round_lazer_fire.png";
+    protected static String lazerRound_AIImg = "round_lazer.png";
+
+    protected static double lightRoundDmg = 1;
+    protected static double lightRound_width = 1;
+    protected static double lightRoundMoveFactor = 1;
+    protected static String lightRound_FireImg = "round_light_fire.png";
+    protected static String lightRound_AIImg = "round_light_in.png";
+    protected static String lightRound_PlayerImg = "round_light_out.png";
+
+    protected static double heavyRoundDmg = .02;
+    protected static double heavyRound_width = 2.5;
+    protected static double heavyRoundMoveFactor = 2;
+    protected static String heavyRound_FireImg = "round_heavy_fire.png";
+    protected static String heavyRound_AIImg = "round_heavy_in.png";
+    protected static String heavyRound_PlayerImg = "round_heavy_out.png";
+
+    protected static double explosiveRoundDmg = .03;
+    protected static double explosiveRound_width = 3;
+    protected static double explosiveRoundMoveFactor = 3;
+    protected static String explosiveRound_FireImg = "round_explosive_fire.png";
+    protected static String explosiveRound_AIImg = "round_explosive_in.png";
+    protected static String explosiveRound_PlayerImg = "round_explosive_out.png";
+
+    protected static String projImageDir = File.separator + "projectiles" + File.separator;
+    public static enum TypeRound {LIGHT_ROUND, HEAVY_ROUND, EXPLOSIVE_ROUND, LAZER_ROUND};
     
     private TypeRound typeRound;    
     private boolean AvatarsProjectile;
     private double visualYoffset, visualXoffset;
     private double moveFactor, damage;
+    private boolean roundFired;
 
 
 
@@ -35,11 +58,8 @@ public class E_Projectile extends Entity {
         E_Projectile bullet = new E_Projectile();
         bullet.AvatarsProjectile = false;
         bullet.setTypeRound(thisEntity.getTypeRound());
-        bullet.imageDir = File.separator + "projectiles" + File.separator;
-        bullet.imageState = "bulletRed.png";
+        bullet.imageDir = projImageDir;
         bullet.stateIntFactor = 1;
-        bullet.width = 2.5;
-        bullet.height = 2.5;
         bullet.calcOffsets(thisEntity);
         bullet.setLocation(thisEntity.getLocation());
 
@@ -60,11 +80,8 @@ public class E_Projectile extends Entity {
         E_Projectile bullet = new E_Projectile();
         bullet.AvatarsProjectile = true;
         bullet.setTypeRound(EH_Avatar.getIt().getTypeRound());
-        bullet.imageDir = File.separator + "projectiles" + File.separator;
-        bullet.imageState = "bulletRed.png";
+        bullet.imageDir = projImageDir;
         bullet.stateIntFactor = 1;
-        bullet.width = 2.5;
-        bullet.height = 2.5;
         bullet.setLocation(new Point3D(targetX, targetY, 0));
         bullet.setVector(new Point3D(0,0, getRoundTypeSpeed(EH_Avatar.getIt().getTypeRound()))); 
         bullet.spawn();
@@ -92,14 +109,14 @@ public class E_Projectile extends Entity {
             EH_FlyingAI ai = (EH_FlyingAI)thisEntity;
 
             this.visualYoffset = 2;
-            this.visualXoffset = 2;
+            this.visualXoffset = 0;
 
         }else 
         if(thisEntity instanceof EH_BossAI){
             EH_BossAI ai = (EH_BossAI)thisEntity;
 
             this.visualYoffset = 68;
-            this.visualXoffset = 2;
+            this.visualXoffset = 0;
 
         }
     }
@@ -187,16 +204,61 @@ public class E_Projectile extends Entity {
             case LIGHT_ROUND:
                 this.moveFactor = lightRoundMoveFactor;
                 this.damage = lightRoundDmg;
+
+                if(this.isAvatarsProjectile()){
+                    this.imageState = lightRound_FireImg;
+                    this.width = lightRound_width;
+                    this.height = lightRound_width;
+                }else{
+                    this.imageState = lightRound_FireImg;
+                    this.width = lightRound_width * 5;
+                    this.height = lightRound_width * 5;
+                }
                 break;
 
             case HEAVY_ROUND:
                 this.moveFactor = heavyRoundMoveFactor;
                 this.damage = heavyRoundDmg;
+
+                if(this.isAvatarsProjectile()){
+                    this.imageState = heavyRound_FireImg;
+                    this.width = heavyRound_width;
+                    this.height = heavyRound_width;
+                }else{
+                    this.imageState = heavyRound_FireImg;
+                    this.width = heavyRound_width * 1.5;
+                    this.height = heavyRound_width * 1.5;
+                }
                 break;
 
             case EXPLOSIVE_ROUND:
                 this.moveFactor = explosiveRoundMoveFactor;
                 this.damage = explosiveRoundDmg;
+
+                if(this.isAvatarsProjectile()){
+                    this.imageState = explosiveRound_FireImg;
+                    this.width = explosiveRound_width;
+                    this.height = explosiveRound_width;
+                }else{
+                    this.imageState = explosiveRound_FireImg;
+                    this.width = explosiveRound_width * 1.5;
+                    this.height = explosiveRound_width * 1.5;
+                }
+                break;
+            
+            case LAZER_ROUND:
+                this.moveFactor = lazerRoundMoveFactor;
+                this.damage = lazerRoundDmg;
+
+                if(this.isAvatarsProjectile()){
+                    this.imageState = lazerRound_FireImg;
+                    this.width = lazerRound_width;
+                    this.height = lazerRound_width;
+                }else{
+                    this.imageState = lazerRound_FireImg;
+                    this.width = lazerRound_width * 1.5;
+                    this.height = lazerRound_width * 1.5;
+                }
                 break;
             
             default:
@@ -215,6 +277,9 @@ public class E_Projectile extends Entity {
                 
             case EXPLOSIVE_ROUND:
                 return explosiveRoundMoveFactor;
+            
+            case LAZER_ROUND:
+                return lazerRoundMoveFactor;
 
             default:
                 return -1;
@@ -298,6 +363,38 @@ public class E_Projectile extends Entity {
         if(this.subStateInt >= this.moveFactor){
             this.subStateInt = 0;
             this.move();
+
+            if(!this.roundFired & !this.isAvatarsProjectile()){
+                this.roundFired = true;
+
+                switch(this.typeRound){
+                    case LIGHT_ROUND:
+                        this.imageState = lightRound_AIImg;
+                        this.width = lightRound_width;
+                        this.height = lightRound_width;
+                        break;
+        
+                    case HEAVY_ROUND:
+                        this.imageState = heavyRound_AIImg;
+                        this.width = heavyRound_width;
+                        this.height = heavyRound_width;
+                        break;
+        
+                    case EXPLOSIVE_ROUND:
+                        this.imageState = explosiveRound_AIImg;
+                        this.width = explosiveRound_width;
+                        this.height = explosiveRound_width;
+                        break;
+                    
+                    case LAZER_ROUND:
+                        this.imageState = lazerRound_AIImg;
+                        this.width = lazerRound_width;
+                        this.height = lazerRound_width;
+                        break;
+                    
+                    default:
+                }
+            }
         }
     }
 }

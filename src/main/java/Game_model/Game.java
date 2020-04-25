@@ -85,7 +85,7 @@ public class Game implements GameSave {
 
     public void startGame(String playerName, int difficultyLevel, int GameLevel){
         setDifficultySettings(difficultyLevel);
-        setLevelSettings(GameLevel);
+        setLevelSettings(1);
         spawnerAdmin(false);
         stateGame = StateGame.RUNNING;
     }
@@ -355,6 +355,11 @@ public class Game implements GameSave {
 
     public void setCheatMode(boolean cheatMode) {
         this.cheatMode = cheatMode;
+    }
+
+
+    public void toggleCheatMode(boolean cheatMode) {
+        this.cheatMode = cheatMode ? false : true;
     }
 
     public int getCurrentEnitity() {

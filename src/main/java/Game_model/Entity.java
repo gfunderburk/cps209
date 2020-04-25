@@ -210,7 +210,7 @@ public abstract class Entity implements GameSave{
     }
 
     public String getImage(){
-        return imageDir + imageState;
+        return this.imageDir + this.imageState;
     }
 
     public static double getLaiH() {
