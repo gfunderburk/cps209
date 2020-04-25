@@ -188,7 +188,13 @@ public class W_InGame implements EventHandler<KeyEvent>{
         progBar_health.setProgress(health);
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
+        if (health < 5) {
+            progBar_health.setStyle("-fx-accent: red;");
+        } else {
+            progBar_health.setStyle("-fx-accent: lime;");
+        }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+
         if(health == 0 || health < 0) {
             game.setGameOver(true);
         }
@@ -219,10 +225,11 @@ public class W_InGame implements EventHandler<KeyEvent>{
     void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
         
         resetPane();
+
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
-        System.out.println(this.difficulty);
-        
+
+
         Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         
         String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
@@ -403,11 +410,11 @@ public class W_InGame implements EventHandler<KeyEvent>{
     @Override
     public void handle(KeyEvent event) {
         System.out.println(event.getCharacter());
-       if( event.getCharacter()=="R"){
+       if( event.getCode() == KeyCode.R) {
         System.out.print("RELOAD");
         avatar.reload();
        }
-       if(event.getCharacter()=="C"){
+       if(event.getCode() == KeyCode.C){
            System.out.print("CHEAT");
            game.toggleCheatMode(cheatMode);
        }
