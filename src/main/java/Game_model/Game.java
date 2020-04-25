@@ -387,11 +387,6 @@ public class Game implements GameSave {
         this.cheatMode = cheatMode;
     }
 
-
-    public void toggleCheatMode(boolean cheatMode) {
-        this.cheatMode = cheatMode ? false : true;
-    }
-
     public int getCurrentEnitity() {
         return currentEnitity;
     }

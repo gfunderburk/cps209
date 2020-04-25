@@ -21,7 +21,7 @@ public class EH_Avatar extends EntityHumanoid {
 
     private EH_Avatar(){
         this.typeRound = TypeRound.LIGHT_ROUND;
-        this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, 0));       
+        this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, -1));       
         this.currentHealth = 10;
         this.maxHealth = 10;
         this.mag = 300;

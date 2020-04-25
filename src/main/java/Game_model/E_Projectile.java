@@ -154,8 +154,8 @@ public class E_Projectile extends Entity {
                                 .filter(ent -> !(ent instanceof E_Projectile) )
                                 .filter(ent -> (ent.location.getX() + ent.width * .5) > this.location.getX())
                                 .filter(ent -> (ent.location.getX() - ent.width * .5) < this.location.getX())
-                                .filter(ent -> (ent.location.getX() + ent.height * .5) > this.location.getY())
-                                .filter(ent -> (ent.location.getX() - ent.height * .5) < this.location.getY())
+                                .filter(ent -> (ent.location.getY() + ent.height * .5) > this.location.getY())
+                                .filter(ent -> (ent.location.getY() - ent.height * .5) < this.location.getY())
                                 .findAny()
                                 .orElse(null);      // .collect(Collectors.toList()));
                                 
