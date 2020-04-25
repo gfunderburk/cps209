@@ -164,7 +164,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         if (avatar.getMag() > 1) {
-            SHOOT_M16.play();
+            SHOOT_FOOTSOLDIER.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
             BTN_CLICK.play();
@@ -195,9 +195,9 @@ public class W_InGame implements EventHandler<KeyEvent>{
         }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
-        if(health == 0 || health < 0) {
-            game.setGameOver(true);
-        }
+        // if(health == 0 || health < 0) {
+        //     game.setGameOver(true);
+        // }
 
         if (game.isGameOver()) {
             // Game.getIt().closeGame();
@@ -346,7 +346,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
             if(entity instanceof E_Projectile){
                 E_Projectile ent = (E_Projectile)entity;
-
+                
                 imgY += (0.5 * imgH); // center img on Y-axis
                 if(! ent.isAvatarsProjectile()){
                     double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
@@ -356,7 +356,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
                     imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                     imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                     imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                    // SHOOT_FOOTSOLDIER.play();
+                    //SHOOT_M16.play();
                 }
             }
             else{
