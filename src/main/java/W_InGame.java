@@ -182,12 +182,16 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
     void updateHealthGUI() throws IOException {
         double health = avatar.getCurrentHealth();
+        //System.out.println(health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+        if(health == 0 || health < 0) {
+            game.setGameOver(true);
+        }
 
         if (game.isGameOver()) {
             // Game.getIt().closeGame();
@@ -210,24 +214,6 @@ public class W_InGame implements EventHandler<KeyEvent>{
         } 
     }
 
-    //Used for debugging of healthBar functionality...will remove before submission
-    // void minusHealthBar() {
-    //     health -= 0.01;
-    //     vbox_health.getChildren().clear();
-    //     progBar_health = new ProgressBar();
-    //     progBar_health.setProgress(health);
-    //     vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
-    //     // plusHealthBar();
-    // }
-
-    // void plusHealthBar() {
-    //     KeyFrame timer = new KeyFrame(Duration.seconds(1), e -> {
-    //         health += .01;
-    //         updateHealth();
-    //     });
-    //     var timeline = new Timeline(timer);
-    //     timeline.play();
-    // }
 
     @FXML
     void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {

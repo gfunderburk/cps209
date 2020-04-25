@@ -95,6 +95,7 @@ public class AppGUI extends Application {
 
             scene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
                 if(key.isShiftDown()) {
+                    //System.out.println("cheat mode active");
                     //((instance.isCheatMode() == true) ? instance.setCheatMode(false) : instance.);
                 }
              });
