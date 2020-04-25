@@ -151,7 +151,7 @@ public class EH_Avatar extends EntityHumanoid {
 
     @Override
     public void reload() {
-        if(this.mag < 30 & this.ammo > 0){
+        if(this.mag < 300 & this.ammo > 0){
             super.reload();
         }
     }

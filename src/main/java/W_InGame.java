@@ -10,6 +10,7 @@ import Game_model.Game.StateGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -38,7 +39,7 @@ import javafx.scene.input.KeyEvent;
 //Desc:   This class is for active in-game gameplay.
 //------------------------------------------------------------------ 
 
-public class W_InGame {
+public class W_InGame implements EventHandler<KeyEvent>{
 
     // Singleton Instance Variables
     Game game = Game.getIt();
@@ -66,6 +67,7 @@ public class W_InGame {
     String difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
+    boolean cheatMode = game.isCheatMode();
 
     // ------------- //
     // GUI Elements //
@@ -152,7 +154,22 @@ public class W_InGame {
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + game.getScore()); 
+        game.setPlayerWin(true);
+        game.setGameOver(true);
+    }
 
+    //Written by Funderburk, pushed by Cox
+    @Override
+    public void handle(KeyEvent event) {
+        System.out.println(event.getCharacter());
+       if(event.getCharacter()=="R"){
+        System.out.print("RELOAD");
+        avatar.getIt().reload();
+       }
+       if(event.getCharacter()=="C"){
+           System.out.print("CHEAT");
+           game.getIt().toggleCheatMode(cheatMode);
+       }
     }
     
 
@@ -165,12 +182,14 @@ public class W_InGame {
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
+        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
+        lbl_Score.setText("Score: " + game.getScore()); 
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
-        if (Game.getIt().isGameOver()) {
+        if (game.isGameOver()) {
             // Game.getIt().closeGame();
 
-            if(Game.getIt().isPlayerWinner()){
+            if(game.isPlayerWinner()){
                 // Load-Launch "YOU HAVE COMPLETED THE LEVEL!" LevelOver menu
                 AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER");
             }
