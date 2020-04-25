@@ -62,6 +62,8 @@ public class AppGUI extends Application {
     public static void windowLoad(String newWindowTitle, URL windowURL, Object windowInitData) 
         throws IOException, InterruptedException {
 
+        currentStage.close();
+
         var loader = new FXMLLoader(windowURL);
         var scene = new Scene(loader.load());
 
@@ -102,7 +104,7 @@ public class AppGUI extends Application {
             gameScene.initialize((String) windowInitData, game.getGameLvl());
         }
 
-        // currentStage.show();
+        currentStage.show();
     }
 
 

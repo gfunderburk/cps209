@@ -84,7 +84,7 @@ public class Game implements GameSave {
     public void startGame(String playerName, String difficultyLevel, int GameLevel){
         reset();
         setDifficultySettings(difficultyLevel);
-        setLevelSettings(1);
+        setLevelSettings(GameLevel);
         spawnerAdmin(false);
         stateGame = StateGame.RUNNING;
     }
@@ -184,8 +184,6 @@ public class Game implements GameSave {
     @Override
     public String Serialize() {
         String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
-        
-       
         return cereal;
     }
 
@@ -290,6 +288,12 @@ public class Game implements GameSave {
                 default:
         }
     }
+
+
+    public void toggleCheatMode(){
+        cheatMode = cheatMode ? false : true;
+    }
+
 
     //  Getters-Setters  //
 
