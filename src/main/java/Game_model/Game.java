@@ -100,6 +100,9 @@ public class Game implements GameSave {
 
     private void reset() {
         //reset all variables
+        EH_Avatar.getIt().setCurrentHealth(EH_Avatar.getIt().getMaxHealth());
+        EH_Avatar.getIt().setMag(300);
+        EH_Avatar.getIt().setAmmo(300);
         stateDiff = StateDifficulty.EASY;
         stateGame = StateGame.PAUSED;
         AI_Left = 0; 
@@ -109,7 +112,7 @@ public class Game implements GameSave {
         score = 0;
         time = 0;
         gameLvl = 1;
-        currentEnitity = 0;
+        //currentEnitity = 0;
         newMobSpawnDelay = 0;
         spawnDelayCount = 0;
         gamePhysicsWidth = 104;
@@ -118,6 +121,9 @@ public class Game implements GameSave {
         dt = LocalDateTime.now();
         playerName = "";
         lvlBackground = "";
+        // for (Entity i: entityList) {
+        //     i.deSpawn();
+        // }
         entityList.clear();
         deadEntityList.clear();
         gameOver = false;
@@ -130,7 +136,7 @@ public class Game implements GameSave {
             entityList.get(0).deSpawn();
         }
         entityList = new ArrayList<Entity>();
-        currentEnitity = 0;
+        //currentEnitity = 0;
     }
 
 

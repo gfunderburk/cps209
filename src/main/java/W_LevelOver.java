@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -87,12 +88,12 @@ public class W_LevelOver implements AppGUI_popupWin {
                 scoreManager.saveScores();            
             });
 
-            // Cereal cereal = new Cereal(game, newDate, newName);
-            // cereal.SerializeGame();
+            Cereal cereal = new Cereal(game, newDate, newName);
+            cereal.SerializeGame();
 
             Game.getIt().closeGame();
 
-            AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
+            //AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
@@ -105,7 +106,29 @@ public class W_LevelOver implements AppGUI_popupWin {
         } else {
             // ... user chose CANCEL or closed the dialog
             BTN_CLICK.play();
-        }        
+        }      
+        
+
+
+         // items for the dialog
+         String difficulty[] = {"Easy", "Medium", "Hard" };
+ 
+         // create a choice dialog
+         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
+         game.setGameLvl(game.getGameLvl() + 1);
+         d.setHeaderText("Please Select Difficulty Level");
+         d.showAndWait().ifPresent(choice -> 
+         {
+
+             try 
+             {
+                 AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
+             } 
+             catch (InterruptedException | IOException e) 
+             {
+                 e.printStackTrace();
+             }
+         });
     }
 
     //  ------------- //

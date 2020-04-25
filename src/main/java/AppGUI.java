@@ -88,7 +88,8 @@ public class AppGUI extends Application {
         // currentStage.setFullScreenExitHint("");
         currentStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));
 
-        if(newWindowTitle.equals("Game")){           
+        if(newWindowTitle.equals("Game")){    
+                   
             W_InGame gameScene = loader.getController();
             gameScene.ingameScene = scene;
 

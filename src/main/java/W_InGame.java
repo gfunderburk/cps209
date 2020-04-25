@@ -198,7 +198,8 @@ public class W_InGame {
 
     @FXML
     void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
-
+        
+        resetPane();
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         System.out.println(this.difficulty);
@@ -231,6 +232,8 @@ public class W_InGame {
     }
 
 
+
+
     void timerAnimate() throws IOException {
         if (Game.getIt().getStateGame() == StateGame.RUNNING) { 
 
@@ -253,7 +256,7 @@ public class W_InGame {
                 }     
             }
             Game.getIt().setDeadEntityList(new ArrayList<Entity>());
-            updateHealthGUI(); // 
+            updateHealthGUI();
         }
     }
 
@@ -264,7 +267,11 @@ public class W_InGame {
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
         if(oldEntityImg != null){
             pane.getChildren().remove(oldEntityImg);
-        }            
+        }
+        else{
+            System.out.println("imageView not found: " + entity.Serialize());
+            System.out.println("----- ID#  " + entity.getId());
+        }                
 
         //  Create and/or Redraw entity image 
         String imageAddress = File.separator+"icons"+entity.getImage();
@@ -306,7 +313,7 @@ public class W_InGame {
 
         if(entity instanceof E_Projectile){
             E_Projectile ent = (E_Projectile)entity;
-
+            
             imgY += (0.5 * imgH); // center img on Y-axis
             if(! ent.isAvatarsProjectile()){
                 double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
@@ -316,7 +323,7 @@ public class W_InGame {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                // SHOOT_FOOTSOLDIER.play();
+                //SHOOT_FOOTSOLDIER.play();
             }
         }
         else{
@@ -327,5 +334,26 @@ public class W_InGame {
         
 
         newEntityImg.relocate(imgX, paneH - imgY); 
+    }
+
+    void resetPane(){
+        
+        //  Delete any dead entity images
+        for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
+            ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            if(oldEntityImg != null){
+                pane.getChildren().remove(oldEntityImg);
+            }     
+        }        
+        Game.getIt().setEntityList(new ArrayList<Entity>());    
+        
+        //  Delete any dead entity images
+        for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+            ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            if(oldEntityImg != null){
+                pane.getChildren().remove(oldEntityImg);
+            }     
+        }
+        Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
 }
