@@ -175,18 +175,20 @@ public class W_InGame implements EventHandler<KeyEvent>{
     }
 
     // //Written by Funderburk, pushed by Cox
-    // @Override
-    // public void handle(KeyEvent event) {
-    //     System.out.println(event.getCharacter());
-    //    if(event.getCharacter()=="R"){
-    //     System.out.print("RELOAD");
-    //     avatar.getIt().reload();
-    //    }
-    //    if(event.getCharacter()=="C"){
-    //        System.out.print("CHEAT");
-    //        game.getIt().toggleCheatMode(cheatMode);
-    //    }
-    // }
+    @Override
+    public void handle(KeyEvent event) {
+        System.out.println(event.getCharacter());
+       if(event.getCharacter()=="R"){
+        System.out.print("RELOAD");
+        EH_Avatar.getIt().reload();
+        BTN_CLICK.play();
+       }
+       if(event.getCharacter()=="C"){
+           System.out.print("CHEAT");
+           Game.getIt().toggleCheatMode();
+           BTN_CLICK.play();
+       }
+    }
     
 
     // ------------- //
@@ -236,15 +238,15 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
         Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         
-        // String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
-        // Image lvlImage = new Image(imageAddress);
+        String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
+        Image lvlImage = new Image(imageAddress);
         
-        // BackgroundImage background = new BackgroundImage(lvlImage,
-        //                                                 BackgroundRepeat.NO_REPEAT,
-        //                                                 BackgroundRepeat.NO_REPEAT,
-        //                                                 BackgroundPosition.DEFAULT,
-        //                                                 BackgroundSize.DEFAULT);
-        // pane.setBackground(new Background(background));
+        BackgroundImage background = new BackgroundImage(lvlImage,
+                                                        BackgroundRepeat.NO_REPEAT,
+                                                        BackgroundRepeat.NO_REPEAT,
+                                                        BackgroundPosition.DEFAULT,
+                                                        BackgroundSize.DEFAULT);
+        pane.setBackground(new Background(background));
         
         
         //  Set Global Animation Timer
@@ -418,18 +420,4 @@ public class W_InGame implements EventHandler<KeyEvent>{
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
 
-
-    @Override
-    public void handle(KeyEvent event) {
-        System.out.println(event.getCharacter());
-       if( event.getCode() == KeyCode.R) {
-        System.out.print("RELOAD");
-        avatar.reload();
-       }
-       if(event.getCode() == KeyCode.C){
-           System.out.print("CHEAT");
-           Game.getIt().toggleCheatMode();
-       }
-
-    }
 }
