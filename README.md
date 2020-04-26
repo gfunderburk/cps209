@@ -18,8 +18,8 @@ To play the game, select New Game or Load Game. If you select Load Game, you wil
 | Game Physics / Movement | _ | Layton |
 
 ## Beta
-|   Feature  | Required |  Assignee | Status|
-|:--------|:------------:|:------------:|:-----:|
+|   Feature  | Required |  Assignee | 
+|:--------|:------------:|:------------:|
 | In-game HUD | _ | Cox | 
 | Difficulty Levels Logic | Yes | Cox | 
 | Background image scaling | _ | Layton |  
