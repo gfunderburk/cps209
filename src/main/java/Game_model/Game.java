@@ -295,15 +295,11 @@ public class Game implements GameSave {
                 default:
         }
     }
-<<<<<<< HEAD
-    
-=======
 
 
     public void toggleCheatMode(){
         cheatMode = cheatMode ? false : true;
     }
->>>>>>> 0c6b8e670fa2c4c4d47387690a80507c7b141b41
 
 
     //  Getters-Setters  //
