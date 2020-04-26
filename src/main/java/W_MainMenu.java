@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import Data_model.Cereal;
 import Game_model.Game;
+import Game_model.Game.StateDifficulty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
@@ -28,7 +29,8 @@ public class W_MainMenu {
     // --------------- //
     // View Variables //
     // --------------- //
-
+    String difficulty = "";
+    int gameLvl;
     
     // ------------- //
     // GUI Elements //
@@ -59,7 +61,8 @@ public class W_MainMenu {
             //newStage.close();
             try 
             {
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), d.getSelectedItem());
+                String result = (String) d.getSelectedItem();
+                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{result, 1});
                 // game.initialize((int) d.getSelectedItem());
             } 
             catch (InterruptedException | IOException e) 
@@ -95,7 +98,17 @@ public class W_MainMenu {
         { 
             System.out.println("Problem loading scores.dat"); 
         }
-        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), game.getGameLvl());
+        
+        if (game.getStateDiff() == StateDifficulty.EASY) {
+            difficulty = "Easy";            
+        }
+        else if (game.getStateDiff() == StateDifficulty.MEDIUM) {
+            difficulty = "Medium";
+        }
+        else if (game.getStateDiff() == StateDifficulty.HARD) {
+            difficulty = "Hard";
+        }
+        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{difficulty, game.getGameLvl()});
     }
 
     @FXML

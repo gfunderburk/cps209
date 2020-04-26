@@ -82,9 +82,10 @@ public class Game implements GameSave {
     }
 
     public void startGame(String playerName, String difficultyLevel, int GameLevel){
-        reset();
+        // reset();
+        // resetGameSingleton();
         setDifficultySettings(difficultyLevel);
-        setLevelSettings(1);
+        setLevelSettings(GameLevel);
         spawnerAdmin(false);
         stateGame = StateGame.RUNNING;
     }
@@ -97,6 +98,12 @@ public class Game implements GameSave {
     //     spawnerAdmin(true);
     //     stateGame = StateGame.RUNNING;
     // }
+
+
+    public static void resetGameSingleton() {
+        It = new Game();
+    }
+
 
     private void reset() {
         //reset all variables
@@ -131,13 +138,13 @@ public class Game implements GameSave {
         cheatMode = false;
     }
 
-    public void closeGame() {
-        for(int i=0; i<entityList.size(); i++){
-            entityList.get(0).deSpawn();
-        }
-        entityList = new ArrayList<Entity>();
-        //currentEnitity = 0;
-    }
+    // public void closeGame() {
+    //     for(int i=0; i<entityList.size(); i++){
+    //         entityList.get(0).deSpawn();
+    //     }
+    //     entityList = new ArrayList<Entity>();
+    //     //currentEnitity = 0;
+    // }
 
 
     public void loadGame(){
@@ -184,8 +191,6 @@ public class Game implements GameSave {
     @Override
     public String Serialize() {
         String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
-        
-       
         return cereal;
     }
 
@@ -290,7 +295,15 @@ public class Game implements GameSave {
                 default:
         }
     }
+<<<<<<< HEAD
     
+=======
+
+
+    public void toggleCheatMode(){
+        cheatMode = cheatMode ? false : true;
+    }
+>>>>>>> 0c6b8e670fa2c4c4d47387690a80507c7b141b41
 
 
     //  Getters-Setters  //
@@ -383,11 +396,6 @@ public class Game implements GameSave {
 
     public void setCheatMode(boolean cheatMode) {
         this.cheatMode = cheatMode;
-    }
-
-
-    public void toggleCheatMode(boolean cheatMode) {
-        this.cheatMode = cheatMode ? false : true;
     }
 
     public int getCurrentEnitity() {

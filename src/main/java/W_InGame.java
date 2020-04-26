@@ -11,11 +11,8 @@ import Game_model.Game;
 import Game_model.Game.StateGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-<<<<<<< HEAD
 import javafx.event.EventHandler;
-=======
 import javafx.application.Platform;
->>>>>>> aa3958e707ad38d1dcb096e87615f87817acb5f4
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -47,11 +44,13 @@ import javafx.scene.input.KeyEvent;
 //Desc:   This class is for active in-game gameplay.
 //------------------------------------------------------------------ 
 
-public class W_InGame implements EventHandler<KeyEvent> {
+
+public class W_InGame implements EventHandler<KeyEvent>{
+
 
     // Singleton Instance Variables
     Game game = Game.getIt();
-    boolean cheatMode=false;
+    
     EH_Avatar avatar = EH_Avatar.getIt();
     static Object lock = new Object();
 
@@ -76,6 +75,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     String difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
+    boolean cheatMode = Game.getIt().isCheatMode();
 
     // ------------- //
     // GUI Elements //
@@ -117,7 +117,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     void onEscClicked() throws IOException {
         // Load ESC_Menu
-<<<<<<< HEAD
         var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
         var scene = new Scene(loader.load());  
         scene.setOnKeyPressed((KeyEvent event) -> {if(event.getCode()==KeyCode.R){System.out.print("Reload");}});   
@@ -126,10 +125,10 @@ public class W_InGame implements EventHandler<KeyEvent> {
         AppGUI.getPopupStage().setWidth(400);
         AppGUI.getPopupStage().setHeight(300);
         AppGUI.getPopupStage().show();
-=======
+
         BTN_CLICK.play();
         AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
->>>>>>> aa3958e707ad38d1dcb096e87615f87817acb5f4
+
     }
 
 
@@ -165,16 +164,29 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         if (avatar.getMag() > 1) {
-            SHOOT_M16.play();
+            SHOOT_FOOTSOLDIER.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
             BTN_CLICK.play();
             avatar.setMag(0);
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        lbl_Score.setText("Score: " + game.getScore()); 
-
+        lbl_Score.setText("Score: " + Game.getIt().getScore()); 
     }
+
+    // //Written by Funderburk, pushed by Cox
+    // @Override
+    // public void handle(KeyEvent event) {
+    //     System.out.println(event.getCharacter());
+    //    if(event.getCharacter()=="R"){
+    //     System.out.print("RELOAD");
+    //     avatar.getIt().reload();
+    //    }
+    //    if(event.getCharacter()=="C"){
+    //        System.out.print("CHEAT");
+    //        game.getIt().toggleCheatMode(cheatMode);
+    //    }
+    // }
     
 
     // ------------- //
@@ -182,10 +194,18 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // ------------- //
 
     void updateHealthGUI() throws IOException {
-        double health = avatar.getCurrentHealth();
+        double health = avatar.getCurrentHealth()/10;
+        //System.out.println(health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
+        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
+        lbl_Score.setText("Score: " + Game.getIt().getScore()); 
+        if (health < 5) {
+            progBar_health.setStyle("-fx-accent: red;");
+        } else {
+            progBar_health.setStyle("-fx-accent: lime;");
+        }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
         if (Game.getIt().isGameOver()) {
@@ -202,44 +222,29 @@ public class W_InGame implements EventHandler<KeyEvent> {
         } 
     }
 
-    //Used for debugging of healthBar functionality...will remove before submission
-    // void minusHealthBar() {
-    //     health -= 0.01;
-    //     vbox_health.getChildren().clear();
-    //     progBar_health = new ProgressBar();
-    //     progBar_health.setProgress(health);
-    //     vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
-    //     // plusHealthBar();
-    // }
-
-    // void plusHealthBar() {
-    //     KeyFrame timer = new KeyFrame(Duration.seconds(1), e -> {
-    //         health += .01;
-    //         updateHealth();
-    //     });
-    //     var timeline = new Timeline(timer);
-    //     timeline.play();
-    // }
 
     @FXML
     void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
         
         resetPane();
+        EH_Avatar.resetAvatarSingleton();
+        Game.resetGameSingleton();
+        game = Game.getIt();
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
-        System.out.println(this.difficulty);
-        
+
+
         Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         
-        String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
-        Image lvlImage = new Image(imageAddress);
+        // String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
+        // Image lvlImage = new Image(imageAddress);
         
-        BackgroundImage background = new BackgroundImage(lvlImage,
-                                                        BackgroundRepeat.NO_REPEAT,
-                                                        BackgroundRepeat.NO_REPEAT,
-                                                        BackgroundPosition.DEFAULT,
-                                                        BackgroundSize.DEFAULT);
-        pane.setBackground(new Background(background));
+        // BackgroundImage background = new BackgroundImage(lvlImage,
+        //                                                 BackgroundRepeat.NO_REPEAT,
+        //                                                 BackgroundRepeat.NO_REPEAT,
+        //                                                 BackgroundPosition.DEFAULT,
+        //                                                 BackgroundSize.DEFAULT);
+        // pane.setBackground(new Background(background));
         
         
         //  Set Global Animation Timer
@@ -263,7 +268,15 @@ public class W_InGame implements EventHandler<KeyEvent> {
             for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
                 Game.getIt().getEntityList().get(i).stateIncrement();
             }
+            var pi = Game.getIt();
+            if(pi.getGameLvl() == 2) {
+                var ki = 0;}
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
+
+            // for(ImageView item: (ImageView[])pane.getChildren().stream().filter(me -> me instanceof ImageView).toArray()){
+            //     item.unbind();
+                
+            // }
 
             pane.getChildren().clear();
 
@@ -345,7 +358,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
             if(entity instanceof E_Projectile){
                 E_Projectile ent = (E_Projectile)entity;
-
+                
                 imgY += (0.5 * imgH); // center img on Y-axis
                 if(! ent.isAvatarsProjectile()){
                     double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
@@ -355,7 +368,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
                     imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                     imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                     imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                    // SHOOT_FOOTSOLDIER.play();
+                    //SHOOT_SHOTGUN.play();
                 }
             }
             else{
@@ -404,17 +417,29 @@ public class W_InGame implements EventHandler<KeyEvent> {
         }
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c6b8e670fa2c4c4d47387690a80507c7b141b41
 
     @Override
     public void handle(KeyEvent event) {
         System.out.println(event.getCharacter());
-       if( event.getCharacter()=="R"){
+       if( event.getCode() == KeyCode.R) {
         System.out.print("RELOAD");
+<<<<<<< HEAD
         avatar.getIt().reload();
+=======
+        avatar.reload();
+>>>>>>> 0c6b8e670fa2c4c4d47387690a80507c7b141b41
        }
-       if(event.getCharacter()=="C"){
+       if(event.getCode() == KeyCode.C){
            System.out.print("CHEAT");
+<<<<<<< HEAD
            game.getIt().toggleCheatMode(cheatMode);
+=======
+           Game.getIt().toggleCheatMode();
+>>>>>>> 0c6b8e670fa2c4c4d47387690a80507c7b141b41
        }
 
     }

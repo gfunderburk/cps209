@@ -21,7 +21,7 @@ public class EH_Avatar extends EntityHumanoid {
 
     private EH_Avatar(){
         this.typeRound = TypeRound.LIGHT_ROUND;
-        this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, 0));       
+        this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, -1));       
         this.currentHealth = 10;
         this.maxHealth = 10;
         this.mag = 300;
@@ -32,6 +32,11 @@ public class EH_Avatar extends EntityHumanoid {
 
     public static EH_Avatar getIt(){
         return It;
+    }
+
+
+    public static void resetAvatarSingleton() {
+        It = new EH_Avatar();
     }
 
     // Methods //
@@ -69,15 +74,15 @@ public class EH_Avatar extends EntityHumanoid {
             switch(ent.getTypeRound()){
 
                 case LIGHT_ROUND:
-                    this.currentHealth -= E_Projectile.getLightRoundDmg();
+                    this.currentHealth -= E_Projectile.getLightRoundDmg()/100;
                     break;
                 
                 case HEAVY_ROUND:
-                    this.currentHealth -= E_Projectile.getHeavyRoundDmg();
+                    this.currentHealth -= E_Projectile.getHeavyRoundDmg()/100;
                     break;
 
                 case EXPLOSIVE_ROUND:
-                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg();
+                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg()/100;
                     break;
 
                 default:
@@ -151,7 +156,7 @@ public class EH_Avatar extends EntityHumanoid {
 
     @Override
     public void reload() {
-        if(this.mag < 30 & this.ammo > 0){
+        if(this.mag < 300 & this.ammo > 0){
             super.reload();
         }
     }

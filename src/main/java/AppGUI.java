@@ -59,8 +59,10 @@ public class AppGUI extends Application {
         AppGUI.getPopupStage().show();
     }
 
-    public static void windowLoad(String newWindowTitle, URL windowURL, Object windowInitData) 
+    public static void windowLoad(String newWindowTitle, URL windowURL, Object[] windowInitData) 
         throws IOException, InterruptedException {
+        currentStage.close();
+        currentStage = new Stage();
 
         var loader = new FXMLLoader(windowURL);
         var scene = new Scene(loader.load());
@@ -94,15 +96,20 @@ public class AppGUI extends Application {
             gameScene.ingameScene = scene;
 
             scene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
-                if(key.isShiftDown()) {
-                    //((instance.isCheatMode() == true) ? instance.setCheatMode(false) : instance.);
+                if(key.getCode() == KeyCode.C) {
+                    System.out.println("cheat mode toggled");
+                    if (game.isCheatMode()) {
+                        game.setCheatMode(false);
+                    } else {
+                        game.setCheatMode(true);
+                    }
                 }
              });
 
-            gameScene.initialize((String) windowInitData, game.getGameLvl());
+            gameScene.initialize((String)windowInitData[0], (int)windowInitData[1]);
         }
 
-        // currentStage.show();
+        currentStage.show();
     }
 
 
