@@ -36,19 +36,19 @@ public class Cereal {
     {
        
         ArrayList<Entity> cerealArray= Game.getIt().getEntityList();
-        for(Entity ent:cerealArray){
+       
 
-            try(DataOutputStream writer=new DataOutputStream(new FileOutputStream("cereal.dat"))){
-              
-                writer.writeUTF(ent.Serialize()+"\n");
+        try(DataOutputStream writer=new DataOutputStream(new FileOutputStream("cereal.dat"))){
+                for(Entity ent:cerealArray){
+                 writer.writeUTF(ent.Serialize()+"\n");
+                }
                 
-
             }catch(IOException e){
                 System.out.println("An Error has Occured During Serialization    (SerializeGame() Line:36-)");
             }
         }
         
-    }
+    
 
 
 	public void deSerialize(String line) {
