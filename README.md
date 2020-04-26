@@ -43,7 +43,7 @@ None
 |:------------:|:-------------:|:-------------:|
 |Jeremiah Cox  |  50.8         |   9.2        |
 |Gunnar Funderburk | 30  |  30  |
-|Jonathan Layton  |  41   |  29 (Dr. Scaub 10 hour extension) |
+|Jonathan Layton  |  59   |  11 (Dr. Scaub 10 hour extension) |
 
 ### Journals
 - [Jeremiah Cox](https://github.com/gfunderburk/cps209/wiki/Journal_Cox)
