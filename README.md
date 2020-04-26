@@ -35,7 +35,7 @@ None
 ## Recording: 
 
 - [Game Demo Screen Recording (Alpha Release)](https://youtu.be/4OJjVRsCHcA)
-- [Game Demo Screen Recording (Beta Release)] (https://youtu.be/J9Flj3YA3yA)
+- [Game Demo Screen Recording (Beta Release)](https://youtu.be/5D6LID1TyRE)
 
 
 ## Expenses: 
