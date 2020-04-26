@@ -6,7 +6,7 @@ To play the game, select New Game or Load Game. If you select Load Game, you wil
 *Note: Loading saved game and collision damage does not work yet (coming soon with Beta release!). Code for loading Saved Game is finished, just not working properly yet.
 
 ## Work Completed: 
-
+##Alpha
 |   Feature  | Required |  Assignee |
 |:--------|:------------:|:------------:|
 | In-game Background for (lvl-1) | _ | Layton |  
@@ -17,6 +17,17 @@ To play the game, select New Game or Load Game. If you select Load Game, you wil
 | Game 3-space  | _ | Layton |
 | Game Physics / Movement | _ | Layton |
 
+##Beta
+|   Feature  | Required |  Assignee | Status|
+|:--------|:------------:|:------------:|:-----:|
+| In-game HUD | _ | Cox | 
+| Difficulty Levels Logic | Yes | Cox | 
+| Background image scaling | _ | Layton |  
+| Score Functionality | Yes | Cox |  
+| HeavyAI Animations+Logic | _ | Layton |
+| FlyingAI Animations+Logic | _ | Layton | 
+| BossAI Animations+Logic | _ | Layton | 
+
 
 ## Known Issues: 
 None 
@@ -24,13 +35,14 @@ None
 ## Recording: 
 
 - [Game Demo Screen Recording](https://youtu.be/4OJjVRsCHcA)
+- 
 
 
 ## Expenses: 
 
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
-|Jeremiah Cox  |  42.8         |   17.2        |
+|Jeremiah Cox  |  50.8         |   9.2        |
 |Gunnar Funderburk | 30  |  30  |
 |Jonathan Layton  |  41   |  29 (Dr. Scaub 10 hour extension) |
 
