@@ -6,7 +6,7 @@ To play the game, select New Game or Load Game. If you select Load Game, you wil
 *Note: Loading saved game and collision damage does not work yet (coming soon with Beta release!). Code for loading Saved Game is finished, just not working properly yet.
 
 ## Work Completed: 
-##Alpha
+## Alpha
 |   Feature  | Required |  Assignee |
 |:--------|:------------:|:------------:|
 | In-game Background for (lvl-1) | _ | Layton |  
@@ -17,7 +17,7 @@ To play the game, select New Game or Load Game. If you select Load Game, you wil
 | Game 3-space  | _ | Layton |
 | Game Physics / Movement | _ | Layton |
 
-##Beta
+## Beta
 |   Feature  | Required |  Assignee | Status|
 |:--------|:------------:|:------------:|:-----:|
 | In-game HUD | _ | Cox | 
