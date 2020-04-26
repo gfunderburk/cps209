@@ -3,7 +3,9 @@ package Data_model;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -33,15 +35,15 @@ public class Cereal {
     }
 
     public void SerializeGame() throws FileNotFoundException
-    {
-       
+    {       
         ArrayList<Entity> cerealArray= Game.getIt().getEntityList();
        
 
-        try(DataOutputStream writer=new DataOutputStream(new FileOutputStream("cereal.dat"))){
-                for(Entity ent:cerealArray){
-                 writer.writeUTF(ent.Serialize()+"\n");
-                }
+            
+        try(var wr = new PrintWriter( new FileWriter("cereal.dat")); )
+        {
+              
+                wr.write(ent.Serialize() + "\n");
                 
             }catch(IOException e){
                 System.out.println("An Error has Occured During Serialization    (SerializeGame() Line:36-)");

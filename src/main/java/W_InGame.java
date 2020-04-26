@@ -174,7 +174,22 @@ public class W_InGame implements EventHandler<KeyEvent>{
         lbl_Score.setText("Score: " + Game.getIt().getScore()); 
     }
 
-   
+    // //Written by Funderburk, pushed by Cox
+    @Override
+    public void handle(KeyEvent event) {
+        System.out.println(event.getCharacter());
+       if(event.getCharacter()=="R"){
+        System.out.print("RELOAD");
+        EH_Avatar.getIt().reload();
+        BTN_CLICK.play();
+       }
+       if(event.getCharacter()=="C"){
+           System.out.print("CHEAT");
+           Game.getIt().toggleCheatMode();
+           BTN_CLICK.play();
+       }
+    }
+    
 
     // ------------- //
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
@@ -405,18 +420,4 @@ public class W_InGame implements EventHandler<KeyEvent>{
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
 
-
-    @Override
-    public void handle(KeyEvent event) {
-        System.out.println(event.getCharacter());
-       if( event.getCode() == KeyCode.R) {
-        System.out.print("RELOAD");
-        avatar.reload();
-       }
-       if(event.getCode() == KeyCode.C){
-           System.out.print("CHEAT");
-           game.toggleCheatMode();
-       }
-
-    }
 }
