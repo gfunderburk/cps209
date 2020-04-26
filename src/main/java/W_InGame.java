@@ -194,7 +194,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
     // ------------- //
 
     void updateHealthGUI() throws IOException {
-        double health = avatar.getCurrentHealth();
+        double health = avatar.getCurrentHealth()/10;
         //System.out.println(health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
@@ -368,7 +368,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
                     imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                     imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                     imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                    //SHOOT_M16.play();
+                    //SHOOT_SHOTGUN.play();
                 }
             }
             else{
