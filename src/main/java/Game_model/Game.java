@@ -138,13 +138,13 @@ public class Game implements GameSave {
         cheatMode = false;
     }
 
-    public void closeGame() {
-        for(int i=0; i<entityList.size(); i++){
-            entityList.get(0).deSpawn();
-        }
-        entityList = new ArrayList<Entity>();
-        //currentEnitity = 0;
-    }
+    // public void closeGame() {
+    //     for(int i=0; i<entityList.size(); i++){
+    //         entityList.get(0).deSpawn();
+    //     }
+    //     entityList = new ArrayList<Entity>();
+    //     //currentEnitity = 0;
+    // }
 
 
     public void loadGame(){

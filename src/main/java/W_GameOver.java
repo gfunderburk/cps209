@@ -90,7 +90,7 @@ public class W_GameOver implements AppGUI_popupWin{
             // Cereal cereal = new Cereal(game, newDate, newName);
             // cereal.SerializeGame();
 
-            Game.getIt().closeGame();
+            // Game.getIt().closeGame();
 
             AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
         } 
@@ -98,7 +98,7 @@ public class W_GameOver implements AppGUI_popupWin{
             // Return to main menu and close the game window
             BTN_CLICK.play();
             AppGUI.getPopupStage().close();         
-            Game.getIt().closeGame();
+            // Game.getIt().closeGame();
             AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
 
 

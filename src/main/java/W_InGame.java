@@ -75,7 +75,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
     String difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
-    boolean cheatMode = game.isCheatMode();
+    boolean cheatMode = Game.getIt().isCheatMode();
 
     // ------------- //
     // GUI Elements //
@@ -164,16 +164,14 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         if (avatar.getMag() > 1) {
-            SHOOT_M16.play();
+            SHOOT_FOOTSOLDIER.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
             BTN_CLICK.play();
             avatar.setMag(0);
         }
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        lbl_Score.setText("Score: " + game.getScore()); 
-        game.setPlayerWin(true);
-        game.setGameOver(true);
+        lbl_Score.setText("Score: " + Game.getIt().getScore()); 
     }
 
     // //Written by Funderburk, pushed by Cox
@@ -202,7 +200,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        lbl_Score.setText("Score: " + game.getScore()); 
+        lbl_Score.setText("Score: " + Game.getIt().getScore()); 
         if (health < 5) {
             progBar_health.setStyle("-fx-accent: red;");
         } else {
@@ -210,10 +208,10 @@ public class W_InGame implements EventHandler<KeyEvent>{
         }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
-        if (game.isGameOver()) {
+        if (Game.getIt().isGameOver()) {
             // Game.getIt().closeGame();
 
-            if(game.isPlayerWinner()){
+            if(Game.getIt().isPlayerWinner()){
                 // Load-Launch "YOU HAVE COMPLETED THE LEVEL!" LevelOver menu
                 AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER");
             }
@@ -229,22 +227,24 @@ public class W_InGame implements EventHandler<KeyEvent>{
     void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
         
         resetPane();
+        EH_Avatar.resetAvatarSingleton();
         Game.resetGameSingleton();
+        game = Game.getIt();
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
 
 
         Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         
-        String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
-        Image lvlImage = new Image(imageAddress);
+        // String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
+        // Image lvlImage = new Image(imageAddress);
         
-        BackgroundImage background = new BackgroundImage(lvlImage,
-                                                        BackgroundRepeat.NO_REPEAT,
-                                                        BackgroundRepeat.NO_REPEAT,
-                                                        BackgroundPosition.DEFAULT,
-                                                        BackgroundSize.DEFAULT);
-        pane.setBackground(new Background(background));
+        // BackgroundImage background = new BackgroundImage(lvlImage,
+        //                                                 BackgroundRepeat.NO_REPEAT,
+        //                                                 BackgroundRepeat.NO_REPEAT,
+        //                                                 BackgroundPosition.DEFAULT,
+        //                                                 BackgroundSize.DEFAULT);
+        // pane.setBackground(new Background(background));
         
         
         //  Set Global Animation Timer
@@ -268,6 +268,9 @@ public class W_InGame implements EventHandler<KeyEvent>{
             for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
                 Game.getIt().getEntityList().get(i).stateIncrement();
             }
+            var pi = Game.getIt();
+            if(pi.getGameLvl() == 2) {
+                var ki = 0;}
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
 
             // for(ImageView item: (ImageView[])pane.getChildren().stream().filter(me -> me instanceof ImageView).toArray()){
@@ -355,7 +358,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
             if(entity instanceof E_Projectile){
                 E_Projectile ent = (E_Projectile)entity;
-
+                
                 imgY += (0.5 * imgH); // center img on Y-axis
                 if(! ent.isAvatarsProjectile()){
                     double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
@@ -365,7 +368,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
                     imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                     imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                     imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                    // SHOOT_FOOTSOLDIER.play();
+                    //SHOOT_M16.play();
                 }
             }
             else{
@@ -425,7 +428,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
        }
        if(event.getCode() == KeyCode.C){
            System.out.print("CHEAT");
-           game.toggleCheatMode();
+           Game.getIt().toggleCheatMode();
        }
 
     }

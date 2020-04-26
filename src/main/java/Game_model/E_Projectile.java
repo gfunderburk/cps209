@@ -25,14 +25,14 @@ public class E_Projectile extends Entity {
     protected static String lightRound_AIImg = "round_light_in.png";
     protected static String lightRound_PlayerImg = "round_light_out.png";
 
-    protected static double heavyRoundDmg = .02;
+    protected static double heavyRoundDmg = 2;
     protected static double heavyRound_width = 2.5;
     protected static double heavyRoundMoveFactor = 2;
     protected static String heavyRound_FireImg = "round_heavy_fire.png";
     protected static String heavyRound_AIImg = "round_heavy_in.png";
     protected static String heavyRound_PlayerImg = "round_heavy_out.png";
 
-    protected static double explosiveRoundDmg = .03;
+    protected static double explosiveRoundDmg = 3;
     protected static double explosiveRound_width = 3;
     protected static double explosiveRoundMoveFactor = 3;
     protected static String explosiveRound_FireImg = "round_explosive_fire.png";
@@ -154,7 +154,7 @@ public class E_Projectile extends Entity {
                                 .filter(ent -> !(ent instanceof E_Projectile) )
                                 .filter(ent -> (ent.location.getX() + ent.width * .5) > this.location.getX())
                                 .filter(ent -> (ent.location.getX() - ent.width * .5) < this.location.getX())
-                                .filter(ent -> (ent.location.getY() + ent.height * .5) > this.location.getY())
+                                .filter(ent -> (ent.location.getY() + ent.height * .65) > this.location.getY())
                                 .filter(ent -> (ent.location.getY() - ent.height * .5) < this.location.getY())
                                 .findAny()
                                 .orElse(null);      // .collect(Collectors.toList()));

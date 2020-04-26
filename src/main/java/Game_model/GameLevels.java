@@ -49,13 +49,13 @@ public class GameLevels {
     public int getLvlAICnt(int lvl){
         switch(lvl){
             case 1:
-                return lvl1_AICnt;
+                return this.lvl1_AICnt;
 
             case 2:
-                return lvl2_AICnt;
+                return this.lvl2_AICnt;
 
             case 3:
-                return lvl3_AICnt;
+                return this.lvl3_AICnt;
 
             default:
                 return -1;
@@ -65,13 +65,13 @@ public class GameLevels {
     public ArrayList<EK_Scenery> getLvlScenery(int lvl){
         switch(lvl){
             case 1:
-                return lvl1_Scenery;
+                return this.lvl1_Scenery;
 
             case 2:
-                return lvl2_Scenery;
+                return this.lvl2_Scenery;
 
             case 3:
-                return lvl3_Scenery;
+                return this.lvl3_Scenery;
 
             default:
                 return null;

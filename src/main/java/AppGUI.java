@@ -61,8 +61,8 @@ public class AppGUI extends Application {
 
     public static void windowLoad(String newWindowTitle, URL windowURL, Object[] windowInitData) 
         throws IOException, InterruptedException {
-
         currentStage.close();
+        currentStage = new Stage();
 
         var loader = new FXMLLoader(windowURL);
         var scene = new Scene(loader.load());

@@ -34,6 +34,11 @@ public class EH_Avatar extends EntityHumanoid {
         return It;
     }
 
+
+    public static void resetAvatarSingleton() {
+        It = new EH_Avatar();
+    }
+
     // Methods //
 
     @Override

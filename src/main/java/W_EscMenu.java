@@ -89,14 +89,14 @@ public class W_EscMenu implements AppGUI_popupWin{
             Cereal cereal = new Cereal(game, newDate, newName);
             cereal.SerializeGame();
 
-            Game.getIt().closeGame();
+            // Game.getIt().closeGame();
 
             AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
             AppGUI.getPopupStage().close();         
-            Game.getIt().closeGame();
+            // Game.getIt().closeGame();
             AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
 
 
