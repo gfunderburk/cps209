@@ -290,9 +290,7 @@ public class Game implements GameSave {
                 default:
         }
     }
-    public void toggleCheatMode(boolean cheatMode) {
-        this.cheatMode = cheatMode ? false : true;
-    }
+    
 
 
     //  Getters-Setters  //
@@ -452,58 +450,7 @@ public class Game implements GameSave {
         return lvlBackground;
     }
 
-    public void setLvlBackground(String lvlBackground) {
-        this.lvlBackground = lvlBackground;
-    }
-
-    public ArrayList<Entity> getDeadEntityList() {
-        return deadEntityList;
-    }
-
-    public void setDeadEntityList(ArrayList<Entity> deadEntityList) {
-        this.deadEntityList = deadEntityList;
-    }
-
-    public int getAI_Left_ToSpawn() {
-        return AI_Left_ToSpawn;
-    }
-
-    public void setAI_Left_ToSpawn(int aI_Left_ToSpawn) {
-        AI_Left_ToSpawn = aI_Left_ToSpawn;
-    }
-
-    public int getCurrentAIspawnCnt() {
-        return currentAIspawnCnt;
-    }
-
-    public void setCurrentAIspawnCnt(int currentAIspawnCnt) {
-        this.currentAIspawnCnt = currentAIspawnCnt;
-    }
-
-    public int getMaxAISpawnCnt() {
-        return maxAISpawnCnt;
-    }
-
-    public void setMaxAISpawnCnt(int maxAISpawnCnt) {
-        this.maxAISpawnCnt = maxAISpawnCnt;
-    }
-
-
-    public boolean isPlayerWinner() {
-        return playerWin;
-    }
-
-    public void setPlayerWinner(boolean playerWin) {
-        this.playerWin = playerWin;
-    }
-
-    public boolean isPlayerWin() {
-        return playerWin;
-    }
-
-    public void setPlayerWin(boolean playerWin) {
-        this.playerWin = playerWin;
-    }
+    
 
 }
 

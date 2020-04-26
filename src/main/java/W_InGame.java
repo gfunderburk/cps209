@@ -404,22 +404,18 @@ public class W_InGame implements EventHandler<KeyEvent> {
         }
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
-<<<<<<< HEAD
 
     @Override
     public void handle(KeyEvent event) {
         System.out.println(event.getCharacter());
        if( event.getCharacter()=="R"){
         System.out.print("RELOAD");
-        //avatar.getIt().reload();
+        avatar.getIt().reload();
        }
        if(event.getCharacter()=="C"){
            System.out.print("CHEAT");
-           // game.getIt().toggleCheatMode(cheatMode);
+           game.getIt().toggleCheatMode(cheatMode);
        }
 
     }
 }
-=======
-}
->>>>>>> aa3958e707ad38d1dcb096e87615f87817acb5f4
