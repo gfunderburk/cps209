@@ -35,19 +35,22 @@ public class Cereal {
     public void SerializeGame() throws FileNotFoundException
     {       
         ArrayList<Entity> cerealArray= Game.getIt().getEntityList();
-        for(Entity ent:cerealArray){
-
+        
             
         try(var wr = new PrintWriter( new FileWriter("cereal.dat")); )
         {
-              
+            for(Entity ent:cerealArray){
                 wr.write(ent.Serialize() + "\n");
                 
-
-            }catch(IOException e){
-                System.out.println("An Error has Occured During Serialization    (SerializeGame() Line:36-)");
             }
+                
+                
+
+        }catch(IOException e){
+
+                System.out.println("An Error has Occured During Serialization    (SerializeGame() Line:36-)");
         }
+        
         
     }
 
