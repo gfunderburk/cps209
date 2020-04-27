@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.URL;
 import Game_model.Game;
+import Game_model.Game.StateDifficulty;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -103,7 +104,7 @@ public class AppGUI extends Application {
                 }
              });
 
-            gameScene.initialize((String)windowInitData[0], (int)windowInitData[1]);
+            gameScene.initialize((StateDifficulty)windowInitData[0], (int)windowInitData[1], (int) windowInitData[2]);
         }
 
         currentStage.show();

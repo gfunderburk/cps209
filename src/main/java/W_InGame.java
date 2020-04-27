@@ -1,11 +1,16 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import Data_model.Cereal;
 import Game_model.EH_Avatar;
 import Game_model.EK_Scenery;
 import Game_model.E_Projectile;
 import Game_model.Entity;
 import Game_model.Game;
+import Game_model.Game.StateDifficulty;
 import Game_model.Game.StateGame;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -33,22 +38,18 @@ import javafx.scene.media.AudioClip;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
 
-
 //------------------------------------------------------------------
 //File:   Window_InGame.java
 //Desc:   This class is for active in-game gameplay.
 //------------------------------------------------------------------ 
 
-
-public class W_InGame implements EventHandler<KeyEvent>{
-
+public class W_InGame implements EventHandler<KeyEvent> {
 
     // Singleton Instance Variables
     Game game = Game.getIt();
-    
+
     EH_Avatar avatar = EH_Avatar.getIt();
     static Object lock = new Object();
-
 
     // --------------- //
     // Media Elements //
@@ -67,7 +68,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
     Scene ingameScene;
     Scene scene;
-    String difficulty;
+    StateDifficulty difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
     boolean readyForNextFrame = true;
@@ -96,10 +97,9 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
     @FXML
     ProgressBar progBar_health;
-    
 
     // ------------ //
-    //  GUI Methods // (DIRECT USER EVENTS)
+    // GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
 
     /**
@@ -112,8 +112,12 @@ public class W_InGame implements EventHandler<KeyEvent>{
     void onEscClicked() throws IOException {
         // Load ESC_Menu
         var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
-        var scene = new Scene(loader.load());  
-        scene.setOnKeyPressed((KeyEvent event) -> {if(event.getCode()==KeyCode.R){System.out.print("Reload");}});   
+        var scene = new Scene(loader.load());
+        scene.setOnKeyPressed((KeyEvent event) -> {
+            if (event.getCode() == KeyCode.R) {
+                System.out.print("Reload");
+            }
+        });
         AppGUI.getPopupStage().setScene(scene);
         AppGUI.getPopupStage().setTitle("ESC Menu");
         AppGUI.getPopupStage().setWidth(400);
@@ -123,6 +127,12 @@ public class W_InGame implements EventHandler<KeyEvent>{
         BTN_CLICK.play();
         AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
 
+    }
+
+    @FXML
+    void onSaveClicked() throws FileNotFoundException {
+        Cereal cereal = new Cereal(game, game.getDt(), "");
+        cereal.SerializeGame();
     }
 
 
@@ -211,7 +221,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
 
     @FXML
-    void initialize(String difficultyLevel, int gameLevel) throws InterruptedException, IOException  {
+    void initialize(StateDifficulty difficultyLevel, int gameLevel, int score) throws InterruptedException, IOException  {
         
         resetPane();
         EH_Avatar.resetAvatarSingleton();
@@ -219,7 +229,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
         game = Game.getIt();
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
-
+        game.setScore(score);
 
         Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         

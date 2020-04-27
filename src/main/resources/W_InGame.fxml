@@ -19,6 +19,7 @@
         </VBox>
         <Label fx:id="lbl_Score" text="Score: 0" />
         <Label fx:id="lbl_ammoStats" text="" />
+        <Button onAction="#onSaveClicked" text="Save Game" fx:id="btn_save" />
 
       </HBox>
     </top>

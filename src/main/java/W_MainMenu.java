@@ -29,7 +29,7 @@ public class W_MainMenu {
     // --------------- //
     // View Variables //
     // --------------- //
-    String difficulty = "";
+    StateDifficulty difficulty;
     int gameLvl;
     
     // ------------- //
@@ -60,7 +60,15 @@ public class W_MainMenu {
             try 
             {
                 String result = (String) d.getSelectedItem();
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{result, 1});
+                if (result.equals("Easy")) {
+                    this.difficulty = StateDifficulty.EASY;
+                }
+                else if (result.equals("Medium")){
+                    this.difficulty = StateDifficulty.MEDIUM;
+                } else {
+                    this.difficulty = StateDifficulty.HARD;
+                }
+                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{this.difficulty, 1, 0});
             } 
             catch (Exception e) 
             {
@@ -90,16 +98,7 @@ public class W_MainMenu {
             System.out.println("Problem loading scores.dat"); 
         }
         
-        if (game.getStateDiff() == StateDifficulty.EASY) {
-            difficulty = "Easy";            
-        }
-        else if (game.getStateDiff() == StateDifficulty.MEDIUM) {
-            difficulty = "Medium";
-        }
-        else if (game.getStateDiff() == StateDifficulty.HARD) {
-            difficulty = "Hard";
-        }
-        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{difficulty, game.getGameLvl()});
+        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{game.getStateDiff(), game.getGameLvl(), game.getScore()});
     }
 
     @FXML
