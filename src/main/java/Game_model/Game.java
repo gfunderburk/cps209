@@ -53,7 +53,7 @@ public class Game implements GameSave {
     //  Methods  //
 
     
-    public void startGame(String playerName, String difficultyLevel, int GameLevel){
+    public void startGame(String playerName, StateDifficulty difficultyLevel, int GameLevel){
         // reset();
         // resetGameSingleton();
         setDifficultySettings(difficultyLevel);

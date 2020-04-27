@@ -45,7 +45,7 @@ public class EH_FlyingAI extends EntityHumanoid {
         this.height = FaiH;
         this.speed = 1;
         this.maxHealth = 2;
-        this.stateIntFactor = 6;
+        this.stateIntFactor = 1;
         this.currentHealth = this.maxHealth;
     }
 
@@ -66,7 +66,7 @@ public class EH_FlyingAI extends EntityHumanoid {
 
     }
 
-    
+
     @Override
     public void deathEvent() {
         this.enterState(StateAction.DYING);
@@ -76,7 +76,7 @@ public class EH_FlyingAI extends EntityHumanoid {
     @Override
     public void move() {
         super.move();
-        if(this.location.getZ() > 5) this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.z, 5);
+        if(this.location.getZ() > 1) this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.z, 1);
     }
 
     public void newDirection(){

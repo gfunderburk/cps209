@@ -37,19 +37,19 @@ public class EK_Scenery extends EntityKillable {
             
             case AMMO:
                 this.imageState = ammoImg;
-                this.width = 7;
-                this.height = 5;
+                this.width = 8;
+                this.height = 6;
                 break;
             
             case HEALTH:
                 this.imageState = healthImg;
-                this.width = 6;
-                this.height = 5;
+                this.width = 8;
+                this.height = 6;
                 break;
                 
             case POINTS:
                 this.imageState = pointsImg1;
-                this.width = 5;
+                this.width = 6;
                 this.height = 8;
                 this.currentHealth = 10;
                 break;
@@ -122,7 +122,7 @@ public class EK_Scenery extends EntityKillable {
         super.deSpawn();
     }
 
-    
+
     @Override
     protected void subStateUpdate(){}
    

@@ -46,7 +46,7 @@ public class EH_BossAI extends EntityHumanoid {
         this.height = HaiH;
         this.speed = 1;
         this.maxHealth = 2;
-        this.stateIntFactor = 5;
+        this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth; 
     }
 
