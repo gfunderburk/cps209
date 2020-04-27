@@ -45,85 +45,39 @@ public class W_LevelOver implements AppGUI_popupWin {
     //  GUI Methods  //     (DIRECT USER EVENTS)
     // ------------  //
 
+    @FXML
+    void btn_onMainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
+        BTN_CLICK.play();
+        AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
+    } 
+
 
     @FXML
-    void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
+    void btn_onNextClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
         BTN_CLICK.play();
-        //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
-        // - Yes = Save game
-        // - No  = Main Menu
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setHeaderText("Do you want to save your game progress so far?");
+
+
+        // TextInputDialog dialog = new TextInputDialog();
         
+        // dialog.setHeaderText("Please enter player name.");
+        // Optional<String> playerName = dialog.showAndWait();
+        // playerName.ifPresent(name -> {
+        //     newName = name;
+        //     newDate = LocalDateTime.now();
+        //     var newScore = new Score(name, newDate, game.getScore());
+        //     scoreManager.getList().clear();
+        //     scoreManager.loadScores();
+        //     scoreManager.addScore(newScore);
+        //     scoreManager.saveScores();            
+        // });
 
-        ButtonType btnYes = new ButtonType("Yes");
-        ButtonType btnNo = new ButtonType("No");
-        ButtonType btnCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{game.getStateDiff(), game.getGameLvl() + 1, game.getScore()});
 
-        alert.getButtonTypes().setAll(btnYes, btnNo, btnCancel);
-        Optional<ButtonType> result = alert.showAndWait();
+        // Cereal cereal = new Cereal(game, newDate, newName);
+        // cereal.SerializeGame();          
+    } 
 
-        if (result.get() == btnYes) {
-            // Save the score and get the name before showing high scores screen
-            BTN_CLICK.play();            
-            AppGUI.getPopupStage().close();
-
-            TextInputDialog dialog = new TextInputDialog();
-            
-            dialog.setHeaderText("Please enter player name.");
-            Optional<String> playerName = dialog.showAndWait();
-            playerName.ifPresent(name -> {
-                newName = name;
-                newDate = LocalDateTime.now();
-                var newScore = new Score(name, newDate, game.getScore());
-                scoreManager.getList().clear();
-                scoreManager.loadScores();
-                scoreManager.addScore(newScore);
-                scoreManager.saveScores();            
-            });
-
-            Cereal cereal = new Cereal(game, newDate, newName);
-            cereal.SerializeGame();          
-        } 
-        else if (result.get() == btnNo) 
-        {
-            // Return to main menu and close the game window
-            BTN_CLICK.play();
-            AppGUI.getPopupStage().close();     
-            AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
-        } 
-        else 
-        {
-            // ... user chose CANCEL or closed the dialog
-            BTN_CLICK.play();
-        }      
-        
-         // items for the dialog
-         String difficulty[] = {"Easy", "Medium", "Hard" };
- 
-         // create a choice dialog
-         ChoiceDialog d = new ChoiceDialog(difficulty[0], difficulty);
-         if (game.getGameLvl() < 3) {
-            game.setGameLvl(game.getGameLvl() + 1);
-         }
-         else {
-             game.setGameLvl(3);
-         }
-         
-         d.setHeaderText("Please Select Difficulty Level");
-         d.showAndWait().ifPresent(choice -> 
-         {
-             try {
-                 System.out.println(game.getGameLvl());
-                 AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{d.getSelectedItem(), game.getGameLvl()});
-             } 
-             catch (Exception e) 
-             {
-                 e.printStackTrace();
-             }
-         });
-    }
 
     //  ------------- //
     //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)

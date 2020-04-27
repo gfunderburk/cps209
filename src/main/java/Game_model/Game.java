@@ -81,7 +81,7 @@ public class Game implements GameSave {
         else break;
     }
 
-    public void startGame(String playerName, String difficultyLevel, int GameLevel){
+    public void startGame(String playerName, StateDifficulty difficultyLevel, int GameLevel){
         // reset();
         // resetGameSingleton();
         setDifficultySettings(difficultyLevel);
@@ -207,16 +207,16 @@ public class Game implements GameSave {
 
 
 
-    private void setDifficultySettings(String difficultyLevel){
+    private void setDifficultySettings(StateDifficulty difficultyLevel){
         switch(difficultyLevel){
-            case "Easy":
-            stateDiff = StateDifficulty.EASY;
+            case EASY:
+            stateDiff = difficultyLevel;
             break;
-            case "Medium":
-            stateDiff = StateDifficulty.MEDIUM;
+            case MEDIUM:
+            stateDiff = difficultyLevel;
             break;            
-            case "Hard":
-            stateDiff = StateDifficulty.HARD;
+            case HARD:
+            stateDiff = difficultyLevel;
             break;
             default:
         }
