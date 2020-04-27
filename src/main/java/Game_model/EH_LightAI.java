@@ -124,15 +124,6 @@ public class EH_LightAI extends EntityHumanoid {
         }
     }
 
-    @Override
-    public void hurtEvent() {
-
-    }
-
-    @Override
-    public void recoverEvent() {
-
-    }
 
     @Override
     public void spawn() {
@@ -147,11 +138,13 @@ public class EH_LightAI extends EntityHumanoid {
         super.spawn();
     }
 
+
     @Override
     public void attack(Entity entity) {
         this.mag--;
         super.attack(entity);
     }
+
 
     @Override
     public void deSpawn() {
@@ -162,10 +155,12 @@ public class EH_LightAI extends EntityHumanoid {
         super.deSpawn();
     }
 
+
     @Override
     public void reload() {
         super.reload();
     }
+
 
     @Override
     protected void subStateUpdate() {
@@ -185,15 +180,15 @@ public class EH_LightAI extends EntityHumanoid {
                         
                     case 1:
                         this.newDirection();
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgMovingL : EH_LightAI.imgMovingL_hurt;
 
                     default:
                         if(this.subStateInt%3==0) 
                         if(this.subStateInt%2==0){
-                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
+                            this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgMovingL : EH_LightAI.imgMovingL_hurt;
                         }  
                         else{
-                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingR : this.imgMovingR_hurt;
+                            this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgMovingR : EH_LightAI.imgMovingR_hurt;
                         }
                         this.move();
                 }
@@ -211,7 +206,7 @@ public class EH_LightAI extends EntityHumanoid {
                             enterState(StateAction.RELOADING);
                         } 
                         if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgAttacking : EH_LightAI.imgAttacking_hurt;
                 }
                 break;
 
@@ -226,7 +221,7 @@ public class EH_LightAI extends EntityHumanoid {
                     default:
                         setTypeRound(TypeRound.HEAVY_ROUND);
                         if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgSpecialAttack : this.imgSpecialAttack_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgSpecialAttack : EH_LightAI.imgSpecialAttack_hurt;
                 }
                 break;
 
@@ -238,7 +233,7 @@ public class EH_LightAI extends EntityHumanoid {
                         enterState(StateAction.ATTACKING);
 
                     default:
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgAttacking : EH_LightAI.imgAttacking_hurt;
                 }
                 break;
 
@@ -276,13 +271,9 @@ public class EH_LightAI extends EntityHumanoid {
         }
     }
 
+    @Override
+    public void hurtEvent() {}
 
-
-    //  Getters-Setters  //
-
-
-   
-
-
-
+    @Override
+    public void recoverEvent() {}
 }

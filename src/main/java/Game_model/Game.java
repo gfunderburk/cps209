@@ -57,7 +57,7 @@ public class Game implements GameSave {
         // reset();
         // resetGameSingleton();
         setDifficultySettings(difficultyLevel);
-        setLevelSettings(3);
+        setLevelSettings(GameLevel);
         spawnerAdmin(false);
         stateGame = StateGame.RUNNING;
     }
@@ -95,62 +95,28 @@ public class Game implements GameSave {
     }
 
 
-    private void reset() {
-        //reset all variables
-        EH_Avatar.getIt().setCurrentHealth(EH_Avatar.getIt().getMaxHealth());
-        EH_Avatar.getIt().setMag(300);
-        EH_Avatar.getIt().setAmmo(300);
-        stateDiff = StateDifficulty.EASY;
-        stateGame = StateGame.PAUSED;
-        AI_Left = 0; 
-        AI_Left_ToSpawn = 0; 
-        currentAIspawnCnt = 0;
-        maxAISpawnCnt = 0;
-        score = 0;
-        time = 0;
-        gameLvl = 1;
-        //currentEnitity = 0;
-        newMobSpawnDelay = 0;
-        spawnDelayCount = 0;
-        gamePhysicsWidth = 104;
-        gamePhysicsHeight = 65;
-        gamePhysicsDepth = 10;
-        dt = LocalDateTime.now();
-        playerName = "";
-        lvlBackground = "";
-        // for (Entity i: entityList) {
-        //     i.deSpawn();
-        // }
-        entityList.clear();
-        deadEntityList.clear();
-        gameOver = false;
-        playerWin = false;
-        cheatMode = false;
-    }
-
-    public void loadGame(){
-        entityList = new ArrayList<Entity>();
-    }
-
     public void play(){ 
         stateGame = StateGame.RUNNING;    
     }
+
 
     public void pause(){ 
         stateGame = StateGame.PAUSED;    
     }
 
+
     public Entity findEntityById(int Id){
         return entityList.stream().filter(it -> it.Id == Id).findFirst().get();
     }
+
 
     public void checkGameOver(){
         if(AI_Left <= 0){
             gameOver = true;
             playerWin = true;
         }        
-        else if(EH_Avatar.getIt().getStateLife() == StateLife.DEAD){
-            // gameOver = true;
+        else if(! isCheatMode() & EH_Avatar.getIt().getStateLife() == StateLife.DEAD){
+            gameOver = true;
             playerWin = false;
         }
         else{
@@ -158,16 +124,19 @@ public class Game implements GameSave {
         }
     }
 
+
 	public void sortEntityList() {
         Comparator<Entity> compareByScore = (Entity o1, Entity o2) -> (int)o1.getLocation().getZ() - (int)o2.getLocation().getZ();
         Collections.sort(entityList, compareByScore.reversed());
     }
+
 
     public Point3D randomPoint3D(){
         return new Point3D(myRandom.genRandomInt(0, Game.getIt().getGamePhysicsWidth()), 
                             myRandom.genRandomInt(0, Game.getIt().getGamePhysicsHeight()), 
                             myRandom.genRandomInt(0, Game.getIt().getGamePhysicsDepth()));
     }
+
 
     @Override
     public String Serialize() {
@@ -206,38 +175,25 @@ public class Game implements GameSave {
     }
 
 
-
     private void setDifficultySettings(StateDifficulty difficultyLevel){
         switch(difficultyLevel){
             case EASY:
-            stateDiff = difficultyLevel;
-            break;
-            case MEDIUM:
-            stateDiff = difficultyLevel;
-            break;            
-            case HARD:
-            stateDiff = difficultyLevel;
-            break;
-            default:
-        }
-
-        switch(stateDiff){
-
-            case EASY:
-            maxAISpawnCnt = 3;
-            break;
+                stateDiff = difficultyLevel;
+                maxAISpawnCnt = 3;
+                break;
 
             case MEDIUM:
-            maxAISpawnCnt = 5;
-            break;
-            
+                stateDiff = difficultyLevel;
+                maxAISpawnCnt = 5;
+                break;  
+
             case HARD:
-            maxAISpawnCnt = 7;
-            break;
+                stateDiff = difficultyLevel;
+                maxAISpawnCnt = 7;
+                break;
             default:
         }
     }
-
     
 
     private void setLevelSettings(int GameLevel){

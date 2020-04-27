@@ -18,7 +18,6 @@ public abstract class EntityKillable extends Entity {
 
         if(this.stateLife != StateLife.DEAD)
         {
-
             if(currentHealth > (maxHealth / 2))
             {
                 if(this.stateLife != StateLife.HEALTHY)
@@ -43,7 +42,6 @@ public abstract class EntityKillable extends Entity {
                 this.stateLife = StateLife.DEAD;
                 this.deathEvent();                
             }
-
         }
     };
     

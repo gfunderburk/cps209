@@ -72,18 +72,20 @@ public class AppGUI extends Application {
         // currentStage.setFullScreen(true);
         // currentStage.setMaximized(true);currentStage
 
-            // Get current screen of the stage      
-// ObservableList<Screen> screens = Screen.getScreensForRectangle(new Rectangle2D(stage.getX(), stage.getY(), stage.getWidth(), stage.getHeight()));
+        // Get current screen of the stage      
+        // ObservableList<Screen> screens = Screen.getScreensForRectangle(new Rectangle2D(stage.getX(), stage.getY(), stage.getWidth(), stage.getHeight()));
 
-// // Change stage properties
-// Rectangle2D bounds = screens.get(0).getVisualBounds();
+        // // Change stage properties
+        // Rectangle2D bounds = screens.get(0).getVisualBounds();
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
 
         currentStage.setX(bounds.getMinX());
         currentStage.setY(bounds.getMinY());
-        currentStage.setWidth(bounds.getWidth());
-        currentStage.setHeight(bounds.getHeight());
+        // currentStage.setWidth(bounds.getWidth());
+        // currentStage.setHeight(bounds.getHeight());
+        currentStage.setWidth(1440);
+        currentStage.setHeight(900);
 
         // currentStage.setFullScreenExitHint("");
         currentStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));

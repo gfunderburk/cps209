@@ -32,8 +32,6 @@ public class EH_BossAI extends EntityHumanoid {
     final static Image imgSpecialAttack_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
     
 
-
-
     //  Constructor  //
 
 
@@ -56,14 +54,12 @@ public class EH_BossAI extends EntityHumanoid {
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
         return null;
     }
 
 
     @Override
     public void deSerialize(String data) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -114,15 +110,6 @@ public class EH_BossAI extends EntityHumanoid {
         }
     }
 
-    @Override
-    public void hurtEvent() {
-
-    }
-
-    @Override
-    public void recoverEvent() {
-
-    }
 
     @Override
     public void spawn() {
@@ -137,10 +124,12 @@ public class EH_BossAI extends EntityHumanoid {
         super.spawn();
     }
 
+
     @Override
     public void attack(Entity entity) {
         super.attack(entity);
     }
+
 
     @Override
     public void deSpawn() {
@@ -150,6 +139,7 @@ public class EH_BossAI extends EntityHumanoid {
 
         super.deSpawn();
     }
+
 
     @Override
     public void reload() {
@@ -175,15 +165,15 @@ public class EH_BossAI extends EntityHumanoid {
                         
                     case 1:
                         this.newDirection();
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgMovingL : EH_BossAI.imgMovingL_hurt;
 
                     default:
                         if(this.subStateInt%3==0) 
                         if(this.subStateInt%2==0){
-                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
+                            this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgMovingL : EH_BossAI.imgMovingL_hurt;
                         }  
                         else{
-                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingR : this.imgMovingR_hurt;
+                            this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgMovingR : EH_BossAI.imgMovingR_hurt;
                         }
                         this.move();
                 }
@@ -201,7 +191,7 @@ public class EH_BossAI extends EntityHumanoid {
                             enterState(StateAction.RELOADING);
                         } 
                         else if(myRandom.genRandomInt(1, 2) != 2) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgAttacking : EH_BossAI.imgAttacking_hurt;
                 }
                 break;
 
@@ -216,7 +206,7 @@ public class EH_BossAI extends EntityHumanoid {
                     default:
                         setTypeRound(TypeRound.HEAVY_ROUND);
                         attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgSpecialAttack : this.imgSpecialAttack_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgSpecialAttack : EH_BossAI.imgSpecialAttack_hurt;
                 }
                 break;
 
@@ -228,7 +218,7 @@ public class EH_BossAI extends EntityHumanoid {
                         enterState(StateAction.ATTACKING);
 
                     default:
-                    this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
+                    this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgAttacking : EH_BossAI.imgAttacking_hurt;
                 }
                 break;
 
@@ -268,12 +258,9 @@ public class EH_BossAI extends EntityHumanoid {
     }
 
 
+    @Override
+    public void hurtEvent() {}
 
-    //  Getters-Setters  //
-
-
-   
-
-
-
+    @Override
+    public void recoverEvent() {}
 }

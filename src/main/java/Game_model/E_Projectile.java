@@ -16,8 +16,8 @@ public class E_Projectile extends Entity {
     public static enum TypeRound {LIGHT_ROUND, HEAVY_ROUND, EXPLOSIVE_ROUND, LAZER_ROUND};
     static Comparator<Entity> compareBy_Z_Layer = (Entity o1, Entity o2) -> (int)o1.location.getZ() - (int)o2.location.getZ();
 
-    protected static double lazerRoundDmg = .0075;
-    protected static double lazerRound_width = 1.5;
+    protected static double lazerRoundDmg = 1;
+    protected static double lazerRound_width = 1;
     protected static double lazerRoundMoveFactor = 1;
     protected final static Image lazerRound_FireImg = new Image(initChildImage(imageDir, "round_lazer_fire.png"));
     protected final static Image lazerRound_AIImg = new Image(initChildImage(imageDir, "round_lazer.png"));

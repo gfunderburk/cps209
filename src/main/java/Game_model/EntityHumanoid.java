@@ -1,7 +1,5 @@
 package Game_model;
 
-import javafx.scene.image.Image;
-
 public abstract class EntityHumanoid extends EntityKillable {
 
 

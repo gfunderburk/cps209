@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import Data_model.Cereal;
@@ -12,7 +11,6 @@ import Game_model.Entity;
 import Game_model.Game;
 import Game_model.Game.StateDifficulty;
 import Game_model.Game.StateGame;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
@@ -49,7 +47,11 @@ public class W_InGame implements EventHandler<KeyEvent> {
     Game game = Game.getIt();
 
     EH_Avatar avatar = EH_Avatar.getIt();
-    static Object lock = new Object();
+    static Object Model_Lock = new Object();
+    static Object View_Lock = new Object();
+
+    public static Object getModel_Lock(){ return Model_Lock;}
+    public static Object getView_Lock() { return View_Lock;}
 
     // --------------- //
     // Media Elements //
@@ -82,19 +84,18 @@ public class W_InGame implements EventHandler<KeyEvent> {
     VBox vbox_masterParent;
     @FXML
     VBox vbox_health;
-
     @FXML
     Button btn_esc;
-
+    @FXML
+    Button btn_toggleCheatmode;
+    @FXML
+    Button btn_reload;
     @FXML
     Pane pane;
-
     @FXML
     Label lbl_ammoStats;
-
     @FXML
     Label lbl_Score;
-
     @FXML
     ProgressBar progBar_health;
 
@@ -110,21 +111,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     @FXML
     void onEscClicked() throws IOException {
-        // Load ESC_Menu
-        var loader = new FXMLLoader(getClass().getResource("W_EscMenu.fxml"));
-        var scene = new Scene(loader.load());
-        scene.setOnKeyPressed((KeyEvent event) -> {
-            if (event.getCode() == KeyCode.R) {
-                System.out.print("Reload");
-            }
-        });
-        AppGUI.getPopupStage().setScene(scene);
-        AppGUI.getPopupStage().setTitle("ESC Menu");
-        AppGUI.getPopupStage().setWidth(400);
-        AppGUI.getPopupStage().setHeight(300);
-        AppGUI.getPopupStage().show();
-
-        BTN_CLICK.play();
         AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
 
     }
@@ -133,6 +119,17 @@ public class W_InGame implements EventHandler<KeyEvent> {
     void onSaveClicked() throws FileNotFoundException {
         Cereal cereal = new Cereal(game, game.getDt(), "");
         cereal.SerializeGame();
+    }
+    
+    @FXML
+    void onReloadClicked() throws FileNotFoundException {
+        EH_Avatar.getIt().reload();
+    }
+    
+    @FXML
+    void ontoggleCheatmodeClicked() throws FileNotFoundException {
+        Game.getIt().toggleCheatMode();
+        btn_toggleCheatmode.setText(Game.getIt().isCheatMode() ? "Cheatmode - OFF" : "Cheatmode - ON");
     }
 
 
@@ -268,7 +265,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
             // move entities physically in Model
             for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
                 if(! (Game.getIt().getEntityList().get(i)instanceof EK_Scenery) ) 
-                    Game.getIt().getEntityList().get(i).stateIncrement();
+                Game.getIt().getEntityList().get(i).stateIncrement();
             }
 
             // parking place breakpoint for debugging
@@ -278,8 +275,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
 
-
-            // pane.getChildren().clear();
+            pane.getChildren().clear();
 
             // draw entities visually in View
             for (Entity entity : Game.getIt().getEntityList()) {
@@ -329,102 +325,60 @@ public class W_InGame implements EventHandler<KeyEvent> {
         // }                
 
 
-        //  Create and/or Redraw entity image 
-       
-        // String imageAddress = File.separator+"icons"+entity.getImage();
-        // ImageView newEntityImg = new ImageView(imageAddress);
-        
-        // final ImageView newEntityImg = newEntityImgIntermediary; 
-
 
         //  Re-Calculate Image Specs
+    
+        Point3D loc = entity.getLocation();
+        paneW = pane.getWidth();
+        paneH = pane.getHeight();
+        double paneWper = paneW * .01;
+        double paneHper = paneH * .01;
+
+        //  Set ImageView Width/Height
+
+        double imgW = paneWper * entity.getWidth(); // set z=0 Width
+        double imgH = paneHper * entity.getHeight(); // set z=0 Height
+
+        imgW -= (0.05 * loc.getZ() * imgW);   // set width according to z depth (deeper z = narrower)
+        imgH -= (0.05 * loc.getZ() * imgH);   // set height according to z depth (deeper z = shorter)
+    
         
-        
-        // Thread thread = new Thread(() -> {
-            //  Variables
+        //  Set ImageView (x,y)
+
+        double imgX = ( loc.getX() * paneW ) / Game.getIt().getGamePhysicsWidth();   // set x according to physical and visual world ratio     
+        double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
+
+        imgX -= (0.5 * imgW);  //  center width on item pt.
+
+        if(entity instanceof E_Projectile){
+            E_Projectile ent = (E_Projectile)entity;
             
-            Point3D loc = entity.getLocation();
-            paneW = pane.getWidth();
-            paneH = pane.getHeight();
-            double paneWper = paneW * .01;
-            double paneHper = paneH * .01;
-
-            //  Set ImageView Width/Height
-
-            double imgW = paneWper * entity.getWidth(); // set z=0 Width
-            double imgH = paneHper * entity.getHeight(); // set z=0 Height
-
-            imgW -= (0.05 * loc.getZ() * imgW);   // set width according to z depth (deeper z = narrower)
-            imgH -= (0.05 * loc.getZ() * imgH);   // set height according to z depth (deeper z = shorter)
-        
-            
-            //  Set ImageView (x,y)
-
-            double imgX = ( loc.getX() * paneW ) / Game.getIt().getGamePhysicsWidth();   // set x according to physical and visual world ratio     
-            double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
-
-            imgX -= (0.5 * imgW);  //  center width on item pt.
-
-            if(entity instanceof E_Projectile){
-                E_Projectile ent = (E_Projectile)entity;
-                
-                imgY += (0.5 * imgH); // center img on Y-axis
-                if(! ent.isAvatarsProjectile()){
-                    double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
-                    double YvisualOffsetRaw = (paneHper * ent.getVisualYoffset()); // offset Y for entity type @ z=0
-                    double XvisualOffsetDepthed = (0.05 * loc.getZ() * XvisualOffsetRaw);
-                    double YvisualOffsetDepthed = (0.05 * loc.getZ() * YvisualOffsetRaw);
-                    imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
-                    imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
-                    imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                    //SHOOT_SHOTGUN.play();
-                }
-            }
-            else{
-                imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
+            imgY += (0.5 * imgH); // center img on Y-axis
+            if(! ent.isAvatarsProjectile()){
+                double XvisualOffsetRaw = (paneWper * ent.getVisualXoffset()); // offset X for entity type @ z=0
+                double YvisualOffsetRaw = (paneHper * ent.getVisualYoffset()); // offset Y for entity type @ z=0
+                double XvisualOffsetDepthed = (0.05 * loc.getZ() * XvisualOffsetRaw);
+                double YvisualOffsetDepthed = (0.05 * loc.getZ() * YvisualOffsetRaw);
+                imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
+                imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
+                //SHOOT_SHOTGUN.play();
             }
+        }
+        else{
+            imgY += (1.0 * imgH); //  center img's bottom edge on entity's center-point
+            imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
+        }
 
 
-            newEntityImg.setFitWidth(imgW);
-            newEntityImg.setFitHeight(imgH);
-            newEntityImg.relocate(imgX, paneH - imgY);
-
-
-            // final double fimgX = imgX;
-            // final double fimgY = imgY;
-            // final double fimgW = imgW;
-            // final double fimgH = imgH;
-            // Platform.runLater(() -> {
-            //     synchronized (lock) {
-            //         newEntityImg.setFitWidth(fimgW);
-            //         newEntityImg.setFitHeight(fimgH);
-            //         newEntityImg.relocate(fimgX, paneH - fimgY);
-            //     }
-            // });
-        // });
-        // thread.start();
+        newEntityImg.setFitWidth(imgW);
+        newEntityImg.setFitHeight(imgH);
+        newEntityImg.relocate(imgX, paneH - imgY);
     }
 
     void resetPane(){
-        
         pane.getChildren().clear();
-        //  Delete any dead entity images
-        // for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
-        //     ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-        //     if(oldEntityImg != null){
-        //         pane.getChildren().remove(oldEntityImg);
-        //     }     
-        // }        
         Game.getIt().setEntityList(new ArrayList<Entity>());    
-        
-        //  Delete any dead entity images
-        // for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
-        //     ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-        //     if(oldEntityImg != null){
-        //         pane.getChildren().remove(oldEntityImg);
-        //     }     
-        // }
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
 }

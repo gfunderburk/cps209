@@ -64,14 +64,12 @@ public class EK_Scenery extends EntityKillable {
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
         return null;
     }
 
 
     @Override
     public void deSerialize(String data) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -132,6 +130,7 @@ public class EK_Scenery extends EntityKillable {
     @Override
     public void hurtEvent(){}
 
+
     //  Getters-Setters  //
 
 
@@ -142,5 +141,4 @@ public class EK_Scenery extends EntityKillable {
     public void setType(Type type) {
         this.type = type;
     }
-
 }

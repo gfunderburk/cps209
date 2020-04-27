@@ -17,6 +17,7 @@ public abstract class Entity implements GameSave{
 
     //  Variables  //
 
+
     protected static double LaiH = 50;
     protected static double LaiW = 10; 
     protected static double HaiH = 55;
@@ -54,7 +55,11 @@ public abstract class Entity implements GameSave{
         }  
     };
 
+
+    public abstract void collideEvent(Entity collidedEntity);
+
     protected abstract void subStateUpdate();
+
 
     protected void move() {
         
@@ -85,9 +90,6 @@ public abstract class Entity implements GameSave{
             outOfBoundsEvent(5);
         }
     };
-
-
-    public abstract void collideEvent(Entity collidedEntity);
 
 
     public void outOfBoundsEvent(int boundsCode){
@@ -134,6 +136,7 @@ public abstract class Entity implements GameSave{
         Game.getIt().getEntityList().add(this);
     }
 
+
     public void deSpawn(){
         Game.getIt().getDeadEntityList().add(this);
         var index = Game.getIt().getEntityList().indexOf(this);
@@ -143,6 +146,7 @@ public abstract class Entity implements GameSave{
         Game.getIt().spawnerAdmin(false);
     };
 
+    
     @Override
     public abstract String Serialize();
 

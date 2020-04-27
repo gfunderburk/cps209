@@ -10,8 +10,6 @@ public class EH_Avatar extends EntityHumanoid {
 
     static TypeRound roundType = TypeRound.LIGHT_ROUND;
 
-    // Constructor //
-
 
     //  Singleton  //
 
@@ -43,13 +41,6 @@ public class EH_Avatar extends EntityHumanoid {
     @Override
     public String Serialize() {
         return ("U ," + typeRound + "");
-    }
-
-
-    @Override
-    public void deSerialize(String data) {
-        // TODO Auto-generated method stub
-
     }
 
 
@@ -91,38 +82,7 @@ public class EH_Avatar extends EntityHumanoid {
             }
             this.checkLife();    
         }
-
     }
-
-    
-    @Override
-    public void hurtEvent() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void recoverEvent() {
-        // TODO Auto-generated method stub
-        //Experimented by adding a thread since it was freezing up while I was debugging.
-        //wasn't sure if it was trying to access the currentHealth variable from multiple places at the same time.
-        //this didn't seem to do anything however, so do as you please here!
-        // Thread thread = new Thread( () -> {
-        //     KeyFrame timer = new KeyFrame(Duration.seconds(1), e -> {
-        //     currentHealth += .01;
-        //     });
-        //     var timeline = new Timeline(timer);
-        //     timeline.play();
-        // });
-        // thread.start();
-
-    }
-
-    @Override
-    public void attack(Entity entity){}
-
-    @Override
-    protected void subStateUpdate(){}
 
 
     public void attack(double targetX, double targetY, double paneX, double paneY) {
@@ -135,6 +95,7 @@ public class EH_Avatar extends EntityHumanoid {
         }     
     }
 
+
     @Override
     public void reload() {
         if(this.mag < 300 & this.ammo > 0){
@@ -143,11 +104,18 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
 
-    //  Getters-Setters  //
+    @Override
+    public void hurtEvent() {}
 
+    @Override
+    public void recoverEvent() {}
 
-   
+    @Override
+    public void attack(Entity entity){}
 
+    @Override
+    public void deSerialize(String data) {}
 
-
+    @Override
+    protected void subStateUpdate(){}
 }

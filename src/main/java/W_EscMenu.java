@@ -2,17 +2,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import Data_model.Cereal;
 import Data_model.Score;
 import Data_model.ScoreManager;
 import Game_model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
 
 public class W_EscMenu implements AppGUI_popupWin{

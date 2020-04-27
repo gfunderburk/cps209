@@ -55,14 +55,12 @@ public class EH_FlyingAI extends EntityHumanoid {
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
         return null;
     }
 
 
     @Override
     public void deSerialize(String data) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -79,10 +77,12 @@ public class EH_FlyingAI extends EntityHumanoid {
         if(this.location.getZ() > 1) this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.z, 1);
     }
 
+
     public void newDirection(){
         Point3D newDest = Game.getIt().randomPoint3D();
         this.vector = myMovement.getHeading(newDest, this.location, this.speed);
     }
+
 
     @Override
     public void collideEvent(Entity otherEntity) {
@@ -111,15 +111,6 @@ public class EH_FlyingAI extends EntityHumanoid {
         }
     }
 
-    @Override
-    public void hurtEvent() {
-
-    }
-
-    @Override
-    public void recoverEvent() {
-
-    }
 
     @Override
     public void spawn() {
@@ -134,10 +125,12 @@ public class EH_FlyingAI extends EntityHumanoid {
         super.spawn();
     }
 
+
     @Override
     public void attack(Entity entity) {
         super.attack(entity);
     }
+
 
     @Override
     public void deSpawn() {
@@ -148,10 +141,12 @@ public class EH_FlyingAI extends EntityHumanoid {
         super.deSpawn();
     }
 
+
     @Override
     public void reload() {
         super.reload();
     }
+
 
     @Override
     protected void subStateUpdate() {
@@ -171,15 +166,15 @@ public class EH_FlyingAI extends EntityHumanoid {
                         
                     case 1:
                         this.newDirection();
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgMovingL : EH_FlyingAI.imgMovingL_hurt;
 
                     default: 
                         if(this.subStateInt%3==0) 
                         if(this.subStateInt%2==0){
-                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
+                            this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgMovingL : EH_FlyingAI.imgMovingL_hurt;
                         }  
                         else{
-                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingR : this.imgMovingR_hurt;
+                            this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgMovingR : EH_FlyingAI.imgMovingR_hurt;
                         }
                         this.move();
                 }
@@ -197,7 +192,7 @@ public class EH_FlyingAI extends EntityHumanoid {
                             enterState(StateAction.RELOADING);
                         } 
                         else if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgAttacking : EH_FlyingAI.imgAttacking_hurt;
                 }
                 break;
 
@@ -210,7 +205,7 @@ public class EH_FlyingAI extends EntityHumanoid {
 
                     default:
                         attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgSpecialAttack : this.imgSpecialAttack_hurt;
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgSpecialAttack : EH_FlyingAI.imgSpecialAttack_hurt;
                 }
                 break;
 
@@ -222,7 +217,7 @@ public class EH_FlyingAI extends EntityHumanoid {
                         enterState(StateAction.ATTACKING);
 
                     default:
-                    this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
+                    this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgAttacking : EH_FlyingAI.imgAttacking_hurt;
                 }
                 break;
 
@@ -258,16 +253,12 @@ public class EH_FlyingAI extends EntityHumanoid {
                 enterState(StateAction.MOVING);
                 break;
         }
-
     }
 
 
+    @Override
+    public void hurtEvent() {}
 
-    //  Getters-Setters  //
-
-
-   
-
-
-
+    @Override
+    public void recoverEvent() {}
 }
