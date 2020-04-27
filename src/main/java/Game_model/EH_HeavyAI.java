@@ -7,37 +7,44 @@ import Util_model.myMovement;
 import Util_model.myRandom;
 import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
+import javafx.scene.image.Image;
 
 public class EH_HeavyAI extends EntityHumanoid {
 
 
     //  Variables  //
 
-    
 
+    final static String imageDir = File.separator + "heavy_terminators" + File.separator;
+    final static Image imgDying1 = new Image(initChildImage(imageDir, "heavyRobotDying1.png"));
+    final static Image imgDying2 = new Image(initChildImage(imageDir, "heavyRobotDying2.png"));
+    final static Image imgDying3 = new Image(initChildImage(imageDir, "heavyRobotDying3.png"));
+
+    final static Image imgMovingL = new Image(initChildImage(imageDir, "heavyRobot_Moving_LeftFoot.png"));
+    final static Image imgMovingR = new Image(initChildImage(imageDir, "heavyRobot_Moving_RightFoot.png"));
+    final static Image imgReloading = new Image(initChildImage(imageDir, "heavyRobot_Reloading.png"));
+    final static Image imgAttacking = new Image(initChildImage(imageDir, "heavyRobot_Shooting.png"));
+    final static Image imgSpecialAttack = new Image(initChildImage(imageDir, "heavyRobot_Shooting_Special.png"));
+    
+    final static Image imgMovingL_hurt = new Image(initChildImage(imageDir, "heavyRobot_Moving_LeftFoot_hurt.png"));
+    final static Image imgMovingR_hurt = new Image(initChildImage(imageDir, "heavyRobot_Moving_RightFoot_hurt.png"));
+    final static Image imgReloading_hurt = new Image(initChildImage(imageDir, "heavyRobot_Reloading_hurt.png"));
+    final static Image imgAttacking_hurt = new Image(initChildImage(imageDir, "heavyRobot_Shooting_hurt.png"));
+    final static Image imgSpecialAttack_hurt = new Image(initChildImage(imageDir, "heavyRobot_Shooting_Special_hurt.png"));
 
 
     //  Constructor  //
 
 
     public EH_HeavyAI(){
-        this.imageDir = File.separator + "heavy_terminators" + File.separator;
-        this.imgDying1 = "heavyRobotDying1.png";
-        this.imgDying2 = "heavyRobotDying2.png";
-        this.imgDying3 = "heavyRobotDying3.png";
-        this.imgMovingL = "heavyRobot_Moving_LeftFoot";
-        this.imgMovingR = "heavyRobot_Moving_RightFoot";
-        this.imgReloading = "heavyRobot_Reloading";
-        this.imgAttacking = "heavyRobot_Shooting";    
-        this.imgSpecialAttack = "heavyRobot_Shooting_Special";    
-        this.imageState = imgMovingL+ending();
+        this.imageState = imgMovingL;
         this.stateAction = StateAction.MOVING;
         this.stateLife = StateLife.HEALTHY;
         this.typeRound = TypeRound.HEAVY_ROUND;
         this.width = HaiW;
         this.height = HaiH;
         this.speed = 1;
-        this.maxHealth = 10;
+        this.maxHealth = 2;
         this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth;
     }
@@ -58,42 +65,19 @@ public class EH_HeavyAI extends EntityHumanoid {
         // TODO Auto-generated method stub
 
     }
+    
 
     @Override
     public void deathEvent() {
         this.enterState(StateAction.DYING);
     }
 
-    // @Override
-    // public void move() {
-    //     this.sameMoveCount++;
 
-    //     if(this.sameMoveCount > 20){
-    //         this.sameMoveCount = 0;
-
-    //         if(!this.standStill){
-    //             this.vector = new Point3D(0,0,0);
-    //         }
-    //         else{
-    //             Point3D newDest = Game.getIt().randomPoint3D();
-    //             this.vector = myMovement.getHeading(newDest, this.location, this.speed);
-    //             this.vector = myMovement.setNewPointComp(this.vector, Point3D_Comp.y, 0);
-    //         }
-
-    //         this.standStill = this.standStill ? false : true;
-    //     }
-
-    //     if(this.standStill & myRandom.genRandomBoolean()){
-    //         attack(EH_Avatar.getIt());
-    //     }
-
-    //     super.move();
-    // }
-    
     @Override
     public void move() {
         super.move();
     }
+
 
     public void newDirection(){
         Point3D newDest = Game.getIt().randomPoint3D();
@@ -191,10 +175,16 @@ public class EH_HeavyAI extends EntityHumanoid {
                         
                     case 1:
                         this.newDirection();
-                        this.imageState = this.imgMovingL+ending(); 
+                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
 
                     default:
-                        if(this.subStateInt%3==0) this.imageState = (this.subStateInt%2==0) ? this.imgMovingL+ending() : this.imgMovingR+ending(); 
+                        if(this.subStateInt%3==0) 
+                        if(this.subStateInt%2==0){
+                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
+                        }  
+                        else{
+                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingR : this.imgMovingR_hurt;
+                        }
                         this.move();
                 }
                 break;
@@ -204,12 +194,14 @@ public class EH_HeavyAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
-                        this.imageState = this.imgMovingL+ending(); 
                         break;
 
-                    default:
-                        if(this.mag <= 0) enterState(StateAction.RELOADING); 
-                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
+                    default:                        
+                        if(this.mag <= 0) {
+                            enterState(StateAction.RELOADING);
+                        } 
+                        else if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
+                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
                 }
                 break;
 
@@ -224,6 +216,7 @@ public class EH_HeavyAI extends EntityHumanoid {
                     default:
                         setTypeRound(TypeRound.EXPLOSIVE_ROUND);
                         if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
+                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgSpecialAttack : this.imgSpecialAttack_hurt;
                 }
                 break;
 
@@ -235,6 +228,7 @@ public class EH_HeavyAI extends EntityHumanoid {
                         enterState(StateAction.ATTACKING);
 
                     default:
+                    this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
                 }
                 break;
 
@@ -242,15 +236,15 @@ public class EH_HeavyAI extends EntityHumanoid {
                 switch(this.subStateInt){
 
                     case 1: 
-                        this.imageState = this.imgDying1;
+                        this.imageState = EH_HeavyAI.imgDying1;
                         break;
 
                     case 7: 
-                        this.imageState = this.imgDying2;
+                        this.imageState = EH_HeavyAI.imgDying2;
                         break;
 
                     case 14: 
-                        this.imageState = this.imgDying3;
+                        this.imageState = EH_HeavyAI.imgDying3;
                         break;
 
                     case 21:
@@ -268,7 +262,6 @@ public class EH_HeavyAI extends EntityHumanoid {
 
             default:
                 enterState(StateAction.MOVING);
-                this.imageState = this.imgMovingL+ending(); 
                 break;
         }
 

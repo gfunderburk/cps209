@@ -1,9 +1,18 @@
 package Game_model;
 
+import java.io.File;
 import Util_model.myMovement;
 import javafx.geometry.Point3D;
+import javafx.scene.image.Image;
 
 public abstract class Entity implements GameSave{
+
+    public static String initChildImage(String imageDir, String imageState){
+        String vsDir = System.getProperty("user.dir");
+        String recourcesDir = File.separator+"src"+File.separator+"main"+File.separator+"resources"+File.separator+"icons";
+        var it = new File(vsDir + recourcesDir + imageDir + imageState).toURI().toString();
+        return it;
+    }
 
 
     //  Variables  //
@@ -21,7 +30,7 @@ public abstract class Entity implements GameSave{
     protected  int sameMoveCount;
     protected  boolean standStill = false;
     protected  Point3D location, vector;
-    protected  String imageDir, imageState;
+    protected  Image imageState;
     protected  int collisionCode; 
     /*
     0 =  none, 
@@ -184,15 +193,11 @@ public abstract class Entity implements GameSave{
         this.vector = vector;
     }
 
-    public String getImageDir() {
-        return imageDir;
-    }
-
-    public String getImageState() {
+    public Image getImageState() {
         return imageState;
     }
 
-    public void setImageState(String image) {
+    public void setImageState(Image image) {
         this.imageState = image;
     }
 
@@ -204,8 +209,8 @@ public abstract class Entity implements GameSave{
         Id = id;
     }
 
-    public String getImage(){
-        return this.imageDir + this.imageState;
+    public Image getImage(){
+        return this.imageState;
     }
 
     public static double getLaiH() {
@@ -294,10 +299,6 @@ public abstract class Entity implements GameSave{
 
     public void setStandStill(boolean standStill) {
         this.standStill = standStill;
-    }
-
-    public void setImageDir(String imageDir) {
-        this.imageDir = imageDir;
     }
 
     public int getCollisionCode() {

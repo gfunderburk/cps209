@@ -7,12 +7,29 @@ import Util_model.myMovement;
 import Util_model.myRandom;
 import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
+import javafx.scene.image.Image;
 
 public class EH_BossAI extends EntityHumanoid {
 
 
     //  Variables  //
 
+    final static String imageDir = File.separator + "boss_terminators" + File.separator;
+    final static Image imgDying1 = new Image(initChildImage(imageDir, "Boss_Dying1.png"));
+    final static Image imgDying2 = new Image(initChildImage(imageDir, "Boss_Dying2.png"));
+    final static Image imgDying3 = new Image(initChildImage(imageDir, "Boss_Dying3.png"));
+
+    final static Image imgMovingL = new Image(initChildImage(imageDir, "Boss_Moving.png"));
+    final static Image imgMovingR = new Image(initChildImage(imageDir, "Boss_shooting.png"));
+    final static Image imgReloading = new Image(initChildImage(imageDir, "Boss_shooting.png"));
+    final static Image imgAttacking = new Image(initChildImage(imageDir, "Boss_shooting.png"));
+    final static Image imgSpecialAttack = new Image(initChildImage(imageDir, "Boss_shooting.png"));
+    
+    final static Image imgMovingL_hurt = new Image(initChildImage(imageDir, "Boss_Moving_hurt.png"));
+    final static Image imgMovingR_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
+    final static Image imgReloading_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
+    final static Image imgAttacking_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
+    final static Image imgSpecialAttack_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
     
 
 
@@ -21,24 +38,15 @@ public class EH_BossAI extends EntityHumanoid {
 
 
     public EH_BossAI(){
-        this.imageDir = File.separator + "boss_terminators" + File.separator;
-        this.imgDying1 = "Boss_Dying1.png";
-        this.imgDying2 = "Boss_Dying2.png";
-        this.imgDying3 = "Boss_Dying3.png";
-        this.imgMovingL = "Boss_Moving";
-        this.imgMovingR = "Boss_Shooting";
-        this.imgReloading = "Boss_Shooting";
-        this.imgAttacking = "Boss_shooting";    
-        this.imgSpecialAttack = "Boss_shooting";    
-        this.imageState = imgMovingL+ending();
+        this.imageState = imgMovingL;
         this.stateAction = StateAction.MOVING;
         this.stateLife = StateLife.HEALTHY;
         this.typeRound = TypeRound.HEAVY_ROUND;
         this.width = HaiW;
         this.height = HaiH;
         this.speed = 1;
-        this.maxHealth = 10;
-        this.stateIntFactor = 2;
+        this.maxHealth = 2;
+        this.stateIntFactor = 5;
         this.currentHealth = this.maxHealth; 
     }
 
@@ -65,36 +73,12 @@ public class EH_BossAI extends EntityHumanoid {
         this.enterState(StateAction.DYING);
     }
 
-    // @Override
-    // public void move() {
-    //     this.sameMoveCount++;
-
-    //     if(this.sameMoveCount > 20){
-    //         this.sameMoveCount = 0;
-
-    //         if(!this.standStill){
-    //             this.vector = new Point3D(0,0,0);
-    //         }
-    //         else{
-    //             Point3D newDest = Game.getIt().randomPoint3D();
-    //             this.vector = myMovement.getHeading(newDest, this.location, this.speed);
-    //             this.vector = myMovement.setNewPointComp(this.vector, Point3D_Comp.y, 0);
-    //         }
-
-    //         this.standStill = this.standStill ? false : true;
-    //     }
-
-    //     if(this.standStill & myRandom.genRandomBoolean()){
-    //         attack(EH_Avatar.getIt());
-    //     }
-
-    //     super.move();
-    // }
 
     @Override
     public void move() {
         super.move();
     }
+
 
     public void newDirection(){
         Point3D newDest = Game.getIt().randomPoint3D();
@@ -132,13 +116,11 @@ public class EH_BossAI extends EntityHumanoid {
 
     @Override
     public void hurtEvent() {
-        this.imageState = "bossTankHeadOn_Standing_hurt.png";
 
     }
 
     @Override
     public void recoverEvent() {
-        this.imageState = "bossTankHeadOn_Standing.png";
 
     }
 
@@ -193,10 +175,16 @@ public class EH_BossAI extends EntityHumanoid {
                         
                     case 1:
                         this.newDirection();
-                        this.imageState = this.imgMovingL+ending(); 
+                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
 
                     default:
-                        if(this.subStateInt%3==0) this.imageState = (this.subStateInt%2==0) ? this.imgMovingL+ending() : this.imgMovingR+ending(); 
+                        if(this.subStateInt%3==0) 
+                        if(this.subStateInt%2==0){
+                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingL : this.imgMovingL_hurt;
+                        }  
+                        else{
+                            this.imageState = (this.stateLife != StateLife.HURT) ? this.imgMovingR : this.imgMovingR_hurt;
+                        }
                         this.move();
                 }
                 break;
@@ -206,12 +194,14 @@ public class EH_BossAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
-                        this.imageState = this.imgMovingL+ending(); 
                         break;
 
                     default:
-                        if(this.mag <= 0) enterState(StateAction.RELOADING); 
-                        if(myRandom.genRandomInt(1, 2) != 2) attack(EH_Avatar.getIt());
+                        if(this.mag <= 0) {
+                            enterState(StateAction.RELOADING);
+                        } 
+                        else if(myRandom.genRandomInt(1, 2) != 2) attack(EH_Avatar.getIt());
+                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
                 }
                 break;
 
@@ -226,6 +216,7 @@ public class EH_BossAI extends EntityHumanoid {
                     default:
                         setTypeRound(TypeRound.HEAVY_ROUND);
                         attack(EH_Avatar.getIt());
+                        this.imageState = (this.stateLife != StateLife.HURT) ? this.imgSpecialAttack : this.imgSpecialAttack_hurt;
                 }
                 break;
 
@@ -237,6 +228,7 @@ public class EH_BossAI extends EntityHumanoid {
                         enterState(StateAction.ATTACKING);
 
                     default:
+                    this.imageState = (this.stateLife != StateLife.HURT) ? this.imgAttacking : this.imgAttacking_hurt;
                 }
                 break;
 
@@ -244,15 +236,15 @@ public class EH_BossAI extends EntityHumanoid {
                 switch(this.subStateInt){
 
                     case 1: 
-                        this.imageState = imgDying1;
+                        this.imageState = EH_BossAI.imgDying1;
                         break;
 
                     case 4: 
-                        this.imageState = imgDying2;
+                        this.imageState = EH_BossAI.imgDying2;
                         break;
 
                     case 8: 
-                        this.imageState = imgDying3;
+                        this.imageState = EH_BossAI.imgDying3;
                         break;
 
                     case 21:
@@ -270,7 +262,6 @@ public class EH_BossAI extends EntityHumanoid {
 
             default:
                 enterState(StateAction.MOVING);
-                this.imageState = this.imgMovingL+ending(); 
                 break;
         }
 

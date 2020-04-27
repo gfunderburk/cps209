@@ -269,7 +269,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
 
 
-            pane.getChildren().clear();
+            // pane.getChildren().clear();
 
             // draw entities visually in View
             for (Entity entity : Game.getIt().getEntityList()) {
@@ -277,13 +277,13 @@ public class W_InGame implements EventHandler<KeyEvent>{
             }        
 
             // //  Delete any dead entity images
-            // for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
-            //     ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-            //     if(oldEntityImg != null){
-            //         pane.getChildren().remove(oldEntityImg);
-            //     }     
-            // }
-            // Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+            for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+                if(oldEntityImg != null){
+                    pane.getChildren().remove(oldEntityImg);
+                }     
+            }
+            Game.getIt().setDeadEntityList(new ArrayList<Entity>());
             updateHealthGUI();
             
             readyForNextFrame = true;
@@ -292,8 +292,24 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
     public void drawEntity(Entity entity) {
 
-        // //  Delete old entity image if it exists
-        // ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
+        // //  Find if given entity image exists
+        ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
+        ImageView newEntityImg = null;
+
+        if(oldEntityImg != null){  
+            oldEntityImg.setImage(entity.getImageState());          
+            newEntityImg = oldEntityImg;
+        }
+        else{
+            newEntityImg = new ImageView(entity.getImage());
+            // newEntityImg.setCache(false);
+            newEntityImg.setId("" + entity.getId());
+            newEntityImg.setUserData(entity.getId());
+            newEntityImg.getStyleClass().add("gameEntity");
+
+            pane.getChildren().add(newEntityImg);
+        }
+
         // if(oldEntityImg != null){
         //     pane.getChildren().remove(oldEntityImg);
         // }
@@ -302,24 +318,16 @@ public class W_InGame implements EventHandler<KeyEvent>{
         //     System.out.println("----- ID#  " + entity.getId());
         // }                
 
+
         //  Create and/or Redraw entity image 
        
-        ImageView newEntityImg = null;
-       try{
-        String imageAddress = File.separator+"icons"+entity.getImage();
-        newEntityImg = new ImageView(imageAddress);
-       }
-       catch(Exception e){
-        System.out.println(entity.Serialize() + "  -  " + entity.getImage());
-        return;
-       }
+        // String imageAddress = File.separator+"icons"+entity.getImage();
+        // ImageView newEntityImg = new ImageView(imageAddress);
+        
         // final ImageView newEntityImg = newEntityImgIntermediary; 
 
-        newEntityImg.setId("" + entity.getId());
-        newEntityImg.setUserData(entity.getId());
-        newEntityImg.getStyleClass().add("gameEntity");
 
-        pane.getChildren().add(newEntityImg);
+        //  Re-Calculate Image Specs
         
         
         // Thread thread = new Thread(() -> {
@@ -390,22 +398,23 @@ public class W_InGame implements EventHandler<KeyEvent>{
 
     void resetPane(){
         
+        pane.getChildren().clear();
         //  Delete any dead entity images
-        for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
-            ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-            if(oldEntityImg != null){
-                pane.getChildren().remove(oldEntityImg);
-            }     
-        }        
+        // for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
+        //     ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+        //     if(oldEntityImg != null){
+        //         pane.getChildren().remove(oldEntityImg);
+        //     }     
+        // }        
         Game.getIt().setEntityList(new ArrayList<Entity>());    
         
         //  Delete any dead entity images
-        for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
-            ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
-            if(oldEntityImg != null){
-                pane.getChildren().remove(oldEntityImg);
-            }     
-        }
+        // for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
+        //     ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+        //     if(oldEntityImg != null){
+        //         pane.getChildren().remove(oldEntityImg);
+        //     }     
+        // }
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
 }

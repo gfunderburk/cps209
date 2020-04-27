@@ -36,26 +36,36 @@ public class EH_Avatar extends EntityHumanoid {
         It = new EH_Avatar();
     }
 
+
     // Methods //
+
 
     @Override
     public String Serialize() {
         return ("U ," + typeRound + "");
     }
 
+
+    @Override
+    public void deSerialize(String data) {
+        // TODO Auto-generated method stub
+
+    }
+
+
     public static void DeSerialize(String data) {
         String deceral = data.split(",")[1];
         if (deceral.equals("LIGHT_ROUND")) {
             roundType = TypeRound.LIGHT_ROUND;
         }
-        
-
     }
+
 
     @Override
     public void deathEvent() {
         Game.getIt().checkGameOver();
     }
+
 
     @Override
     public void collideEvent(Entity otherEntity) { 
@@ -84,6 +94,7 @@ public class EH_Avatar extends EntityHumanoid {
 
     }
 
+    
     @Override
     public void hurtEvent() {
         // TODO Auto-generated method stub
@@ -108,14 +119,11 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
     @Override
-    public void attack(Entity entity){
-        
-        // if(this.mag > 0){        
-        //     //Point3D aimedVector = myMovement.getHeading(entity.getLocation(), this.getLocation(), E_Projectile.getRoundTypeSpeed(this.getTypeRound()));
-        //     E_Projectile.makeProjectile(this, entity);   
-        //     this.mag -= 1;
-        // }     
-    }
+    public void attack(Entity entity){}
+
+    @Override
+    protected void subStateUpdate(){}
+
 
     public void attack(double targetX, double targetY, double paneX, double paneY) {
 
@@ -128,20 +136,11 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
     @Override
-    public void deSerialize(String data) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void reload() {
         if(this.mag < 300 & this.ammo > 0){
             super.reload();
         }
     }
-
-    @Override
-    protected void subStateUpdate(){}
 
 
     //  Getters-Setters  //

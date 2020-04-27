@@ -3,6 +3,7 @@ package Game_model;
 import java.io.File;
 import Util_model.myMovement;
 import Util_model.myMovement.Point3D_Comp;
+import javafx.scene.image.Image;
 
 public class EK_Scenery extends EntityKillable {
 
@@ -11,11 +12,13 @@ public class EK_Scenery extends EntityKillable {
 
     
     public static enum Type {AMMO, HEALTH, POINTS};
+    private static final String imageDir = File.separator + "scenery" + File.separator;
+    private static final Image ammoImg = new Image(initChildImage(imageDir, "ammo_powerup.png"));
+    private static final Image healthImg = new Image(initChildImage(imageDir, "health_powerup.png"));
+    private static final Image pointsImg1 = new Image(initChildImage(imageDir, "point_powerup_1.png"));
+    private static final Image pointsImg2 = new Image(initChildImage(imageDir, "point_powerup_2.png")); 
     private Type type;
-    private String ammoImg = "ammo_powerup.png";
-    private String healthImg = "health_powerup.png";
-    private String pointsImg1 = "point_powerup_1.png";
-    private String pointsImg2 = "point_powerup_2.png"; 
+
 
 
     //  Constructor  //
@@ -26,7 +29,6 @@ public class EK_Scenery extends EntityKillable {
         this.stateIntFactor = 1;
         this.maxHealth = 10;
         this.currentHealth = this.maxHealth;
-        this.imageDir = File.separator + "scenery" + File.separator;
         this.location = Game.getIt().randomPoint3D();
         this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.y, 0);
         this.type = type;
@@ -66,11 +68,13 @@ public class EK_Scenery extends EntityKillable {
         return null;
     }
 
+
     @Override
     public void deSerialize(String data) {
         // TODO Auto-generated method stub
 
     }
+
 
     @Override
     public void deathEvent() {
@@ -94,6 +98,7 @@ public class EK_Scenery extends EntityKillable {
         this.deSpawn();
     }
 
+
     @Override
     public void collideEvent(Entity otherEntity) {
         if(this.type == Type.POINTS & this.currentHealth == 10){
@@ -105,16 +110,19 @@ public class EK_Scenery extends EntityKillable {
         }
     }
     
+
     @Override
     public void spawn() {
         super.spawn();
     }
+
 
     @Override
     public void deSpawn() {
         super.deSpawn();
     }
 
+    
     @Override
     protected void subStateUpdate(){}
    

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 import Game_model.EntityKillable.StateLife;
 import Util_model.myRandom;
 import javafx.geometry.Point3D;
@@ -54,12 +53,26 @@ public class Game implements GameSave {
     //  Methods  //
 
     
+    public void startGame(String playerName, String difficultyLevel, int GameLevel){
+        // reset();
+        // resetGameSingleton();
+        setDifficultySettings(difficultyLevel);
+        setLevelSettings(3);
+        spawnerAdmin(false);
+        stateGame = StateGame.RUNNING;
+    }
+
+    public static void resetGameSingleton() {
+        It = new Game();
+    }
+
+
     public void spawnerAdmin(boolean forceFullPopulate){
 
         while(true)
         if( AI_Left > 0 & 
             AI_Left_ToSpawn > 0 &
-            (currentAIspawnCnt < 2 | forceFullPopulate) ) //maxAISpawnCnt
+            (currentAIspawnCnt < maxAISpawnCnt | forceFullPopulate) ) //maxAISpawnCnt
             {
                 switch(gameLvl)
                 {
@@ -79,19 +92,6 @@ public class Game implements GameSave {
                 }
         }
         else break;
-    }
-
-    public void startGame(String playerName, String difficultyLevel, int GameLevel){
-        // reset();
-        // resetGameSingleton();
-        setDifficultySettings(difficultyLevel);
-        setLevelSettings(GameLevel);
-        spawnerAdmin(false);
-        stateGame = StateGame.RUNNING;
-    }
-
-    public static void resetGameSingleton() {
-        It = new Game();
     }
 
 
