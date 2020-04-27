@@ -1,10 +1,7 @@
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URL;
-
 import Game_model.Game;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;

@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
-
 import Data_model.Cereal;
 import Data_model.Score;
 import Data_model.ScoreManager;
@@ -15,7 +14,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
 
 public class W_LevelOver implements AppGUI_popupWin {
     
@@ -68,15 +66,12 @@ public class W_LevelOver implements AppGUI_popupWin {
 
         if (result.get() == btnYes) {
             // Save the score and get the name before showing high scores screen
-            BTN_CLICK.play();
-            
+            BTN_CLICK.play();            
             AppGUI.getPopupStage().close();
-            
 
             TextInputDialog dialog = new TextInputDialog();
             
             dialog.setHeaderText("Please enter player name.");
-            //dialog.setContentText("Please enter your name:");
             Optional<String> playerName = dialog.showAndWait();
             playerName.ifPresent(name -> {
                 newName = name;
@@ -89,27 +84,21 @@ public class W_LevelOver implements AppGUI_popupWin {
             });
 
             Cereal cereal = new Cereal(game, newDate, newName);
-            cereal.SerializeGame();
-
-            // Game.getIt().closeGame();
-
-            //AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
+            cereal.SerializeGame();          
         } 
-        else if (result.get() == btnNo) {
+        else if (result.get() == btnNo) 
+        {
             // Return to main menu and close the game window
             BTN_CLICK.play();
-            AppGUI.getPopupStage().close();         
-            // Game.getIt().closeGame();
+            AppGUI.getPopupStage().close();     
             AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
-
-
-        } else {
+        } 
+        else 
+        {
             // ... user chose CANCEL or closed the dialog
             BTN_CLICK.play();
         }      
         
-
-
          // items for the dialog
          String difficulty[] = {"Easy", "Medium", "Hard" };
  
@@ -125,13 +114,11 @@ public class W_LevelOver implements AppGUI_popupWin {
          d.setHeaderText("Please Select Difficulty Level");
          d.showAndWait().ifPresent(choice -> 
          {
-
-             try 
-             {
+             try {
                  System.out.println(game.getGameLvl());
                  AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{d.getSelectedItem(), game.getGameLvl()});
              } 
-             catch (InterruptedException | IOException e) 
+             catch (Exception e) 
              {
                  e.printStackTrace();
              }

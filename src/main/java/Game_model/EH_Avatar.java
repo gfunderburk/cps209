@@ -1,10 +1,7 @@
 package Game_model;
 
 import Game_model.E_Projectile.TypeRound;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Point3D;
-import javafx.util.Duration;
 
 public class EH_Avatar extends EntityHumanoid {
 
@@ -61,12 +58,6 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
     @Override
-    public void move() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void collideEvent(Entity otherEntity) { 
         E_Projectile ent = (E_Projectile)otherEntity;
 
@@ -117,12 +108,6 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
     @Override
-    public void spawn() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void attack(Entity entity){
         
         // if(this.mag > 0){        
@@ -143,12 +128,6 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
     @Override
-    public void deSpawn() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void deSerialize(String data) {
         // TODO Auto-generated method stub
 
@@ -162,16 +141,7 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
     @Override
-    public void stateIncrement() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    protected void subStateUpdate() {
-        // TODO Auto-generated method stub
-
-    }
+    protected void subStateUpdate(){}
 
 
     //  Getters-Setters  //

@@ -1,11 +1,6 @@
 package Game_model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import Util_model.myMovement;
-import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
 
 public abstract class Entity implements GameSave{

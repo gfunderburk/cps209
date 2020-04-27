@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.time.LocalDateTime;
 import Data_model.Score;
 import Data_model.ScoreManager;
@@ -6,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -99,13 +97,7 @@ public class W_Scoreboard {
             try {
                 BTN_CLICK.play();
                 AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            } catch (InterruptedException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
+            }catch (Exception e1){}
         });
 
         Label title = new Label("High Scores");

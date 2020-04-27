@@ -2,6 +2,7 @@ package Game_model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import Game_model.EK_Scenery.Type;
 
 public class GameLevels {
 
@@ -11,13 +12,23 @@ public class GameLevels {
 
     //  Level 1 Objects
     ArrayList<EK_Scenery> lvl1_Scenery = new ArrayList<EK_Scenery>(Arrays.asList(
-        // TODO: place entity scenery here like: new EK_Scenery(0, 0, 0, null, null), next scenery
+        // new EK_Scenery(Type.HEALTH),
+        // new EK_Scenery(Type.HEALTH),
+        // new EK_Scenery(Type.AMMO),
+        // new EK_Scenery(Type.AMMO),
+        new EK_Scenery(Type.AMMO)
     ));
     int lvl1_AICnt = 5;
 
     
     //  Level 2 Objects
     ArrayList<EK_Scenery> lvl2_Scenery = new ArrayList<EK_Scenery>(Arrays.asList(
+        // new EK_Scenery(Type.HEALTH),
+        // new EK_Scenery(Type.HEALTH),
+        // new EK_Scenery(Type.AMMO),
+        // new EK_Scenery(Type.AMMO),
+        // new EK_Scenery(Type.POINTS),
+        // new EK_Scenery(Type.POINTS)
         
     ));
     int lvl2_AICnt = 7;
@@ -25,6 +36,13 @@ public class GameLevels {
     
     //  Level 3 Objects
     ArrayList<EK_Scenery> lvl3_Scenery = new ArrayList<EK_Scenery>(Arrays.asList(
+        // new EK_Scenery(Type.HEALTH),
+        // new EK_Scenery(Type.HEALTH),
+        // new EK_Scenery(Type.AMMO),
+        // new EK_Scenery(Type.AMMO),
+        // new EK_Scenery(Type.POINTS),
+        // new EK_Scenery(Type.POINTS),
+        // new EK_Scenery(Type.POINTS)
         
     ));
     int lvl3_AICnt = 9;

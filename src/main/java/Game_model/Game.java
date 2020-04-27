@@ -59,7 +59,7 @@ public class Game implements GameSave {
         while(true)
         if( AI_Left > 0 & 
             AI_Left_ToSpawn > 0 &
-            (currentAIspawnCnt < maxAISpawnCnt | forceFullPopulate) )
+            (currentAIspawnCnt < 2 | forceFullPopulate) ) //maxAISpawnCnt
             {
                 switch(gameLvl)
                 {
@@ -89,16 +89,6 @@ public class Game implements GameSave {
         spawnerAdmin(false);
         stateGame = StateGame.RUNNING;
     }
-
-    // public void startNewGame(){
-    //     gameLvl =  1;
-    //     for (Entity scenery : GameLevels.getIt().getLvl1_Scenery()) {
-    //         entityList.add(scenery);            
-    //     }
-    //     spawnerAdmin(true);
-    //     stateGame = StateGame.RUNNING;
-    // }
-
 
     public static void resetGameSingleton() {
         It = new Game();
@@ -137,15 +127,6 @@ public class Game implements GameSave {
         playerWin = false;
         cheatMode = false;
     }
-
-    // public void closeGame() {
-    //     for(int i=0; i<entityList.size(); i++){
-    //         entityList.get(0).deSpawn();
-    //     }
-    //     entityList = new ArrayList<Entity>();
-    //     //currentEnitity = 0;
-    // }
-
 
     public void loadGame(){
         entityList = new ArrayList<Entity>();

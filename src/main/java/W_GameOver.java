@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
-
-import Data_model.Cereal;
 import Data_model.Score;
 import Data_model.ScoreManager;
 import Game_model.Game;
@@ -14,7 +12,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
 
 public class W_GameOver implements AppGUI_popupWin{
     
@@ -32,7 +29,6 @@ public class W_GameOver implements AppGUI_popupWin{
 
     Game game = Game.getIt();
     private LocalDateTime newDate;
-    private String newName;
 
 
     //  ------------- //
@@ -78,7 +74,6 @@ public class W_GameOver implements AppGUI_popupWin{
             //dialog.setContentText("Please enter your name:");
             Optional<String> playerName = dialog.showAndWait();
             playerName.ifPresent(name -> {
-                newName = name;
                 newDate = LocalDateTime.now();
                 var newScore = new Score(name, newDate, game.getScore());
                 scoreManager.getList().clear();

@@ -57,15 +57,12 @@ public class W_MainMenu {
         d.showAndWait().ifPresent(choice -> 
         {
             THEME.stop();
-            // stage.show();            
-            //newStage.close();
             try 
             {
                 String result = (String) d.getSelectedItem();
                 AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{result, 1});
-                // game.initialize((int) d.getSelectedItem());
             } 
-            catch (InterruptedException | IOException e) 
+            catch (Exception e) 
             {
                 e.printStackTrace();
             }
@@ -74,8 +71,7 @@ public class W_MainMenu {
 
     @FXML
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
-        // W_CRUDsaves CRUDInstance = W_CRUDsaves.instance();
-        // CRUDInstance.initialize();
+        
         Cereal cereal = new Cereal(game, LocalDateTime.now(), "hello");
 
         BTN_CLICK.play();
@@ -83,18 +79,13 @@ public class W_MainMenu {
         {                       
             String line = rd.readLine();
             while (line != null) { 
-                // var score = new Score(null, null, 0); // create a new score object
-                // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
-
-                // Make method to clear everything before loading in the saved stuff
                 cereal.deSerialize(line);    // add the new score object to scores list
                 System.out.println(line); 
                 line = rd.readLine(); 
             } 
             rd.close(); 
-
         } 
-        catch (IOException e) 
+        catch (Exception e) 
         { 
             System.out.println("Problem loading scores.dat"); 
         }
@@ -113,21 +104,18 @@ public class W_MainMenu {
 
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException, InterruptedException {
-        // Play button click sounds
         BTN_CLICK.play();
         AppGUI.windowLoad("Controls / How to Play", getClass().getResource("W_Controls.fxml"), null);
     }
 
     @FXML
-    void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {
-        //W_Scoreboard scoreboardInstance = W_Scoreboard.getInstance();      
+    void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {  
         BTN_CLICK.play();
         AppGUI.windowLoad("Scoreboard", getClass().getResource("W_Scoreboard.fxml"), null);
     }
 
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException, InterruptedException {
-        // Play button click sounds
         BTN_CLICK.play();
         AppGUI.windowLoad("Credits", getClass().getResource("W_Credits.fxml"), null);
     }

@@ -1,18 +1,16 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.swing.JFrame;
-
 import Game_model.EH_Avatar;
+import Game_model.EK_Scenery;
 import Game_model.E_Projectile;
 import Game_model.Entity;
 import Game_model.Game;
 import Game_model.Game.StateGame;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -32,11 +30,8 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
-
-import javafx.scene.input.KeyEvent;
 
 
 //------------------------------------------------------------------
@@ -75,7 +70,8 @@ public class W_InGame implements EventHandler<KeyEvent>{
     String difficulty;
     boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
-    boolean cheatMode = Game.getIt().isCheatMode();
+    boolean readyForNextFrame = true;
+    final double animationRate_sec = 0.05;
 
     // ------------- //
     // GUI Elements //
@@ -110,8 +106,6 @@ public class W_InGame implements EventHandler<KeyEvent>{
      * Action: closes GameWindow and ends the game instance.
      * 
      * @throws IOException
-     * 
-     * @ @throws InterruptedException
      */
 
     @FXML
@@ -135,11 +129,11 @@ public class W_InGame implements EventHandler<KeyEvent>{
     @FXML
     void mouseEnteredPane(){
         mouseWithinPane = true;
-        ImageCursor cursor = new ImageCursor(CROSSHAIRS, 40, 40);
-        pane.getScene().setCursor(cursor);
-        // pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
-        // CROSSHAIRS.getWidth() /2,
-        // CROSSHAIRS.getHeight() /2));
+        // ImageCursor cursor = new ImageCursor(CROSSHAIRS, 40, 40);
+        // pane.getScene().setCursor(cursor);
+        pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
+        CROSSHAIRS.getWidth() /2,
+        CROSSHAIRS.getHeight() /2));
     }
 
 
@@ -147,15 +141,6 @@ public class W_InGame implements EventHandler<KeyEvent>{
     void mouseExitedPane(){
         mouseWithinPane = false;
         pane.getScene().setCursor(Cursor.DEFAULT);
-    }
-    
-
-    @FXML
-    void onMouseMoved(MouseEvent event) {
-        // if(mouseWithinPane){
-        //     mouseX = event.getX();
-        //     mouseY = event.getY();
-        // }
     }
 
 
@@ -250,8 +235,10 @@ public class W_InGame implements EventHandler<KeyEvent>{
         
         
         //  Set Global Animation Timer
-        var keyFrame = new KeyFrame(Duration.seconds(.05), e -> 
+        var keyFrame = new KeyFrame(Duration.seconds(animationRate_sec), e -> 
         {
+            if(readyForNextFrame)
+
             try {timerAnimate();} 
             catch (IOException e1){e1.printStackTrace();}
         });
@@ -266,19 +253,21 @@ public class W_InGame implements EventHandler<KeyEvent>{
     void timerAnimate() throws IOException {
         if (Game.getIt().getStateGame() == StateGame.RUNNING) { 
 
+            readyForNextFrame = false;
+
             // move entities physically in Model
             for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
-                Game.getIt().getEntityList().get(i).stateIncrement();
+                if(! (Game.getIt().getEntityList().get(i)instanceof EK_Scenery) ) 
+                    Game.getIt().getEntityList().get(i).stateIncrement();
             }
+
+            // parking place breakpoint for debugging
             var pi = Game.getIt();
             if(pi.getGameLvl() == 2) {
-                var ki = 0;}
+                var testStopForDebugger = 0;}
+
             Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
 
-            // for(ImageView item: (ImageView[])pane.getChildren().stream().filter(me -> me instanceof ImageView).toArray()){
-            //     item.unbind();
-                
-            // }
 
             pane.getChildren().clear();
 
@@ -296,6 +285,8 @@ public class W_InGame implements EventHandler<KeyEvent>{
             // }
             // Game.getIt().setDeadEntityList(new ArrayList<Entity>());
             updateHealthGUI();
+            
+            readyForNextFrame = true;
         }
     }
 
@@ -327,9 +318,7 @@ public class W_InGame implements EventHandler<KeyEvent>{
         newEntityImg.setId("" + entity.getId());
         newEntityImg.setUserData(entity.getId());
         newEntityImg.getStyleClass().add("gameEntity");
-        // newEntityImg.setOnMouseClicked(me -> {
-        //     EH_Avatar.getIt().attack(Game.getIt().findEntityById(Integer.parseInt(newEntityImg.getId())));
-        // });
+
         pane.getChildren().add(newEntityImg);
         
         
@@ -419,5 +408,4 @@ public class W_InGame implements EventHandler<KeyEvent>{
         }
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
-
 }

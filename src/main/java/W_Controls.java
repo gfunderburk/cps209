@@ -3,7 +3,6 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
 
 public class W_Controls {
 
@@ -42,7 +41,7 @@ public class W_Controls {
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         BTN_CLICK.play();
-        // TODO: get input from textfields and 
+        // TODO: Update Help and Controls with a game play description
         AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
     }
 }
