@@ -63,6 +63,13 @@ HBox {
 
 .devNames {
     -fx-font-size: 20 !important;
+    -fx-spacing: 15;
+    -fx-padding: 8;
 
 }
+
+.title-font {
+    -fx-font-size: 30;
+}
+
 

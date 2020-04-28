@@ -3,9 +3,9 @@
 <?import javafx.scene.control.* ?>
 <?import javafx.scene.layout.* ?>
 <?import javafx.scene.image.* ?>
-<!-- Note: The Buttons need onAction's-->
 
-<VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" spacing="10" prefHeight="500" prefWidth="700" fx:id="vbox_scoreboard">
+
+<VBox fx:controller="W_Scoreboard" xmlns:fx="http://javafx.com/fxml" stylesheets="ScoreBoardStyles.css" spacing="40" prefHeight="500" prefWidth="700" fx:id="vbox_scoreboard" alignment="CENTER">
 
   
 </VBox>
