@@ -20,7 +20,7 @@ public class EH_Avatar extends EntityHumanoid {
         this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, -1));       
         this.maxHealth = 20;        
         this.currentHealth = this.maxHealth;
-        this.mag = 3;
+        this.mag = 30;
         this.ammo = 300;
     }
 
@@ -97,7 +97,7 @@ public class EH_Avatar extends EntityHumanoid {
 
     @Override
     public void reload() {
-        if(this.mag < 30 & this.ammo > 0){
+        if(this.mag < 30 && this.ammo > 0){
             super.reload();
         }
     }
