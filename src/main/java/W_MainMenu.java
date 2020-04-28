@@ -5,6 +5,7 @@ Desc.   MainMenu window is the primary screen for the program.
 --------------------------------------------------------------------------------------------- */
 
 
+import Game_model.GameSounds;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import Game_model.Game.StateDifficulty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.media.AudioClip;
 
 
 public class W_MainMenu implements AppInitialize{
@@ -46,7 +46,7 @@ public class W_MainMenu implements AppInitialize{
     @FXML
     void btn_newGameClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
-        AppSounds.it().BTN_CLICK.play();   
+        GameSounds.it().BTN_CLICK.play();   
 
         // items for the dialog
         String difficulty[] = {"Easy", "Medium", "Hard" };
@@ -82,7 +82,7 @@ public class W_MainMenu implements AppInitialize{
         
         Cereal cereal = new Cereal(game, LocalDateTime.now(), "hello");
 
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         try(BufferedReader rd = new BufferedReader( new FileReader("cereal.dat")))
         {                       
             String line = rd.readLine();
@@ -103,25 +103,25 @@ public class W_MainMenu implements AppInitialize{
 
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException, InterruptedException {
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Controls / How to Play", "W_Controls.fxml", null);
     }
 
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {  
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Scoreboard", "W_Scoreboard.fxml", null);
     }
 
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException, InterruptedException {
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Credits", "W_Credits.fxml", null);
     }
 
     @Override
     public void initialize() {
-        AppSounds.it().THEME.play();
+        GameSounds.it().THEME.play();
     }
 
     // ------------- //

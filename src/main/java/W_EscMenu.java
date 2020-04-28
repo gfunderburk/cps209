@@ -5,6 +5,7 @@ Desc.   EscMenu window pauses the in-game state when initialized and displays op
 --------------------------------------------------------------------------------------------- */
 
 
+import Game_model.GameSounds;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -62,7 +63,7 @@ public class W_EscMenu implements AppInitialize{
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         
         AppGUI.getPopupStage().close();
 
@@ -86,7 +87,7 @@ public class W_EscMenu implements AppInitialize{
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
         // Return to game window
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         AppGUI.getPopupStage().close();
         Game.getIt().play();
     }

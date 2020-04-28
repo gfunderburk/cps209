@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import Game_model.GameSounds;
 import Game_model.EH_Avatar;
 import Game_model.EK_Scenery;
 import Game_model.E_Projectile;
@@ -30,7 +31,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.AudioClip;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
 
@@ -211,7 +211,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         
         //  Reset in-game Pane
 
-        AppSounds.it().THEME.stop();
+        GameSounds.it().THEME.stop();
         pane.getChildren().clear();
         game.setEntityList(new ArrayList<Entity>());    
         game.setDeadEntityList(new ArrayList<Entity>());
