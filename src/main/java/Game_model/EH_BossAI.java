@@ -190,14 +190,20 @@ public class EH_BossAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(false);
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgAttacking : EH_BossAI.imgAttacking_hurt;
+
                         if(this.mag <= 0) {
                             enterState(StateAction.RELOADING);
                         } 
-                        else if(myRandom.genRandomInt(1, 2) != 2) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgAttacking : EH_BossAI.imgAttacking_hurt;
+                        else if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -207,9 +213,11 @@ public class EH_BossAI extends EntityHumanoid {
                     case 30:
                         enterState(StateAction.MOVING);
                         setTypeRound(TypeRound.EXPLOSIVE_ROUND);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(true);
                         setTypeRound(TypeRound.HEAVY_ROUND);
                         attack(EH_Avatar.getIt());
                         this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgSpecialAttack : EH_BossAI.imgSpecialAttack_hurt;
@@ -233,6 +241,11 @@ public class EH_BossAI extends EntityHumanoid {
 
                     case 1: 
                         this.imageState = EH_BossAI.imgDying1;
+                        this.setDying(true);
+                        break;
+
+                    case 2: 
+                        this.setDying(false);
                         break;
 
                     case 4: 

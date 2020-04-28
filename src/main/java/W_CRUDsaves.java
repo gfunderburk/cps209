@@ -25,8 +25,8 @@ public class W_CRUDsaves {
     // Media Elements  //
     // --------------- //
 
-    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
-    final AudioClip THEME =     AppGUI.audioClip(this, "maintheme.mp3");
+    final AudioClip BTN_CLICK = AppSounds.audioClip(this, "btnClick_seatBelt.mp3");
+    final AudioClip THEME =     AppSounds.audioClip(this, "maintheme.mp3");
 
     // ----------- //
     //  Singleton  //

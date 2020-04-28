@@ -11,6 +11,7 @@ import Game_model.EH_Avatar;
 import Game_model.EK_Scenery;
 import Game_model.E_Projectile;
 import Game_model.Entity;
+import Game_model.EntityHumanoid;
 import Game_model.Game;
 import Game_model.Game.StateDifficulty;
 import Game_model.Game.StateGame;
@@ -44,11 +45,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // Media Elements //
     // --------------- //
     
-    final AudioClip BTN_CLICK         = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
-    final AudioClip SHOOT_FOOTSOLDIER = AppGUI.audioClip(this, "footsoldiergun.wav");
-    final AudioClip SHOOT_50CAL       = AppGUI.audioClip(this, "50cal.mp3");
-    final AudioClip SHOOT_M16         = AppGUI.audioClip(this, "m16.mp3");
-    final AudioClip SHOOT_SHOTGUN     = AppGUI.audioClip(this, "shotgun.mp3");
+  
     final Image CROSSHAIRS            = new Image("/icons/crosshairs_4.png");
 
     // --------------- //
@@ -134,10 +131,10 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         if (avatar.getMag() > 1 || avatar.getMag() == 1) {
-            SHOOT_FOOTSOLDIER.play();
+            // SHOOT_FOOTSOLDIER.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
-            BTN_CLICK.play();
+            // BTN_CLICK.play();
             avatar.setMag(0);
         }
         updateHealthGUI();
@@ -152,12 +149,12 @@ public class W_InGame implements EventHandler<KeyEvent> {
        if(event.getCharacter()=="R"){
         System.out.print("RELOAD");
         EH_Avatar.getIt().reload();
-        BTN_CLICK.play();
+        // BTN_CLICK.play();
        }
        if(event.getCharacter()=="C"){
            System.out.print("CHEAT");
            Game.getIt().toggleCheatMode();
-           BTN_CLICK.play();
+        //    BTN_CLICK.play();
        }
     }
     
@@ -168,7 +165,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     void updateHealthGUI() throws IOException {
         double health = avatar.getCurrentHealth()/10;
-        //System.out.println(health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
@@ -184,18 +180,18 @@ public class W_InGame implements EventHandler<KeyEvent> {
         }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
-        if (Game.getIt().isGameOver()) {
-            // Game.getIt().closeGame();
-            if (game.getGameLvl() == 3 || game.getGameLvl() > 3) {
-
+        if (Game.getIt().isGameOver()) 
+        {
+            if (Game.getIt().isPlayerWinner() && game.getGameLvl() >= 3) 
+            {
                 AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
             }
-            else if(Game.getIt().isPlayerWinner()){
-                // Load-Launch "YOU HAVE COMPLETED THE LEVEL!" LevelOver menu
+            else if(Game.getIt().isPlayerWinner())
+            {
                 AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
             }
-            else{
-                // Load-Launch "YOU HAVE DIED!" GameOver menu
+            else
+            {
                 AppGUI.popupLoad(this, "W_GameOver.fxml", "GAME OVER");
             }
         } 
@@ -207,6 +203,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         
         //  Reset in-game Pane
 
+        AppSounds.it().THEME.stop();
         pane.getChildren().clear();
         Game.getIt().setEntityList(new ArrayList<Entity>());    
         Game.getIt().setDeadEntityList(new ArrayList<Entity>());
@@ -254,8 +251,15 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
             // move entities physically in Model
             for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
-                if(! (Game.getIt().getEntityList().get(i)instanceof EK_Scenery) ) 
-                Game.getIt().getEntityList().get(i).stateIncrement();
+                Entity ent = Game.getIt().getEntityList().get(i);
+
+                if(! (ent instanceof EK_Scenery) ) ent.stateIncrement();
+
+                if(ent instanceof EntityHumanoid){
+                    EntityHumanoid dude = (EntityHumanoid)ent;    
+                    if(dude.isAttacking()) dude.getAudio_attacking().play();
+                    if(dude.isDying())     dude.getAudio_dying().play();
+                }
             }
 
             // parking place breakpoint for debugging
@@ -344,7 +348,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                SHOOT_SHOTGUN.play();
+                // SHOOT_SHOTGUN.play();
             }
         }
         else{

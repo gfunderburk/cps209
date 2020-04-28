@@ -45,16 +45,11 @@ public class AppGUI extends Application {
         currentStage.show();
     }
 
-    public static AudioClip audioClip(Object parentClass, String audioURL){
-        return new AudioClip(parentClass.getClass().getResource("/media/"+audioURL).toString());
-    }
-
-
     public static void popupLoad(Object parentClass, String windowURL, String windowTitle) throws IOException {
         
         FXMLLoader loader = new FXMLLoader(parentClass.getClass().getResource(windowURL));
         Scene scene = new Scene(loader.load());
-        AppGUI_popupWin ctrl = (AppGUI_popupWin)loader.getController();
+        AppInitialize ctrl = (AppInitialize)loader.getController();
         ctrl.initialize();
         
         AppGUI.getPopupStage().setScene(scene);
@@ -102,18 +97,22 @@ public class AppGUI extends Application {
             W_InGame gameScene = loader.getController();
             gameScene.ingameScene = scene;
 
-            scene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
-                if(key.getCode() == KeyCode.C) {
-                    System.out.println("cheat mode toggled");
-                    if (game.isCheatMode()) {
-                        game.setCheatMode(false);
-                    } else {
-                        game.setCheatMode(true);
-                    }
-                }
-             });
+            // scene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
+            //     if(key.getCode() == KeyCode.C) {
+            //         System.out.println("cheat mode toggled");
+            //         if (game.isCheatMode()) {
+            //             game.setCheatMode(false);
+            //         } else {
+            //             game.setCheatMode(true);
+            //         }
+            //     }
+            //  });
 
             gameScene.initialize((StateDifficulty)windowInitData[0], (int)windowInitData[1], (int) windowInitData[2]);
+        }
+        else if(newWindowTitle.equals("Main Menu")){
+            AppInitialize ctrl = (AppInitialize)loader.getController();
+            ctrl.initialize();
         }
 
         currentStage.show();

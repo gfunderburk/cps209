@@ -25,7 +25,6 @@ public class W_Scoreboard {
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
     // --------------- //
     // View Variables //
@@ -101,7 +100,7 @@ public class W_Scoreboard {
         btnMainMenu.setOnAction(e -> {
 
             try {
-                BTN_CLICK.play();
+                AppSounds.it().BTN_CLICK.play();
                 AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
             }catch (Exception e1){}
         });

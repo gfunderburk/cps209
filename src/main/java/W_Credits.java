@@ -15,7 +15,6 @@ public class W_Credits {
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
 
     //  --------------- //
@@ -38,7 +37,7 @@ public class W_Credits {
 
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
     }
     

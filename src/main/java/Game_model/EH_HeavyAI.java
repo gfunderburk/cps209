@@ -190,14 +190,20 @@ public class EH_HeavyAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
+                        this.setAttacking(false);
                         break;
 
-                    default:                        
+                    default:  
+                        this.setAttacking(false); 
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_HeavyAI.imgAttacking : EH_HeavyAI.imgAttacking_hurt;
+
                         if(this.mag <= 0) {
                             enterState(StateAction.RELOADING);
                         } 
-                        else if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_HeavyAI.imgAttacking : EH_HeavyAI.imgAttacking_hurt;
+                        else if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -207,12 +213,18 @@ public class EH_HeavyAI extends EntityHumanoid {
                     case 30:
                         enterState(StateAction.MOVING);
                         setTypeRound(TypeRound.HEAVY_ROUND);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(false);
                         setTypeRound(TypeRound.EXPLOSIVE_ROUND);
-                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
                         this.imageState = (this.stateLife != StateLife.HURT) ? EH_HeavyAI.imgSpecialAttack : EH_HeavyAI.imgSpecialAttack_hurt;
+                        
+                        if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -233,6 +245,11 @@ public class EH_HeavyAI extends EntityHumanoid {
 
                     case 1: 
                         this.imageState = EH_HeavyAI.imgDying1;
+                        this.setDying(true);
+                        break;
+
+                    case 2: 
+                        this.setDying(false);
                         break;
 
                     case 7: 

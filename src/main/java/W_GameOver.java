@@ -20,14 +20,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
 
-public class W_GameOver implements AppGUI_popupWin{
+public class W_GameOver implements AppInitialize{
     
     
     // --------------- //
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
 
     //  --------------- //
@@ -57,7 +56,7 @@ public class W_GameOver implements AppGUI_popupWin{
         // - Yes = Save game
         // - No  = Main Menu
         var scoreManager = ScoreManager.getIt();
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to save your score?");        
 
@@ -71,7 +70,7 @@ public class W_GameOver implements AppGUI_popupWin{
         if (result.get() == btnYes) 
         {
             // Save the score and get the name before showing high scores screen
-            BTN_CLICK.play();            
+            AppSounds.it().BTN_CLICK.play();            
             AppGUI.getPopupStage().close();            
 
             TextInputDialog dialog = new TextInputDialog();
@@ -92,13 +91,13 @@ public class W_GameOver implements AppGUI_popupWin{
         else if (result.get() == btnNo)
         {
             // Return to main menu and close the game window
-            BTN_CLICK.play();
+            AppSounds.it().BTN_CLICK.play();
             AppGUI.getPopupStage().close();    
             AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
         } 
         else {
             // ... user chose CANCEL or closed the dialog
-            BTN_CLICK.play();
+            AppSounds.it().BTN_CLICK.play();
         }        
     }
 

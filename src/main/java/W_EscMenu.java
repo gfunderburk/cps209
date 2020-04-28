@@ -18,16 +18,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.media.AudioClip;
 
-public class W_EscMenu implements AppGUI_popupWin{
+public class W_EscMenu implements AppInitialize{
     
     
     // --------------- //
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
 
     //  --------------- //
@@ -64,7 +62,7 @@ public class W_EscMenu implements AppGUI_popupWin{
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         
         AppGUI.getPopupStage().close();
 
@@ -88,7 +86,7 @@ public class W_EscMenu implements AppGUI_popupWin{
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
         // Return to game window
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         AppGUI.getPopupStage().close();
         Game.getIt().play();
     }

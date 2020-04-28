@@ -190,14 +190,20 @@ public class EH_FlyingAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(false);
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgAttacking : EH_FlyingAI.imgAttacking_hurt;
+                        
                         if(this.mag <= 0) {
                             enterState(StateAction.RELOADING);
                         } 
-                        else if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgAttacking : EH_FlyingAI.imgAttacking_hurt;
+                        else if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -206,9 +212,11 @@ public class EH_FlyingAI extends EntityHumanoid {
 
                     case 30:
                         enterState(StateAction.MOVING);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(true);
                         attack(EH_Avatar.getIt());
                         this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgSpecialAttack : EH_FlyingAI.imgSpecialAttack_hurt;
                 }
@@ -231,6 +239,11 @@ public class EH_FlyingAI extends EntityHumanoid {
 
                     case 1: 
                         this.imageState = EH_FlyingAI.imgDying1;
+                        this.setDying(true);
+                        break;
+
+                    case 2: 
+                        this.setDying(false);
                         break;
 
                     case 7: 

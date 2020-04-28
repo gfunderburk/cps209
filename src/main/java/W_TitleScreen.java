@@ -15,8 +15,8 @@ public class W_TitleScreen {
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
-    final AudioClip THEME     = AppGUI.audioClip(this, "maintheme.mp3");
+    // final AudioClip BTN_CLICK = AppSounds.audioClip(this, "btnClick_seatBelt.mp3");
+    // final AudioClip THEME     = AppSounds.audioClip(this, "maintheme.mp3");
 
     //  --------------- //
     //  View Variables  //
@@ -37,10 +37,9 @@ public class W_TitleScreen {
 
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         new W_Scoreboard();
         AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
-        THEME.play();
     }
 
 

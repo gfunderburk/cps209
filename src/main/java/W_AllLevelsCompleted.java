@@ -21,14 +21,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.media.AudioClip;
 
-public class W_AllLevelsCompleted implements AppGUI_popupWin{
+public class W_AllLevelsCompleted implements AppInitialize{
     
     
     // --------------- //
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
 
     //  --------------- //
@@ -55,7 +54,7 @@ public class W_AllLevelsCompleted implements AppGUI_popupWin{
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
         // - Yes = Save game
         // - No  = Main Menu
@@ -72,7 +71,7 @@ public class W_AllLevelsCompleted implements AppGUI_popupWin{
 
         if (result.get() == btnYes) {
             // Save the score and get the name before showing high scores screen
-            BTN_CLICK.play();
+            AppSounds.it().BTN_CLICK.play();
             
             AppGUI.getPopupStage().close();
             
@@ -98,14 +97,14 @@ public class W_AllLevelsCompleted implements AppGUI_popupWin{
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
-            BTN_CLICK.play();
+            AppSounds.it().BTN_CLICK.play();
             AppGUI.getPopupStage().close();     
             AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
 
 
         } else {
             // ... user chose CANCEL or closed the dialog
-            BTN_CLICK.play();
+            AppSounds.it().BTN_CLICK.play();
         }        
     }
 
