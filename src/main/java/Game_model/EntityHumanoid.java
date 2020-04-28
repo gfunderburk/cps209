@@ -1,3 +1,12 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   EnitityHumanoid.java
+Desc.   This class is the third-tiered and final Abstract class for the physical world.
+        Any entity that can assault other entities in the physical world 
+        inheret related content in this class.
+        This class admins possible action states and projectile creation during attacking states.
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
 public abstract class EntityHumanoid extends EntityKillable {

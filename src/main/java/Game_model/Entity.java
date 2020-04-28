@@ -1,3 +1,14 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   Entity.java
+Desc.   This class is the foundatinal Abstract class that sets up the physical world 
+        (vs. the visual world). This physical world is 3D, and its entity objects 
+        inheret their core physical specs in this class.  
+        This class sets up, movement, collision detection, boundary detection, and physical sizes.
+
+Note:   This class is equally foundational to the in-game state as the Game class.
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
 import java.io.File;
@@ -6,13 +17,6 @@ import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
 
 public abstract class Entity implements GameSave{
-
-    public static String initChildImage(String imageDir, String imageState){
-        String vsDir = System.getProperty("user.dir");
-        String recourcesDir = File.separator+"src"+File.separator+"main"+File.separator+"resources"+File.separator+"icons";
-        var it = new File(vsDir + recourcesDir + imageDir + imageState).toURI().toString();
-        return it;
-    }
 
 
     //  Variables  //
@@ -26,6 +30,12 @@ public abstract class Entity implements GameSave{
     protected static double FaiW = 6; 
     protected static double BaiH = 80;
     protected static double BaiW = 20; 
+    protected static double AmmoH = 6; 
+    protected static double AmmoW = 8; 
+    protected static double HealthH = 6; 
+    protected static double HealthW = 8; 
+    protected static double PointsH = 8; 
+    protected static double PointsW = 6; 
     protected  int Id, stateInt, stateIntFactor, subStateInt; 
     protected  double height, width, speed;
     protected  int sameMoveCount;
@@ -46,6 +56,7 @@ public abstract class Entity implements GameSave{
 
     //  Methods  //
 
+
     public void stateIncrement(){
         this.stateInt++;
         if(this.stateInt == stateIntFactor){
@@ -55,6 +66,12 @@ public abstract class Entity implements GameSave{
         }  
     };
 
+    public static String initChildImage(String imageDir, String imageState){
+        String vsDir = System.getProperty("user.dir");
+        String recourcesDir = File.separator+"src"+File.separator+"main"+File.separator+"resources"+File.separator+"icons";
+        var it = new File(vsDir + recourcesDir + imageDir + imageState).toURI().toString();
+        return it;
+    }
 
     public abstract void collideEvent(Entity collidedEntity);
 

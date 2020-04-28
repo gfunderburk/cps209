@@ -1,12 +1,13 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
 package Util_model;
 
 import java.util.Random;
 
-//---------------------------------------------------------------------------------------
-// Class:  selfRandom
-// Desc:  This class streamlines use of Math.Random features,   
-//        It randomly generates and returns int, double, boolean, and positive/negative.
-//--------------------------------------------------------------------------------------- 
 public class myRandom {
 
     public static int genRandomInt(int min, int max){

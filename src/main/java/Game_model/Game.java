@@ -1,6 +1,10 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   Game.java
+Desc.   This class is the cheif class for the Game_Model.
+        It contains and administrates all core functions of the in-game like:
+        starting + pausing the in-game state, gameOver conditions, 
+        setting the bounds of the game, and spawning + despawning enemies.
+Note:   This class is equally foundational to the in-game state as the Entity class.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -15,11 +19,6 @@ import Game_model.EntityKillable.StateLife;
 import Util_model.myRandom;
 import javafx.geometry.Point3D;
 
-//--------------------------------------------------------------------------
-//File:   Game.java
-//Desc:   This file is the Cheif class for the Model,   
-//        It contains all the game's static variables.
-//-------------------------------------------------------------------------- 
 
 public class Game implements GameSave {
 

@@ -44,20 +44,20 @@ public class EK_Scenery extends EntityKillable {
             
             case AMMO:
                 this.imageState = ammoImg;
-                this.width = 8;
-                this.height = 6;
+                this.width = AmmoW;
+                this.height = AmmoH;
                 break;
             
             case HEALTH:
                 this.imageState = healthImg;
-                this.width = 8;
-                this.height = 6;
+                this.width = HealthW;
+                this.height = HealthH;
                 break;
                 
             case POINTS:
                 this.imageState = pointsImg1;
-                this.width = 6;
-                this.height = 8;
+                this.width = PointsW;
+                this.height = PointsH;
                 this.currentHealth = 10;
                 break;
             

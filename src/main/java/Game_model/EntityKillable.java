@@ -1,6 +1,9 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   EntityKillable.java
+Desc.   This class is the second-tiered Abstract class for the physical world. 
+        Any destructable entity in the physical world will inheret their health related 
+        attributes and methods in this class.
+        This class admins current health status and health related events. 
 --------------------------------------------------------------------------------------------- */
 
 

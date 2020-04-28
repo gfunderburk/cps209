@@ -1,7 +1,12 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
 import java.io.File;
-
 import Game_model.E_Projectile.TypeRound;
 import Util_model.myMovement;
 import Util_model.myRandom;

@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import Data_model.Cereal;
 import Game_model.EH_Avatar;
 import Game_model.EK_Scenery;
 import Game_model.E_Projectile;
@@ -20,14 +19,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -50,13 +47,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     // Singleton Instance Variables
     Game game = Game.getIt();
-
     EH_Avatar avatar = EH_Avatar.getIt();
-    static Object Model_Lock = new Object();
-    static Object View_Lock = new Object();
-
-    public static Object getModel_Lock(){ return Model_Lock;}
-    public static Object getView_Lock() { return View_Lock;}
 
     // --------------- //
     // Media Elements //
@@ -76,7 +67,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
     Scene ingameScene;
     Scene scene;
     StateDifficulty difficulty;
-    boolean mouseWithinPane;
     double mouseX, mouseY, paneW, paneH;
     boolean readyForNextFrame = true;
     final double animationRate_sec = 0.05;
@@ -117,17 +107,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     void onEscClicked() throws IOException {
         AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
-<<<<<<< HEAD
-=======
-
-    }
-
-    @FXML
-    void onSaveClicked() throws IOException {
-        Cereal cereal = new Cereal(game, game.getDt(), "");
-        cereal.SerializeGame();
-        updateHealthGUI();
->>>>>>> 992efa3ca298a4703dd13ad13a908a84653a940e
     }
     
     @FXML
@@ -141,15 +120,11 @@ public class W_InGame implements EventHandler<KeyEvent> {
     void ontoggleCheatmodeClicked() throws FileNotFoundException {
         Game.getIt().toggleCheatMode();
         btn_toggleCheatmode.setText(Game.getIt().isCheatMode() ? "Cheatmode - OFF" : "Cheatmode - ON");
-        
     }
 
 
     @FXML
     void mouseEnteredPane(){
-        mouseWithinPane = true;
-        // ImageCursor cursor = new ImageCursor(CROSSHAIRS, 40, 40);
-        // pane.getScene().setCursor(cursor);
         pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
         CROSSHAIRS.getWidth() /2,
         CROSSHAIRS.getHeight() /2));
@@ -158,7 +133,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     @FXML
     void mouseExitedPane(){
-        mouseWithinPane = false;
         pane.getScene().setCursor(Cursor.DEFAULT);
     }
 
@@ -235,16 +209,22 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     void initialize(StateDifficulty difficultyLevel, int gameLevel, int score) throws InterruptedException, IOException  {
         
-        resetPane();
+        //  Reset in-game Pane
+
+        pane.getChildren().clear();
+        Game.getIt().setEntityList(new ArrayList<Entity>());    
+        Game.getIt().setDeadEntityList(new ArrayList<Entity>());
         EH_Avatar.resetAvatarSingleton();
         Game.resetGameSingleton();
         game = Game.getIt();
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         game.setScore(score);
-
         Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
         
+
+        //  Setup lvl background
+
         String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
         Image lvlImage = new Image(imageAddress);
         
@@ -257,17 +237,16 @@ public class W_InGame implements EventHandler<KeyEvent> {
         
         
         //  Set Global Animation Timer
+
         var keyFrame = new KeyFrame(Duration.seconds(animationRate_sec), e -> 
         {
             if(readyForNextFrame)
-
             try {timerAnimate();} 
             catch (IOException e1){e1.printStackTrace();}
         });
         var clockTimeline = new Timeline(keyFrame);
         clockTimeline.setCycleCount(Timeline.INDEFINITE);
-        clockTimeline.play();
-        
+        clockTimeline.play();        
     }
 
 
@@ -313,7 +292,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     public void drawEntity(Entity entity) {
 
-        // //  Find if given entity image exists
+        // Find if given entity image exists
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
         ImageView newEntityImg = null;
 
@@ -331,15 +310,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
             pane.getChildren().add(newEntityImg);
         }
 
-        // if(oldEntityImg != null){
-        //     pane.getChildren().remove(oldEntityImg);
-        // }
-        // else{
-        //     System.out.println("imageView not found: " + entity.Serialize());
-        //     System.out.println("----- ID#  " + entity.getId());
-        // }                
-
-
 
         //  Re-Calculate Image Specs
     
@@ -349,6 +319,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         double paneWper = paneW * .01;
         double paneHper = paneH * .01;
 
+        
         //  Set ImageView Width/Height
 
         double imgW = paneWper * entity.getWidth(); // set z=0 Width
@@ -389,11 +360,5 @@ public class W_InGame implements EventHandler<KeyEvent> {
         newEntityImg.setFitWidth(imgW);
         newEntityImg.setFitHeight(imgH);
         newEntityImg.relocate(imgX, paneH - imgY);
-    }
-
-    void resetPane(){
-        pane.getChildren().clear();
-        Game.getIt().setEntityList(new ArrayList<Entity>());    
-        Game.getIt().setDeadEntityList(new ArrayList<Entity>());
     }
 }

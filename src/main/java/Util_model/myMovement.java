@@ -1,3 +1,9 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
 package Util_model;
 
 import javafx.geometry.Point3D;
@@ -5,11 +11,6 @@ import javafx.geometry.Point3D;
 public class myMovement {
 
     //      Move Point in 3D Space        //
-
-    // public static T Max<T>(T a, T b) where T : IComparable<T> { 
-    //     return a.CompareTo(b) > 0 ? a : b; 
-    // } 
-
 
     public static Point3D getHeading(double targetX, double targetY, double sourceX, double sourceY, double movementSpeed){
 
