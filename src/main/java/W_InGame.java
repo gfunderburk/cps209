@@ -62,7 +62,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     final AudioClip SHOOT_50CAL = new AudioClip(getClass().getResource("/media/50cal.mp3").toString());
     final AudioClip SHOOT_M16 = new AudioClip(getClass().getResource("/media/m16.mp3").toString());
     final AudioClip SHOOT_SHOTGUN = new AudioClip(getClass().getResource("/media/shotgun.mp3").toString());
-    final Image CROSSHAIRS = new Image("/icons/crosshairs_3.PNG");
+    final Image CROSSHAIRS = new Image("/icons/crosshairs_4.png");
 
     // --------------- //
     // View Variables //
@@ -116,20 +116,24 @@ public class W_InGame implements EventHandler<KeyEvent> {
     }
 
     @FXML
-    void onSaveClicked() throws FileNotFoundException {
+    void onSaveClicked() throws IOException {
         Cereal cereal = new Cereal(game, game.getDt(), "");
         cereal.SerializeGame();
+        updateHealthGUI();
     }
     
     @FXML
-    void onReloadClicked() throws FileNotFoundException {
+    void onReloadClicked() throws IOException {
         EH_Avatar.getIt().reload();
+        System.out.println(EH_Avatar.getIt().getAmmo());
+        updateHealthGUI();
     }
     
     @FXML
     void ontoggleCheatmodeClicked() throws FileNotFoundException {
         Game.getIt().toggleCheatMode();
         btn_toggleCheatmode.setText(Game.getIt().isCheatMode() ? "Cheatmode - OFF" : "Cheatmode - ON");
+        
     }
 
 
@@ -162,8 +166,8 @@ public class W_InGame implements EventHandler<KeyEvent> {
             BTN_CLICK.play();
             avatar.setMag(0);
         }
-        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        lbl_Score.setText("Score: " + Game.getIt().getScore()); 
+        // lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
+        // lbl_Score.setText("Score: " + Game.getIt().getScore()); 
     }
 
     // //Written by Funderburk, pushed by Cox
@@ -195,7 +199,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         progBar_health.setProgress(health);
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         lbl_Score.setText("Score: " + Game.getIt().getScore()); 
-        if (health < 5) {
+        if (health < .5) {
             progBar_health.setStyle("-fx-accent: red;");
         } else {
             progBar_health.setStyle("-fx-accent: lime;");
@@ -204,10 +208,13 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
         if (Game.getIt().isGameOver()) {
             // Game.getIt().closeGame();
+            if (game.getGameLvl() == 3 || game.getGameLvl() > 3) {
 
-            if(Game.getIt().isPlayerWinner()){
+                AppGUI.popupLoad(getClass().getResource("W_AllLevelsCompleted.fxml"), "YOU WON!!");
+            }
+            else if(Game.getIt().isPlayerWinner()){
                 // Load-Launch "YOU HAVE COMPLETED THE LEVEL!" LevelOver menu
-                AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER");
+                AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER"); 
             }
             else{
                 // Load-Launch "YOU HAVE DIED!" GameOver menu
@@ -362,7 +369,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                //SHOOT_SHOTGUN.play();
+                SHOOT_SHOTGUN.play();
             }
         }
         else{
