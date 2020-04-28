@@ -47,6 +47,7 @@ public class W_MainMenu implements AppInitialize{
     void btn_newGameClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
         GameSounds.it().BTN_CLICK.play();   
+        
 
         // items for the dialog
         String difficulty[] = {"Easy", "Medium", "Hard" };
@@ -121,7 +122,7 @@ public class W_MainMenu implements AppInitialize{
 
     @Override
     public void initialize() {
-        GameSounds.it().THEME.play();
+        if(!GameSounds.it().THEME.isPlaying()) GameSounds.it().THEME.play();  
     }
 
     // ------------- //
