@@ -1,9 +1,16 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import Game_model.E_Projectile.TypeRound;
 import Game_model.EntityKillable.StateLife;
 import Util_model.myRandom;
 import javafx.geometry.Point3D;
@@ -236,6 +243,7 @@ public class Game implements GameSave {
 
     public void toggleCheatMode(){
         cheatMode = cheatMode ? false : true;
+        EH_Avatar.getIt().setTypeRound( cheatMode ? TypeRound.HEAVY_ROUND : TypeRound.LIGHT_ROUND );
     }
 
 

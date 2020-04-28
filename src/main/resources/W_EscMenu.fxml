@@ -9,8 +9,10 @@
 
       <Label text="Escape Menu" />
 
+      <Button text="Resume Game" onAction="#btn_onResumeClicked" />
+      
+      <Button text="Save Game" onAction="#onSaveClicked" fx:id="btn_save" />
       
       <Button text="Quit" onAction="#btn_onQuitClicked"/>
-      <Button text="Resume Game" onAction="#btn_onResumeClicked" />
 
 </VBox>

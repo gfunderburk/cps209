@@ -1,3 +1,9 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
 import java.io.File;
@@ -31,6 +37,7 @@ public class EK_Scenery extends EntityKillable {
         this.currentHealth = this.maxHealth;
         this.location = Game.getIt().randomPoint3D();
         this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.y, 0);
+        this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.z, 0);
         this.type = type;
 
         switch(this.type){

@@ -1,3 +1,9 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
 import java.io.IOException;
 import java.net.URL;
 import Game_model.Game;
@@ -52,8 +58,8 @@ public class AppGUI extends Application {
         
         AppGUI.getPopupStage().setScene(scene);
         AppGUI.getPopupStage().setTitle(windowTitle);
-        AppGUI.getPopupStage().setWidth(400);
-        AppGUI.getPopupStage().setHeight(300);
+        // AppGUI.getPopupStage().setWidth(400);
+        // AppGUI.getPopupStage().setHeight(300);
         AppGUI.getPopupStage().show();
     }
 

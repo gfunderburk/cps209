@@ -12,14 +12,13 @@
       <HBox>
 
         <Button onAction="#onEscClicked" text="Escape" fx:id="btn_esc" />
-        <Label text="           " />
+        <!-- <Label text="           " /> -->
         <VBox fx:id="vbox_health">
           <!-- <Label text="Health:" />
           <ProgressBar fx:id="progBar_health" /> -->
         </VBox>
         <Label fx:id="lbl_Score" text="Score: 0" />
         <Label fx:id="lbl_ammoStats" text="" />
-        <Button onAction="#onSaveClicked" text="Save Game" fx:id="btn_save" />
         <Button onAction="#ontoggleCheatmodeClicked" text="Cheatmode - OFF" fx:id="btn_toggleCheatmode" />
         <Button onAction="#onReloadClicked" text="Reload Gun" fx:id="btn_reload" />
 
@@ -27,15 +26,8 @@
     </top>
   </BorderPane>
 
-  <Pane fx:id="pane" prefHeight="800" prefWidth="1440" 
+  <Pane fx:id="pane" prefHeight="800" prefWidth="1300" 
    onMouseEntered="#mouseEnteredPane" onMouseExited="#mouseExitedPane" onMouseClicked="#mouseClickedPane" >
   </Pane>
-
-<!-- 
-  <ImageView fx:id="paneImg" >    
-    <image>
-        <Image url="/icons/backgrounds/lvl1Background.png" />
-    </image>
-  </ImageView> -->
   
 </VBox>

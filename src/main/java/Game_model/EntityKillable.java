@@ -1,3 +1,9 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
 public abstract class EntityKillable extends Entity {
@@ -18,7 +24,7 @@ public abstract class EntityKillable extends Entity {
 
         if(this.stateLife != StateLife.DEAD)
         {
-            if(currentHealth > (maxHealth / 2))
+            if(this.currentHealth > (this.maxHealth / 2))
             {
                 if(this.stateLife != StateLife.HEALTHY)
                 {
@@ -27,8 +33,8 @@ public abstract class EntityKillable extends Entity {
                 }
             }
 
-            else if(currentHealth != 0 &
-                    currentHealth <= (maxHealth / 2))
+            else if(this.currentHealth != 0 &
+                    this.currentHealth <= (this.maxHealth / 2))
             {
                 if(this.stateLife != StateLife.HURT)
                 {
@@ -62,7 +68,7 @@ public abstract class EntityKillable extends Entity {
 
 
     public double getMaxHealth() {
-        return maxHealth;
+        return this.maxHealth;
     }
 
     public void setMaxHealth(double maxHealth) {
@@ -78,7 +84,7 @@ public abstract class EntityKillable extends Entity {
     }
 
     public StateLife getStateLife() {
-        return stateLife;
+        return this.stateLife;
     }
 
     public void setStateLife(StateLife stateLife) {

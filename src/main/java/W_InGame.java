@@ -1,8 +1,13 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import Data_model.Cereal;
 import Game_model.EH_Avatar;
 import Game_model.EK_Scenery;
@@ -112,13 +117,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     void onEscClicked() throws IOException {
         AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
-
-    }
-
-    @FXML
-    void onSaveClicked() throws FileNotFoundException {
-        Cereal cereal = new Cereal(game, game.getDt(), "");
-        cereal.SerializeGame();
     }
     
     @FXML

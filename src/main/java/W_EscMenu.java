@@ -1,13 +1,22 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   .java
+Desc.   
+--------------------------------------------------------------------------------------------- */
+
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
-
+import Data_model.Cereal;
 import Data_model.Score;
 import Data_model.ScoreManager;
 import Game_model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.media.AudioClip;
 
 public class W_EscMenu implements AppGUI_popupWin{
@@ -42,6 +51,16 @@ public class W_EscMenu implements AppGUI_popupWin{
 
 
     @FXML
+    void onSaveClicked() throws FileNotFoundException {
+        Cereal cereal = new Cereal(game, game.getDt(), "");
+        cereal.SerializeGame();
+        
+        var alert = new Alert(AlertType.INFORMATION, "Game Saved Successfully!");
+        alert.setHeaderText(null);
+        alert.show();
+    }
+
+    @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
         BTN_CLICK.play();
@@ -62,14 +81,7 @@ public class W_EscMenu implements AppGUI_popupWin{
             scoreManager.saveScores();            
         });
 
-        // Cereal cereal = new Cereal(game, newDate, newName);
-        // cereal.SerializeGame();
-
-        //Game.getIt().closeGame();
-
-        AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
-
-   
+        AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);   
     }
 
     @FXML

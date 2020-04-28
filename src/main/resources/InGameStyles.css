@@ -23,6 +23,10 @@ Label {
     -fx-font-weight: bold;
 }
 
+Pane {
+    
+}
+
 HBox {
     justify-content: space-between;
     -fx-spacing: 95;
