@@ -56,7 +56,7 @@ public class GameSounds {
     public final AudioClip BAI_dying        = audioClip(this, "shotgun.mp3");
 
     public final AudioClip Avatar_hurt                 = audioClip(this, "shotgun.mp3");
-    public final AudioClip Avatar_dying                = audioClip(this, "shotgun.mp3");
+    public final AudioClip Avatar_loses                = audioClip(this, "shotgun.mp3");
     public final AudioClip Avatar_wins                 = audioClip(this, "shotgun.mp3");
     public final AudioClip Avatar_reloading            = audioClip(this, "shotgun.mp3");
     public final AudioClip Avatar_attacking            = audioClip(this, "shotgun.mp3");

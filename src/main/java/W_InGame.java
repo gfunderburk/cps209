@@ -221,7 +221,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
             }
             else
             {
-                GameSounds.it().Avatar_dying.play();
+                GameSounds.it().Avatar_loses.play();
                 AppGUI.popupLoad(this, "W_GameOver.fxml", "GAME OVER");
             }
         } 
