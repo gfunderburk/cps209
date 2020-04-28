@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   EK_Scenery.java
+Desc.   This EntityKillable_Scenery class governs the action events of the 
+        power-ups scattered throughout all the levels.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -17,12 +18,12 @@ public class EK_Scenery extends EntityKillable {
     //  Variables  //
 
     
-    public static enum Type {AMMO, HEALTH, POINTS};
-    private static final String imageDir = File.separator + "scenery" + File.separator;
-    private static final Image ammoImg = new Image(initChildImage(imageDir, "ammo_powerup.png"));
-    private static final Image healthImg = new Image(initChildImage(imageDir, "health_powerup.png"));
+    private static final String imageDir =  File.separator + "scenery" + File.separator;
+    private static final Image ammoImg =    new Image(initChildImage(imageDir, "ammo_powerup.png"));
+    private static final Image healthImg =  new Image(initChildImage(imageDir, "health_powerup.png"));
     private static final Image pointsImg1 = new Image(initChildImage(imageDir, "point_powerup_1.png"));
     private static final Image pointsImg2 = new Image(initChildImage(imageDir, "point_powerup_2.png")); 
+    public static enum Type {AMMO, HEALTH, POINTS};
     private Type type;
 
 
@@ -32,33 +33,32 @@ public class EK_Scenery extends EntityKillable {
 
     public EK_Scenery(Type type){
         this.speed = 0;
-        this.stateIntFactor = 1;
+        this.type = type;
         this.maxHealth = 10;
+        this.stateIntFactor = 1;
         this.currentHealth = this.maxHealth;
         this.location = Game.getIt().randomPoint3D();
         this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.y, 0);
         this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.z, 0);
-        this.type = type;
 
         switch(this.type){
             
             case AMMO:
                 this.imageState = ammoImg;
-                this.width = AmmoW;
-                this.height = AmmoH;
+                this.width =      AmmoW;
+                this.height =     AmmoH;
                 break;
             
             case HEALTH:
                 this.imageState = healthImg;
-                this.width = HealthW;
-                this.height = HealthH;
+                this.width =      HealthW;
+                this.height =     HealthH;
                 break;
                 
             case POINTS:
                 this.imageState = pointsImg1;
-                this.width = PointsW;
-                this.height = PointsH;
-                this.currentHealth = 10;
+                this.width =      PointsW;
+                this.height =     PointsH;
                 break;
             
             default:
@@ -95,7 +95,7 @@ public class EK_Scenery extends EntityKillable {
                 break;
                 
             case POINTS:
-                Game.getIt().setScore(Game.getIt().getScore() + 50);
+                Game.getIt().setScore(Game.getIt().getScore() + 300);
                 break;
             
             default:

@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   W_LevelOver.java
+Desc.   LevelOver window appears if the player kills all hostiles.
+        It displays options to either prgress to the next level or quit the game.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -19,7 +20,7 @@ public class W_LevelOver implements AppGUI_popupWin {
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
 
     //  --------------- //
@@ -45,7 +46,7 @@ public class W_LevelOver implements AppGUI_popupWin {
     @FXML
     void btn_onMainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         BTN_CLICK.play();
-        AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
+        AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
     } 
 
 
@@ -69,7 +70,7 @@ public class W_LevelOver implements AppGUI_popupWin {
         //     scoreManager.saveScores();            
         // });
 
-        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{game.getStateDiff(), game.getGameLvl() + 1, game.getScore()});
+        AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{game.getStateDiff(), game.getGameLvl() + 1, game.getScore()});
 
         // Cereal cereal = new Cereal(game, newDate, newName);
         // cereal.SerializeGame();          

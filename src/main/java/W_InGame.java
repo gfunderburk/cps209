@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   Window_InGame.java
+Desc.   Ingame window displays the in-game state.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -27,21 +27,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
 
-//------------------------------------------------------------------
-//File:   Window_InGame.java
-//Desc:   This class is for active in-game gameplay.
-//------------------------------------------------------------------ 
 
 public class W_InGame implements EventHandler<KeyEvent> {
 
@@ -52,13 +44,13 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // --------------- //
     // Media Elements //
     // --------------- //
-
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
-    final AudioClip SHOOT_FOOTSOLDIER = new AudioClip(getClass().getResource("/media/footsoldiergun.wav").toString());
-    final AudioClip SHOOT_50CAL = new AudioClip(getClass().getResource("/media/50cal.mp3").toString());
-    final AudioClip SHOOT_M16 = new AudioClip(getClass().getResource("/media/m16.mp3").toString());
-    final AudioClip SHOOT_SHOTGUN = new AudioClip(getClass().getResource("/media/shotgun.mp3").toString());
-    final Image CROSSHAIRS = new Image("/icons/crosshairs_4.png");
+    
+    final AudioClip BTN_CLICK         = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
+    final AudioClip SHOOT_FOOTSOLDIER = AppGUI.audioClip(this, "footsoldiergun.wav");
+    final AudioClip SHOOT_50CAL       = AppGUI.audioClip(this, "50cal.mp3");
+    final AudioClip SHOOT_M16         = AppGUI.audioClip(this, "m16.mp3");
+    final AudioClip SHOOT_SHOTGUN     = AppGUI.audioClip(this, "shotgun.mp3");
+    final Image CROSSHAIRS            = new Image("/icons/crosshairs_4.png");
 
     // --------------- //
     // View Variables //
@@ -106,7 +98,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     @FXML
     void onEscClicked() throws IOException {
-        AppGUI.popupLoad(getClass().getResource("W_EscMenu.fxml"), "ESC Menu");
+        AppGUI.popupLoad(this, "W_EscMenu.fxml", "ESC Menu");
     }
     
     @FXML
@@ -192,15 +184,15 @@ public class W_InGame implements EventHandler<KeyEvent> {
             // Game.getIt().closeGame();
             if (game.getGameLvl() == 3 || game.getGameLvl() > 3) {
 
-                AppGUI.popupLoad(getClass().getResource("W_AllLevelsCompleted.fxml"), "YOU WON!!");
+                AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
             }
             else if(Game.getIt().isPlayerWinner()){
                 // Load-Launch "YOU HAVE COMPLETED THE LEVEL!" LevelOver menu
-                AppGUI.popupLoad(getClass().getResource("W_LevelOver.fxml"), "Level OVER"); 
+                AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
             }
             else{
                 // Load-Launch "YOU HAVE DIED!" GameOver menu
-                AppGUI.popupLoad(getClass().getResource("W_GameOver.fxml"), "GAME OVER");
+                AppGUI.popupLoad(this, "W_GameOver.fxml", "GAME OVER");
             }
         } 
     }

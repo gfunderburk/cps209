@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   ScoreManager.java
+Desc.   ScoreManager class stores a list of Score, and it administrates the contained scores.
 --------------------------------------------------------------------------------------------- */
 
 

@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   W_EscMenu.java
+Desc.   EscMenu window pauses the in-game state when initialized and displays options to:
+        Resume the current game state, Save the current game state, or quit the game state. 
 --------------------------------------------------------------------------------------------- */
 
 
@@ -26,7 +27,7 @@ public class W_EscMenu implements AppGUI_popupWin{
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
 
     //  --------------- //
@@ -81,7 +82,7 @@ public class W_EscMenu implements AppGUI_popupWin{
             scoreManager.saveScores();            
         });
 
-        AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);   
+        AppGUI.windowLoad(this, "High Scores", "W_ScoreBoard.fxml", null);   
     }
 
     @FXML

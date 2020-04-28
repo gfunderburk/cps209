@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   myRandom.java
+Desc.   This class is a utility class that contains convenient randomized results.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -16,7 +16,6 @@ public class myRandom {
         int rand = (int)(Math.random() * range) + min; 
         return rand;
     }
-
     
     public static double genRandomDouble(double min, double max){
         
@@ -24,7 +23,6 @@ public class myRandom {
         double rand = (Math.random() * range) + min; 
         return rand;
     }
-
 
     public static boolean genRandomBoolean(){
         var ran = new Random();

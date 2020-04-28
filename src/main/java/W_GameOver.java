@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   GameOver.java
+Desc.   GameOver window appears if the player is killed by hostile AI's.
+        It displays the option to quit to MainMenu.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -26,7 +27,7 @@ public class W_GameOver implements AppGUI_popupWin{
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
 
     //  --------------- //
@@ -50,15 +51,15 @@ public class W_GameOver implements AppGUI_popupWin{
 
 
     @FXML
-    void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
-        var scoreManager = ScoreManager.getIt();
-        BTN_CLICK.play();
+    void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException 
+    {
         //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
         // - Yes = Save game
         // - No  = Main Menu
+        var scoreManager = ScoreManager.getIt();
+        BTN_CLICK.play();
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setHeaderText("Do you want to save your score?");
-        
+        alert.setHeaderText("Do you want to save your score?");        
 
         ButtonType btnYes = new ButtonType("Yes");
         ButtonType btnNo = new ButtonType("No");
@@ -67,17 +68,15 @@ public class W_GameOver implements AppGUI_popupWin{
         alert.getButtonTypes().setAll(btnYes, btnNo, btnCancel);
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == btnYes) {
+        if (result.get() == btnYes) 
+        {
             // Save the score and get the name before showing high scores screen
-            BTN_CLICK.play();
-            
-            AppGUI.getPopupStage().close();
-            
+            BTN_CLICK.play();            
+            AppGUI.getPopupStage().close();            
 
             TextInputDialog dialog = new TextInputDialog();
             
             dialog.setHeaderText("Please enter player name.");
-            //dialog.setContentText("Please enter your name:");
             Optional<String> playerName = dialog.showAndWait();
             playerName.ifPresent(name -> {
                 newDate = LocalDateTime.now();
@@ -88,22 +87,16 @@ public class W_GameOver implements AppGUI_popupWin{
                 scoreManager.saveScores();            
             });
 
-            // Cereal cereal = new Cereal(game, newDate, newName);
-            // cereal.SerializeGame();
-
-            // Game.getIt().closeGame();
-
-            AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
+            AppGUI.windowLoad(this, "High Scores", "W_ScoreBoard.fxml", null);            
         } 
-        else if (result.get() == btnNo) {
+        else if (result.get() == btnNo)
+        {
             // Return to main menu and close the game window
             BTN_CLICK.play();
-            AppGUI.getPopupStage().close();         
-            // Game.getIt().closeGame();
-            AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
-
-
-        } else {
+            AppGUI.getPopupStage().close();    
+            AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
+        } 
+        else {
             // ... user chose CANCEL or closed the dialog
             BTN_CLICK.play();
         }        

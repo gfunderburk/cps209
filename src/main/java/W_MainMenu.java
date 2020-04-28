@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   W_MainMenu.java
+Desc.   MainMenu window is the primary screen for the program.
+        Its GUI displays access to all of the other secondary screens of the program. 
 --------------------------------------------------------------------------------------------- */
 
 
@@ -16,10 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.media.AudioClip;
 
-//-----------------------------------------------------------
-//File:   Window_MainWindow.java
-//Desc:   This class is the default screen upon startup.
-//----------------------------------------------------------- 
 
 public class W_MainMenu {
     Game game = Game.getIt();
@@ -28,12 +25,13 @@ public class W_MainMenu {
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
-    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
+    final AudioClip THEME     = AppGUI.audioClip(this, "maintheme.mp3");
 
     // --------------- //
     // View Variables //
     // --------------- //
+
     StateDifficulty difficulty;
     int gameLvl;
     
@@ -73,7 +71,7 @@ public class W_MainMenu {
                 } else {
                     this.difficulty = StateDifficulty.HARD;
                 }
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{this.difficulty, 1, 0});
+                AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{this.difficulty, 1, 0});
             } 
             catch (Exception e) 
             {
@@ -103,25 +101,25 @@ public class W_MainMenu {
             System.out.println("Problem loading scores.dat"); 
         }
         
-        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{game.getStateDiff(), game.getGameLvl(), game.getScore()});
+        AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{game.getStateDiff(), game.getGameLvl(), game.getScore()});
     }
 
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException, InterruptedException {
         BTN_CLICK.play();
-        AppGUI.windowLoad("Controls / How to Play", getClass().getResource("W_Controls.fxml"), null);
+        AppGUI.windowLoad(this, "Controls / How to Play", "W_Controls.fxml", null);
     }
 
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {  
         BTN_CLICK.play();
-        AppGUI.windowLoad("Scoreboard", getClass().getResource("W_Scoreboard.fxml"), null);
+        AppGUI.windowLoad(this, "Scoreboard", "W_Scoreboard.fxml", null);
     }
 
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException, InterruptedException {
         BTN_CLICK.play();
-        AppGUI.windowLoad("Credits", getClass().getResource("W_Credits.fxml"), null);
+        AppGUI.windowLoad(this, "Credits", "W_Credits.fxml", null);
     }
 
     // ------------- //

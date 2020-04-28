@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   W_TitleScreen.java
+Desc.   TitleScreen window displays the welcome graphic for the program.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -15,8 +15,8 @@ public class W_TitleScreen {
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
-    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
+    final AudioClip THEME     = AppGUI.audioClip(this, "maintheme.mp3");
 
     //  --------------- //
     //  View Variables  //
@@ -39,7 +39,7 @@ public class W_TitleScreen {
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         BTN_CLICK.play();
         new W_Scoreboard();
-        AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
+        AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
         THEME.play();
     }
 

@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   E_Projectile.java
+Desc.   This class governs the entity objects Projectiles.
+        Projectiles are created when EntityHumaniods attack other entities.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -22,31 +23,31 @@ public class E_Projectile extends Entity {
     public static enum TypeRound {LIGHT_ROUND, HEAVY_ROUND, EXPLOSIVE_ROUND, LAZER_ROUND};
     static Comparator<Entity> compareBy_Z_Layer = (Entity o1, Entity o2) -> (int)o1.location.getZ() - (int)o2.location.getZ();
 
-    protected static double lazerRoundDmg = 1;
-    protected static double lazerRound_width = 1;
-    protected static double lazerRoundMoveFactor = 1;
-    protected final static Image lazerRound_FireImg = new Image(initChildImage(imageDir, "round_lazer_fire.png"));
-    protected final static Image lazerRound_AIImg = new Image(initChildImage(imageDir, "round_lazer.png"));
+    protected static double lazerRoundDmg =         1;
+    protected static double lazerRound_width =      1;
+    protected static double lazerRoundMoveFactor =  1;
+    protected final static Image lazerRound_FireImg =   new Image(initChildImage(imageDir, "round_lazer_fire.png"));
+    protected final static Image lazerRound_AIImg =     new Image(initChildImage(imageDir, "round_lazer.png"));
 
-    protected static double lightRoundDmg = 1;
-    protected static double lightRound_width = 1;
-    protected static double lightRoundMoveFactor = 1;
-    protected final static Image lightRound_FireImg = new Image(initChildImage(imageDir, "round_light_fire.png"));
-    protected final static Image lightRound_AIImg = new Image(initChildImage(imageDir, "round_light_in.png"));
+    protected static double lightRoundDmg =         1;
+    protected static double lightRound_width =      1;
+    protected static double lightRoundMoveFactor =  1;
+    protected final static Image lightRound_FireImg =   new Image(initChildImage(imageDir, "round_light_fire.png"));
+    protected final static Image lightRound_AIImg =     new Image(initChildImage(imageDir, "round_light_in.png"));
     protected final static Image lightRound_PlayerImg = new Image(initChildImage(imageDir, "round_light_out.png"));
 
-    protected static double heavyRoundDmg = 2;
-    protected static double heavyRound_width = 2.5;
-    protected static double heavyRoundMoveFactor = 2;
-    protected final static Image heavyRound_FireImg = new Image(initChildImage(imageDir, "round_heavy_fire.png"));
-    protected final static Image heavyRound_AIImg = new Image(initChildImage(imageDir, "round_heavy_in.png"));
+    protected static double heavyRoundDmg =         2;
+    protected static double heavyRound_width =      2.5;
+    protected static double heavyRoundMoveFactor =  2;
+    protected final static Image heavyRound_FireImg =   new Image(initChildImage(imageDir, "round_heavy_fire.png"));
+    protected final static Image heavyRound_AIImg =     new Image(initChildImage(imageDir, "round_heavy_in.png"));
     protected final static Image heavyRound_PlayerImg = new Image(initChildImage(imageDir, "round_heavy_out.png"));
 
-    protected static double explosiveRoundDmg = 3;
-    protected static double explosiveRound_width = 3;
-    protected static double explosiveRoundMoveFactor = 3;
-    protected final static Image explosiveRound_FireImg = new Image(initChildImage(imageDir, "round_explosive_fire.png"));
-    protected final static Image explosiveRound_AIImg = new Image(initChildImage(imageDir, "round_explosive_in.png"));
+    protected static double explosiveRoundDmg =         3;
+    protected static double explosiveRound_width =      3;
+    protected static double explosiveRoundMoveFactor =  3;
+    protected final static Image explosiveRound_FireImg =   new Image(initChildImage(imageDir, "round_explosive_fire.png"));
+    protected final static Image explosiveRound_AIImg =     new Image(initChildImage(imageDir, "round_explosive_in.png"));
     protected final static Image explosiveRound_PlayerImg = new Image(initChildImage(imageDir, "round_explosive_out.png"));
 
 

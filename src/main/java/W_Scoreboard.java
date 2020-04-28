@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   W_Scoreboard.java
+Desc.   Scoreboard window displays the scores of previous players who have played the game.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -25,7 +25,7 @@ public class W_Scoreboard {
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
     // --------------- //
     // View Variables //
@@ -102,7 +102,7 @@ public class W_Scoreboard {
 
             try {
                 BTN_CLICK.play();
-                AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
+                AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
             }catch (Exception e1){}
         });
 

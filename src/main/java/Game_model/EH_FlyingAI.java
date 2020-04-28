@@ -1,13 +1,13 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   EH_FlyingAI.java
+Desc.   This EntityHumaniod_FlyingAI class governs the action events of the 
+        secondary enemy AI's in level 3.
 --------------------------------------------------------------------------------------------- */
 
 
 package Game_model;
 
 import java.io.File;
-
 import Game_model.E_Projectile.TypeRound;
 import Util_model.myMovement;
 import Util_model.myRandom;
@@ -21,21 +21,21 @@ public class EH_FlyingAI extends EntityHumanoid {
     //  Variables  //
 
     
-    final static String imageDir = File.separator + "flying_terminators" + File.separator;
-    final static Image imgDying1 = new Image(initChildImage(imageDir, "flyingRobotDying1.png"));
-    final static Image imgDying2 = new Image(initChildImage(imageDir, "flyingRobotDying2.png"));
-    final static Image imgDying3 = new Image(initChildImage(imageDir, "flyingRobotDying3.png"));
+    final static String imageDir =  File.separator + "flying_terminators" + File.separator;
+    final static Image imgDying1 =  new Image(initChildImage(imageDir, "flyingRobotDying1.png"));
+    final static Image imgDying2 =  new Image(initChildImage(imageDir, "flyingRobotDying2.png"));
+    final static Image imgDying3 =  new Image(initChildImage(imageDir, "flyingRobotDying3.png"));
 
-    final static Image imgMovingL = new Image(initChildImage(imageDir, "flyingRobot.png"));
-    final static Image imgMovingR = new Image(initChildImage(imageDir, "flyingRobot.png"));
-    final static Image imgReloading = new Image(initChildImage(imageDir, "flyingRobot.png"));
-    final static Image imgAttacking = new Image(initChildImage(imageDir, "flyingRobot.png"));
+    final static Image imgMovingL =       new Image(initChildImage(imageDir, "flyingRobot.png"));
+    final static Image imgMovingR =       new Image(initChildImage(imageDir, "flyingRobot.png"));
+    final static Image imgReloading =     new Image(initChildImage(imageDir, "flyingRobot.png"));
+    final static Image imgAttacking =     new Image(initChildImage(imageDir, "flyingRobot.png"));
     final static Image imgSpecialAttack = new Image(initChildImage(imageDir, "flyingRobot.png"));
     
-    final static Image imgMovingL_hurt = new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
-    final static Image imgMovingR_hurt = new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
-    final static Image imgReloading_hurt = new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
-    final static Image imgAttacking_hurt = new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
+    final static Image imgMovingL_hurt =       new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
+    final static Image imgMovingR_hurt =       new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
+    final static Image imgReloading_hurt =     new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
+    final static Image imgAttacking_hurt =     new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
     final static Image imgSpecialAttack_hurt = new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
 
 
@@ -51,7 +51,7 @@ public class EH_FlyingAI extends EntityHumanoid {
         this.height = FaiH;
         this.speed = 1;
         this.maxHealth = 2;
-        this.stateIntFactor = 1;
+        this.stateIntFactor = 3;
         this.currentHealth = this.maxHealth;
     }
 
@@ -112,7 +112,6 @@ public class EH_FlyingAI extends EntityHumanoid {
                 default:
                     break;
             }
-            Game.getIt().setScore(Game.getIt().getScore() + 8);
             this.checkLife();    
         }
     }
@@ -251,7 +250,7 @@ public class EH_FlyingAI extends EntityHumanoid {
 
 
             case DEAD:
-                Game.getIt().setScore(Game.getIt().getScore() + 10);
+                Game.getIt().setScore(Game.getIt().getScore() + 150);
                 this.deSpawn();
                 break;
 

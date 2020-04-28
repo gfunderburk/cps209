@@ -36,13 +36,13 @@ public class Game implements GameSave {
     private int gameLvl;
     private int currentEnitity;
     private int newMobSpawnDelay, spawnDelayCount;
-    private int gamePhysicsWidth = 104;
+    private int gamePhysicsWidth =  104;
     private int gamePhysicsHeight = 65;
-    private int gamePhysicsDepth = 10;
+    private int gamePhysicsDepth =  10;
     private LocalDateTime dt;
     private String playerName, lvlBackground;
-    private ArrayList<Entity> entityList = new ArrayList<Entity>();
-    private ArrayList<Entity> deadEntityList = new ArrayList<Entity>();
+    private ArrayList<Entity> entityList =      new ArrayList<Entity>();
+    private ArrayList<Entity> deadEntityList =  new ArrayList<Entity>();
     private boolean gameOver, playerWin;
     private boolean cheatMode = false;
 

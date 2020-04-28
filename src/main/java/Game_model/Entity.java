@@ -22,14 +22,14 @@ public abstract class Entity implements GameSave{
     //  Variables  //
 
 
-    protected static double LaiH = 50;
-    protected static double LaiW = 10; 
-    protected static double HaiH = 55;
-    protected static double HaiW = 12; 
-    protected static double FaiH = 6;
-    protected static double FaiW = 6; 
-    protected static double BaiH = 80;
-    protected static double BaiW = 20; 
+    protected static double LaiH =  50;
+    protected static double LaiW =  10; 
+    protected static double HaiH =  55;
+    protected static double HaiW =  12; 
+    protected static double FaiH =  6;
+    protected static double FaiW =  6; 
+    protected static double BaiH =  80;
+    protected static double BaiW =  20; 
     protected static double AmmoH = 6; 
     protected static double AmmoW = 8; 
     protected static double HealthH = 6; 

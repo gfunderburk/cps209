@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   W_AllLevelsCompleted.java
+Desc.   AllLevelsCompleted window appears if the player kills all hostiles at level 3.
+        It displays options to either save the player's score or to quit directly to MainMenu.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -27,7 +28,7 @@ public class W_AllLevelsCompleted implements AppGUI_popupWin{
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
+    final AudioClip BTN_CLICK = AppGUI.audioClip(this, "btnClick_seatBelt.mp3");
 
 
     //  --------------- //
@@ -79,7 +80,6 @@ public class W_AllLevelsCompleted implements AppGUI_popupWin{
             TextInputDialog dialog = new TextInputDialog();
             
             dialog.setHeaderText("Please enter player name.");
-            //dialog.setContentText("Please enter your name:");
             Optional<String> playerName = dialog.showAndWait();
             playerName.ifPresent(name -> {
                 newName = name;
@@ -94,16 +94,13 @@ public class W_AllLevelsCompleted implements AppGUI_popupWin{
             Cereal cereal = new Cereal(game, newDate, newName);
             cereal.SerializeGame();
 
-            // Game.getIt().closeGame();
-
-            AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);            
+            AppGUI.windowLoad(this, "High Scores", "W_ScoreBoard.fxml", null);            
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
             BTN_CLICK.play();
-            AppGUI.getPopupStage().close();         
-            // Game.getIt().closeGame();
-            AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
+            AppGUI.getPopupStage().close();     
+            AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
 
 
         } else {

@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   EH_Avatar.java
+Desc.   EntityHumaniod_Avatar is a singleton class that governs the game player's 
+        action events in the in-game.
 --------------------------------------------------------------------------------------------- */
 
 
