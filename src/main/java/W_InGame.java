@@ -115,8 +115,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
     void onReloadClicked() throws IOException {
         avatar.reload();
         updateHealthGUI();
-        System.out.println("Mag" + avatar.getMag());
-        System.out.println("Ammo total:" + avatar.getAmmo());
     }
     
     @FXML
