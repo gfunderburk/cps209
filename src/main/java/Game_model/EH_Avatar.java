@@ -18,7 +18,7 @@ public class EH_Avatar extends EntityHumanoid {
     private EH_Avatar(){
         this.typeRound = TypeRound.LIGHT_ROUND;
         this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, -1));       
-        this.maxHealth = 20;        
+        this.maxHealth = 10;        
         this.currentHealth = this.maxHealth;
         this.mag = 30;
         this.ammo = 300;
@@ -66,15 +66,15 @@ public class EH_Avatar extends EntityHumanoid {
             switch(ent.getTypeRound()){
 
                 case LIGHT_ROUND:
-                    this.currentHealth -= E_Projectile.getLightRoundDmg()/100;
+                    this.currentHealth -= E_Projectile.getLightRoundDmg();
                     break;
                 
                 case HEAVY_ROUND:
-                    this.currentHealth -= E_Projectile.getHeavyRoundDmg()/100;
+                    this.currentHealth -= E_Projectile.getHeavyRoundDmg();
                     break;
 
                 case EXPLOSIVE_ROUND:
-                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg()/100;
+                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg();
                     break;
 
                 default:

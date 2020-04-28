@@ -150,8 +150,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
             avatar.setMag(0);
         }
         updateHealthGUI();
-        // lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        // lbl_Score.setText("Score: " + Game.getIt().getScore()); 
     }
 
     // //Written by Funderburk, pushed by Cox
@@ -176,22 +174,24 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // ------------- //
 
     void updateHealthGUI() throws IOException {
+        // Update Health Bar
         double health = avatar.getCurrentHealth()/10;
-        //System.out.println(health);
+        System.out.println("Health: " + health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
-        hud_hbox.getChildren().removeAll(lbl_Score, lbl_ammoStats);
-        lbl_Score.setText("Score: " + game.getScore());
-        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        hud_hbox.getChildren().addAll(lbl_Score, lbl_ammoStats);
-
         if (health < .5) {
             progBar_health.setStyle("-fx-accent: red;");
         } else {
             progBar_health.setStyle("-fx-accent: lime;");
         }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
+
+        // Update Score and Ammo stats
+        hud_hbox.getChildren().removeAll(lbl_Score, lbl_ammoStats);
+        lbl_Score.setText("Score: " + game.getScore());
+        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
+        hud_hbox.getChildren().addAll(lbl_Score, lbl_ammoStats);
 
         if (game.isGameOver()) {
             // Game.getIt().closeGame();
@@ -295,7 +295,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         }
     }
 
-    public void drawEntity(Entity entity) {
+    public void drawEntity(Entity entity) throws IOException {
 
         // Find if given entity image exists
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
@@ -354,6 +354,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
                 SHOOT_SHOTGUN.play();
+                updateHealthGUI();
             }
         }
         else{
@@ -365,5 +366,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
         newEntityImg.setFitWidth(imgW);
         newEntityImg.setFitHeight(imgH);
         newEntityImg.relocate(imgX, paneH - imgY);
+        updateHealthGUI();
     }
 }
