@@ -9,7 +9,7 @@
   
   <BorderPane>
     <top>
-      <HBox>
+      <HBox fx:id="hud_hbox">
 
         <Button onAction="#onEscClicked" text="Escape" fx:id="btn_esc" />
         <!-- <Label text="           " /> -->

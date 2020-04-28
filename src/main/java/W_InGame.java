@@ -3,7 +3,6 @@ File:   Window_InGame.java
 Desc.   Ingame window displays the in-game state.
 --------------------------------------------------------------------------------------------- */
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -72,6 +71,8 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     VBox vbox_health;
     @FXML
+    HBox hud_hbox;
+    @FXML
     Button btn_esc;
     @FXML
     Button btn_toggleCheatmode;
@@ -111,7 +112,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     void ontoggleCheatmodeClicked() throws FileNotFoundException {
         Game.getIt().toggleCheatMode();
-        btn_toggleCheatmode.setText(Game.getIt().isCheatMode() ? "Cheatmode - OFF" : "Cheatmode - ON");
+        btn_toggleCheatmode.setText(Game.getIt().isCheatMode() ? "Cheatmode - ON": "Cheatmode - OFF");
     }
 
 
@@ -171,8 +172,11 @@ public class W_InGame implements EventHandler<KeyEvent> {
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
+        hud_hbox.getChildren().removeAll(lbl_Score, lbl_ammoStats);
+        lbl_Score.setText("Score: " + Game.getIt().getScore());
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        lbl_Score.setText("Score: " + Game.getIt().getScore()); 
+        hud_hbox.getChildren().addAll(lbl_Score, lbl_ammoStats);
+        
         if (health < .5) {
             progBar_health.setStyle("-fx-accent: red;");
         } else {
