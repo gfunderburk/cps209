@@ -95,6 +95,8 @@ public class W_Scoreboard {
 
         }
         tableView.getItems().clear(); //Clear tableview
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableView.setMaxWidth(900);
         tableView.setItems(rows); //add the new combination of scores
 
         Button btnMainMenu = new Button("Main Menu");
