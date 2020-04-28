@@ -1,12 +1,13 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   myRandom.java
+Desc.   This class is a utility class that contains convenient randomized results.
+--------------------------------------------------------------------------------------------- */
+
+
 package Util_model;
 
 import java.util.Random;
 
-//---------------------------------------------------------------------------------------
-// Class:  selfRandom
-// Desc:  This class streamlines use of Math.Random features,   
-//        It randomly generates and returns int, double, boolean, and positive/negative.
-//--------------------------------------------------------------------------------------- 
 public class myRandom {
 
     public static int genRandomInt(int min, int max){
@@ -15,7 +16,6 @@ public class myRandom {
         int rand = (int)(Math.random() * range) + min; 
         return rand;
     }
-
     
     public static double genRandomDouble(double min, double max){
         
@@ -23,7 +23,6 @@ public class myRandom {
         double rand = (Math.random() * range) + min; 
         return rand;
     }
-
 
     public static boolean genRandomBoolean(){
         var ran = new Random();

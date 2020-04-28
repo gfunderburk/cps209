@@ -1,19 +1,24 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   Game.java
+Desc.   This class is the cheif class for the Game_Model.
+        It contains and administrates all core functions of the in-game like:
+        starting + pausing the in-game state, gameOver conditions, 
+        setting the bounds of the game, and spawning + despawning enemies.
+Note:   This class is equally foundational to the in-game state as the Entity class.
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import Game_model.E_Projectile.TypeRound;
 import Game_model.EntityKillable.StateLife;
 import Util_model.myRandom;
 import javafx.geometry.Point3D;
 
-//--------------------------------------------------------------------------
-//File:   Game.java
-//Desc:   This file is the Cheif class for the Model,   
-//        It contains all the game's static variables.
-//-------------------------------------------------------------------------- 
 
 public class Game implements GameSave {
 
@@ -31,13 +36,13 @@ public class Game implements GameSave {
     private int gameLvl;
     private int currentEnitity;
     private int newMobSpawnDelay, spawnDelayCount;
-    private int gamePhysicsWidth = 104;
+    private int gamePhysicsWidth =  104;
     private int gamePhysicsHeight = 65;
-    private int gamePhysicsDepth = 10;
+    private int gamePhysicsDepth =  10;
     private LocalDateTime dt;
     private String playerName, lvlBackground;
-    private ArrayList<Entity> entityList = new ArrayList<Entity>();
-    private ArrayList<Entity> deadEntityList = new ArrayList<Entity>();
+    private ArrayList<Entity> entityList =      new ArrayList<Entity>();
+    private ArrayList<Entity> deadEntityList =  new ArrayList<Entity>();
     private boolean gameOver, playerWin;
     private boolean cheatMode = false;
 
@@ -54,12 +59,26 @@ public class Game implements GameSave {
     //  Methods  //
 
     
+    public void startGame(String playerName, StateDifficulty difficultyLevel, int GameLevel){
+        // reset();
+        // resetGameSingleton();
+        setDifficultySettings(difficultyLevel);
+        setLevelSettings(GameLevel);
+        spawnerAdmin(false);
+        stateGame = StateGame.RUNNING;
+    }
+
+    public static void resetGameSingleton() {
+        It = new Game();
+    }
+
+
     public void spawnerAdmin(boolean forceFullPopulate){
 
         while(true)
         if( AI_Left > 0 & 
             AI_Left_ToSpawn > 0 &
-            (currentAIspawnCnt < maxAISpawnCnt | forceFullPopulate) )
+            (currentAIspawnCnt < maxAISpawnCnt | forceFullPopulate) ) //maxAISpawnCnt
             {
                 switch(gameLvl)
                 {
@@ -81,95 +100,29 @@ public class Game implements GameSave {
         else break;
     }
 
-    public void startGame(String playerName, String difficultyLevel, int GameLevel){
-        // reset();
-        // resetGameSingleton();
-        setDifficultySettings(difficultyLevel);
-        setLevelSettings(GameLevel);
-        spawnerAdmin(false);
-        stateGame = StateGame.RUNNING;
-    }
-
-    // public void startNewGame(){
-    //     gameLvl =  1;
-    //     for (Entity scenery : GameLevels.getIt().getLvl1_Scenery()) {
-    //         entityList.add(scenery);            
-    //     }
-    //     spawnerAdmin(true);
-    //     stateGame = StateGame.RUNNING;
-    // }
-
-
-    public static void resetGameSingleton() {
-        It = new Game();
-    }
-
-
-    private void reset() {
-        //reset all variables
-        EH_Avatar.getIt().setCurrentHealth(EH_Avatar.getIt().getMaxHealth());
-        EH_Avatar.getIt().setMag(300);
-        EH_Avatar.getIt().setAmmo(300);
-        stateDiff = StateDifficulty.EASY;
-        stateGame = StateGame.PAUSED;
-        AI_Left = 0; 
-        AI_Left_ToSpawn = 0; 
-        currentAIspawnCnt = 0;
-        maxAISpawnCnt = 0;
-        score = 0;
-        time = 0;
-        gameLvl = 1;
-        //currentEnitity = 0;
-        newMobSpawnDelay = 0;
-        spawnDelayCount = 0;
-        gamePhysicsWidth = 104;
-        gamePhysicsHeight = 65;
-        gamePhysicsDepth = 10;
-        dt = LocalDateTime.now();
-        playerName = "";
-        lvlBackground = "";
-        // for (Entity i: entityList) {
-        //     i.deSpawn();
-        // }
-        entityList.clear();
-        deadEntityList.clear();
-        gameOver = false;
-        playerWin = false;
-        cheatMode = false;
-    }
-
-    // public void closeGame() {
-    //     for(int i=0; i<entityList.size(); i++){
-    //         entityList.get(0).deSpawn();
-    //     }
-    //     entityList = new ArrayList<Entity>();
-    //     //currentEnitity = 0;
-    // }
-
-
-    public void loadGame(){
-        entityList = new ArrayList<Entity>();
-    }
 
     public void play(){ 
         stateGame = StateGame.RUNNING;    
     }
 
+
     public void pause(){ 
         stateGame = StateGame.PAUSED;    
     }
 
+
     public Entity findEntityById(int Id){
         return entityList.stream().filter(it -> it.Id == Id).findFirst().get();
     }
+
 
     public void checkGameOver(){
         if(AI_Left <= 0){
             gameOver = true;
             playerWin = true;
         }        
-        else if(EH_Avatar.getIt().getStateLife() == StateLife.DEAD){
-            // gameOver = true;
+        else if(! isCheatMode() & EH_Avatar.getIt().getStateLife() == StateLife.DEAD){
+            gameOver = true;
             playerWin = false;
         }
         else{
@@ -177,16 +130,19 @@ public class Game implements GameSave {
         }
     }
 
+
 	public void sortEntityList() {
         Comparator<Entity> compareByScore = (Entity o1, Entity o2) -> (int)o1.getLocation().getZ() - (int)o2.getLocation().getZ();
         Collections.sort(entityList, compareByScore.reversed());
     }
+
 
     public Point3D randomPoint3D(){
         return new Point3D(myRandom.genRandomInt(0, Game.getIt().getGamePhysicsWidth()), 
                             myRandom.genRandomInt(0, Game.getIt().getGamePhysicsHeight()), 
                             myRandom.genRandomInt(0, Game.getIt().getGamePhysicsDepth()));
     }
+
 
     @Override
     public String Serialize() {
@@ -225,38 +181,25 @@ public class Game implements GameSave {
     }
 
 
-
-    private void setDifficultySettings(String difficultyLevel){
+    private void setDifficultySettings(StateDifficulty difficultyLevel){
         switch(difficultyLevel){
-            case "Easy":
-            stateDiff = StateDifficulty.EASY;
-            break;
-            case "Medium":
-            stateDiff = StateDifficulty.MEDIUM;
-            break;            
-            case "Hard":
-            stateDiff = StateDifficulty.HARD;
-            break;
-            default:
-        }
-
-        switch(stateDiff){
-
             case EASY:
-            maxAISpawnCnt = 3;
-            break;
+                stateDiff = difficultyLevel;
+                maxAISpawnCnt = 3;
+                break;
 
             case MEDIUM:
-            maxAISpawnCnt = 5;
-            break;
-            
+                stateDiff = difficultyLevel;
+                maxAISpawnCnt = 5;
+                break;  
+
             case HARD:
-            maxAISpawnCnt = 7;
-            break;
+                stateDiff = difficultyLevel;
+                maxAISpawnCnt = 7;
+                break;
             default:
         }
     }
-
     
 
     private void setLevelSettings(int GameLevel){
@@ -299,6 +242,7 @@ public class Game implements GameSave {
 
     public void toggleCheatMode(){
         cheatMode = cheatMode ? false : true;
+        EH_Avatar.getIt().setTypeRound( cheatMode ? TypeRound.HEAVY_ROUND : TypeRound.LIGHT_ROUND );
     }
 
 
@@ -509,4 +453,4 @@ public class Game implements GameSave {
 
 }
 
-
+ 

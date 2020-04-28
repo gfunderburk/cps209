@@ -1,3 +1,9 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   ScoreManager.java
+Desc.   ScoreManager class stores a list of Score, and it administrates the contained scores.
+--------------------------------------------------------------------------------------------- */
+
+
 package Data_model;
 
 import java.io.BufferedReader;
@@ -30,19 +36,14 @@ public class ScoreManager {
     // Methods //
 
     public void loadScores() {
-        // TODO: read scores data found in Game.scores file and update scorelist.
         try(BufferedReader rd = new BufferedReader( new FileReader("scores.dat")))
         {                       
             String line = rd.readLine();
             while (line != null) { 
-                // var score = new Score(null, null, 0); // create a new score object
-                // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
-                addScore(Score.deSerialize(line));    // add the new score object to scores list
-                //System.out.println(line); 
+                addScore(Score.deSerialize(line)); 
                 line = rd.readLine(); 
             } 
             rd.close(); 
-
         } 
         catch (IOException e) 
         { 
@@ -51,11 +52,8 @@ public class ScoreManager {
     }
 
     public void saveScores() {
-        // TODO: serialize scores to Game.scores
         try(var wr = new PrintWriter( new FileWriter("scores.dat")); ) 
         { 
-            //wr.println(gameSession.Serialize());   //what does this do?
-
             for (Score item : getList()) 
             {
                 wr.println(item.Serialize());
@@ -106,5 +104,4 @@ public class ScoreManager {
     public static ScoreManager getIt() {
         return It;
     }
-
 }

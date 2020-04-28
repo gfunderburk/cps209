@@ -1,4 +1,9 @@
-import java.io.IOException;
+/* --------------------------------------------------------------------------------------------- 
+File:   W_CRUDsaves.java
+Desc.   DEETE THIS WINDOW
+--------------------------------------------------------------------------------------------- */
+
+
 import java.time.LocalDateTime;
 import Game_model.Game;
 import javafx.collections.FXCollections;
@@ -20,8 +25,8 @@ public class W_CRUDsaves {
     // Media Elements  //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
-    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+    final AudioClip BTN_CLICK = AppSounds.audioClip(this, "btnClick_seatBelt.mp3");
+    final AudioClip THEME =     AppSounds.audioClip(this, "maintheme.mp3");
 
     // ----------- //
     //  Singleton  //
@@ -62,11 +67,6 @@ public class W_CRUDsaves {
 
 
     public void initialize() {
-        // TODO: add load methods here
-
-        //cerealManager.loadCerealDir(); // load method?
-
-        //var saves = cerealManager.getList();
 
         TableView tableView = new TableView();
 
@@ -77,25 +77,12 @@ public class W_CRUDsaves {
         TableColumn<String, String> column2 = new TableColumn<>("Name");
         column2.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-
         tableView.getColumns().add(column1);
         tableView.getColumns().add(column2);
-
-
-        // if (saves.size() > 0) {
-        //     rows.clear();
-        //     for (Cereal game : saves) {
-        //         rows.add(new Games(game.getGame(), game.getName(), game.getDt()));
-        //     }
-
-        // }
-        // else {
 
         rows.clear();
         rows.add(new Games(null, "Jeremy", now));
         rows.add(new Games(null, "Gunnar", now));
-        
-
   
         tableView.getItems().clear();
         tableView.setItems(rows);
@@ -105,34 +92,17 @@ public class W_CRUDsaves {
 
             try {
                 BTN_CLICK.play();
-                AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            } catch (InterruptedException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
+                AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
+            } catch (Exception e1){}
         });
 
         Button btnLoadSavedGame = new Button("Load Selected Game");
         btnLoadSavedGame.setOnAction(e -> {
-            // TODO: Add code here to load saved game
-            //Get selected row
-            //Get data from selected row
-            //Feed into windowLoad method?
 
             try {
                 THEME.stop();
-                
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), null);
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            } catch (InterruptedException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
+                AppGUI.windowLoad(this, "Game", "W_InGame.fxml", null);
+            } catch (Exception e1){}
         });
 
         Label title = new Label("Saved Games");

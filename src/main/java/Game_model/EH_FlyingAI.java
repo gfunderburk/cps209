@@ -1,12 +1,19 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   EH_FlyingAI.java
+Desc.   This EntityHumaniod_FlyingAI class governs the action events of the 
+        secondary enemy AI's in level 3.
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
 import java.io.File;
-
 import Game_model.E_Projectile.TypeRound;
 import Util_model.myMovement;
 import Util_model.myRandom;
 import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
+import javafx.scene.image.Image;
 
 public class EH_FlyingAI extends EntityHumanoid {
 
@@ -14,32 +21,37 @@ public class EH_FlyingAI extends EntityHumanoid {
     //  Variables  //
 
     
-    
+    final static String imageDir =  File.separator + "flying_terminators" + File.separator;
+    final static Image imgDying1 =  new Image(initChildImage(imageDir, "flyingRobotDying1.png"));
+    final static Image imgDying2 =  new Image(initChildImage(imageDir, "flyingRobotDying2.png"));
+    final static Image imgDying3 =  new Image(initChildImage(imageDir, "flyingRobotDying3.png"));
 
+    final static Image imgMovingL =       new Image(initChildImage(imageDir, "flyingRobot.png"));
+    final static Image imgMovingR =       new Image(initChildImage(imageDir, "flyingRobot.png"));
+    final static Image imgReloading =     new Image(initChildImage(imageDir, "flyingRobot.png"));
+    final static Image imgAttacking =     new Image(initChildImage(imageDir, "flyingRobot.png"));
+    final static Image imgSpecialAttack = new Image(initChildImage(imageDir, "flyingRobot.png"));
+    
+    final static Image imgMovingL_hurt =       new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
+    final static Image imgMovingR_hurt =       new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
+    final static Image imgReloading_hurt =     new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
+    final static Image imgAttacking_hurt =     new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
+    final static Image imgSpecialAttack_hurt = new Image(initChildImage(imageDir, "flyingRobot_hurt.png"));
 
 
     //  Constructor  //
 
 
     public EH_FlyingAI(){
-        this.imageDir = File.separator + "flying_terminators" + File.separator;
-        this.imgDying1 = "flyingRobotDying1.png";
-        this.imgDying2 = "flyingRobotDying2.png";
-        this.imgDying3 = "flyingRobotDying3.png";
-        this.imgMovingL = "flyingRobot";
-        this.imgMovingR = "flyingRobot";
-        this.imgReloading = "flyingRobot";
-        this.imgAttacking = "flyingRobot";    
-        this.imgSpecialAttack = "flyingRobot";    
-        this.imageState = imgMovingL+ending();
+        this.imageState = imgMovingL;
         this.stateAction = StateAction.MOVING;
         this.stateLife = StateLife.HEALTHY;
         this.typeRound = TypeRound.LAZER_ROUND;
         this.width = FaiW;
         this.height = FaiH;
         this.speed = 1;
-        this.maxHealth = 10;
-        this.stateIntFactor = 2;
+        this.maxHealth = 2;
+        this.stateIntFactor = 3;
         this.currentHealth = this.maxHealth;
     }
 
@@ -49,55 +61,34 @@ public class EH_FlyingAI extends EntityHumanoid {
 
     @Override
     public String Serialize() {
-        // TODO Auto-generated method stub
         return null;
     }
 
 
     @Override
     public void deSerialize(String data) {
-        // TODO Auto-generated method stub
 
     }
+
+
     @Override
     public void deathEvent() {
         this.enterState(StateAction.DYING);
     }
 
-    // @Override
-    // public void move() {
-    //     this.sameMoveCount++;
-
-    //     if(this.sameMoveCount > 20){
-    //         this.sameMoveCount = 0;
-
-    //         if(!this.standStill){
-    //             this.vector = new Point3D(0,0,0);
-    //         }
-    //         else{
-    //             Point3D newDest = Game.getIt().randomPoint3D();
-    //             this.vector = myMovement.getHeading(newDest, this.location, this.speed);
-    //         }
-
-    //         this.standStill = this.standStill ? false : true;
-    //     }
-
-    //     if(this.standStill & myRandom.genRandomBoolean()){
-    //         attack(EH_Avatar.getIt());
-    //     }
-
-    //     super.move();
-    // }
 
     @Override
     public void move() {
         super.move();
+        if(this.location.getZ() > 1) this.location = myMovement.setNewPointComp(this.location, Point3D_Comp.z, 1);
     }
+
 
     public void newDirection(){
         Point3D newDest = Game.getIt().randomPoint3D();
         this.vector = myMovement.getHeading(newDest, this.location, this.speed);
     }
+
 
     @Override
     public void collideEvent(Entity otherEntity) {
@@ -121,22 +112,10 @@ public class EH_FlyingAI extends EntityHumanoid {
                 default:
                     break;
             }
-            Game.getIt().setScore(Game.getIt().getScore() + 8);
             this.checkLife();    
         }
     }
 
-    @Override
-    public void hurtEvent() {
-        this.imageState = "headOnViewWRecoil_Firing_hurt.png";
-
-    }
-
-    @Override
-    public void recoverEvent() {
-        this.imageState = "headOnViewWRecoil_Firing.png";
-
-    }
 
     @Override
     public void spawn() {
@@ -151,10 +130,12 @@ public class EH_FlyingAI extends EntityHumanoid {
         super.spawn();
     }
 
+
     @Override
     public void attack(Entity entity) {
         super.attack(entity);
     }
+
 
     @Override
     public void deSpawn() {
@@ -165,10 +146,12 @@ public class EH_FlyingAI extends EntityHumanoid {
         super.deSpawn();
     }
 
+
     @Override
     public void reload() {
         super.reload();
     }
+
 
     @Override
     protected void subStateUpdate() {
@@ -188,10 +171,16 @@ public class EH_FlyingAI extends EntityHumanoid {
                         
                     case 1:
                         this.newDirection();
-                        this.imageState = this.imgMovingL+ending(); 
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgMovingL : EH_FlyingAI.imgMovingL_hurt;
 
-                    default:
-                        if(this.subStateInt%3==0) this.imageState = (this.subStateInt%2==0) ? this.imgMovingL+ending() : this.imgMovingR+ending(); 
+                    default: 
+                        if(this.subStateInt%3==0) 
+                        if(this.subStateInt%2==0){
+                            this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgMovingL : EH_FlyingAI.imgMovingL_hurt;
+                        }  
+                        else{
+                            this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgMovingR : EH_FlyingAI.imgMovingR_hurt;
+                        }
                         this.move();
                 }
                 break;
@@ -201,12 +190,20 @@ public class EH_FlyingAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
-                        this.imageState = this.imgMovingL+ending(); 
+                        this.setAttacking(false);
                         break;
 
                     default:
-                        if(this.mag <= 0) enterState(StateAction.RELOADING); 
-                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
+                        this.setAttacking(false);
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgAttacking : EH_FlyingAI.imgAttacking_hurt;
+                        
+                        if(this.mag <= 0) {
+                            enterState(StateAction.RELOADING);
+                        } 
+                        else if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -215,10 +212,13 @@ public class EH_FlyingAI extends EntityHumanoid {
 
                     case 30:
                         enterState(StateAction.MOVING);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(true);
                         attack(EH_Avatar.getIt());
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgSpecialAttack : EH_FlyingAI.imgSpecialAttack_hurt;
                 }
                 break;
 
@@ -230,6 +230,7 @@ public class EH_FlyingAI extends EntityHumanoid {
                         enterState(StateAction.ATTACKING);
 
                     default:
+                    this.imageState = (this.stateLife != StateLife.HURT) ? EH_FlyingAI.imgAttacking : EH_FlyingAI.imgAttacking_hurt;
                 }
                 break;
 
@@ -237,15 +238,20 @@ public class EH_FlyingAI extends EntityHumanoid {
                 switch(this.subStateInt){
 
                     case 1: 
-                        this.imageState = imgDying1;
+                        this.imageState = EH_FlyingAI.imgDying1;
+                        this.setDying(true);
+                        break;
+
+                    case 2: 
+                        this.setDying(false);
                         break;
 
                     case 7: 
-                        this.imageState = imgDying2;
+                        this.imageState = EH_FlyingAI.imgDying2;
                         break;
 
                     case 14: 
-                        this.imageState = imgDying3;
+                        this.imageState = EH_FlyingAI.imgDying3;
                         break;
 
                     case 21:
@@ -257,25 +263,20 @@ public class EH_FlyingAI extends EntityHumanoid {
 
 
             case DEAD:
-                Game.getIt().setScore(Game.getIt().getScore() + 10);
+                Game.getIt().setScore(Game.getIt().getScore() + 150);
                 this.deSpawn();
                 break;
 
             default:
                 enterState(StateAction.MOVING);
-                this.imageState = this.imgMovingL+ending(); 
                 break;
         }
-
     }
 
 
+    @Override
+    public void hurtEvent() {}
 
-    //  Getters-Setters  //
-
-
-   
-
-
-
+    @Override
+    public void recoverEvent() {}
 }

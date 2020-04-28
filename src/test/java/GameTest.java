@@ -2,6 +2,7 @@ import org.junit.Test;
 import Game_model.*;
 import Game_model.Entity;
 import Game_model.Game;
+import Game_model.EK_Scenery.Type;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
@@ -14,10 +15,10 @@ public class GameTest {
 
 
     ArrayList<Entity> testList = new ArrayList<Entity>(Arrays.asList(
-        new EK_Scenery(0, 0, 0, null, null),
-        new EK_Scenery(0, 0, 0, null, null),
-        new EK_Scenery(0, 0, 0, null, null),
-        new EK_Scenery(0, 0, 0, null, null)
+        new EK_Scenery(Type.HEALTH),
+        new EK_Scenery(Type.POINTS),
+        new EK_Scenery(Type.AMMO),
+        new EK_Scenery(Type.AMMO)
     ));
 
     @Test

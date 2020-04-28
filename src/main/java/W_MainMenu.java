@@ -1,8 +1,14 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   W_MainMenu.java
+Desc.   MainMenu window is the primary screen for the program.
+        Its GUI displays access to all of the other secondary screens of the program. 
+--------------------------------------------------------------------------------------------- */
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
-
 import Data_model.Cereal;
 import Game_model.Game;
 import Game_model.Game.StateDifficulty;
@@ -11,25 +17,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.media.AudioClip;
 
-//-----------------------------------------------------------
-//File:   Window_MainWindow.java
-//Desc:   This class is the default screen upon startup.
-//----------------------------------------------------------- 
 
-public class W_MainMenu {
+public class W_MainMenu implements AppInitialize{
     Game game = Game.getIt();
 
     // --------------- //
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
-    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
 
     // --------------- //
     // View Variables //
     // --------------- //
-    String difficulty = "";
+
+    StateDifficulty difficulty;
     int gameLvl;
     
     // ------------- //
@@ -45,7 +46,7 @@ public class W_MainMenu {
     @FXML
     void btn_newGameClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
-        BTN_CLICK.play();   
+        AppSounds.it().BTN_CLICK.play();   
 
         // items for the dialog
         String difficulty[] = {"Easy", "Medium", "Hard" };
@@ -56,16 +57,20 @@ public class W_MainMenu {
         d.setHeaderText("Please Select Difficulty Level");
         d.showAndWait().ifPresent(choice -> 
         {
-            THEME.stop();
-            // stage.show();            
-            //newStage.close();
             try 
             {
                 String result = (String) d.getSelectedItem();
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{result, 1});
-                // game.initialize((int) d.getSelectedItem());
+                if (result.equals("Easy")) {
+                    this.difficulty = StateDifficulty.EASY;
+                }
+                else if (result.equals("Medium")){
+                    this.difficulty = StateDifficulty.MEDIUM;
+                } else {
+                    this.difficulty = StateDifficulty.HARD;
+                }
+                AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{this.difficulty, 1, 0});
             } 
-            catch (InterruptedException | IOException e) 
+            catch (Exception e) 
             {
                 e.printStackTrace();
             }
@@ -74,62 +79,49 @@ public class W_MainMenu {
 
     @FXML
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
-        // W_CRUDsaves CRUDInstance = W_CRUDsaves.instance();
-        // CRUDInstance.initialize();
+        
         Cereal cereal = new Cereal(game, LocalDateTime.now(), "hello");
 
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         try(BufferedReader rd = new BufferedReader( new FileReader("cereal.dat")))
         {                       
             String line = rd.readLine();
             while (line != null) { 
-                // var score = new Score(null, null, 0); // create a new score object
-                // Score score = Score.deSerialize(line); // set the score date (name, date/time, score)
-
-                // Make method to clear everything before loading in the saved stuff
                 cereal.deSerialize(line);    // add the new score object to scores list
                 System.out.println(line); 
                 line = rd.readLine(); 
             } 
             rd.close(); 
-
         } 
-        catch (IOException e) 
+        catch (Exception e) 
         { 
             System.out.println("Problem loading scores.dat"); 
         }
         
-        if (game.getStateDiff() == StateDifficulty.EASY) {
-            difficulty = "Easy";            
-        }
-        else if (game.getStateDiff() == StateDifficulty.MEDIUM) {
-            difficulty = "Medium";
-        }
-        else if (game.getStateDiff() == StateDifficulty.HARD) {
-            difficulty = "Hard";
-        }
-        AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), new Object[]{difficulty, game.getGameLvl()});
+        AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{game.getStateDiff(), game.getGameLvl(), game.getScore()});
     }
 
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException, InterruptedException {
-        // Play button click sounds
-        BTN_CLICK.play();
-        AppGUI.windowLoad("Controls / How to Play", getClass().getResource("W_Controls.fxml"), null);
+        AppSounds.it().BTN_CLICK.play();
+        AppGUI.windowLoad(this, "Controls / How to Play", "W_Controls.fxml", null);
     }
 
     @FXML
-    void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {
-        //W_Scoreboard scoreboardInstance = W_Scoreboard.getInstance();      
-        BTN_CLICK.play();
-        AppGUI.windowLoad("Scoreboard", getClass().getResource("W_Scoreboard.fxml"), null);
+    void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {  
+        AppSounds.it().BTN_CLICK.play();
+        AppGUI.windowLoad(this, "Scoreboard", "W_Scoreboard.fxml", null);
     }
 
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException, InterruptedException {
-        // Play button click sounds
-        BTN_CLICK.play();
-        AppGUI.windowLoad("Credits", getClass().getResource("W_Credits.fxml"), null);
+        AppSounds.it().BTN_CLICK.play();
+        AppGUI.windowLoad(this, "Credits", "W_Credits.fxml", null);
+    }
+
+    @Override
+    public void initialize() {
+        AppSounds.it().THEME.play();
     }
 
     // ------------- //

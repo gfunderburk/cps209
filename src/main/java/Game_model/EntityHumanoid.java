@@ -1,6 +1,17 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   EnitityHumanoid.java
+Desc.   This class is the third-tiered and final Abstract class for the physical world.
+        Any entity that can assault other entities in the physical world 
+        inheret related content in this class.
+        This class admins possible action states and projectile creation during attacking states.
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
-public abstract class EntityHumanoid extends EntityKillable{
+import javafx.scene.media.AudioClip;
+
+public abstract class EntityHumanoid extends EntityKillable {
 
 
     //  Variables  //
@@ -8,9 +19,10 @@ public abstract class EntityHumanoid extends EntityKillable{
     
     protected  static enum StateAction {MOVING, RELOADING, ATTACKING, SPECIAL_ATTACK, DYING, DEAD};
     protected  StateAction stateAction;
-    protected  String imgMovingL, imgMovingR, imgReloading, imgAttacking, imgSpecialAttack, imgDying1, imgDying2, imgDying3;
     protected  int mag, ammo;
     protected  E_Projectile.TypeRound typeRound;
+    protected  boolean dying, attacking;
+    protected  AudioClip audio_dying, audio_attacking;
 
     //  Methods  //
 
@@ -18,29 +30,7 @@ public abstract class EntityHumanoid extends EntityKillable{
     public void enterState(StateAction newState){
         this.subStateInt = 0;
         this.stateAction = newState;
-
-        switch(this.stateAction){
-
-            case ATTACKING:
-               this.imageState = this.imgAttacking + ending();
-                break;
-
-            case RELOADING:
-                this.imageState = this.imgReloading + ending();
-                break;
-
-            case SPECIAL_ATTACK:
-               this.imageState = this.imgSpecialAttack + ending();
-                break;
- 
-            default:
-                break;
-        }
     };
-
-    public String ending(){
-        return (this.stateLife == StateLife.HURT) ? "_hurt.png" : ".png";
-    }
 
 
     public void attack(Entity entity) {
@@ -92,5 +82,37 @@ public abstract class EntityHumanoid extends EntityKillable{
 
     public void setTypeRound(E_Projectile.TypeRound typeRound) {
         this.typeRound = typeRound;
+    }
+
+    public boolean isDying() {
+        return dying;
+    }
+
+    public void setDying(boolean dying) {
+        this.dying = dying;
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
+    }
+
+    public AudioClip getAudio_dying() {
+        return audio_dying;
+    }
+
+    public void setAudio_dying(AudioClip audio_dying) {
+        this.audio_dying = audio_dying;
+    }
+
+    public AudioClip getAudio_attacking() {
+        return audio_attacking;
+    }
+
+    public void setAudio_attacking(AudioClip audio_attacking) {
+        this.audio_attacking = audio_attacking;
     }
 }

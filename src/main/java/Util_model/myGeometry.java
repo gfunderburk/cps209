@@ -1,12 +1,16 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   myGeometry.java
+Desc.   Discretely handles trigonometric calculations.
+        This class can measure the distance between 2 points in 1D, 2D and 3D.
+        It also Can find the angle of offset from one source point to the other target point.
+--------------------------------------------------------------------------------------------- */
+
+
 package Util_model;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 
-//---------------------------------------------------------------------------------------------
-// Class:  myMath
-// Desc:  Discretely handles trigonometric calculations.
-//--------------------------------------------------------------------------------------------- 
 public class myGeometry {
 
 

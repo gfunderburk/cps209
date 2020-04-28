@@ -1,3 +1,9 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   Score.java
+Desc.   Score is an object class that stores the details of each instance of a game score.
+--------------------------------------------------------------------------------------------- */
+
+
 package Data_model;
 
 import java.time.LocalDateTime;

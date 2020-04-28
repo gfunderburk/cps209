@@ -1,32 +1,47 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   Entity.java
+Desc.   This class is the foundatinal Abstract class that sets up the physical world 
+        (vs. the visual world). This physical world is 3D, and its entity objects 
+        inheret their core physical specs in this class.  
+        This class sets up, movement, collision detection, boundary detection, and physical sizes.
+
+Note:   This class is equally foundational to the in-game state as the Game class.
+--------------------------------------------------------------------------------------------- */
+
+
 package Game_model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
+import java.io.File;
 import Util_model.myMovement;
-import Util_model.myMovement.Point3D_Comp;
 import javafx.geometry.Point3D;
+import javafx.scene.image.Image;
 
 public abstract class Entity implements GameSave{
 
 
     //  Variables  //
 
-    protected static double LaiH = 50;
-    protected static double LaiW = 10; 
-    protected static double HaiH = 55;
-    protected static double HaiW = 12; 
-    protected static double FaiH = 7;
-    protected static double FaiW = 7; 
-    protected static double BaiH = 80;
-    protected static double BaiW = 20; 
+
+    protected static double LaiH =  50;
+    protected static double LaiW =  10; 
+    protected static double HaiH =  55;
+    protected static double HaiW =  12; 
+    protected static double FaiH =  6;
+    protected static double FaiW =  6; 
+    protected static double BaiH =  80;
+    protected static double BaiW =  20; 
+    protected static double AmmoH = 6; 
+    protected static double AmmoW = 8; 
+    protected static double HealthH = 6; 
+    protected static double HealthW = 8; 
+    protected static double PointsH = 8; 
+    protected static double PointsW = 6; 
     protected  int Id, stateInt, stateIntFactor, subStateInt; 
     protected  double height, width, speed;
     protected  int sameMoveCount;
     protected  boolean standStill = false;
     protected  Point3D location, vector;
-    protected  String imageDir, imageState;
+    protected  Image imageState;
     protected  int collisionCode; 
     /*
     0 =  none, 
@@ -41,6 +56,7 @@ public abstract class Entity implements GameSave{
 
     //  Methods  //
 
+
     public void stateIncrement(){
         this.stateInt++;
         if(this.stateInt == stateIntFactor){
@@ -50,7 +66,17 @@ public abstract class Entity implements GameSave{
         }  
     };
 
+    public static String initChildImage(String imageDir, String imageState){
+        String vsDir = System.getProperty("user.dir");
+        String recourcesDir = File.separator+"src"+File.separator+"main"+File.separator+"resources"+File.separator+"icons";
+        var it = new File(vsDir + recourcesDir + imageDir + imageState).toURI().toString();
+        return it;
+    }
+
+    public abstract void collideEvent(Entity collidedEntity);
+
     protected abstract void subStateUpdate();
+
 
     protected void move() {
         
@@ -81,9 +107,6 @@ public abstract class Entity implements GameSave{
             outOfBoundsEvent(5);
         }
     };
-
-
-    public abstract void collideEvent(Entity collidedEntity);
 
 
     public void outOfBoundsEvent(int boundsCode){
@@ -130,6 +153,7 @@ public abstract class Entity implements GameSave{
         Game.getIt().getEntityList().add(this);
     }
 
+
     public void deSpawn(){
         Game.getIt().getDeadEntityList().add(this);
         var index = Game.getIt().getEntityList().indexOf(this);
@@ -139,6 +163,7 @@ public abstract class Entity implements GameSave{
         Game.getIt().spawnerAdmin(false);
     };
 
+    
     @Override
     public abstract String Serialize();
 
@@ -189,15 +214,11 @@ public abstract class Entity implements GameSave{
         this.vector = vector;
     }
 
-    public String getImageDir() {
-        return imageDir;
-    }
-
-    public String getImageState() {
+    public Image getImageState() {
         return imageState;
     }
 
-    public void setImageState(String image) {
+    public void setImageState(Image image) {
         this.imageState = image;
     }
 
@@ -209,8 +230,8 @@ public abstract class Entity implements GameSave{
         Id = id;
     }
 
-    public String getImage(){
-        return this.imageDir + this.imageState;
+    public Image getImage(){
+        return this.imageState;
     }
 
     public static double getLaiH() {
@@ -299,10 +320,6 @@ public abstract class Entity implements GameSave{
 
     public void setStandStill(boolean standStill) {
         this.standStill = standStill;
-    }
-
-    public void setImageDir(String imageDir) {
-        this.imageDir = imageDir;
     }
 
     public int getCollisionCode() {
