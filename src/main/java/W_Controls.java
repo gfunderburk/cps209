@@ -4,7 +4,6 @@ Desc.   Controls window explains the controls and how to play the in-game to the
 --------------------------------------------------------------------------------------------- */
 
 import java.io.IOException;
-
 import Game_model.GameSounds;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

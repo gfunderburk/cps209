@@ -102,6 +102,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     void onReloadClicked() throws IOException {
         avatar.reload();
+        GameSounds.it().Avatar_reloading.play();
         updateHealthGUI();
     }
     
@@ -129,13 +130,22 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     void mouseClickedPane(MouseEvent event) throws IOException {
 
-        avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
-        if (avatar.getMag() > 1 || avatar.getMag() == 1) {
-            // SHOOT_FOOTSOLDIER.play();
+        if (avatar.getMag() >= 1) 
+        {
             avatar.setMag(avatar.getMag() - 1);
-        } else {
-            // BTN_CLICK.play();
+            avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
+
+            if(game.isCheatMode()){
+                GameSounds.it().Avatar_attackingCheatmode.play();
+            }
+            else{
+                GameSounds.it().Avatar_attacking.play();
+            }
+        } 
+        else 
+        {
             avatar.setMag(0);
+            GameSounds.it().Avatar_attackingEmptyMag.play();
         }
         updateHealthGUI();
     }
@@ -166,13 +176,22 @@ public class W_InGame implements EventHandler<KeyEvent> {
         // Update Health Bar
 
         double health = avatar.getCurrentHealth()/10;
-        System.out.println("Health: " + health);
+        // System.out.println("Health: " + health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
-        if (health < .5) {
+
+        if (health < .5) 
+        {
             progBar_health.setStyle("-fx-accent: red;");
-        } else {
+
+            if(EH_Avatar.getIt().isGotHurt())
+            {
+                EH_Avatar.getIt().setGotHurt(false);
+                GameSounds.it().Avatar_hurt.play();
+            }
+        } else 
+        {
             progBar_health.setStyle("-fx-accent: lime;");
         }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
@@ -192,14 +211,17 @@ public class W_InGame implements EventHandler<KeyEvent> {
         {
             if (Game.getIt().isPlayerWinner() && game.getGameLvl() >= 3) 
             {
+                GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
             }
             else if(Game.getIt().isPlayerWinner())
             {
+                GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
             }
             else
             {
+                GameSounds.it().Avatar_dying.play();
                 AppGUI.popupLoad(this, "W_GameOver.fxml", "GAME OVER");
             }
         } 

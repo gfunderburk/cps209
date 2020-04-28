@@ -12,6 +12,7 @@ import javafx.geometry.Point3D;
 
 public class EH_Avatar extends EntityHumanoid {
  
+    private boolean gotHurt;
 
     //  Singleton  //
 
@@ -105,7 +106,9 @@ public class EH_Avatar extends EntityHumanoid {
 
 
     @Override
-    public void hurtEvent() {}
+    public void hurtEvent() {
+        this.gotHurt = true;
+    }
 
     @Override
     public void recoverEvent() {}
@@ -118,4 +121,12 @@ public class EH_Avatar extends EntityHumanoid {
 
     @Override
     protected void subStateUpdate(){}
+
+    public boolean isGotHurt() {
+        return gotHurt;
+    }
+
+    public void setGotHurt(boolean gotHurt) {
+        this.gotHurt = gotHurt;
+    }
 }

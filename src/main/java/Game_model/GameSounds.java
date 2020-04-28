@@ -1,5 +1,11 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   GameSounds.java
+Desc.   GameSounds acts as the central storage place for all program sounds.
+--------------------------------------------------------------------------------------------- */
+
 
 package Game_model;
+
 import javafx.scene.media.AudioClip;
 
 public class GameSounds {
@@ -54,5 +60,6 @@ public class GameSounds {
     public final AudioClip Avatar_wins                 = audioClip(this, "shotgun.mp3");
     public final AudioClip Avatar_reloading            = audioClip(this, "shotgun.mp3");
     public final AudioClip Avatar_attacking            = audioClip(this, "shotgun.mp3");
+    public final AudioClip Avatar_attackingEmptyMag    = audioClip(this, "shotgun.mp3");
     public final AudioClip Avatar_attackingCheatmode   = audioClip(this, "shotgun.mp3");
 }
