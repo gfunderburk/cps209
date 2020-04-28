@@ -9,6 +9,8 @@ Desc.   This class is the third-tiered and final Abstract class for the physical
 
 package Game_model;
 
+import javafx.scene.media.AudioClip;
+
 public abstract class EntityHumanoid extends EntityKillable {
 
 
@@ -19,6 +21,8 @@ public abstract class EntityHumanoid extends EntityKillable {
     protected  StateAction stateAction;
     protected  int mag, ammo;
     protected  E_Projectile.TypeRound typeRound;
+    protected  boolean dying, attacking;
+    protected  AudioClip audio_dying, audio_attacking;
 
     //  Methods  //
 
@@ -78,5 +82,37 @@ public abstract class EntityHumanoid extends EntityKillable {
 
     public void setTypeRound(E_Projectile.TypeRound typeRound) {
         this.typeRound = typeRound;
+    }
+
+    public boolean isDying() {
+        return dying;
+    }
+
+    public void setDying(boolean dying) {
+        this.dying = dying;
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
+    }
+
+    public AudioClip getAudio_dying() {
+        return audio_dying;
+    }
+
+    public void setAudio_dying(AudioClip audio_dying) {
+        this.audio_dying = audio_dying;
+    }
+
+    public AudioClip getAudio_attacking() {
+        return audio_attacking;
+    }
+
+    public void setAudio_attacking(AudioClip audio_attacking) {
+        this.audio_attacking = audio_attacking;
     }
 }

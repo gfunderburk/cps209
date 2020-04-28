@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   W_CRUDsaves.java
+Desc.   DEETE THIS WINDOW
 --------------------------------------------------------------------------------------------- */
 
 
@@ -25,8 +25,8 @@ public class W_CRUDsaves {
     // Media Elements  //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
-    final AudioClip THEME = new AudioClip(getClass().getResource("/media/maintheme.mp3").toString());
+    final AudioClip BTN_CLICK = AppSounds.audioClip(this, "btnClick_seatBelt.mp3");
+    final AudioClip THEME =     AppSounds.audioClip(this, "maintheme.mp3");
 
     // ----------- //
     //  Singleton  //
@@ -92,7 +92,7 @@ public class W_CRUDsaves {
 
             try {
                 BTN_CLICK.play();
-                AppGUI.windowLoad("Main Menu", getClass().getResource("W_MainMenu.fxml"), null);
+                AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
             } catch (Exception e1){}
         });
 
@@ -101,7 +101,7 @@ public class W_CRUDsaves {
 
             try {
                 THEME.stop();
-                AppGUI.windowLoad("Game", getClass().getResource("W_InGame.fxml"), null);
+                AppGUI.windowLoad(this, "Game", "W_InGame.fxml", null);
             } catch (Exception e1){}
         });
 

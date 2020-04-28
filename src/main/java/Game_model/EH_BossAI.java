@@ -1,13 +1,13 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   EH_BassAI.java
+Desc.   This EntityHumaniod_BossAI class governs the action events of the 
+        primary enemy AI in level 3.
 --------------------------------------------------------------------------------------------- */
 
 
 package Game_model;
 
 import java.io.File;
-
 import Game_model.E_Projectile.TypeRound;
 import Util_model.myMovement;
 import Util_model.myRandom;
@@ -20,37 +20,38 @@ public class EH_BossAI extends EntityHumanoid {
 
     //  Variables  //
 
-    final static String imageDir = File.separator + "boss_terminators" + File.separator;
-    final static Image imgDying1 = new Image(initChildImage(imageDir, "Boss_Dying1.png"));
-    final static Image imgDying2 = new Image(initChildImage(imageDir, "Boss_Dying2.png"));
-    final static Image imgDying3 = new Image(initChildImage(imageDir, "Boss_Dying3.png"));
 
-    final static Image imgMovingL = new Image(initChildImage(imageDir, "Boss_Moving.png"));
-    final static Image imgMovingR = new Image(initChildImage(imageDir, "Boss_shooting.png"));
-    final static Image imgReloading = new Image(initChildImage(imageDir, "Boss_shooting.png"));
-    final static Image imgAttacking = new Image(initChildImage(imageDir, "Boss_shooting.png"));
-    final static Image imgSpecialAttack = new Image(initChildImage(imageDir, "Boss_shooting.png"));
+    final static String imageDir =  File.separator + "boss_terminators" + File.separator;
+    final static Image imgDying1 =  new Image(initChildImage(imageDir, "Boss_Dying1.png"));
+    final static Image imgDying2 =  new Image(initChildImage(imageDir, "Boss_Dying2.png"));
+    final static Image imgDying3 =  new Image(initChildImage(imageDir, "Boss_Dying3.png"));
+
+    final static Image imgMovingL =         new Image(initChildImage(imageDir, "Boss_Moving.png"));
+    final static Image imgMovingR =         new Image(initChildImage(imageDir, "Boss_shooting.png"));
+    final static Image imgReloading =       new Image(initChildImage(imageDir, "Boss_shooting.png"));
+    final static Image imgAttacking =       new Image(initChildImage(imageDir, "Boss_shooting.png"));
+    final static Image imgSpecialAttack =   new Image(initChildImage(imageDir, "Boss_shooting.png"));
     
-    final static Image imgMovingL_hurt = new Image(initChildImage(imageDir, "Boss_Moving_hurt.png"));
-    final static Image imgMovingR_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
-    final static Image imgReloading_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
-    final static Image imgAttacking_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
-    final static Image imgSpecialAttack_hurt = new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
+    final static Image imgMovingL_hurt =        new Image(initChildImage(imageDir, "Boss_Moving_hurt.png"));
+    final static Image imgMovingR_hurt =        new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
+    final static Image imgReloading_hurt =      new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
+    final static Image imgAttacking_hurt =      new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
+    final static Image imgSpecialAttack_hurt =  new Image(initChildImage(imageDir, "Boss_shooting_hurt.png"));
     
 
     //  Constructor  //
 
 
     public EH_BossAI(){
-        this.imageState = imgMovingL;
-        this.stateAction = StateAction.MOVING;
-        this.stateLife = StateLife.HEALTHY;
-        this.typeRound = TypeRound.HEAVY_ROUND;
-        this.width = HaiW;
+        this.imageState =   imgMovingL;
+        this.stateAction =  StateAction.MOVING;
+        this.stateLife =    StateLife.HEALTHY;
+        this.typeRound =    TypeRound.HEAVY_ROUND;
+        this.width =  HaiW;
         this.height = HaiH;
-        this.speed = 1;
+        this.speed =  1;
         this.maxHealth = 2;
-        this.stateIntFactor = 2;
+        this.stateIntFactor = 5;
         this.currentHealth = this.maxHealth; 
     }
 
@@ -111,7 +112,6 @@ public class EH_BossAI extends EntityHumanoid {
                 default:
                     break;
             }
-            Game.getIt().setScore(Game.getIt().getScore() + 10);
             this.checkLife();    
         }
     }
@@ -190,14 +190,20 @@ public class EH_BossAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(false);
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgAttacking : EH_BossAI.imgAttacking_hurt;
+
                         if(this.mag <= 0) {
                             enterState(StateAction.RELOADING);
                         } 
-                        else if(myRandom.genRandomInt(1, 2) != 2) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgAttacking : EH_BossAI.imgAttacking_hurt;
+                        else if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -207,9 +213,11 @@ public class EH_BossAI extends EntityHumanoid {
                     case 30:
                         enterState(StateAction.MOVING);
                         setTypeRound(TypeRound.EXPLOSIVE_ROUND);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(true);
                         setTypeRound(TypeRound.HEAVY_ROUND);
                         attack(EH_Avatar.getIt());
                         this.imageState = (this.stateLife != StateLife.HURT) ? EH_BossAI.imgSpecialAttack : EH_BossAI.imgSpecialAttack_hurt;
@@ -233,6 +241,11 @@ public class EH_BossAI extends EntityHumanoid {
 
                     case 1: 
                         this.imageState = EH_BossAI.imgDying1;
+                        this.setDying(true);
+                        break;
+
+                    case 2: 
+                        this.setDying(false);
                         break;
 
                     case 4: 
@@ -252,7 +265,7 @@ public class EH_BossAI extends EntityHumanoid {
 
 
             case DEAD:
-                Game.getIt().setScore(Game.getIt().getScore() + 10);
+                Game.getIt().setScore(Game.getIt().getScore() + 500);
                 this.deSpawn();
                 break;
 

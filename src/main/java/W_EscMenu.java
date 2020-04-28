@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   W_EscMenu.java
+Desc.   EscMenu window pauses the in-game state when initialized and displays options to:
+        Resume the current game state, Save the current game state, or quit the game state. 
 --------------------------------------------------------------------------------------------- */
 
 
@@ -17,16 +18,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.media.AudioClip;
 
-public class W_EscMenu implements AppGUI_popupWin{
+public class W_EscMenu implements AppInitialize{
     
     
     // --------------- //
     // Media Elements //
     // --------------- //
 
-    final AudioClip BTN_CLICK = new AudioClip(getClass().getResource("/media/btnClick_seatBelt.mp3").toString());
 
 
     //  --------------- //
@@ -63,7 +62,7 @@ public class W_EscMenu implements AppGUI_popupWin{
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         
         AppGUI.getPopupStage().close();
 
@@ -81,13 +80,13 @@ public class W_EscMenu implements AppGUI_popupWin{
             scoreManager.saveScores();            
         });
 
-        AppGUI.windowLoad("High Scores", getClass().getResource("W_ScoreBoard.fxml"), null);   
+        AppGUI.windowLoad(this, "High Scores", "W_ScoreBoard.fxml", null);   
     }
 
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
         // Return to game window
-        BTN_CLICK.play();
+        AppSounds.it().BTN_CLICK.play();
         AppGUI.getPopupStage().close();
         Game.getIt().play();
     }

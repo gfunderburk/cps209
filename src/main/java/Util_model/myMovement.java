@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   myMovement.java
+Desc.   This class calculates the cartesian coordinates for a 3-space vector 
+        and can edit a Point3D's (x,y,z) component.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -10,7 +11,7 @@ import javafx.geometry.Point3D;
 
 public class myMovement {
 
-    //      Move Point in 3D Space        //
+    //      Set Cartesian Heading for Point in 3D Space        //
 
     public static Point3D getHeading(double targetX, double targetY, double sourceX, double sourceY, double movementSpeed){
 
@@ -42,7 +43,7 @@ public class myMovement {
         double phi = Math.acos(1/r);
         double theta = xyAngle;
 
-        //  Translate phi + theta to (x,y,z) coords
+        //  Translate phi + theta to (x,y,z) coords with a radius of input movementSpeed
         double X = movementSpeed * Math.sin(phi) * Math.cos(Math.toRadians(theta));
         double Y = movementSpeed * Math.sin(phi) * Math.sin(Math.toRadians(theta));
         double Z = movementSpeed * Math.cos(phi);
@@ -57,6 +58,9 @@ public class myMovement {
         // z = r cosϕ
     }
 
+
+    //      Set Cartesian Heading for Point in 3D Space        //
+
     public static Point3D getHeading(Point3D targetPoint, Point3D sourcePoint, double movementSpeed){
 
         //  Get offset from sourcePoint to targetPoint
@@ -69,20 +73,13 @@ public class myMovement {
         double phi = Math.acos( pt.getZ() / r );
         double theta = Math.atan2(pt.getY(), pt.getX());
             
-        //  Translate phi + theta to (x,y,z) coords
+        //  Translate phi + theta to (x,y,z) coords with a radius of input movementSpeed
         double X = movementSpeed * Math.sin(phi) * Math.cos(theta);
         double Y = movementSpeed * Math.sin(phi) * Math.sin(theta);
         double Z = movementSpeed * Math.cos(phi);
         return new Point3D(X, Y, Z);
-        
-        // x = r cos(Φ) sin(θ)
-        // y = r sin(Φ) sin(θ)
-        // z = r cos(θ)
-        
-        // r = √(x2+y2+z2)
-        // θ = atan2(y, x)
-        // Φ = acos(z/r)
     } 
+
 
     public static double square(double value){
         return value * value;
@@ -107,6 +104,4 @@ public class myMovement {
         }
         return point;
     }
-    
-
 }

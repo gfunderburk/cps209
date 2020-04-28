@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   EH_HeavyAI.java
+Desc.   This EntityHumaniod_HumaniodAI class governs the action events of the 
+        enemy AI's in level 2.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -20,21 +21,21 @@ public class EH_HeavyAI extends EntityHumanoid {
     //  Variables  //
 
 
-    final static String imageDir = File.separator + "heavy_terminators" + File.separator;
-    final static Image imgDying1 = new Image(initChildImage(imageDir, "heavyRobotDying1.png"));
-    final static Image imgDying2 = new Image(initChildImage(imageDir, "heavyRobotDying2.png"));
-    final static Image imgDying3 = new Image(initChildImage(imageDir, "heavyRobotDying3.png"));
+    final static String imageDir =  File.separator + "heavy_terminators" + File.separator;
+    final static Image imgDying1 =  new Image(initChildImage(imageDir, "heavyRobotDying1.png"));
+    final static Image imgDying2 =  new Image(initChildImage(imageDir, "heavyRobotDying2.png"));
+    final static Image imgDying3 =  new Image(initChildImage(imageDir, "heavyRobotDying3.png"));
 
-    final static Image imgMovingL = new Image(initChildImage(imageDir, "heavyRobot_Moving_LeftFoot.png"));
-    final static Image imgMovingR = new Image(initChildImage(imageDir, "heavyRobot_Moving_RightFoot.png"));
-    final static Image imgReloading = new Image(initChildImage(imageDir, "heavyRobot_Reloading.png"));
-    final static Image imgAttacking = new Image(initChildImage(imageDir, "heavyRobot_Shooting.png"));
+    final static Image imgMovingL =       new Image(initChildImage(imageDir, "heavyRobot_Moving_LeftFoot.png"));
+    final static Image imgMovingR =       new Image(initChildImage(imageDir, "heavyRobot_Moving_RightFoot.png"));
+    final static Image imgReloading =     new Image(initChildImage(imageDir, "heavyRobot_Reloading.png"));
+    final static Image imgAttacking =     new Image(initChildImage(imageDir, "heavyRobot_Shooting.png"));
     final static Image imgSpecialAttack = new Image(initChildImage(imageDir, "heavyRobot_Shooting_Special.png"));
     
-    final static Image imgMovingL_hurt = new Image(initChildImage(imageDir, "heavyRobot_Moving_LeftFoot_hurt.png"));
-    final static Image imgMovingR_hurt = new Image(initChildImage(imageDir, "heavyRobot_Moving_RightFoot_hurt.png"));
-    final static Image imgReloading_hurt = new Image(initChildImage(imageDir, "heavyRobot_Reloading_hurt.png"));
-    final static Image imgAttacking_hurt = new Image(initChildImage(imageDir, "heavyRobot_Shooting_hurt.png"));
+    final static Image imgMovingL_hurt =       new Image(initChildImage(imageDir, "heavyRobot_Moving_LeftFoot_hurt.png"));
+    final static Image imgMovingR_hurt =       new Image(initChildImage(imageDir, "heavyRobot_Moving_RightFoot_hurt.png"));
+    final static Image imgReloading_hurt =     new Image(initChildImage(imageDir, "heavyRobot_Reloading_hurt.png"));
+    final static Image imgAttacking_hurt =     new Image(initChildImage(imageDir, "heavyRobot_Shooting_hurt.png"));
     final static Image imgSpecialAttack_hurt = new Image(initChildImage(imageDir, "heavyRobot_Shooting_Special_hurt.png"));
 
 
@@ -42,13 +43,13 @@ public class EH_HeavyAI extends EntityHumanoid {
 
 
     public EH_HeavyAI(){
-        this.imageState = imgMovingL;
-        this.stateAction = StateAction.MOVING;
-        this.stateLife = StateLife.HEALTHY;
-        this.typeRound = TypeRound.HEAVY_ROUND;
-        this.width = HaiW;
+        this.imageState =   imgMovingL;
+        this.stateAction =  StateAction.MOVING;
+        this.stateLife =    StateLife.HEALTHY;
+        this.typeRound =    TypeRound.HEAVY_ROUND;
+        this.width =  HaiW;
         this.height = HaiH;
-        this.speed = 1;
+        this.speed =  1;
         this.maxHealth = 2;
         this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth;
@@ -111,7 +112,6 @@ public class EH_HeavyAI extends EntityHumanoid {
                 default:
                     break;
             }
-            Game.getIt().setScore(Game.getIt().getScore() + 15);
             this.checkLife();    
         }
     }
@@ -190,14 +190,20 @@ public class EH_HeavyAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
+                        this.setAttacking(false);
                         break;
 
-                    default:                        
+                    default:  
+                        this.setAttacking(false); 
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_HeavyAI.imgAttacking : EH_HeavyAI.imgAttacking_hurt;
+
                         if(this.mag <= 0) {
                             enterState(StateAction.RELOADING);
                         } 
-                        else if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_HeavyAI.imgAttacking : EH_HeavyAI.imgAttacking_hurt;
+                        else if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -207,12 +213,18 @@ public class EH_HeavyAI extends EntityHumanoid {
                     case 30:
                         enterState(StateAction.MOVING);
                         setTypeRound(TypeRound.HEAVY_ROUND);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(false);
                         setTypeRound(TypeRound.EXPLOSIVE_ROUND);
-                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
                         this.imageState = (this.stateLife != StateLife.HURT) ? EH_HeavyAI.imgSpecialAttack : EH_HeavyAI.imgSpecialAttack_hurt;
+                        
+                        if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -233,6 +245,11 @@ public class EH_HeavyAI extends EntityHumanoid {
 
                     case 1: 
                         this.imageState = EH_HeavyAI.imgDying1;
+                        this.setDying(true);
+                        break;
+
+                    case 2: 
+                        this.setDying(false);
                         break;
 
                     case 7: 
@@ -252,7 +269,7 @@ public class EH_HeavyAI extends EntityHumanoid {
 
 
             case DEAD:
-                Game.getIt().setScore(Game.getIt().getScore() + 10);
+                Game.getIt().setScore(Game.getIt().getScore() + 500);
                 this.deSpawn();
                 break;
 

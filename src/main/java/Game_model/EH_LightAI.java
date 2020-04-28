@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
-File:   .java
-Desc.   
+File:   EH_LightAI.java
+Desc.   This EntityHumaniod_LightAI class governs the action events of the 
+        enemy AI's in level 1.
 --------------------------------------------------------------------------------------------- */
 
 
@@ -20,21 +21,21 @@ public class EH_LightAI extends EntityHumanoid {
     //  Variables  //
 
 
-    final static String imageDir = File.separator + "light_terminators" + File.separator;
-    final static Image imgDying1 = new Image(initChildImage(imageDir, "lightRobotDying1.png"));
-    final static Image imgDying2 = new Image(initChildImage(imageDir, "lightRobotDying2.png"));
-    final static Image imgDying3 = new Image(initChildImage(imageDir, "lightRobotDying3.png"));
+    final static String imageDir =  File.separator + "light_terminators" + File.separator;
+    final static Image imgDying1 =  new Image(initChildImage(imageDir, "lightRobotDying1.png"));
+    final static Image imgDying2 =  new Image(initChildImage(imageDir, "lightRobotDying2.png"));
+    final static Image imgDying3 =  new Image(initChildImage(imageDir, "lightRobotDying3.png"));
 
-    final static Image imgMovingL = new Image(initChildImage(imageDir, "lightRobot_Moving_LeftFoot.png"));
-    final static Image imgMovingR = new Image(initChildImage(imageDir, "lightRobot_Moving_RightFoot.png"));
-    final static Image imgReloading = new Image(initChildImage(imageDir, "lightRobot_Reloading.png"));
-    final static Image imgAttacking = new Image(initChildImage(imageDir, "lightRobot_Shooting.png"));
+    final static Image imgMovingL =       new Image(initChildImage(imageDir, "lightRobot_Moving_LeftFoot.png"));
+    final static Image imgMovingR =       new Image(initChildImage(imageDir, "lightRobot_Moving_RightFoot.png"));
+    final static Image imgReloading =     new Image(initChildImage(imageDir, "lightRobot_Reloading.png"));
+    final static Image imgAttacking =     new Image(initChildImage(imageDir, "lightRobot_Shooting.png"));
     final static Image imgSpecialAttack = new Image(initChildImage(imageDir, "lightRobot_Shooting_special.png"));
 
-    final static Image imgMovingL_hurt = new Image(initChildImage(imageDir, "lightRobot_Moving_LeftFoot_hurt.png"));
-    final static Image imgMovingR_hurt = new Image(initChildImage(imageDir, "lightRobot_Moving_RightFoot_hurt.png"));
-    final static Image imgReloading_hurt = new Image(initChildImage(imageDir, "lightRobot_Reloading_hurt.png"));
-    final static Image imgAttacking_hurt = new Image(initChildImage(imageDir, "lightRobot_Shooting_hurt.png"));
+    final static Image imgMovingL_hurt =       new Image(initChildImage(imageDir, "lightRobot_Moving_LeftFoot_hurt.png"));
+    final static Image imgMovingR_hurt =       new Image(initChildImage(imageDir, "lightRobot_Moving_RightFoot_hurt.png"));
+    final static Image imgReloading_hurt =     new Image(initChildImage(imageDir, "lightRobot_Reloading_hurt.png"));
+    final static Image imgAttacking_hurt =     new Image(initChildImage(imageDir, "lightRobot_Shooting_hurt.png"));
     final static Image imgSpecialAttack_hurt = new Image(initChildImage(imageDir, "lightRobot_Shooting_special_hurt.png"));
 
     
@@ -42,13 +43,13 @@ public class EH_LightAI extends EntityHumanoid {
 
 
     public EH_LightAI(){ 
-        this.imageState = imgMovingL;
-        this.stateAction = StateAction.MOVING;
-        this.stateLife = StateLife.HEALTHY;
-        this.typeRound = TypeRound.LIGHT_ROUND;
-        this.width = LaiW;
+        this.imageState =   imgMovingL;
+        this.stateAction =  StateAction.MOVING;
+        this.stateLife =    StateLife.HEALTHY;
+        this.typeRound =    TypeRound.LIGHT_ROUND;
+        this.width =  LaiW;
         this.height = LaiH;
-        this.speed = 1;
+        this.speed =  1;
         this.maxHealth = 2;
         this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth;
@@ -204,14 +205,20 @@ public class EH_LightAI extends EntityHumanoid {
 
                     case 20:
                         enterState(StateAction.MOVING);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(false);
+                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgAttacking : EH_LightAI.imgAttacking_hurt;
+                        
                         if(this.mag <= 0) {
                             enterState(StateAction.RELOADING);
                         } 
-                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
-                        this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgAttacking : EH_LightAI.imgAttacking_hurt;
+                        else if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -221,12 +228,18 @@ public class EH_LightAI extends EntityHumanoid {
                     case 30:
                         enterState(StateAction.MOVING);
                         setTypeRound(TypeRound.LIGHT_ROUND);
+                        this.setAttacking(false);
                         break;
 
                     default:
+                        this.setAttacking(false);
                         setTypeRound(TypeRound.HEAVY_ROUND);
-                        if(myRandom.genRandomInt(1, 3) != 3) attack(EH_Avatar.getIt());
                         this.imageState = (this.stateLife != StateLife.HURT) ? EH_LightAI.imgSpecialAttack : EH_LightAI.imgSpecialAttack_hurt;
+
+                        if(myRandom.genRandomInt(1, 3) != 3) {
+                            attack(EH_Avatar.getIt());
+                            this.setAttacking(true);
+                        }
                 }
                 break;
 
@@ -247,6 +260,11 @@ public class EH_LightAI extends EntityHumanoid {
 
                     case 1: 
                         this.imageState = EH_LightAI.imgDying1;
+                        this.setDying(true);
+                        break;
+
+                    case 2: 
+                        this.setDying(false);
                         break;
 
                     case 7: 
@@ -266,7 +284,7 @@ public class EH_LightAI extends EntityHumanoid {
 
 
             case DEAD:
-                Game.getIt().setScore(Game.getIt().getScore() + 10);
+                Game.getIt().setScore(Game.getIt().getScore() + 250);
                 this.deSpawn();
                 break;
 
