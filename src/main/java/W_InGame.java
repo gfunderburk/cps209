@@ -193,7 +193,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
             if (Game.getIt().isPlayerWinner() && game.getGameLvl() >= 3) 
             {
                 AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
-      
+            }
             else if(Game.getIt().isPlayerWinner())
             {
                 AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
