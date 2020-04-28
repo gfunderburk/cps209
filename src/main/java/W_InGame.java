@@ -104,8 +104,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     
     @FXML
     void onReloadClicked() throws IOException {
-        EH_Avatar.getIt().reload();
-        System.out.println(EH_Avatar.getIt().getAmmo());
+        avatar.reload();
         updateHealthGUI();
     }
     
@@ -131,16 +130,17 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
 
     @FXML
-    void mouseClickedPane(MouseEvent event) {
+    void mouseClickedPane(MouseEvent event) throws IOException {
 
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
-        if (avatar.getMag() > 1) {
+        if (avatar.getMag() > 1 || avatar.getMag() == 1) {
             SHOOT_FOOTSOLDIER.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
             BTN_CLICK.play();
             avatar.setMag(0);
         }
+        updateHealthGUI();
         // lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         // lbl_Score.setText("Score: " + Game.getIt().getScore()); 
     }
@@ -176,7 +176,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         lbl_Score.setText("Score: " + Game.getIt().getScore());
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         hud_hbox.getChildren().addAll(lbl_Score, lbl_ammoStats);
-        
+
         if (health < .5) {
             progBar_health.setStyle("-fx-accent: red;");
         } else {
