@@ -47,6 +47,13 @@ HBox {
 
 }
 
+.credits-screen {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    /* -fx-max-height: 10; */
+    -fx-font-size: 20;
+}
+
 .control-names {
     -fx-padding: 5;
     -fx-font-size: 10; 

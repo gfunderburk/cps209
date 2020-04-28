@@ -107,8 +107,8 @@ public class W_InGame implements EventHandler<KeyEvent> {
     
     @FXML
     void ontoggleCheatmodeClicked() throws FileNotFoundException {
-        Game.getIt().toggleCheatMode();
-        btn_toggleCheatmode.setText(Game.getIt().isCheatMode() ? "Cheatmode - ON": "Cheatmode - OFF");
+        game.toggleCheatMode();
+        btn_toggleCheatmode.setText(game.isCheatMode() ? "Cheatmode - ON": "Cheatmode - OFF");
     }
 
 
@@ -138,8 +138,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
             avatar.setMag(0);
         }
         updateHealthGUI();
-        // lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        // lbl_Score.setText("Score: " + Game.getIt().getScore()); 
     }
 
     // //Written by Funderburk, pushed by Cox
@@ -164,15 +162,14 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // ------------- //
 
     void updateHealthGUI() throws IOException {
+
+        // Update Health Bar
+
         double health = avatar.getCurrentHealth()/10;
+        System.out.println("Health: " + health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
-        hud_hbox.getChildren().removeAll(lbl_Score, lbl_ammoStats);
-        lbl_Score.setText("Score: " + Game.getIt().getScore());
-        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
-        hud_hbox.getChildren().addAll(lbl_Score, lbl_ammoStats);
-
         if (health < .5) {
             progBar_health.setStyle("-fx-accent: red;");
         } else {
@@ -180,12 +177,23 @@ public class W_InGame implements EventHandler<KeyEvent> {
         }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
 
+        
+        // Update Score and Ammo stats
+
+        hud_hbox.getChildren().removeAll(lbl_Score, lbl_ammoStats);
+        lbl_Score.setText("Score: " + game.getScore());
+        lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
+        hud_hbox.getChildren().addAll(lbl_Score, lbl_ammoStats);
+
+
+        // check for GameOver
+
         if (Game.getIt().isGameOver()) 
         {
             if (Game.getIt().isPlayerWinner() && game.getGameLvl() >= 3) 
             {
                 AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
-            }
+      
             else if(Game.getIt().isPlayerWinner())
             {
                 AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
@@ -205,20 +213,20 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
         AppSounds.it().THEME.stop();
         pane.getChildren().clear();
-        Game.getIt().setEntityList(new ArrayList<Entity>());    
-        Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+        game.setEntityList(new ArrayList<Entity>());    
+        game.setDeadEntityList(new ArrayList<Entity>());
         EH_Avatar.resetAvatarSingleton();
         Game.resetGameSingleton();
         game = Game.getIt();
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         game.setScore(score);
-        Game.getIt().startGame("Joe", difficultyLevel, gameLevel);
+        game.startGame("Joe", difficultyLevel, gameLevel);
         
 
         //  Setup lvl background
 
-        String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+Game.getIt().getGameLvl()+"Background.png";
+        String imageAddress = File.separator+"icons"+File.separator+"backgrounds"+File.separator+"lvl"+game.getGameLvl()+"Background.png";
         Image lvlImage = new Image(imageAddress);
         
         BackgroundImage background = new BackgroundImage(lvlImage,
@@ -245,7 +253,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
 
     void timerAnimate() throws IOException {
-        if (Game.getIt().getStateGame() == StateGame.RUNNING) { 
+        if (game.getStateGame() == StateGame.RUNNING) { 
 
             readyForNextFrame = false;
 
@@ -267,30 +275,30 @@ public class W_InGame implements EventHandler<KeyEvent> {
             if(pi.getGameLvl() == 2) {
                 var testStopForDebugger = 0;}
 
-            Game.getIt().sortEntityList();  // sort so that entities are properly visually layered according to z depth
+            game.sortEntityList();  // sort so that entities are properly visually layered according to z depth
 
             pane.getChildren().clear();
 
             // draw entities visually in View
-            for (Entity entity : Game.getIt().getEntityList()) {
+            for (Entity entity : game.getEntityList()) {
                 drawEntity(entity);
             }        
 
             // //  Delete any dead entity images
-            for (int i = 0; i < Game.getIt().getDeadEntityList().size(); i++) {
-                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + Game.getIt().getDeadEntityList().get(i).getId());
+            for (int i = 0; i < game.getDeadEntityList().size(); i++) {
+                ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + game.getDeadEntityList().get(i).getId());
                 if(oldEntityImg != null){
                     pane.getChildren().remove(oldEntityImg);
                 }     
             }
-            Game.getIt().setDeadEntityList(new ArrayList<Entity>());
+            game.setDeadEntityList(new ArrayList<Entity>());
             updateHealthGUI();
             
             readyForNextFrame = true;
         }
     }
 
-    public void drawEntity(Entity entity) {
+    public void drawEntity(Entity entity) throws IOException {
 
         // Find if given entity image exists
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
@@ -331,8 +339,8 @@ public class W_InGame implements EventHandler<KeyEvent> {
         
         //  Set ImageView (x,y)
 
-        double imgX = ( loc.getX() * paneW ) / Game.getIt().getGamePhysicsWidth();   // set x according to physical and visual world ratio     
-        double imgY = ( loc.getY() * paneH ) / Game.getIt().getGamePhysicsHeight();   // set y according to physical and visual world ratio
+        double imgX = ( loc.getX() * paneW ) / game.getGamePhysicsWidth();   // set x according to physical and visual world ratio     
+        double imgY = ( loc.getY() * paneH ) / game.getGamePhysicsHeight();   // set y according to physical and visual world ratio
 
         imgX -= (0.5 * imgW);  //  center width on item pt.
 
@@ -360,5 +368,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
         newEntityImg.setFitWidth(imgW);
         newEntityImg.setFitHeight(imgH);
         newEntityImg.relocate(imgX, paneH - imgY);
+        updateHealthGUI();
     }
 }
