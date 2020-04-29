@@ -40,13 +40,14 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // Singleton Instance Variables
     Game game = Game.getIt();
     EH_Avatar avatar = EH_Avatar.getIt();
+    AppSounds sounds = AppSounds.it();
 
     // --------------- //
     // Media Elements //
     // --------------- //
     
   
-    final Image CROSSHAIRS            = new Image("/icons/crosshairs_4.png");
+    final Image CROSSHAIRS = new Image("/icons/crosshairs_4.png");
 
     // --------------- //
     // View Variables //
@@ -96,17 +97,20 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     @FXML
     void onEscClicked() throws IOException {
+        sounds.BTN_CLICK.play();
         AppGUI.popupLoad(this, "W_EscMenu.fxml", "ESC Menu");
     }
     
     @FXML
     void onReloadClicked() throws IOException {
+        sounds.BTN_CLICK.play();
         avatar.reload();
         updateHealthGUI();
     }
     
     @FXML
     void ontoggleCheatmodeClicked() throws FileNotFoundException {
+        sounds.BTN_CLICK.play();
         game.toggleCheatMode();
         btn_toggleCheatmode.setText(game.isCheatMode() ? "Cheatmode - ON": "Cheatmode - OFF");
     }
@@ -131,10 +135,10 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
         avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
         if (avatar.getMag() > 1 || avatar.getMag() == 1) {
-            // SHOOT_FOOTSOLDIER.play();
+            sounds.SHOOT_FOOTSOLDIER.play();
             avatar.setMag(avatar.getMag() - 1);
         } else {
-            // BTN_CLICK.play();
+            sounds.BTN_CLICK.play();
             avatar.setMag(0);
         }
         updateHealthGUI();
@@ -211,7 +215,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         
         //  Reset in-game Pane
 
-        AppSounds.it().THEME.stop();
+        sounds.THEME.stop();
         pane.getChildren().clear();
         game.setEntityList(new ArrayList<Entity>());    
         game.setDeadEntityList(new ArrayList<Entity>());
@@ -356,7 +360,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                // SHOOT_SHOTGUN.play();
+                sounds.SHOOT_SHOTGUN.play();
             }
         }
         else{
