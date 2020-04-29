@@ -1,49 +1,59 @@
 # CPS 209 Team 1 - Terminator Salvation 2  
 
 ## Instructions: 
-To play the game, select New Game or Load Game. If you select Load Game, you will need to select a saved game from the list and then select Load Selected Game button at the bottom of the screen. Now the game will begin! Enemy Terminators will appear on the screen and will randomly move around, attempting to kill you. The goal is to kill them before they kill you! Left-click on the Terminator in order to shoot. Good luck!  
+Use your mouse to shoot your gun at hostiles, and click the reload button when your magazine is empty to refill you gun's rounds. Power-ups can also be shot at, and they are scattered throughout the world. They can: refill depleted health, refill depleted ammunition, or give you extra points.  The cheat-mode toggles whether cheat-mode is active or not. If it is active, the player cannot die, the player get unlimited ammunition, and the player's attacks do increased damage.
 
 
 ## Work Completed: 
-### Alpha
-|   Feature  | Required |  Assignee |
-|:--------|:------------:|:------------:|
-| In-game Background for (lvl-1) | _ | Layton |  
-| Highscores Load/Save Functionality | Yes | Cox |  
-| Game Load/Save Functionality | Yes | Funderburk | 
-| LightAI Animations+Logic | _ | Layton |
-| Player Shooting | _ | Layton |
-| Game 3-space  | _ | Layton |
-| Game Physics / Movement | _ | Layton |
+# Release Candidate
+|   Feature  | Required |  Assignee | Status|
+|:--------|:------------:|:------------:|:-----:|
+| Game Load/Save Functionality | Yes | Funderburk |  Completed |
+| Review/Complete Menu Screens | Yes | Cox |  Completed |
+| Review/Complete Sound Effects | Yes | Cox | Completed |
+| Player Reloading | _ | Cox |  Completed |
+| CheatMode Toggle | Yes | Layton |  Completed |
+| Background image scaling | _ | Layton |  Completed |
+| Level GameOver / Progression Logic | _ | Layton |  Completed |
+| Power-up Logic | _ | Layton |  Completed |
 
-### Beta
-|   Feature  | Required |  Assignee | 
-|:--------|:------------:|:------------:|
-| In-game HUD | _ | Cox | 
-| Difficulty Levels Logic | Yes | Cox | 
-| Background image scaling | _ | Layton |  
-| Score Functionality | Yes | Cox |  
-| HeavyAI Animations+Logic | _ | Layton |
-| FlyingAI Animations+Logic | _ | Layton | 
-| BossAI Animations+Logic | _ | Layton | 
+
+# Final Release
+|   Feature  | Required |  Assignee | Status|
+|:--------|:------------:|:------------:|:-----:|  
+|Bug Fixes | _ | Everyone |  In Progress |
+|Comments | _ | Everyone |  In Progress |
+|Review Wiki | _ | Everyone |  In Progress |
+
+
+# Extra Credit Optional
+|   Feature  |  Assignee(s) | Status|
+|:--------|:------------:|:-----:|  
+| Enhanced Player/AI Sounds | Cox |  Completed |
+| Cheat-mode Easter Egg Effects | Funderburk |  In Progress | 
+| Hostile Special Attacks Logic | Layton |  Completed |
 
 
 ## Known Issues: 
-None 
+- Player Health Bar sometimes delays in updating. 
+- Game does not end when player health reaches 0 (will add fix ASAP).
+- Game does not load properly every time.
+- Some extra AI battle sounds not playing properly.
 
 ## Recording: 
 
 - [Game Demo Screen Recording (Alpha Release)](https://youtu.be/4OJjVRsCHcA)
 - [Game Demo Screen Recording (Beta Release)](https://youtu.be/5D6LID1TyRE)
+- [Game Demo Screen Recording (Release Candidate)](https://youtu.be/rEbC_lDRkyA)
 
 
 ## Expenses: 
 
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
-|Jeremiah Cox  |  50.8         |   9.2        |
+|Jeremiah Cox  |  57.8         |   2.2        |
 |Gunnar Funderburk | 30  |  30  |
-|Jonathan Layton  |  59   |  11 (Dr. Scaub 10 hour extension) |
+|Jonathan Layton  |  66.5   |  3.5 (Dr. Scaub 10 hour extension) |
 
 ### Journals
 - [Jeremiah Cox](https://github.com/gfunderburk/cps209/wiki/Journal_Cox)
