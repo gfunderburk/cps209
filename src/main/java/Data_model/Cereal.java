@@ -45,15 +45,13 @@ public class Cereal {
             
         try(var wr = new PrintWriter( new FileWriter("cereal.dat")); )
         {
+            wr.println(Game.getIt().Serialize());
+            wr.println(EH_Avatar.getIt().Serialize());
+
             for(Entity ent:cerealArray){
-                wr.write(ent.Serialize() + "\n");
-                
+                wr.println(ent.Serialize());
             }
-                
-                
-
         }catch(IOException e){
-
                 System.out.println("An Error has Occured During Serialization    (SerializeGame() Line:36-)");
         }
         
@@ -70,8 +68,7 @@ public class Cereal {
                 game.deSerialize(line);
                 break;
                 
-            case "U":
-             
+            case "U":             
                 EH_Avatar.DeSerialize(line);
                 break;
 

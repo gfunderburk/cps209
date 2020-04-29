@@ -382,7 +382,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                sounds.SHOOT_SHOTGUN.play();
             }
         }
         else{

@@ -35,33 +35,27 @@ public class GameSounds {
     //  Media Elements  //   
 
 
-    // public final AudioClip SHOOT_FOOTSOLDIER = audioClip(this, "footsoldiergun.wav");
-    // public final AudioClip SHOOT_50CAL       = audioClip(this, "50cal.mp3");
-    // public final AudioClip SHOOT_M16         = audioClip(this, "m16.mp3");
-    // public final AudioClip SHOOT_SHOTGUN     = audioClip(this, "shotgun.mp3");
+    public final AudioClip BTN_CLICK         = audioClip(this, "_btn_click.mp3");
+    public final AudioClip THEME             = audioClip(this, "_theme.mp3");
 
-    public final AudioClip BTN_CLICK         = audioClip(this, "btnClick_seatBelt.mp3");
-    public final AudioClip THEME             = audioClip(this, "maintheme.mp3");
+    public final AudioClip LAI_attacking     = audioClip(this, "LAI_attack.mp3");
+    public final AudioClip LAI_dying         = audioClip(this, "LAI_death.mp3");
 
-    public final AudioClip LAI_attacking     = audioClip(this, "pistolFire.mp3");
-    public final AudioClip LAI_dying         = audioClip(this, "lightAIHit.mp3");
+    public final AudioClip HAI_attacking     = audioClip(this, "HAI_attack.mp3");
+    public final AudioClip HAI_dying         = audioClip(this, "HAI_death.mp3");
 
-    public final AudioClip HAI_attacking     = audioClip(this, "heavyMachineGun.mp3");
-    public final AudioClip HAI_dying         = audioClip(this, "heavyAIHit.mp3");
-
-    public final AudioClip FAI_attacking     = audioClip(this, "footsoldiergun.wav");
-    public final AudioClip FAI_dying         = audioClip(this, "planeCrash.mp3");
+    public final AudioClip FAI_attacking     = audioClip(this, "FAI_attack.mp3");
+    public final AudioClip FAI_dying         = audioClip(this, "FAI_death.mp3");
     
-    public final AudioClip BAI_attacking     = audioClip(this, "heavyMachineGun.mp3");
-    public final AudioClip BAI_dying         = audioClip(this, "bossAIHit.mp3");
+    public final AudioClip BAI_attacking     = audioClip(this, "BAI_attack.mp3");
+    public final AudioClip BAI_dying         = audioClip(this, "BAI_death.mp3");
 
-    public final AudioClip Avatar_hurt                 = audioClip(this, "avatarHit.mp3");
-    public final AudioClip Avatar_loses                = audioClip(this, "avatarDying.mp3");
-    public final AudioClip Avatar_wins                 = audioClip(this, "avatarWin.mp3");
-    public final AudioClip Avatar_reloading            = audioClip(this, "reload.mp3");
-    public final AudioClip Avatar_attacking            = audioClip(this, "pistolFire.mp3");
-    public final AudioClip Avatar_attackingEmptyMag    = audioClip(this, "btnClick_seatBelt.mp3");
-    public final AudioClip Avatar_attackingCheatmode   = audioClip(this, "rayGun.mp3");
-    public final AudioClip Avatar_hurtCheatmode        = audioClip(this, "cheatModeHit.mp3");
+    public final AudioClip Avatar_hurt                 = audioClip(this, "Ava_hurt.mp3");
+    public final AudioClip Avatar_loses                = audioClip(this, "Ava_death.mp3");
+    public final AudioClip Avatar_wins                 = audioClip(this, "Ava_win.mp3");
+    public final AudioClip Avatar_reloading            = audioClip(this, "Ava_reload.mp3");
+    public final AudioClip Avatar_attacking            = audioClip(this, "Ava_attack.mp3");
+    public final AudioClip Avatar_attackingEmptyMag    = audioClip(this, "Ava_attack_emptymag.mp3");
+    public final AudioClip Avatar_attackingCheatmode   = audioClip(this, "Ava_attack_cheatmode.mp3");
 
 }

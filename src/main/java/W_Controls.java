@@ -44,7 +44,6 @@ public class W_Controls {
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         GameSounds.it().BTN_CLICK.play();
-        // TODO: Update Help and Controls with a game play description
         AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
     }
 }
