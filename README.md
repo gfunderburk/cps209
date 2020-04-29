@@ -52,7 +52,7 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
 |Jeremiah Cox  |  57.8         |   2.2        |
-|Gunnar Funderburk | 30  |  30  |
+|Gunnar Funderburk | 57  |  3  |
 |Jonathan Layton  |  66.5   |  3.5 (Dr. Scaub 10 hour extension) |
 
 ### Journals
