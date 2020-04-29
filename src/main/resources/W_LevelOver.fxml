@@ -10,8 +10,8 @@
       <Label text="Level OVER" />
       
       
-      <Button text="Continue to Next Level" onAction="#btn_onNextClicked"/>
-      <Button text="Return to Main Menu" onAction="#btn_onMainMenuClicked"/>
+      <Button text="Next Level" onAction="#btn_onNextClicked"/>
+      <Button text="Quit Game" onAction="#btn_onMainMenuClicked"/>
       
       
 

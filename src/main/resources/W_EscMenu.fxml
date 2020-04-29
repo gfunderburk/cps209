@@ -13,6 +13,6 @@
       
       <Button text="Save Game" onAction="#onSaveClicked" fx:id="btn_save" />
       
-      <Button text="Quit" onAction="#btn_onQuitClicked"/>
+      <Button text="Exit Game" onAction="#btn_onQuitClicked"/>
 
 </VBox>

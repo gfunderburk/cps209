@@ -43,6 +43,8 @@ public class EH_FlyingAI extends EntityHumanoid {
 
 
     public EH_FlyingAI(){
+        this.audio_dying = GameSounds.it().FAI_dying;
+        this.audio_attacking = GameSounds.it().FAI_attacking;
         this.imageState = imgMovingL;
         this.stateAction = StateAction.MOVING;
         this.stateLife = StateLife.HEALTHY;

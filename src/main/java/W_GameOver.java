@@ -5,6 +5,7 @@ Desc.   GameOver window appears if the player is killed by hostile AI's.
 --------------------------------------------------------------------------------------------- */
 
 
+import Game_model.GameSounds;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,7 +19,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.media.AudioClip;
 
 public class W_GameOver implements AppInitialize{
     
@@ -56,7 +56,7 @@ public class W_GameOver implements AppInitialize{
         // - Yes = Save game
         // - No  = Main Menu
         var scoreManager = ScoreManager.getIt();
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to save your score?");        
 
@@ -70,7 +70,7 @@ public class W_GameOver implements AppInitialize{
         if (result.get() == btnYes) 
         {
             // Save the score and get the name before showing high scores screen
-            AppSounds.it().BTN_CLICK.play();            
+            GameSounds.it().BTN_CLICK.play();            
             AppGUI.getPopupStage().close();            
 
             TextInputDialog dialog = new TextInputDialog();
@@ -91,13 +91,13 @@ public class W_GameOver implements AppInitialize{
         else if (result.get() == btnNo)
         {
             // Return to main menu and close the game window
-            AppSounds.it().BTN_CLICK.play();
+            GameSounds.it().BTN_CLICK.play();
             AppGUI.getPopupStage().close();    
             AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
         } 
         else {
             // ... user chose CANCEL or closed the dialog
-            AppSounds.it().BTN_CLICK.play();
+            GameSounds.it().BTN_CLICK.play();
         }        
     }
 

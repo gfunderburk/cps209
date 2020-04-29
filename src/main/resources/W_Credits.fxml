@@ -30,9 +30,9 @@
             </VBox> -->
             
             <VBox styleClass="devNames">
-                  <Label text="&#x25b6; Jeremiah Cox: GUI"/>
-                  <Label text="&#x25b6; Jonathan Layton: Game Play"/>
-                  <Label text="&#x25b6; Gunnar Funderburk: Serialization/Scenery" />
+                  <Label text="&#x25b6; Jeremiah Cox: Auxillary Screens, Player HUD, and Scoring"/>
+                  <Label text="&#x25b6; Jonathan Layton: Gameplay"/>
+                  <Label text="&#x25b6; Gunnar Funderburk: Serialization" />
                   
             </VBox>
       </HBox>

@@ -43,6 +43,8 @@ public class EH_LightAI extends EntityHumanoid {
 
 
     public EH_LightAI(){ 
+        this.audio_dying = GameSounds.it().LAI_dying;
+        this.audio_attacking = GameSounds.it().LAI_attacking;
         this.imageState =   imgMovingL;
         this.stateAction =  StateAction.MOVING;
         this.stateLife =    StateLife.HEALTHY;

@@ -4,7 +4,6 @@ Desc.   AllLevelsCompleted window appears if the player kills all hostiles at le
         It displays options to either save the player's score or to quit directly to MainMenu.
 --------------------------------------------------------------------------------------------- */
 
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -12,6 +11,7 @@ import Data_model.Cereal;
 import Data_model.Score;
 import Data_model.ScoreManager;
 import Game_model.Game;
+import Game_model.GameSounds;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -19,7 +19,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.media.AudioClip;
 
 public class W_AllLevelsCompleted implements AppInitialize{
     
@@ -54,7 +53,7 @@ public class W_AllLevelsCompleted implements AppInitialize{
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         //Launch alert box with "Do you want to save before quitting?" with Yes and No buttons
         // - Yes = Save game
         // - No  = Main Menu
@@ -71,7 +70,7 @@ public class W_AllLevelsCompleted implements AppInitialize{
 
         if (result.get() == btnYes) {
             // Save the score and get the name before showing high scores screen
-            AppSounds.it().BTN_CLICK.play();
+            GameSounds.it().BTN_CLICK.play();
             
             AppGUI.getPopupStage().close();
             
@@ -97,14 +96,14 @@ public class W_AllLevelsCompleted implements AppInitialize{
         } 
         else if (result.get() == btnNo) {
             // Return to main menu and close the game window
-            AppSounds.it().BTN_CLICK.play();
+            GameSounds.it().BTN_CLICK.play();
             AppGUI.getPopupStage().close();     
             AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
 
 
         } else {
             // ... user chose CANCEL or closed the dialog
-            AppSounds.it().BTN_CLICK.play();
+            GameSounds.it().BTN_CLICK.play();
         }        
     }
 

@@ -4,6 +4,7 @@ Desc.   Scoreboard window displays the scores of previous players who have playe
 --------------------------------------------------------------------------------------------- */
 
 
+import Game_model.GameSounds;
 import java.time.LocalDateTime;
 import Data_model.Score;
 import Data_model.ScoreManager;
@@ -17,7 +18,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
 
 public class W_Scoreboard {
 
@@ -102,7 +102,7 @@ public class W_Scoreboard {
         btnMainMenu.setOnAction(e -> {
 
             try {
-                AppSounds.it().BTN_CLICK.play();
+                GameSounds.it().BTN_CLICK.play();
                 AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
             }catch (Exception e1){}
         });

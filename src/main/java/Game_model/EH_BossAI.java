@@ -43,6 +43,8 @@ public class EH_BossAI extends EntityHumanoid {
 
 
     public EH_BossAI(){
+        this.audio_dying = GameSounds.it().BAI_dying;
+        this.audio_attacking = GameSounds.it().BAI_attacking;
         this.imageState =   imgMovingL;
         this.stateAction =  StateAction.MOVING;
         this.stateLife =    StateLife.HEALTHY;
