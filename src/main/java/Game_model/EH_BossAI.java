@@ -164,6 +164,7 @@ public class EH_BossAI extends EntityHumanoid {
 
     @Override
     public void attack(Entity entity) {
+        GameSounds.it().BAI_attacking.play();
         super.attack(entity);
     }
 

@@ -21,14 +21,16 @@
 
     </VBox>
 
-    <VBox alignment="CENTER">
+    <VBox alignment="CENTER" styleClass="instructions">
         <Label styleClass="control-names" text="How to play"/>
-        <Label styleClass="textFields" text="To play the game, select New Game or Load Game."/> 
-        <Label styleClass="textFields" text="Now the game will begin! If you loaded a saved game, "/>
-        <Label styleClass="textFields" text="the game will load with the saved game state. " /> 
-        <Label styleClass="textFields" text="Enemy Terminators will appear on the screen and will randomly move around, attempting to kill you." /> 
-        <Label styleClass="textFields" text ="The goal is to kill them before they kill you! Left-click on the Terminator in order to shoot. Good luck!"/>
-
+        <Label text="To play the game, select New Game or Load Game. Now the game will begin! If you loaded a saved game, "/> 
+        <Label text="the game will load with the saved game state. Enemy Terminators will appear on the screen and will " /> 
+        <Label text ="randomly move around, attempting to kill you. The goal is to kill them before they kill you! " />
+        <Label text="Use your mouse to shoot your gun at hostiles, and click the reload button when your magazine is"/>
+        <Label text="empty to refill you gun's rounds. Power-ups can also be shot at, and they are scattered throughout "/> 
+        <Label text="the world. They can: refill depleted health, refill depleted ammunition, or give you extra points." />
+        <Label text="The cheat-mode toggles whether cheat-mode is active or not. If it is active, the player cannot die, "/> 
+        <Label text="the player get unlimited ammunition, and the player's attacks do increased damage."/>
     </VBox>
 
     <Label styleClass="control-names" text="Controls"/>

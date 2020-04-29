@@ -1,13 +1,14 @@
-G,EASY,PAUSED,9,4776,0,3,5,0,0,null,null,false,false
+G,EASY,PAUSED,5,2,0,1,22,0,0,null,null,false,false
 U ,LIGHT_ROUND
 
-H,HEAVY_ROUND,\boss_terminators\,javafx.scene.image.Image@2bcf9e18,12.0,55.0,1.0,DEAD,DYING,javafx.scene.image.Image@2bcf9e18
-H,LAZER_ROUND,\flying_terminators\,javafx.scene.image.Image@242d51f,6.0,6.0,1.0,HEALTHY,RELOADING,javafx.scene.image.Image@242d51f
-H,LAZER_ROUND,\flying_terminators\,javafx.scene.image.Image@242d51f,6.0,6.0,1.0,HEALTHY,RELOADING,javafx.scene.image.Image@242d51f
-S,POINTS
+H,LIGHT_ROUND,\light_terminators\,javafx.scene.image.Image@7aff8a85,10.0,50.0,1.0,HEALTHY,ATTACKING,javafx.scene.image.Image@7aff8a85
+H,LIGHT_ROUND,\light_terminators\,javafx.scene.image.Image@455cbbd9,10.0,50.0,1.0,DEAD,DEAD,javafx.scene.image.Image@455cbbd9
+H,LIGHT_ROUND,\light_terminators\,javafx.scene.image.Image@7aff8a85,10.0,50.0,1.0,HEALTHY,ATTACKING,javafx.scene.image.Image@7aff8a85
+P,LIGHT_ROUND
+P,LIGHT_ROUND
+P,LIGHT_ROUND
 S,AMMO
 S,HEALTH
-S,AMMO
 S,POINTS
 S,HEALTH
-S,POINTS
+S,AMMO
