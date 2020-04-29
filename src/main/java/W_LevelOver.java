@@ -5,13 +5,13 @@ Desc.   LevelOver window appears if the player kills all hostiles.
 --------------------------------------------------------------------------------------------- */
 
 
+import Game_model.GameSounds;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import Data_model.ScoreManager;
 import Game_model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.media.AudioClip;
 
 public class W_LevelOver implements AppInitialize {
     
@@ -44,7 +44,7 @@ public class W_LevelOver implements AppInitialize {
 
     @FXML
     void btn_onMainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
     } 
 
@@ -52,7 +52,7 @@ public class W_LevelOver implements AppInitialize {
     @FXML
     void btn_onNextClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
-        AppSounds.it().BTN_CLICK.play();
+        GameSounds.it().BTN_CLICK.play();
 
 
         // TextInputDialog dialog = new TextInputDialog();

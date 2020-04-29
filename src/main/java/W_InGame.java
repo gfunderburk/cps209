@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import Game_model.GameSounds;
 import Game_model.EH_Avatar;
 import Game_model.EK_Scenery;
 import Game_model.E_Projectile;
@@ -30,7 +31,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.AudioClip;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
 
@@ -40,13 +40,14 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // Singleton Instance Variables
     Game game = Game.getIt();
     EH_Avatar avatar = EH_Avatar.getIt();
+    GameSounds sounds = GameSounds.it();
 
     // --------------- //
     // Media Elements //
     // --------------- //
     
   
-    final Image CROSSHAIRS            = new Image("/icons/crosshairs_4.png");
+    final Image CROSSHAIRS = new Image("/icons/crosshairs_4.png");
 
     // --------------- //
     // View Variables //
@@ -96,17 +97,21 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
     @FXML
     void onEscClicked() throws IOException {
+        sounds.BTN_CLICK.play();
         AppGUI.popupLoad(this, "W_EscMenu.fxml", "ESC Menu");
     }
     
     @FXML
     void onReloadClicked() throws IOException {
+        sounds.BTN_CLICK.play();
         avatar.reload();
+        GameSounds.it().Avatar_reloading.play();
         updateHealthGUI();
     }
     
     @FXML
     void ontoggleCheatmodeClicked() throws FileNotFoundException {
+        sounds.BTN_CLICK.play();
         game.toggleCheatMode();
         btn_toggleCheatmode.setText(game.isCheatMode() ? "Cheatmode - ON": "Cheatmode - OFF");
     }
@@ -129,13 +134,22 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     void mouseClickedPane(MouseEvent event) throws IOException {
 
-        avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
-        if (avatar.getMag() > 1 || avatar.getMag() == 1) {
-            // SHOOT_FOOTSOLDIER.play();
+        if (avatar.getMag() >= 1) 
+        {
             avatar.setMag(avatar.getMag() - 1);
-        } else {
-            // BTN_CLICK.play();
+            avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
+
+            if(game.isCheatMode()){
+                GameSounds.it().Avatar_attackingCheatmode.play();
+            }
+            else{
+                GameSounds.it().Avatar_attacking.play();
+            }
+        } 
+        else 
+        {
             avatar.setMag(0);
+            GameSounds.it().Avatar_attackingEmptyMag.play();
         }
         updateHealthGUI();
     }
@@ -166,13 +180,22 @@ public class W_InGame implements EventHandler<KeyEvent> {
         // Update Health Bar
 
         double health = avatar.getCurrentHealth()/10;
-        System.out.println("Health: " + health);
+        // System.out.println("Health: " + health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
-        if (health < .5) {
+
+        if (health < .5) 
+        {
             progBar_health.setStyle("-fx-accent: red;");
-        } else {
+
+            if(EH_Avatar.getIt().isGotHurt())
+            {
+                EH_Avatar.getIt().setGotHurt(false);
+                GameSounds.it().Avatar_hurt.play();
+            }
+        } else 
+        {
             progBar_health.setStyle("-fx-accent: lime;");
         }
         vbox_health.getChildren().addAll(new Label("Health:"), progBar_health);
@@ -192,14 +215,17 @@ public class W_InGame implements EventHandler<KeyEvent> {
         {
             if (Game.getIt().isPlayerWinner() && game.getGameLvl() >= 3) 
             {
+                GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
             }
             else if(Game.getIt().isPlayerWinner())
             {
+                GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
             }
             else
             {
+                GameSounds.it().Avatar_loses.play();
                 AppGUI.popupLoad(this, "W_GameOver.fxml", "GAME OVER");
             }
         } 
@@ -211,7 +237,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
         
         //  Reset in-game Pane
 
-        AppSounds.it().THEME.stop();
+        sounds.THEME.stop();
         pane.getChildren().clear();
         game.setEntityList(new ArrayList<Entity>());    
         game.setDeadEntityList(new ArrayList<Entity>());
@@ -356,7 +382,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
                 imgX += (XvisualOffsetRaw - XvisualOffsetDepthed);
                 imgY += (YvisualOffsetRaw - YvisualOffsetDepthed);
                 imgY += (loc.getZ() * 20); // adjust y according to depth (deeper z = higher)
-                // SHOOT_SHOTGUN.play();
+                sounds.SHOOT_SHOTGUN.play();
             }
         }
         else{

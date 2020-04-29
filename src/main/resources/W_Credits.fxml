@@ -6,33 +6,33 @@
 
 <VBox fx:controller="W_Credits" xmlns:fx="http://javafx.com/fxml" stylesheets="MenuStyles.css" prefHeight="500" prefWidth="700" styleClass="credits-screen" alignment="CENTER">
       <HBox alignment="center_left">
-            <Label text="Credits" />
+            <Label styleClass="title-font" text="Credits" />
       </HBox>
 
       <HBox>
-            <VBox spacing="15">
+            <!-- <VBox styleClass="devNames">
                   <ImageView FitWidth="50" preserveRatio="true">    
                         <image>
                               <Image url="/icons/projectiles/round_heavy_out.png" />
                         </image>
                   </ImageView>
-                                    <ImageView FitWidth="50" preserveRatio="true">    
+                  <ImageView FitWidth="50" preserveRatio="true">    
                         <image>
                               <Image url="/icons/projectiles/round_heavy_out.png" />
                         </image>
                   </ImageView>
-                                    <ImageView FitWidth="50" preserveRatio="true">    
+                  <ImageView FitWidth="50" preserveRatio="true">    
                         <image>
                               <Image url="/icons/projectiles/round_heavy_out.png" />
                         </image>
                   </ImageView>
 
-            </VBox>
+            </VBox> -->
             
             <VBox styleClass="devNames">
-                  <Label text="Jeremiah Cox: GUI" styleClass="devNames"/>
-                  <Label text="Jonathan Layton: Game Play" styleClass="devNames"/>
-                  <Label text="Gunnar Funderburk: Serialization/Scenery" styleClass="devNames"/>
+                  <Label text="&#x25b6; Jeremiah Cox: Auxillary Screens, Player HUD, and Scoring"/>
+                  <Label text="&#x25b6; Jonathan Layton: Gameplay"/>
+                  <Label text="&#x25b6; Gunnar Funderburk: Serialization" />
                   
             </VBox>
       </HBox>

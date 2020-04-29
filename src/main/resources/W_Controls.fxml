@@ -50,7 +50,7 @@
     [D] = skoot right. -->
 
         <VBox styleClass="textFields">
-            <TextField  text="Leftclick"  />
+            <TextField  promptText="Leftclick"  />
             <TextField  text="Rightclick" />
             <TextField  text="R" />
             <TextField  text="W"  />

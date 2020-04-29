@@ -43,6 +43,8 @@ public class EH_HeavyAI extends EntityHumanoid {
 
 
     public EH_HeavyAI(){
+        this.audio_dying = GameSounds.it().HAI_dying;
+        this.audio_attacking = GameSounds.it().HAI_attacking;
         this.imageState =   imgMovingL;
         this.stateAction =  StateAction.MOVING;
         this.stateLife =    StateLife.HEALTHY;
