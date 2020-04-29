@@ -35,10 +35,10 @@ public class GameSounds {
     //  Media Elements  //   
 
 
-    public final AudioClip SHOOT_FOOTSOLDIER = audioClip(this, "footsoldiergun.wav");
-    public final AudioClip SHOOT_50CAL       = audioClip(this, "50cal.mp3");
-    public final AudioClip SHOOT_M16         = audioClip(this, "m16.mp3");
-    public final AudioClip SHOOT_SHOTGUN     = audioClip(this, "shotgun.mp3");
+    // public final AudioClip SHOOT_FOOTSOLDIER = audioClip(this, "footsoldiergun.wav");
+    // public final AudioClip SHOOT_50CAL       = audioClip(this, "50cal.mp3");
+    // public final AudioClip SHOOT_M16         = audioClip(this, "m16.mp3");
+    // public final AudioClip SHOOT_SHOTGUN     = audioClip(this, "shotgun.mp3");
 
     public final AudioClip BTN_CLICK         = audioClip(this, "btnClick_seatBelt.mp3");
     public final AudioClip THEME             = audioClip(this, "maintheme.mp3");
@@ -64,6 +64,4 @@ public class GameSounds {
     public final AudioClip Avatar_attackingCheatmode   = audioClip(this, "rayGun.mp3");
     public final AudioClip Avatar_hurtCheatmode        = audioClip(this, "cheatModeHit.mp3");
 
-
-    
 }
