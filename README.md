@@ -41,13 +41,14 @@ PLayer Health Bar sometimes delays in updating.
 
 - [Game Demo Screen Recording (Alpha Release)](https://youtu.be/4OJjVRsCHcA)
 - [Game Demo Screen Recording (Beta Release)](https://youtu.be/5D6LID1TyRE)
+- [Game Demo Screen Recording (Release Candidate)](https://youtu.be/rEbC_lDRkyA)
 
 
 ## Expenses: 
 
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
-|Jeremiah Cox  |  50.8         |   9.2        |
+|Jeremiah Cox  |  57.8         |   2.2        |
 |Gunnar Funderburk | 30  |  30  |
 |Jonathan Layton  |  66.5   |  3.5 (Dr. Scaub 10 hour extension) |
 
