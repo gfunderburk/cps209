@@ -96,7 +96,7 @@ public class W_MainMenu implements AppInitialize{
         } 
         catch (Exception e) 
         { 
-            System.out.println("Problem loading scores.dat"); 
+            System.out.println("Problem loading cereal.dat"); 
         }
         
         AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{game.getStateDiff(), game.getGameLvl(), game.getScore()});
