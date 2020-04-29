@@ -71,13 +71,22 @@ public class EK_Scenery extends EntityKillable {
 
     @Override
     public String Serialize() {
-        return null;
+       return "S,"+this.type;
     }
 
 
     @Override
     public void deSerialize(String data) {
-
+        String[] deCereal=data.split(",");
+        if(deCereal[1].equals(("AMMO"))){
+          this.type=Type.AMMO;
+        }
+        if(deCereal[1].equals(("HEALTH"))){
+            this.type=Type.HEALTH;
+          }
+          if(deCereal[1].equals(("POINTS"))){
+            this.type=Type.POINTS;
+          }
     }
 
 

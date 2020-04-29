@@ -61,12 +61,38 @@ public class EH_FlyingAI extends EntityHumanoid {
 
     @Override
     public String Serialize() {
-        return null;
+        return "H,"+typeRound+","+imageDir+","+imageState+","+width+","+height+","+speed+","+stateLife+","+stateAction+","+imageState;
     }
 
 
     @Override
     public void deSerialize(String data) {
+        String[] deCereal=data.split(",");
+        if(deCereal[1].equals("LIGHT_ROUND")){
+            typeRound=TypeRound.LIGHT_ROUND;
+        }
+        if(deCereal[1].equals("HEAVY_ROUND")){
+            typeRound=TypeRound.HEAVY_ROUND;
+        }
+        if(deCereal[1].equals("EXPLOSIVE_ROUND")){
+            typeRound=TypeRound.EXPLOSIVE_ROUND;
+        }
+         //imageDir=deCereal[2];
+         //imageState=deCereal[3];
+        width=Integer.parseInt(deCereal[4]);
+        height=Integer.parseInt(deCereal[5]);
+        speed=Double.parseDouble(deCereal[6]);
+        if(deCereal[7].equals("HEALTHY")){
+            stateLife=stateLife.HEALTHY;
+        }
+        if(deCereal[7].equals("HURT")){
+        stateLife=stateLife.HURT;
+
+        }
+        if(deCereal[7].equals("DEAD")){
+            stateLife=stateLife.DEAD;
+    
+            }
 
     }
 

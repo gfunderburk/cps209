@@ -61,7 +61,7 @@ public class EH_BossAI extends EntityHumanoid {
 
     @Override
     public String Serialize() {
-        return null;
+        return "H,"+typeRound+","+imageDir+","+imageState+","+width+","+height+","+speed;
     }
 
 

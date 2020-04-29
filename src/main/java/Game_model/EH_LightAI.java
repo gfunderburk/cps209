@@ -61,7 +61,7 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public String Serialize() {
-        return "H,"+typeRound+","+imageDir+","+imageState+","+width+","+height+","+speed;
+        return "H,"+typeRound+","+imageDir+","+imageState+","+width+","+height+","+speed+","+stateLife+","+stateAction+","+imageState;
     }
 
 
@@ -77,11 +77,25 @@ public class EH_LightAI extends EntityHumanoid {
         if(deCereal[1].equals("EXPLOSIVE_ROUND")){
             typeRound=TypeRound.EXPLOSIVE_ROUND;
         }
-        // imageDir=deCereal[2];
-        // imageState=deCereal[3];
+         //imageDir=deCereal[2];
+         //imageState=deCereal[3];
         width=Integer.parseInt(deCereal[4]);
         height=Integer.parseInt(deCereal[5]);
         speed=Double.parseDouble(deCereal[6]);
+        if(deCereal[7].equals("HEALTHY")){
+            stateLife=stateLife.HEALTHY;
+        }
+        if(deCereal[7].equals("HURT")){
+        stateLife=stateLife.HURT;
+
+        }
+        if(deCereal[7].equals("DEAD")){
+            stateLife=stateLife.DEAD;
+    
+            }
+
+        
+
     }
 
 
