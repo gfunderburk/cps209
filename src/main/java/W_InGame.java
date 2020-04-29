@@ -59,14 +59,14 @@ public class W_InGame {
     StateDifficulty difficulty;
     double mouseX, mouseY, paneW, paneH;
     boolean readyForNextFrame = true;
+    boolean playFanFare;
     final double animationRate_sec = 0.05;
 
-
+    
     // ------------- //
     // GUI Elements //
     // ------------- //
 
-    
     @FXML
     VBox vbox_masterParent;
     @FXML
@@ -204,13 +204,19 @@ public class W_InGame {
         {
             if (Game.getIt().isPlayerWinner() && game.getGameLvl() >= 3) 
             {
-                GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
+                if(playFanFare){
+                    GameSounds.it().Avatar_wins.play();
+                    playFanFare = false;
+                }
             }
             else if(Game.getIt().isPlayerWinner())
             {
-                GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
+                if(playFanFare){
+                    GameSounds.it().Avatar_wins.play();
+                    playFanFare = false;
+                }
             }
             else
             {
@@ -227,6 +233,7 @@ public class W_InGame {
         //  Reset in-game Pane
 
         sounds.THEME.stop();
+        playFanFare = true;
         pane.getChildren().clear();
         game.setEntityList(new ArrayList<Entity>());    
         game.setDeadEntityList(new ArrayList<Entity>());
