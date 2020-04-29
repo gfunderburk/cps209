@@ -83,8 +83,8 @@ public class AppGUI extends Application {
         currentStage.setY(bounds.getMinY());
         // currentStage.setWidth(bounds.getWidth());
         // currentStage.setHeight(bounds.getHeight());
-        currentStage.setWidth(1440);
-        currentStage.setHeight(900);
+        currentStage.setWidth(1340);
+        currentStage.setHeight(800);
 
         // currentStage.setFullScreenExitHint("");
         currentStage.getIcons().add(new Image("/icons/terminatorIcon2.png"));

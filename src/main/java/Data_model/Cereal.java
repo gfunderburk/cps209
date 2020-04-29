@@ -46,9 +46,9 @@ public class Cereal {
         try(var wr = new PrintWriter( new FileWriter("cereal.dat")); )
         {
             wr.write(game.Serialize() + "\n");
+            wr.println(EH_Avatar.getIt().Serialize() + "\n");
             for(Entity ent:cerealArray){
                 wr.write(ent.Serialize() + "\n");
-                
             }
                 
                 
