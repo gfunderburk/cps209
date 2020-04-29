@@ -40,7 +40,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     // Singleton Instance Variables
     Game game = Game.getIt();
     EH_Avatar avatar = EH_Avatar.getIt();
-    AppSounds sounds = AppSounds.it();
+    GameSounds sounds = GameSounds.it();
 
     // --------------- //
     // Media Elements //

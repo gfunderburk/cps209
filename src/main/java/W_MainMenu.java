@@ -122,7 +122,9 @@ public class W_MainMenu implements AppInitialize{
 
     @Override
     public void initialize() {
-        if(!GameSounds.it().THEME.isPlaying()) GameSounds.it().THEME.play();  
+        if(!GameSounds.it().THEME.isPlaying()) {
+            GameSounds.it().THEME.play(); 
+        } 
     }
 
     // ------------- //
