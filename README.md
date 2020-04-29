@@ -8,7 +8,7 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 # Release Candidate
 |   Feature  | Required |  Assignee | Status|
 |:--------|:------------:|:------------:|:-----:|
-| Game Load/Save Functionality | Yes | Funderburk |  In Progress |
+| Game Load/Save Functionality | Yes | Funderburk |  Completed |
 | Review/Complete Menu Screens | Yes | Cox |  Completed |
 | Review/Complete Sound Effects | Yes | Cox | Completed |
 | Player Reloading | _ | Cox |  Completed |
@@ -35,7 +35,10 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 
 
 ## Known Issues: 
-PLayer Health Bar sometimes delays in updating. 
+- Player Health Bar sometimes delays in updating. 
+- Game does not end when player health reaches 0 (will add fix ASAP).
+- Game does not load properly every time.
+- Some extra AI battle sounds not playing properly.
 
 ## Recording: 
 
