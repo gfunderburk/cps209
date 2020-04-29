@@ -21,10 +21,18 @@
 
     </VBox>
 
+    <VBox alignment="CENTER">
+        <Label styleClass="control-names" text="How to play"/>
+        <Label styleClass="textFields" text="To play the game, select New Game or Load Game."/> 
+        <Label styleClass="textFields" text="Now the game will begin! If you loaded a saved game, "/>
+        <Label styleClass="textFields" text="the game will load with the saved game state. " /> 
+        <Label styleClass="textFields" text="Enemy Terminators will appear on the screen and will randomly move around, attempting to kill you." /> 
+        <Label styleClass="textFields" text ="The goal is to kill them before they kill you! Left-click on the Terminator in order to shoot. Good luck!"/>
 
+    </VBox>
+
+    <Label styleClass="control-names" text="Controls"/>
     <HBox alignment="CENTER">
-
-    
 
         <VBox styleClass="control-names">
             <Label text="Shoot:" />
