@@ -163,6 +163,7 @@ public class EH_LightAI extends EntityHumanoid {
 
     @Override
     public void attack(Entity entity) {
+        GameSounds.it().LAI_attacking.play();
         this.mag--;
         super.attack(entity);
     }

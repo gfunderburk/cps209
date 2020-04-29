@@ -136,20 +136,22 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
         if (avatar.getMag() >= 1) 
         {
+            sounds.SHOOT_SHOTGUN.play();
             avatar.setMag(avatar.getMag() - 1);
             avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
 
-            if(game.isCheatMode()){
-                GameSounds.it().Avatar_attackingCheatmode.play();
-            }
-            else{
-                GameSounds.it().Avatar_attacking.play();
-            }
+            // if(game.isCheatMode()){
+            //     sounds.Avatar_attackingCheatmode.play();
+                
+            // }
+            // else{
+            //     sounds.Avatar_attacking.play();
+            // }
         } 
         else 
         {
             avatar.setMag(0);
-            GameSounds.it().Avatar_attackingEmptyMag.play();
+            sounds.Avatar_attackingEmptyMag.play();
         }
         updateHealthGUI();
     }

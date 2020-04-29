@@ -68,15 +68,15 @@ public class EH_Avatar extends EntityHumanoid {
             switch(ent.getTypeRound()){
 
                 case LIGHT_ROUND:
-                    this.currentHealth -= E_Projectile.getLightRoundDmg();
+                    this.currentHealth -= E_Projectile.getLightRoundDmg()/10;
                     break;
                 
                 case HEAVY_ROUND:
-                    this.currentHealth -= E_Projectile.getHeavyRoundDmg();
+                    this.currentHealth -= E_Projectile.getHeavyRoundDmg()/10;
                     break;
 
                 case EXPLOSIVE_ROUND:
-                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg();
+                    this.currentHealth -= E_Projectile.getExplosiveRoundDmg()/10;
                     break;
 
                 default:

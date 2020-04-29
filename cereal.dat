@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 G,EASY,PAUSED,0,6475,0,3,159,0,0,null,null,true,true
 U ,HEAVY_ROUND
 S,POINTS
@@ -7,3 +8,19 @@ S,AMMO
 S,POINTS
 S,HEALTH
 S,POINTS
+=======
+G,EASY,PAUSED,5,2,0,1,22,0,0,null,null,false,false
+U ,LIGHT_ROUND
+
+H,LIGHT_ROUND,\light_terminators\,javafx.scene.image.Image@7aff8a85,10.0,50.0,1.0,HEALTHY,ATTACKING,javafx.scene.image.Image@7aff8a85
+H,LIGHT_ROUND,\light_terminators\,javafx.scene.image.Image@455cbbd9,10.0,50.0,1.0,DEAD,DEAD,javafx.scene.image.Image@455cbbd9
+H,LIGHT_ROUND,\light_terminators\,javafx.scene.image.Image@7aff8a85,10.0,50.0,1.0,HEALTHY,ATTACKING,javafx.scene.image.Image@7aff8a85
+P,LIGHT_ROUND
+P,LIGHT_ROUND
+P,LIGHT_ROUND
+S,AMMO
+S,HEALTH
+S,POINTS
+S,HEALTH
+S,AMMO
+>>>>>>> 400ad42567021fcd4898376da047c0a24f375345

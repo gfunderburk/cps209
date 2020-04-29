@@ -161,6 +161,7 @@ public class EH_FlyingAI extends EntityHumanoid {
 
     @Override
     public void attack(Entity entity) {
+        GameSounds.it().FAI_attacking.play();
         super.attack(entity);
     }
 
