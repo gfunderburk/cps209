@@ -42,7 +42,7 @@ public class AppSounds {
     final AudioClip HAI_dying       = audioClip(this, "heavyAIHit.mp3");
 
     final AudioClip FAI_attacking   = audioClip(this, "footsoldiergun.wav");
-    final AudioClip FAI_dying       = audioClip(this, ".mp3");
+    final AudioClip FAI_dying       = audioClip(this, "planeCrash.mp3");
     
     final AudioClip BAI_attacking   = audioClip(this, "heavyMachineGun.mp3");
     final AudioClip BAI_dying       = audioClip(this, "bossAIHit.mp3");
