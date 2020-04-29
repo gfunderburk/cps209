@@ -53,7 +53,7 @@ public class EH_BossAI extends EntityHumanoid {
         this.height = HaiH;
         this.speed =  1;
         this.maxHealth = 2;
-        this.stateIntFactor = 5;
+        this.stateIntFactor = 3;
         this.currentHealth = this.maxHealth; 
     }
 
@@ -86,14 +86,14 @@ public class EH_BossAI extends EntityHumanoid {
         height=Integer.parseInt(deCereal[5]);
         speed=Double.parseDouble(deCereal[6]);
         if(deCereal[7].equals("HEALTHY")){
-            stateLife=stateLife.HEALTHY;
+            stateLife= StateLife.HEALTHY;
         }
         if(deCereal[7].equals("HURT")){
-        stateLife=stateLife.HURT;
+        stateLife= StateLife.HURT;
 
         }
         if(deCereal[7].equals("DEAD")){
-            stateLife=stateLife.DEAD;
+            stateLife= StateLife.DEAD;
     
             }
 

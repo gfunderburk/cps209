@@ -11,40 +11,9 @@ import javafx.fxml.FXML;
 
 public class W_Credits {
 
-    // --------------- //
-    // Media Elements //
-    // --------------- //
-
-
-
-    //  --------------- //
-    //  View Variables  //
-    // ---------------  //
-
-    
-
-    //  ------------- //
-    //  GUI Elements  //
-    // -------------  //
-
-
-
-
-    //  ------------ //
-    //  GUI Methods  //     (DIRECT USER EVENTS)
-    // ------------  //
-
-
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         GameSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Main Menu", "W_MainMenu.fxml", null);
     }
-    
-
-    //  ------------- //
-    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
-    // -------------  //
-
-
 }

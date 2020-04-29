@@ -10,37 +10,6 @@ import javafx.fxml.FXML;
 
 public class W_Controls {
 
-    // --------------- //
-    // Media Elements //
-    // --------------- //
-
-
-
-    //  --------------- //
-    //  View Variables  //
-    // ---------------  //
-
-
-
-
-    //  ------------- //
-    //  GUI Elements  //
-    // -------------  //
-
-
-
-
-    //  ------------ //
-    //  GUI Methods  //     (DIRECT USER EVENTS)
-    // ------------  //
-
-
-
-    //  ------------- //
-    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
-    // -------------  //
-
-
     @FXML
     void btn_mainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
         GameSounds.it().BTN_CLICK.play();

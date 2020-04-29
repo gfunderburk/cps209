@@ -7,40 +7,18 @@ Desc.   LevelOver window appears if the player kills all hostiles.
 
 import Game_model.GameSounds;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import Data_model.ScoreManager;
 import Game_model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class W_LevelOver implements AppInitialize {
-    
-    
-    // --------------- //
-    // Media Elements //
-    // --------------- //
-
-
-
-    //  --------------- //
-    //  View Variables  //
-    // ---------------  //
-
     Game game = Game.getIt();
-    private LocalDateTime newDate;
-    private String newName;
-
-
-    //  ------------- //
-    //  GUI Elements  //
-    // -------------  //
-
-
 
 
     //  ------------ //
     //  GUI Methods  //     (DIRECT USER EVENTS)
     // ------------  //
+
 
     @FXML
     void btn_onMainMenuClicked(ActionEvent event) throws IOException, InterruptedException {
@@ -51,28 +29,8 @@ public class W_LevelOver implements AppInitialize {
 
     @FXML
     void btn_onNextClicked(ActionEvent event) throws IOException, InterruptedException {
-        var scoreManager = ScoreManager.getIt();
         GameSounds.it().BTN_CLICK.play();
-
-
-        // TextInputDialog dialog = new TextInputDialog();
-        
-        // dialog.setHeaderText("Please enter player name.");
-        // Optional<String> playerName = dialog.showAndWait();
-        // playerName.ifPresent(name -> {
-        //     newName = name;
-        //     newDate = LocalDateTime.now();
-        //     var newScore = new Score(name, newDate, game.getScore());
-        //     scoreManager.getList().clear();
-        //     scoreManager.loadScores();
-        //     scoreManager.addScore(newScore);
-        //     scoreManager.saveScores();            
-        // });
-
-        AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{game.getStateDiff(), game.getGameLvl() + 1, game.getScore()});
-
-        // Cereal cereal = new Cereal(game, newDate, newName);
-        // cereal.SerializeGame();          
+        AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{game.getStateDiff(), game.getGameLvl() + 1, game.getScore()});      
     } 
 
 

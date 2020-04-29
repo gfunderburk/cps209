@@ -21,22 +21,15 @@ import javafx.scene.control.ChoiceDialog;
 public class W_MainMenu implements AppInitialize{
     Game game = Game.getIt();
 
-    // --------------- //
-    // Media Elements //
-    // --------------- //
-
-
+    
     // --------------- //
     // View Variables //
     // --------------- //
 
+
     StateDifficulty difficulty;
     int gameLvl;
     
-    // ------------- //
-    // GUI Elements //
-    // ------------- //
-
 
     // ------------ //
     // GUI Methods // (DIRECT USER EVENTS)
@@ -126,9 +119,4 @@ public class W_MainMenu implements AppInitialize{
             GameSounds.it().THEME.play(); 
         } 
     }
-
-    // ------------- //
-    // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
-    // ------------- //
-
 }

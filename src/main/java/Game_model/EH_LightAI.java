@@ -85,14 +85,14 @@ public class EH_LightAI extends EntityHumanoid {
         height=Integer.parseInt(deCereal[5]);
         speed=Double.parseDouble(deCereal[6]);
         if(deCereal[7].equals("HEALTHY")){
-            stateLife=stateLife.HEALTHY;
+            stateLife= StateLife.HEALTHY;
         }
         if(deCereal[7].equals("HURT")){
-        stateLife=stateLife.HURT;
+        stateLife= StateLife.HURT;
 
         }
         if(deCereal[7].equals("DEAD")){
-            stateLife=stateLife.DEAD;
+            stateLife= StateLife.DEAD;
     
             }
 

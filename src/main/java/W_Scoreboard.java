@@ -22,14 +22,10 @@ import javafx.scene.layout.*;
 public class W_Scoreboard {
 
     // --------------- //
-    // Media Elements //
-    // --------------- //
-
-
-    // --------------- //
     // View Variables //
     // --------------- //
     
+
     private static W_Scoreboard scoreboardInstance = new W_Scoreboard();
 
     public static W_Scoreboard getInstance() {
@@ -44,6 +40,7 @@ public class W_Scoreboard {
     // ------------- //
     // GUI Elements //
     // ------------- //
+
 
     @FXML
     VBox vbox_scoreboard;
@@ -60,9 +57,11 @@ public class W_Scoreboard {
     @FXML
     TableColumn pointsColumn;
 
+
     // ------------ //
     // GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
+
 
     public void initialize() {
         // Load Scores
@@ -127,11 +126,6 @@ public class W_Scoreboard {
     }
 
 
-    //  ------------- //
-    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
-    // -------------  //
-
-
     public static class Scores {
  
         private final int score;
@@ -156,7 +150,5 @@ public class W_Scoreboard {
         public String getDate() {
             return date;
         }
-
     }
-
 }

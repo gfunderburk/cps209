@@ -18,7 +18,6 @@ import Game_model.Game.StateDifficulty;
 import Game_model.Game.StateGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
@@ -26,7 +25,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
@@ -35,12 +33,13 @@ import javafx.geometry.Point3D;
 import javafx.util.Duration;
 
 
-public class W_InGame implements EventHandler<KeyEvent> {
+public class W_InGame {
 
     // Singleton Instance Variables
     Game game = Game.getIt();
     EH_Avatar avatar = EH_Avatar.getIt();
     GameSounds sounds = GameSounds.it();
+
 
     // --------------- //
     // Media Elements //
@@ -49,9 +48,11 @@ public class W_InGame implements EventHandler<KeyEvent> {
   
     final Image CROSSHAIRS = new Image("/icons/crosshairs_4.png");
 
+
     // --------------- //
     // View Variables //
     // --------------- //
+
 
     Scene ingameScene;
     Scene scene;
@@ -60,10 +61,12 @@ public class W_InGame implements EventHandler<KeyEvent> {
     boolean readyForNextFrame = true;
     final double animationRate_sec = 0.05;
 
+
     // ------------- //
     // GUI Elements //
     // ------------- //
 
+    
     @FXML
     VBox vbox_masterParent;
     @FXML
@@ -85,9 +88,11 @@ public class W_InGame implements EventHandler<KeyEvent> {
     @FXML
     ProgressBar progBar_health;
 
+
     // ------------ //
     // GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
+
 
     /**
      * Action: closes GameWindow and ends the game instance.
@@ -103,7 +108,6 @@ public class W_InGame implements EventHandler<KeyEvent> {
     
     @FXML
     void onReloadClicked() throws IOException {
-        sounds.BTN_CLICK.play();
         avatar.reload();
         GameSounds.it().Avatar_reloading.play();
         updateHealthGUI();
@@ -136,17 +140,16 @@ public class W_InGame implements EventHandler<KeyEvent> {
 
         if (avatar.getMag() >= 1) 
         {
-            sounds.SHOOT_SHOTGUN.play();
             avatar.setMag(avatar.getMag() - 1);
             avatar.attack(event.getX(), pane.getHeight()-event.getY(), pane.getWidth(), pane.getHeight());
 
-            // if(game.isCheatMode()){
-            //     sounds.Avatar_attackingCheatmode.play();
+            if(game.isCheatMode()){
+                sounds.Avatar_attackingCheatmode.play();
                 
-            // }
-            // else{
-            //     sounds.Avatar_attacking.play();
-            // }
+            }
+            else{
+                sounds.Avatar_attacking.play();
+            }
         } 
         else 
         {
@@ -156,33 +159,17 @@ public class W_InGame implements EventHandler<KeyEvent> {
         updateHealthGUI();
     }
 
-    // //Written by Funderburk, pushed by Cox
-    @Override
-    public void handle(KeyEvent event) {
-        System.out.println(event.getCharacter());
-       if(event.getCharacter()=="R"){
-        System.out.print("RELOAD");
-        EH_Avatar.getIt().reload();
-        // BTN_CLICK.play();
-       }
-       if(event.getCharacter()=="C"){
-           System.out.print("CHEAT");
-           Game.getIt().toggleCheatMode();
-        //    BTN_CLICK.play();
-       }
-    }
-    
 
     // ------------- //
     // View Methods // (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // ------------- //
+
 
     void updateHealthGUI() throws IOException {
 
         // Update Health Bar
 
         double health = avatar.getCurrentHealth()/10;
-        // System.out.println("Health: " + health);
         vbox_health.getChildren().clear();
         progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
@@ -286,6 +273,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
             readyForNextFrame = false;
 
             // move entities physically in Model
+
             for (int i = 0; i < Game.getIt().getEntityList().size(); i++) {
                 Entity ent = Game.getIt().getEntityList().get(i);
 
@@ -298,21 +286,17 @@ public class W_InGame implements EventHandler<KeyEvent> {
                 }
             }
 
-            // parking place breakpoint for debugging
-            var pi = Game.getIt();
-            if(pi.getGameLvl() == 2) {
-                var testStopForDebugger = 0;}
-
-            game.sortEntityList();  // sort so that entities are properly visually layered according to z depth
-
-            pane.getChildren().clear();
+            game.sortEntityList();  // sort, so that entities are properly visually layered according to z depth
 
             // draw entities visually in View
+
+            pane.getChildren().clear();
             for (Entity entity : game.getEntityList()) {
                 drawEntity(entity);
             }        
 
             // //  Delete any dead entity images
+
             for (int i = 0; i < game.getDeadEntityList().size(); i++) {
                 ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + game.getDeadEntityList().get(i).getId());
                 if(oldEntityImg != null){
@@ -329,6 +313,7 @@ public class W_InGame implements EventHandler<KeyEvent> {
     public void drawEntity(Entity entity) throws IOException {
 
         // Find if given entity image exists
+
         ImageView oldEntityImg = (ImageView) ingameScene.lookup("#" + entity.getId());
         ImageView newEntityImg = null;
 
@@ -338,11 +323,9 @@ public class W_InGame implements EventHandler<KeyEvent> {
         }
         else{
             newEntityImg = new ImageView(entity.getImage());
-            // newEntityImg.setCache(false);
             newEntityImg.setId("" + entity.getId());
             newEntityImg.setUserData(entity.getId());
             newEntityImg.getStyleClass().add("gameEntity");
-
             pane.getChildren().add(newEntityImg);
         }
 

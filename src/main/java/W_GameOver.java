@@ -21,32 +21,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 
 public class W_GameOver implements AppInitialize{
-    
-    
-    // --------------- //
-    // Media Elements //
-    // --------------- //
-
-
-
-    //  --------------- //
-    //  View Variables  //
-    // ---------------  //
-
     Game game = Game.getIt();
+
     private LocalDateTime newDate;
 
 
-    //  ------------- //
-    //  GUI Elements  //
-    // -------------  //
-
-
-
-
-    //  ------------ //
-    //  GUI Methods  //     (DIRECT USER EVENTS)
-    // ------------  //
+    public void initialize(){
+        game.pause();
+    } 
 
 
     @FXML
@@ -100,13 +82,4 @@ public class W_GameOver implements AppInitialize{
             GameSounds.it().BTN_CLICK.play();
         }        
     }
-
-    //  ------------- //
-    //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
-    // -------------  //
-
-
-    public void initialize(){
-        game.pause();
-    } 
 }
