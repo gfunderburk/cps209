@@ -45,6 +45,7 @@ public class Cereal {
             
         try(var wr = new PrintWriter( new FileWriter("cereal.dat")); )
         {
+            wr.write(game.Serialize() + "\n");
             for(Entity ent:cerealArray){
                 wr.write(ent.Serialize() + "\n");
                 
