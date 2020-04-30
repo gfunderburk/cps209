@@ -27,7 +27,9 @@ public class GameLevels {
         new EK_Scenery(Type.HEALTH),
         new EK_Scenery(Type.AMMO)
     ));
-    int lvl1_AICnt = 5;
+
+    //  the total number of enemy AI's for level 1
+    int lvl1_AICnt = 10; 
 
     
     //  Level 2 Objects
@@ -40,7 +42,9 @@ public class GameLevels {
         new EK_Scenery(Type.POINTS)
         
     ));
-    int lvl2_AICnt = 7;
+
+    //  the total number of enemy AI's for level 2
+    int lvl2_AICnt = 15; 
 
     
     //  Level 3 Objects
@@ -54,7 +58,9 @@ public class GameLevels {
         new EK_Scenery(Type.POINTS)
         
     ));
-    int lvl3_AICnt = 9;
+
+    //  the total number of enemy AI's for level 3
+    int lvl3_AICnt = 20; 
 
 
     //  Singleton  //
@@ -70,6 +76,11 @@ public class GameLevels {
     }
 
 
+    
+    /** 
+     * @param lvl the game level to load AICnt for
+     * @return int
+     */
     //  Methods  //
 
 
@@ -89,6 +100,11 @@ public class GameLevels {
         }
     }
 
+    
+    /** 
+     * @param lvl the game level to load the respective list of power-ups for
+     * @return ArrayList<EK_Scenery>
+     */
     public ArrayList<EK_Scenery> getLvlScenery(int lvl){
         switch(lvl){
             case 1:

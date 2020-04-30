@@ -62,15 +62,15 @@ public class W_InGame {
     Scene ingameScene;       // Contains in-game scene. 
     StateDifficulty difficulty;  // Contains difficulty level state.
     double mouseX, mouseY, paneW, paneH;  // Mouse position and pane dimension variables.
-    boolean readyForNextFrame = true;     
+    boolean readyForNextFrame = true;
+    boolean playFanFare;    // Whether or not the end-of-level fanfare should play.      
     final double animationRate_sec = 0.05; //Animation rate
 
-
+    
     // ------------- //
     // GUI Elements //
     // ------------- //
 
-    
     @FXML
     VBox vbox_masterParent; //master vbox
     @FXML
@@ -192,6 +192,7 @@ public class W_InGame {
         // Update Health Bar
 
         double health = EH_Avatar.getIt().getCurrentHealth()/100;
+        // System.out.println(health);
         vbox_health.getChildren().clear();
         var progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
@@ -230,13 +231,19 @@ public class W_InGame {
         {
             if (game.isPlayerWinner() && game.getGameLvl() >= 3) 
             {
-                GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
+                if(playFanFare){
+                    GameSounds.it().Avatar_wins.play();
+                    playFanFare = false;
+                }
             }
             else if(game.isPlayerWinner())
             {
-                GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
+                if(playFanFare){
+                    GameSounds.it().Avatar_wins.play();
+                    playFanFare = false;
+                }
             }
             else
             {
@@ -261,6 +268,7 @@ public class W_InGame {
         //  Reset in-game Pane
 
         sounds.THEME.stop();
+        playFanFare = true;
         pane.getChildren().clear();
         game.setEntityList(new ArrayList<Entity>());    
         game.setDeadEntityList(new ArrayList<Entity>());
@@ -270,7 +278,7 @@ public class W_InGame {
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         game.setScore(score);
-        game.startGame("Joe", difficultyLevel, gameLevel);
+        game.startGame(difficultyLevel, gameLevel);
         
 
         //  Setup lvl background

@@ -100,33 +100,45 @@ public class E_Projectile extends Entity {
 
     //  Methods  //
 
-    public void calcOffsets(Entity thisEntity){
-        if(thisEntity instanceof EH_LightAI){            
+
+    /**
+     * @param thisEntity
+     * offset and move the projectile's iamgeView based off of what entity type is firing it.
+     *      this offset will center the bullet img on the entity's gun barrel part of the img.
+     */
+    public void calcOffsets(Entity thisEntity)
+    {
+        if(thisEntity instanceof EH_LightAI)
+        {            
             this.visualYoffset = 35;
             this.visualXoffset = -3;
-
-        }else 
-        if(thisEntity instanceof EH_HeavyAI){
+        }
+        else if(thisEntity instanceof EH_HeavyAI)
+        {
             this.visualYoffset = 44;
             this.visualXoffset = -2;
-
-        }else 
-        if(thisEntity instanceof EH_FlyingAI){
+        }
+        else if(thisEntity instanceof EH_FlyingAI)
+        {
             this.visualYoffset = 2;
             this.visualXoffset = 0;
-
-        }else 
-        if(thisEntity instanceof EH_BossAI){
+        }
+        else if(thisEntity instanceof EH_BossAI)
+        {
             this.visualYoffset = 42;
             this.visualXoffset = 0;
         }
     }
+    
+
+    //------------------------------------------------------------------------------//
+    //  The methods below are inhereted and described in the parent abstract class  //
+    //------------------------------------------------------------------------------//
+
 
     @Override
     public String Serialize() {
         return ("P,"+typeRound+"");
-        
-       
     }
 
 
@@ -147,33 +159,36 @@ public class E_Projectile extends Entity {
     @Override
     public void move() {
         this.despawnCnt--;
-        if(this.despawnCnt == 0){
+        if(this.despawnCnt == 0)
+        {
             this.collideEvent(null);
             return;
         }
 
         super.move();
         
-        if(this.isAvatarsProjectile()){
-
-            Entity otherEntity = Game.getIt().getEntityList()
+        if(this.isAvatarsProjectile())
+        {   //  only collide with other non-projectile entitys who are within a range of this projectile's location
+            Entity otherEntity = Game.getIt().getEntityList()  
                                 .stream()
                                 .filter(ent -> !(ent instanceof E_Projectile) )
-                                .filter(ent -> (ent.location.getX() + ent.width * .5) > this.location.getX())
-                                .filter(ent -> (ent.location.getX() - ent.width * .5) < this.location.getX())
+                                .filter(ent -> (ent.location.getX() + ent.width  * .5)  > this.location.getX())
+                                .filter(ent -> (ent.location.getX() - ent.width  * .5)  < this.location.getX())
                                 .filter(ent -> (ent.location.getY() + ent.height * .65) > this.location.getY())
-                                .filter(ent -> (ent.location.getY() - ent.height * .5) < this.location.getY())
+                                .filter(ent -> (ent.location.getY() - ent.height * .5)  < this.location.getY())
                                 .sorted(compareBy_Z_Layer)
                                 .findFirst()
-                                .orElse(null);      // .collect(Collectors.toList()));
+                                .orElse(null);
                                 
-            if(otherEntity != null){
+            if(otherEntity != null)
+            {
                 Game.getIt().setScore(Game.getIt().getScore() + 1);
                 this.collideEvent(otherEntity);
                 otherEntity.collideEvent(this);
             }
         }
-        else if(this.location.getZ() <= 0){
+        else if(this.location.getZ() <= 0)
+        {
             this.collideEvent(null);
             EH_Avatar.getIt().collideEvent(this);
         }
@@ -202,67 +217,82 @@ public class E_Projectile extends Entity {
         return typeRound;
     }
 
-    public void setTypeRound(TypeRound typeRound) {
+
+    public void setTypeRound(TypeRound typeRound) 
+    {
         this.typeRound = typeRound;
 
-        switch(this.typeRound){
+        switch(this.typeRound)
+        {
             case LIGHT_ROUND:
                 this.moveFactor = lightRoundMoveFactor;
-                this.damage = lightRoundDmg;
+                this.damage     = lightRoundDmg;
 
-                if(this.isAvatarsProjectile()){
+                if(this.isAvatarsProjectile())
+                {
                     this.imageState = lightRound_PlayerImg;
-                    this.width = lightRound_width;
-                    this.height = lightRound_width;
-                }else{
+                    this.width      = lightRound_width;
+                    this.height     = lightRound_width;
+                }
+                else
+                {
                     this.imageState = lightRound_FireImg;
-                    this.width = lightRound_width * 5;
-                    this.height = lightRound_width * 5;
+                    this.width      = lightRound_width * 5;
+                    this.height     = lightRound_width * 5;
                 }
                 break;
 
             case HEAVY_ROUND:
                 this.moveFactor = heavyRoundMoveFactor;
-                this.damage = heavyRoundDmg;
+                this.damage     = heavyRoundDmg;
 
-                if(this.isAvatarsProjectile()){
+                if(this.isAvatarsProjectile())
+                {
                     this.imageState = heavyRound_PlayerImg;
-                    this.width = heavyRound_width;
-                    this.height = heavyRound_width;
-                }else{
+                    this.width      = heavyRound_width;
+                    this.height     = heavyRound_width;
+                }
+                else
+                {
                     this.imageState = heavyRound_FireImg;
-                    this.width = heavyRound_width * 3;
-                    this.height = heavyRound_width * 3;
+                    this.width      = heavyRound_width * 3;
+                    this.height     = heavyRound_width * 3;
                 }
                 break;
 
             case EXPLOSIVE_ROUND:
                 this.moveFactor = explosiveRoundMoveFactor;
-                this.damage = explosiveRoundDmg;
+                this.damage     = explosiveRoundDmg;
 
-                if(this.isAvatarsProjectile()){
+                if(this.isAvatarsProjectile())
+                {
                     this.imageState = explosiveRound_PlayerImg;
-                    this.width = explosiveRound_width;
-                    this.height = explosiveRound_width;
-                }else{
+                    this.width      = explosiveRound_width;
+                    this.height     = explosiveRound_width;
+                }
+                else
+                {
                     this.imageState = explosiveRound_FireImg;
-                    this.width = explosiveRound_width * 3;
-                    this.height = explosiveRound_width * 3;
+                    this.width      = explosiveRound_width * 3;
+                    this.height     = explosiveRound_width * 3;
                 }
                 break;
             
             case LAZER_ROUND:
                 this.moveFactor = lazerRoundMoveFactor;
-                this.damage = lazerRoundDmg;
+                this.damage     = lazerRoundDmg;
 
-                if(this.isAvatarsProjectile()){
+                if(this.isAvatarsProjectile())
+                {
                     this.imageState = lazerRound_AIImg;
-                    this.width = lazerRound_width;
-                    this.height = lazerRound_width;
-                }else{
+                    this.width      = lazerRound_width;
+                    this.height     = lazerRound_width;
+                }
+                else
+                {
                     this.imageState = lazerRound_FireImg;
-                    this.width = lazerRound_width * 3;
-                    this.height = lazerRound_width * 3;
+                    this.width      = lazerRound_width * 3;
+                    this.height     = lazerRound_width * 3;
                 }
                 break;
             
@@ -271,9 +301,10 @@ public class E_Projectile extends Entity {
     }
 
 
-	public static double getRoundTypeSpeed(TypeRound roundType) {
-		switch(roundType){
-
+    public static double getRoundTypeSpeed(TypeRound roundType) 
+    {
+        switch(roundType)
+        {
             case LIGHT_ROUND:
                 return lightRoundMoveFactor;
                 
@@ -290,6 +321,52 @@ public class E_Projectile extends Entity {
                 return -1;
         }
 	}
+
+
+    @Override
+    protected void subStateUpdate() 
+    {
+        if(this.subStateInt >= this.moveFactor)
+        {
+            this.subStateInt = 0;
+            this.move();
+
+            if(!this.roundFired & !this.isAvatarsProjectile())
+            {
+                this.roundFired = true;
+
+                switch(this.typeRound)
+                {
+                    case LIGHT_ROUND:
+                        this.imageState = lightRound_AIImg;
+                        this.width      = lightRound_width;
+                        this.height     = lightRound_width;
+                        break;
+        
+                    case HEAVY_ROUND:
+                        this.imageState = heavyRound_AIImg;
+                        this.width      = heavyRound_width;
+                        this.height     = heavyRound_width;
+                        break;
+        
+                    case EXPLOSIVE_ROUND:
+                        this.imageState = explosiveRound_AIImg;
+                        this.width      = explosiveRound_width;
+                        this.height     = explosiveRound_width;
+                        break;
+                    
+                    case LAZER_ROUND:
+                        this.imageState = lazerRound_AIImg;
+                        this.width      = lazerRound_width;
+                        this.height     = lazerRound_width;
+                        break;
+                    
+                    default:
+                }
+            }
+        }
+    }
+
 
     public static double getLightRoundSpeed() {
         return lightRoundMoveFactor;
@@ -361,45 +438,5 @@ public class E_Projectile extends Entity {
 
     public void setVisualXoffset(int visualXoffset) {
         this.visualXoffset = visualXoffset;
-    }
-
-    @Override
-    protected void subStateUpdate() {
-        if(this.subStateInt >= this.moveFactor){
-            this.subStateInt = 0;
-            this.move();
-
-            if(!this.roundFired & !this.isAvatarsProjectile()){
-                this.roundFired = true;
-
-                switch(this.typeRound){
-                    case LIGHT_ROUND:
-                        this.imageState = lightRound_AIImg;
-                        this.width = lightRound_width;
-                        this.height = lightRound_width;
-                        break;
-        
-                    case HEAVY_ROUND:
-                        this.imageState = heavyRound_AIImg;
-                        this.width = heavyRound_width;
-                        this.height = heavyRound_width;
-                        break;
-        
-                    case EXPLOSIVE_ROUND:
-                        this.imageState = explosiveRound_AIImg;
-                        this.width = explosiveRound_width;
-                        this.height = explosiveRound_width;
-                        break;
-                    
-                    case LAZER_ROUND:
-                        this.imageState = lazerRound_AIImg;
-                        this.width = lazerRound_width;
-                        this.height = lazerRound_width;
-                        break;
-                    
-                    default:
-                }
-            }
-        }
     }
 }

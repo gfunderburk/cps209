@@ -28,51 +28,81 @@ public class Game implements GameSave {
     
     public enum StateDifficulty{EASY, MEDIUM, HARD}
     public enum StateGame{RUNNING, PAUSED}
-    private StateDifficulty stateDiff;
-    private StateGame stateGame;
-    private int AI_Left, AI_Left_ToSpawn, currentAIspawnCnt, maxAISpawnCnt;
-    private int score;
-    private int time;
-    private int gameLvl;
-    private int currentEnitity;
-    private int newMobSpawnDelay, spawnDelayCount;
-    private int gamePhysicsWidth =  104;
-    private int gamePhysicsHeight = 65;
-    private int gamePhysicsDepth =  10;
-    private LocalDateTime dt;
-    private String playerName, lvlBackground;
-    private ArrayList<Entity> entityList =      new ArrayList<Entity>();
-    private ArrayList<Entity> deadEntityList =  new ArrayList<Entity>();
-    private boolean gameOver, playerWin;
-    private boolean cheatMode = false;
-
-
+    private StateDifficulty stateDiff;          //  the difficulty of the in-game state      
+    private StateGame stateGame;                //  the activity of the in-game state
+    private int currentAIspawnCnt;              //  the current count of enemy AI's spawned in the current in-game state
+    private int AI_Left_ToSpawn;                //  the current number of enemy AI's left to spawn for the current in-game level
+    private int maxAISpawnCnt;                  //  the maximum limit of enemy AI's allowed to be spawned at one time
+    private int AI_Left;                        //  the current number of enemy AI's left to kill for the current in-game level
+    private int score;                          //  the current score of in-game
+    private int gameLvl;                        //  the current level of the in-game
+    private int currentEnitity;                 //  the current highest ID number of the spawned entitys in the in-game
+    private int gamePhysicsWidth =  104;        //  the width of the physical world (the 3D world of the Model)
+    private int gamePhysicsHeight = 65;         //  the height of the physical world (the 3D world of the Model)
+    private int gamePhysicsDepth =  10;         //  the depth of the physical world (the 3D world of the Model)
+    private LocalDateTime dt;                   //  the localDateTime that the current in-game was started at
+    private String playerName;                  //  the player name of the user of this current in-game
+    private String lvlBackground;               //  the image URL of the current in-game background image
+    private boolean gameOver;                   //  whether or not the in-game level is over
+    private boolean playerWin;                  //  whether or not the player successfully completed the level or not
+    private boolean cheatMode;                  //  whether or not the in-game has cheatMode active or not  
+    private ArrayList<Entity> entityList =      new ArrayList<Entity>();    //  the list of living active entities in the in-game
+    private ArrayList<Entity> deadEntityList =  new ArrayList<Entity>();    //  the list of dead inactive entitities in the in-game. 
+                                                                            //      these entities are temporarily stored here so that 
+                                                                            //      their images can be deleted from the View's pane.
     //  Singleton  //
 
 
-    private Game() {
-    }
+    private Game() {}
 
     static private Game It = new Game();
-
-
-    //  Methods  //
-
-    
-    public void startGame(String playerName, StateDifficulty difficultyLevel, int GameLevel){
-        // reset();
-        // resetGameSingleton();
-        setDifficultySettings(difficultyLevel);
-        setLevelSettings(GameLevel);
-        spawnerAdmin(false);
-        stateGame = StateGame.RUNNING;
-    }
 
     public static void resetGameSingleton() {
         It = new Game();
     }
 
 
+    
+    //  Methods  //
+
+
+    public void play(){ 
+        stateGame = StateGame.RUNNING;    
+    }
+
+
+    public void pause(){ 
+        stateGame = StateGame.PAUSED;    
+    }
+
+
+    /** 
+     * toggles the in-game's cheatmode.
+     * IF cheatmode, player uses heavyRounds, ELSE player uses lightRounds.
+     */
+    public void toggleCheatMode(){
+        cheatMode = cheatMode ? false : true;
+        EH_Avatar.getIt().setTypeRound( cheatMode ? TypeRound.HEAVY_ROUND : TypeRound.LIGHT_ROUND );
+    }
+
+
+    /** 
+     * @param difficultyLevel
+     * @param GameLevel
+     * initializes the in-game state according to the input parameters
+     */
+    public void startGame(StateDifficulty difficultyLevel, int GameLevel){
+        setDifficultySettings(difficultyLevel);
+        setLevelSettings(GameLevel);
+        spawnerAdmin(false);
+        stateGame = StateGame.RUNNING;
+    }
+
+    
+    /** 
+     * @param forceFullPopulate whether or not to spawn all of the enemies at once. Intended for debugging.
+     * spawns enemy AI's up to the enemy AI spawn limit count.
+     */
     public void spawnerAdmin(boolean forceFullPopulate){
 
         while(true)
@@ -100,22 +130,9 @@ public class Game implements GameSave {
         else break;
     }
 
-
-    public void play(){ 
-        stateGame = StateGame.RUNNING;    
-    }
-
-
-    public void pause(){ 
-        stateGame = StateGame.PAUSED;    
-    }
-
-
-    public Entity findEntityById(int Id){
-        return entityList.stream().filter(it -> it.Id == Id).findFirst().get();
-    }
-
-
+    /*
+    *   Checks in-game state for gameOver parameters. If not gameOver, runs the enemy AI spawner method.
+    */
     public void checkGameOver(){
         if(AI_Left <= 0){
             gameOver = true;
@@ -130,27 +147,48 @@ public class Game implements GameSave {
         }
     }
 
-
+    /*
+    *   sorts Game.java's entityList according to the Entitys' Z-depth
+    */
 	public void sortEntityList() {
         Comparator<Entity> compareByScore = (Entity o1, Entity o2) -> (int)o1.getLocation().getZ() - (int)o2.getLocation().getZ();
         Collections.sort(entityList, compareByScore.reversed());
     }
+    
 
+    /** 
+     * @param Id
+     * @return Entity
+     */
+    public Entity findEntityById(int Id){
+        return entityList.stream().filter(it -> it.Id == Id).findFirst().get();
+    }
 
+    
+    /** 
+     * @return random Point3D within the physical world boundaries.
+     */
     public Point3D randomPoint3D(){
         return new Point3D(myRandom.genRandomInt(0, Game.getIt().getGamePhysicsWidth()), 
                             myRandom.genRandomInt(0, Game.getIt().getGamePhysicsHeight()), 
                             myRandom.genRandomInt(0, Game.getIt().getGamePhysicsDepth()));
     }
 
-
+    
+    /** 
+     * @return String form of the current in-game state.
+     */
     @Override
     public String Serialize() {
-        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+time+","+gameLvl+","+currentEnitity+","+newMobSpawnDelay+","+spawnDelayCount+","+dt+","+playerName+","+gameOver+","+cheatMode;
+        String cereal="G,"+stateDiff+","+stateGame+","+AI_Left+","+score+","+"time"+","+gameLvl+","+currentEnitity+","+"newMobSpawnDelay"+","+"spawnDelayCount"+","+dt+","+playerName+","+gameOver+","+cheatMode;
         return cereal;
     }
 
-
+    
+    /** 
+     * @param data the String form of the previously saved in-game state.
+     * convert input String data to the current in-game state
+     */
     @Override
     public void deSerialize(String data) {
         String[] deCereal=data.split(",");
@@ -164,23 +202,21 @@ public class Game implements GameSave {
             stateDiff= StateDifficulty.HARD;
         }
         stateGame=(deCereal[2].equals("RUNNING"))? StateGame.RUNNING : StateGame.PAUSED;
-        
-        
+
         AI_Left=Integer.parseInt(deCereal[3]);
         score=Integer.parseInt(deCereal[4]);
-        time=Integer.parseInt(deCereal[5]);
         gameLvl=Integer.parseInt(deCereal[6]);
         currentEnitity=Integer.parseInt(deCereal[7]);
-        newMobSpawnDelay=Integer.parseInt(deCereal[8]);
-        spawnDelayCount=Integer.parseInt(deCereal[9]);
-        //NOTE: [10] (DT) is skipped.
         playerName=deCereal[11];
         gameOver= (deCereal[12].equals("True")) ? true:false;
         cheatMode=(deCereal[13].equals("True"))?true:false;               
-        
     }
 
-
+    
+    /** 
+     * @param difficultyLevel
+     * sets the current in-game's enemy AI spawn limit, based off of the input difficulty level.
+     */
     private void setDifficultySettings(StateDifficulty difficultyLevel){
         switch(difficultyLevel){
             case EASY:
@@ -202,13 +238,19 @@ public class Game implements GameSave {
     }
     
 
+    
+    /** 
+     * @param GameLevel
+     * sets the current in-game's settings, based off of the input level number.
+     */
     private void setLevelSettings(int GameLevel){
 
-        switch(GameLevel){
-
+        switch(GameLevel)
+        {
             case 1:
                 gameLvl = 1;
-                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) {
+                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) 
+                {
                     entityList.add(scenery);            
                 }
                 AI_Left = GameLevels.getIt().getLvlAICnt(gameLvl);
@@ -217,7 +259,8 @@ public class Game implements GameSave {
 
             case 2:
                 gameLvl = 2;
-                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) {
+                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) 
+                {
                     entityList.add(scenery);            
                 }
                 AI_Left = GameLevels.getIt().getLvlAICnt(gameLvl);
@@ -226,7 +269,8 @@ public class Game implements GameSave {
 
             case 3:
                 gameLvl = 3;
-                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) {
+                for (Entity scenery : GameLevels.getIt().getLvlScenery(gameLvl)) 
+                {
                     entityList.add(scenery);            
                 }
                 AI_Left = GameLevels.getIt().getLvlAICnt(gameLvl);
@@ -234,15 +278,8 @@ public class Game implements GameSave {
 
                 Entity bigBoss = new EH_BossAI();
                 bigBoss.spawn();
-                break;
                 default:
         }
-    }
-
-
-    public void toggleCheatMode(){
-        cheatMode = cheatMode ? false : true;
-        EH_Avatar.getIt().setTypeRound( cheatMode ? TypeRound.HEAVY_ROUND : TypeRound.LIGHT_ROUND );
     }
 
 
@@ -280,14 +317,6 @@ public class Game implements GameSave {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
     }
 
     public int getGameLvl() {
@@ -377,23 +406,7 @@ public class Game implements GameSave {
     public void setAI_Left(int hAI_Left) {
         AI_Left = hAI_Left;
     }
-
-    public int getNewMobSpawnDelay() {
-        return newMobSpawnDelay;
-    }
-
-    public void setNewMobSpawnDelay(int newMobSpawnDelay) {
-        this.newMobSpawnDelay = newMobSpawnDelay;
-    }
-
-    public int getSpawnDelayCount() {
-        return spawnDelayCount;
-    }
-
-    public void setSpawnDelayCount(int spawnDelayCount) {
-        this.spawnDelayCount = spawnDelayCount;
-    }
-
+    
     public String getLvlBackground() {
         return lvlBackground;
     }

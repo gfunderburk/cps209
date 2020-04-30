@@ -17,30 +17,44 @@ public abstract class EntityHumanoid extends EntityKillable {
     //  Variables  //
 
     
-    protected  static enum StateAction {MOVING, RELOADING, ATTACKING, SPECIAL_ATTACK, DYING, DEAD};
-    protected  StateAction stateAction;
-    protected  int mag, ammo;
-    protected  E_Projectile.TypeRound typeRound;
-    protected  boolean dying, attacking;
-    protected  AudioClip audio_dying, audio_attacking;
+    protected static enum StateAction {MOVING, RELOADING, ATTACKING, SPECIAL_ATTACK, DYING, DEAD};
+    protected StateAction stateAction;
+    protected int mag, ammo;
+    protected boolean dying, attacking;
+    protected E_Projectile.TypeRound typeRound;
+    protected AudioClip audio_dying, audio_attacking;
 
+    
     //  Methods  //
 
 
+    /** 
+     * @param newState
+     * resets the given entity's substate count and sets the given entity's stateaction to the input state
+     */
     public void enterState(StateAction newState){
         this.subStateInt = 0;
         this.stateAction = newState;
     };
 
 
+    /** 
+     * @param entity the tageted entity
+     * creates a projectile traveling from a given entity towards the input entity
+     */
     public void attack(Entity entity) {
         E_Projectile.makeProjectile(this, entity);
     };
 
+
+    /** 
+     * resets the round count to 30 for a given entity
+     */
     public void reload(){
         this.mag = 30;
         this.ammo -= 30;
     };
+
 
     @Override
     public abstract String Serialize();

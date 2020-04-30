@@ -21,9 +21,9 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 # Final Release
 |   Feature  | Required |  Assignee | Status|
 |:--------|:------------:|:------------:|:-----:|  
-|Bug Fixes | _ | Everyone |  In Progress |
-|Comments | _ | Everyone |  In Progress |
-|Review Wiki | _ | Everyone |  In Progress |
+|Bug Fixes | _ | Everyone |  Completed |
+|Comments | _ | Everyone |  Completed |
+|Review Wiki | _ | Everyone |  Completed |
 
 
 # Extra Credit Optional
@@ -35,10 +35,7 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 
 
 ## Known Issues: 
-- Player Health Bar sometimes delays in updating. 
-- Game does not end when player health reaches 0 (will add fix ASAP).
 - Game does not load properly every time.
-- Some extra AI battle sounds not playing properly.
 
 ## Recording: 
 
@@ -53,7 +50,7 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 |:------------:|:-------------:|:-------------:|
 |Jeremiah Cox  |  57.8         |   2.2        |
 |Gunnar Funderburk | 57  |  3  |
-|Jonathan Layton  |  66.5   |  3.5 (Dr. Scaub 10 hour extension) |
+|Jonathan Layton  |  70   |  0 (Dr. Scaub 10 hour extension) |
 
 ### Journals
 - [Jeremiah Cox](https://github.com/gfunderburk/cps209/wiki/Journal_Cox)

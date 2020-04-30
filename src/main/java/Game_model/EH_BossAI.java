@@ -52,13 +52,17 @@ public class EH_BossAI extends EntityHumanoid {
         this.width =  HaiW;
         this.height = HaiH;
         this.speed =  1;
-        this.maxHealth = 2;
+        this.maxHealth = 30;
         this.stateIntFactor = 3;
         this.currentHealth = this.maxHealth; 
     }
 
 
     //  Methods  //
+    
+    //------------------------------------------------------------------------------//
+    //  The methods below are inhereted and described in the parent abstract class  //
+    //------------------------------------------------------------------------------//
 
 
     @Override
@@ -95,10 +99,7 @@ public class EH_BossAI extends EntityHumanoid {
         if(deCereal[7].equals("DEAD")){
             stateLife= StateLife.DEAD;
     
-            }
-
-        
-
+        }
     }
 
 
