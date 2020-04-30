@@ -36,6 +36,7 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 
 ## Known Issues: 
 - Game does not load properly every time.
+- Some sound distortion occurs while playing the game.
 
 ## Recording: 
 
