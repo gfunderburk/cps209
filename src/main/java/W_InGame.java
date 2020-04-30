@@ -192,7 +192,6 @@ public class W_InGame {
         // Update Health Bar
 
         double health = EH_Avatar.getIt().getCurrentHealth()/100;
-        System.out.println(health);
         vbox_health.getChildren().clear();
         var progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
