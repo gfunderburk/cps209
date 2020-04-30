@@ -1,3 +1,9 @@
+/* --------------------------------------------------------------------------------------------- 
+File:   ScoreManagerTest.java
+Desc.   ScoreManagerTest contains all tests for the ScoreManager class (high scores).
+Primary Author: Jeremiah Cox 
+--------------------------------------------------------------------------------------------- */
+
 import org.junit.Test;
 import Data_model.*;
 

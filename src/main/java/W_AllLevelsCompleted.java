@@ -2,6 +2,7 @@
 File:   W_AllLevelsCompleted.java
 Desc.   AllLevelsCompleted window appears if the player kills all hostiles at level 3.
         It displays options to either save the player's score or to quit directly to MainMenu.
+Author: Jeremiah Cox 
 --------------------------------------------------------------------------------------------- */
 
 import java.io.IOException;
@@ -21,17 +22,34 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 
 public class W_AllLevelsCompleted implements AppInitialize{
+
+    //  -------------------- //
+    //    Game Singleton     //
+    // --------------------  //
+
     Game game = Game.getIt();
 
-    private LocalDateTime newDate;
-    private String newName;
 
-    
+    //  --------------- //
+    //    Variables     //
+    // ---------------  //
+
+    private LocalDateTime newDate; // Contains the date to be used in score saving.
+    private String newName; // Contains the name to be used in score saving.
+
+
+    /**
+     * Upon initialization of this class, the game is paused.
+     */
     public void initialize(){
         game.pause();
     } 
 
 
+    /**
+     * This method is called when the quit button is clicked.
+     * A sound is played and an confirmation box is launched, to ask if the player would like to save their score.
+     */
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
@@ -51,7 +69,7 @@ public class W_AllLevelsCompleted implements AppInitialize{
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == btnYes) {
-            // Save the score and get the name before showing high scores screen
+            // Save the score and get the name before showing high scores screen.
             GameSounds.it().BTN_CLICK.play();
             
             AppGUI.getPopupStage().close();
@@ -70,9 +88,6 @@ public class W_AllLevelsCompleted implements AppInitialize{
                 scoreManager.addScore(newScore);
                 scoreManager.saveScores();            
             });
-
-            Cereal cereal = new Cereal(game, newDate, newName);
-            cereal.SerializeGame();
 
             AppGUI.windowLoad(this, "High Scores", "W_ScoreBoard.fxml", null);            
         } 

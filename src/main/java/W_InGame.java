@@ -1,6 +1,8 @@
 /* --------------------------------------------------------------------------------------------- 
 File:   Window_InGame.java
-Desc.   Ingame window displays the in-game state.
+Desc.   This class corresponds with InGame.fxml and contains all GUI-related methods for game play.
+        Ingame window displays the in-game state.
+Author(s): Jonathan Layton (Game play/animations), Jeremiah Cox (GUI methods) 
 --------------------------------------------------------------------------------------------- */
 
 import java.io.File;
@@ -35,10 +37,13 @@ import javafx.util.Duration;
 
 public class W_InGame {
 
-    // Singleton Instance Variables
-    Game game = Game.getIt();
-    EH_Avatar avatar = EH_Avatar.getIt();
-    GameSounds sounds = GameSounds.it();
+    // -------------------- //
+    //  Singleton Variables //
+    // -------------------- //
+
+    Game game = Game.getIt();  // Game singleton
+    EH_Avatar avatar = EH_Avatar.getIt(); // Avatar singleton (human player)
+    GameSounds sounds = GameSounds.it();  // Game Sounds singleton
 
 
     // --------------- //
@@ -46,7 +51,7 @@ public class W_InGame {
     // --------------- //
     
   
-    final Image CROSSHAIRS = new Image("/icons/crosshairs_4.png");
+    final Image CROSSHAIRS = new Image("/icons/crosshairs_4.png"); // Crosshairs image for mouse
 
 
     // --------------- //
@@ -54,12 +59,11 @@ public class W_InGame {
     // --------------- //
 
 
-    Scene ingameScene;
-    Scene scene;
-    StateDifficulty difficulty;
-    double mouseX, mouseY, paneW, paneH;
-    boolean readyForNextFrame = true;
-    final double animationRate_sec = 0.05;
+    Scene ingameScene;       // Contains in-game scene. 
+    StateDifficulty difficulty;  // Contains difficulty level state.
+    double mouseX, mouseY, paneW, paneH;  // Mouse position and pane dimension variables.
+    boolean readyForNextFrame = true;     
+    final double animationRate_sec = 0.05; //Animation rate
 
 
     // ------------- //
@@ -68,34 +72,34 @@ public class W_InGame {
 
     
     @FXML
-    VBox vbox_masterParent;
+    VBox vbox_masterParent; //master vbox
     @FXML
-    VBox vbox_health;
+    VBox vbox_health; // Health bar vbox
     @FXML
-    HBox hud_hbox;
+    HBox hud_hbox; // HUD vbox
     @FXML
-    Button btn_esc;
+    Button btn_esc; //escape button
     @FXML
-    Button btn_toggleCheatmode;
+    Button btn_toggleCheatmode; // Cheat mode toggle button
     @FXML
-    Button btn_reload;
+    Button btn_reload; //Reload button
     @FXML
-    Pane pane;
+    Pane pane; // Game screen pane
     @FXML
-    Label lbl_ammoStats;
+    Label lbl_ammoStats; // Ammo stats label
     @FXML
-    Label lbl_Score;
-    @FXML
-    ProgressBar progBar_health;
+    Label lbl_Score; // Score label
+    //@FXML
+    //ProgressBar progBar_health; // Progress bar for health
 
 
     // ------------ //
-    // GUI Methods // (DIRECT USER EVENTS)
+    //  GUI Methods // (DIRECT USER EVENTS)
     // ------------ //
 
 
     /**
-     * Action: closes GameWindow and ends the game instance.
+     * Action: launches popup screen with esc menu.
      * 
      * @throws IOException
      */
@@ -106,6 +110,9 @@ public class W_InGame {
         AppGUI.popupLoad(this, "W_EscMenu.fxml", "ESC Menu");
     }
     
+    /**
+     * Reloads gun and updates ammo count on HUD
+     */
     @FXML
     void onReloadClicked() throws IOException {
         avatar.reload();
@@ -113,6 +120,9 @@ public class W_InGame {
         updateHealthGUI();
     }
     
+    /**
+     * Action: toggles cheat mode
+     */
     @FXML
     void ontoggleCheatmodeClicked() throws FileNotFoundException {
         sounds.BTN_CLICK.play();
@@ -121,6 +131,7 @@ public class W_InGame {
     }
 
 
+    // Sets mouse image as soon as it enters the pane.
     @FXML
     void mouseEnteredPane(){
         pane.getScene().setCursor(new ImageCursor(CROSSHAIRS,
@@ -128,16 +139,24 @@ public class W_InGame {
         CROSSHAIRS.getHeight() /2));
     }
 
-
+    /**
+     * Changes mouse back to default when it exits the game pane.
+     */
     @FXML
     void mouseExitedPane(){
         pane.getScene().setCursor(Cursor.DEFAULT);
     }
 
 
+    /**
+     * Fires gun when mouse is clicked while inside the pane if there is ammo in the mag.
+     * Updates HUD after firing.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void mouseClickedPane(MouseEvent event) throws IOException {
-
+        updateHealthGUI();
         if (avatar.getMag() >= 1) 
         {
             avatar.setMag(avatar.getMag() - 1);
@@ -165,13 +184,17 @@ public class W_InGame {
     // ------------- //
 
 
+    /**
+     * Central update method that can be called to update the HUD.
+     */
     void updateHealthGUI() throws IOException {
 
         // Update Health Bar
 
-        double health = avatar.getCurrentHealth()/10;
+        double health = EH_Avatar.getIt().getCurrentHealth()/100;
+        System.out.println(health);
         vbox_health.getChildren().clear();
-        progBar_health = new ProgressBar();
+        var progBar_health = new ProgressBar();
         progBar_health.setProgress(health);
 
         if (health < .5) 
@@ -197,17 +220,21 @@ public class W_InGame {
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + "/" + avatar.getAmmo());
         hud_hbox.getChildren().addAll(lbl_Score, lbl_ammoStats);
 
+        // Check player health
+        if (health == 0 || health < 0) {
+            game.setGameOver(true);
+        }
 
         // check for GameOver
 
-        if (Game.getIt().isGameOver()) 
+        if (game.isGameOver()) 
         {
-            if (Game.getIt().isPlayerWinner() && game.getGameLvl() >= 3) 
+            if (game.isPlayerWinner() && game.getGameLvl() >= 3) 
             {
                 GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_AllLevelsCompleted.fxml", "YOU WON!!");
             }
-            else if(Game.getIt().isPlayerWinner())
+            else if(game.isPlayerWinner())
             {
                 GameSounds.it().Avatar_wins.play();
                 AppGUI.popupLoad(this, "W_LevelOver.fxml", "Level OVER"); 
@@ -221,6 +248,14 @@ public class W_InGame {
     }
 
 
+    /**
+     * This method is called when the game is initialized.
+     * @param difficultyLevel
+     * @param gameLevel
+     * @param score
+     * @throws InterruptedException
+     * @throws IOException
+     */
     @FXML
     void initialize(StateDifficulty difficultyLevel, int gameLevel, int score) throws InterruptedException, IOException  {
         
@@ -267,6 +302,9 @@ public class W_InGame {
 
 
 
+    /**
+     * This method is used for all in-game animations.
+     */
     void timerAnimate() throws IOException {
         if (game.getStateGame() == StateGame.RUNNING) { 
 
@@ -310,6 +348,9 @@ public class W_InGame {
         }
     }
 
+    /**
+     * This method is used to draw all in-game entities on the screen.
+     */
     public void drawEntity(Entity entity) throws IOException {
 
         // Find if given entity image exists

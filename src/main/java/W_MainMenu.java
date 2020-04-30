@@ -2,6 +2,7 @@
 File:   W_MainMenu.java
 Desc.   MainMenu window is the primary screen for the program.
         Its GUI displays access to all of the other secondary screens of the program. 
+Primary Author: Jeremiah Cox 
 --------------------------------------------------------------------------------------------- */
 
 
@@ -19,6 +20,11 @@ import javafx.scene.control.ChoiceDialog;
 
 
 public class W_MainMenu implements AppInitialize{
+
+    // ---------------- //
+    //  Game Singleton  //
+    // ---------------- //
+
     Game game = Game.getIt();
 
     
@@ -27,8 +33,8 @@ public class W_MainMenu implements AppInitialize{
     // --------------- //
 
 
-    StateDifficulty difficulty;
-    int gameLvl;
+    StateDifficulty difficulty; // Difficulty level (Easy, Medium, Hard)
+    int gameLvl; // Game level (1,2,3)
     
 
     // ------------ //
@@ -36,6 +42,9 @@ public class W_MainMenu implements AppInitialize{
     // ------------ //
 
 
+    /**
+     * Action: loads new game after getting difficulty level.
+     */
     @FXML
     void btn_newGameClicked(ActionEvent event) throws IOException, InterruptedException {
         // Play button click sounds
@@ -71,6 +80,9 @@ public class W_MainMenu implements AppInitialize{
         });
     }
 
+    /**
+     * Action: Loads saved game from cereal.dat.
+     */
     @FXML
     void btn_loadSavedGameClicked(ActionEvent event) throws IOException, InterruptedException {
         
@@ -95,24 +107,42 @@ public class W_MainMenu implements AppInitialize{
         AppGUI.windowLoad(this, "Game", "W_InGame.fxml", new Object[]{game.getStateDiff(), game.getGameLvl(), game.getScore()});
     }
 
+    /**
+     * Action: Loads controls/how to play menu screen.
+     */
     @FXML
     void btn_ControlsClicked(ActionEvent event) throws IOException, InterruptedException {
         GameSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Controls / How to Play", "W_Controls.fxml", null);
     }
 
+    /**
+     * Action: Loads High Scores screen.
+     * @param event
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @FXML
     void btn_scoreboardClicked(ActionEvent event) throws IOException, InterruptedException {  
         GameSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Scoreboard", "W_Scoreboard.fxml", null);
     }
 
+    /**
+     * Action: loads credits screen.
+     * @param event
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @FXML
     void btn_creditsClicked(ActionEvent event) throws IOException, InterruptedException {
         GameSounds.it().BTN_CLICK.play();
         AppGUI.windowLoad(this, "Credits", "W_Credits.fxml", null);
     }
 
+    /**
+     * Is called when W_MainMenu is launched.
+     */
     @Override
     public void initialize() {
         if(!GameSounds.it().THEME.isPlaying()) {
