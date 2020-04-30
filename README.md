@@ -35,7 +35,6 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 
 
 ## Known Issues: 
-- Game does not end when player health reaches 0 (will add fix ASAP).
 - Game does not load properly every time.
 
 ## Recording: 
