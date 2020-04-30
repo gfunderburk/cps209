@@ -52,7 +52,7 @@ public class EH_HeavyAI extends EntityHumanoid {
         this.width =  HaiW;
         this.height = HaiH;
         this.speed =  1;
-        this.maxHealth = 2;
+        this.maxHealth = 6;
         this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth;
     }

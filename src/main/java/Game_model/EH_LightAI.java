@@ -52,7 +52,7 @@ public class EH_LightAI extends EntityHumanoid {
         this.width =  LaiW;
         this.height = LaiH;
         this.speed =  1;
-        this.maxHealth = 2;
+        this.maxHealth = 4;
         this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth;
     }

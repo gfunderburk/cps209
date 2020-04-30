@@ -104,7 +104,7 @@ public class EK_Scenery extends EntityKillable {
                 break;
             
             case HEALTH:
-                EH_Avatar.getIt().setCurrentHealth(EH_Avatar.getIt().getCurrentHealth() + 100);
+                EH_Avatar.getIt().setCurrentHealth(100);
                 break;
                 
             case POINTS:

@@ -52,7 +52,7 @@ public class EH_FlyingAI extends EntityHumanoid {
         this.width = FaiW;
         this.height = FaiH;
         this.speed = 1;
-        this.maxHealth = 2;
+        this.maxHealth = 4;
         this.stateIntFactor = 2;
         this.currentHealth = this.maxHealth;
     }
