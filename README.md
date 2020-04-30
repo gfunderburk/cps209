@@ -42,13 +42,14 @@ Use your mouse to shoot your gun at hostiles, and click the reload button when y
 - [Game Demo Screen Recording (Alpha Release)](https://youtu.be/4OJjVRsCHcA)
 - [Game Demo Screen Recording (Beta Release)](https://youtu.be/5D6LID1TyRE)
 - [Game Demo Screen Recording (Release Candidate)](https://youtu.be/rEbC_lDRkyA)
+- [Game Demo Screen Recording (Final Release)](https://youtu.be/SpS4O1zIyo4)
 
 
 ## Expenses: 
 
 |    Name      | Hours-to-date | Reaming Hours |
 |:------------:|:-------------:|:-------------:|
-|Jeremiah Cox  |  57.8         |   2.2        |
+|Jeremiah Cox  |  60         |   0        |
 |Gunnar Funderburk | 57  |  3  |
 |Jonathan Layton  |  70   |  0 (Dr. Scaub 10 hour extension) |
 
