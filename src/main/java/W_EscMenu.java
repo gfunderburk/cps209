@@ -2,6 +2,7 @@
 File:   W_EscMenu.java
 Desc.   EscMenu window pauses the in-game state when initialized and displays options to:
         Resume the current game state, Save the current game state, or quit the game state. 
+Primary Author: Jeremiah Cox 
 --------------------------------------------------------------------------------------------- */
 
 
@@ -24,24 +25,19 @@ public class W_EscMenu implements AppInitialize{
     
     
     // --------------- //
-    // Media Elements //
+    //  Game Singleton //
     // --------------- //
 
-
-
-    //  --------------- //
-    //  View Variables  //
-    // ---------------  //
-
     Game game = Game.getIt();
-    private LocalDateTime newDate;
-    private String newName;
 
 
-    //  ------------- //
-    //  GUI Elements  //
-    // -------------  //
+    //  ---------- //
+    //  Variables  //
+    // ----------  //
 
+    
+    private LocalDateTime newDate; // Variable for date used in score save.
+    private String newName;        // Variable for name used in score save.
 
 
 
@@ -50,6 +46,12 @@ public class W_EscMenu implements AppInitialize{
     // ------------  //
 
 
+
+    /**
+     * This method is called when the save button is clicked.
+     * Upon click, game is Serialized and stored in cereal.dat.
+     * @throws FileNotFoundException
+     */
     @FXML
     void onSaveClicked() throws FileNotFoundException {
         Cereal cereal = new Cereal(game, game.getDt(), "");
@@ -60,6 +62,13 @@ public class W_EscMenu implements AppInitialize{
         alert.show();
     }
 
+    /**
+     * This method is called with the Quit button is clicked.
+     * The user is asked for their name and the score is saved before High Scores screen is shown.
+     * @param event
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @FXML
     void btn_onQuitClicked(ActionEvent event) throws IOException, InterruptedException {
         var scoreManager = ScoreManager.getIt();
@@ -84,6 +93,13 @@ public class W_EscMenu implements AppInitialize{
         AppGUI.windowLoad(this, "High Scores", "W_ScoreBoard.fxml", null);   
     }
 
+    /**
+     * This method is called when the Resume button is clicked. 
+     * Game screen is shown again and game is played.
+     * @param event
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @FXML
     void btn_onResumeClicked(ActionEvent event) throws IOException, InterruptedException {
         // Return to game window
@@ -96,7 +112,9 @@ public class W_EscMenu implements AppInitialize{
     //  View Methods  //    (INDIRECT AUTOMATIC METHODS USED BY THE GUI EVENT METHODS)
     // -------------  //
 
-    
+    /**
+     * This method is called upon initialization of this class and game is paused.
+     */
     public void initialize() {
         game.pause();
     }

@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
 File:   W_Scoreboard.java
 Desc.   Scoreboard window displays the scores of previous players who have played the game.
+Primary Author: Jeremiah Cox 
 --------------------------------------------------------------------------------------------- */
 
 
@@ -21,20 +22,26 @@ import javafx.scene.layout.*;
 
 public class W_Scoreboard {
 
-    // --------------- //
-    // View Variables //
-    // --------------- //
+
     
 
+    // ---------------------- //
+    //  Scoreboard Singleton  //
+    // ---------------------- //
+    
     private static W_Scoreboard scoreboardInstance = new W_Scoreboard();
 
     public static W_Scoreboard getInstance() {
         return scoreboardInstance;
     }
 
-    private ScoreManager scoreManager = ScoreManager.getIt();
+    // --------------- //
+    // View Variables //
+    // --------------- //
 
-    private ObservableList<Scores> rows = FXCollections.observableArrayList();
+    private ScoreManager scoreManager = ScoreManager.getIt(); // ScoreManager singleton
+
+    private ObservableList<Scores> rows = FXCollections.observableArrayList(); // ObservableList for TableView loading
 
 
     // ------------- //
@@ -43,19 +50,7 @@ public class W_Scoreboard {
 
 
     @FXML
-    VBox vbox_scoreboard;
-
-    @FXML
-    TableView tableView;
-
-    @FXML
-    TableColumn rankingColumn;
-
-    @FXML
-    TableColumn nameColumn;
-
-    @FXML
-    TableColumn pointsColumn;
+    VBox vbox_scoreboard; // VBox for scoreboard
 
 
     // ------------ //

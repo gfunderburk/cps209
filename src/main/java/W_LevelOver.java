@@ -2,6 +2,7 @@
 File:   W_LevelOver.java
 Desc.   LevelOver window appears if the player kills all hostiles.
         It displays options to either prgress to the next level or quit the game.
+Primary Author: Jeremiah Cox 
 --------------------------------------------------------------------------------------------- */
 
 
@@ -12,6 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class W_LevelOver implements AppInitialize {
+    
+    // --------------- //
+    //  Game Singleton //
+    // --------------- //
+
     Game game = Game.getIt();
 
 

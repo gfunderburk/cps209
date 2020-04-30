@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------------------------- 
 File:   AppInitialize.java
 Desc.   This interface sets all popup windows to have a callable initialize method.
+Author: Jonathan Layton 
 --------------------------------------------------------------------------------------------- */
 
 
