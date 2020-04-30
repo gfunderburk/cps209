@@ -24,9 +24,12 @@ public class GameSounds {
     }
  
 
-    //  Methods  //
     
-
+    /** 
+     * @param parentClass required for .getClass functionality
+     * @param audioURL  audioClip URL to be initialized
+     * @return initilaized AudioClip
+     */
     public static AudioClip audioClip(Object parentClass, String audioURL){
         return new AudioClip(parentClass.getClass().getResource("/media/"+audioURL).toString());
     }

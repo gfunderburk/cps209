@@ -12,14 +12,16 @@ import javafx.geometry.Point3D;
 
 public class EH_Avatar extends EntityHumanoid {
  
-    private boolean gotHurt;
+    private boolean gotHurt;    //  is true momentarily if player.currentHealth falls below 50% of its maxHealth
+                                //      is used to trigger the Ava_hurt.mp3 sounds in the View
+
 
     //  Singleton  //
 
 
     private EH_Avatar(){
         this.typeRound = TypeRound.LIGHT_ROUND;
-        this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, -1));       
+        this.setLocation(new Point3D(Game.getIt().getGamePhysicsWidth()/2, 0, -1)); // sets the player's location to be (center, 0, -1)    
         this.maxHealth = 10;        
         this.currentHealth = this.maxHealth;
         this.mag = 30;
@@ -36,8 +38,31 @@ public class EH_Avatar extends EntityHumanoid {
         It = new EH_Avatar();
     }
 
-
+    
     // Methods //
+
+
+    /** 
+     * @param targetX   the raw X-coord of the user's mouse when he fired the attack event
+     * @param targetY   the raw Y-coord of the user's mouse when he fired the attack event
+     * @param paneX     the raw width of the View's pane. used to properly scale the projectile coords from visual to physical worlds
+     * @param paneY     the raw height of the View's pane. used to properly scale the projectile coords from visual to physical worlds
+     * creates a projectile heading from the player towards wherever he clicked his mouse on the View's pane
+     */
+    public void attack(double targetX, double targetY, double paneX, double paneY) 
+    {
+        if( Game.getIt().isCheatMode() | this.mag > 0)
+        {  
+            targetX = (targetX*Game.getIt().getGamePhysicsWidth()) / paneX;
+            targetY = (targetY*Game.getIt().getGamePhysicsHeight()) / paneY;
+            E_Projectile.makeProjectile(targetX, targetY);
+        }     
+    }
+
+
+    //------------------------------------------------------------------------------//
+    //  The methods below are inhereted and described in the parent abstract class  //
+    //------------------------------------------------------------------------------//
 
 
     @Override
@@ -45,7 +70,7 @@ public class EH_Avatar extends EntityHumanoid {
         return ("U ," + typeRound + "");
     }
 
-
+    
     public static void DeSerialize(String data) {
         String deceral = data.split(",")[1];
         if (deceral.equals("LIGHT_ROUND")) {
@@ -87,16 +112,6 @@ public class EH_Avatar extends EntityHumanoid {
     }
 
 
-    public void attack(double targetX, double targetY, double paneX, double paneY) {
-
-        if( Game.getIt().isCheatMode() | this.mag > 0){  
-            targetX = (targetX*Game.getIt().getGamePhysicsWidth()) / paneX;
-            targetY = (targetY*Game.getIt().getGamePhysicsHeight()) / paneY;
-            E_Projectile.makeProjectile(targetX, targetY);
-        }     
-    }
-
-
     @Override
     public void reload() {
         if(this.mag < 30 && this.ammo > 0){
@@ -110,10 +125,10 @@ public class EH_Avatar extends EntityHumanoid {
         this.gotHurt = true;
     }
 
+
     @Override
     public void recoverEvent() {}
 
-    @Override
     public void attack(Entity entity){}
 
     @Override

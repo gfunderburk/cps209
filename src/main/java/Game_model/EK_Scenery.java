@@ -24,7 +24,7 @@ public class EK_Scenery extends EntityKillable {
     private static final Image pointsImg1 = new Image(initChildImage(imageDir, "point_powerup_1.png"));
     private static final Image pointsImg2 = new Image(initChildImage(imageDir, "point_powerup_2.png")); 
     public static enum Type {AMMO, HEALTH, POINTS};
-    private Type type;
+    private Type type;      //  the type of power-up that the given entity_scenery is
 
 
 
@@ -67,6 +67,10 @@ public class EK_Scenery extends EntityKillable {
 
 
     //  Methods  //
+    
+    //------------------------------------------------------------------------------//
+    //  The methods below are inhereted and described in the parent abstract class  //
+    //------------------------------------------------------------------------------//
 
 
     @Override

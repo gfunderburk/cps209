@@ -15,14 +15,18 @@ public abstract class EntityKillable extends Entity {
     //  Variables  //
 
     
-    protected  double maxHealth, currentHealth;
-    protected  static enum StateLife {HEALTHY, HURT, DEAD}
-    protected   StateLife stateLife;
+    protected static enum StateLife {HEALTHY, HURT, DEAD}
+    protected StateLife stateLife;                          //  the current state of the given entity        
+    protected double maxHealth, currentHealth;              //  the maximum and current health value of the given entity
 
 
     //  Methods  //
 
 
+    /** 
+     * checks and updates a given entity's current life state 
+     *     and triggers respective events of a given entity.
+     */
     public void checkLife() {
 
         if(this.stateLife != StateLife.DEAD)

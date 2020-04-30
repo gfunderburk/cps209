@@ -59,6 +59,10 @@ public class EH_LightAI extends EntityHumanoid {
 
 
     //  Methods  //
+    
+    //------------------------------------------------------------------------------//
+    //  The methods below are inhereted and described in the parent abstract class  //
+    //------------------------------------------------------------------------------//
 
 
     @Override

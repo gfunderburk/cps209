@@ -243,7 +243,7 @@ public class W_InGame {
         lbl_ammoStats.setText("Ammo: " + avatar.getMag() + " / " + avatar.getAmmo());
         this.difficulty = difficultyLevel;
         game.setScore(score);
-        game.startGame("Joe", difficultyLevel, gameLevel);
+        game.startGame(difficultyLevel, gameLevel);
         
 
         //  Setup lvl background

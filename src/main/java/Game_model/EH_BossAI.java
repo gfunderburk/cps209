@@ -59,6 +59,10 @@ public class EH_BossAI extends EntityHumanoid {
 
 
     //  Methods  //
+    
+    //------------------------------------------------------------------------------//
+    //  The methods below are inhereted and described in the parent abstract class  //
+    //------------------------------------------------------------------------------//
 
 
     @Override
@@ -95,10 +99,7 @@ public class EH_BossAI extends EntityHumanoid {
         if(deCereal[7].equals("DEAD")){
             stateLife= StateLife.DEAD;
     
-            }
-
-        
-
+        }
     }
 
 
